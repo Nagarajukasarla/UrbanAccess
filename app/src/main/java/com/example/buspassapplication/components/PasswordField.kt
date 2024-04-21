@@ -1,4 +1,4 @@
-package com.example.buspassapplication.samples
+package com.example.buspassapplication.components
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.width

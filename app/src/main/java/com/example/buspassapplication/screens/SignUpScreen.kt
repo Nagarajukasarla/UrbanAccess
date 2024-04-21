@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.OutlinedInputField
+import com.example.buspassapplication.components.PasswordField
 import com.example.buspassapplication.ui.theme.White
 
 @ExperimentalMaterial3Api
@@ -44,7 +45,14 @@ fun SignUpScreen () {
                 verticalAlignment = Alignment.CenterVertically
             ){
                 OutlinedInputField(label = AnnotatedString("First Name"))
-                //OutlinedInputField(label = )
+                OutlinedInputField(label = AnnotatedString("Last Name"))
+            }
+            Row {
+                OutlinedInputField(label = AnnotatedString("Email"))
+                OutlinedInputField(label = AnnotatedString("Date of Birth"))
+            }
+            Row {
+                PasswordField(visibilityPainterResourceId = , visibilityOffResourceId = )
             }
         }
     }
