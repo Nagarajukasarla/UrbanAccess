@@ -15,7 +15,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.NavyBlue
@@ -38,7 +37,9 @@ fun NormalText(
 
 @ExperimentalMaterial3Api
 @Composable
-fun OutlinedInputField () {
+fun OutlinedInputField (
+    label: AnnotatedString
+) {
 
     var textValue by rememberSaveable { mutableStateOf("") }
 
@@ -47,7 +48,7 @@ fun OutlinedInputField () {
         value = textValue,
         onValueChange = { textValue = it },
         label = {
-            Text(text = AnnotatedString("First Name"))
+            Text(text = label)
         },
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = NavyBlue,
@@ -56,11 +57,4 @@ fun OutlinedInputField () {
         ),
         singleLine = true
     )
-}
-
-@ExperimentalMaterial3Api
-@Preview
-@Composable
-fun defaultPreview () {
-//    OutlinedInputField()
 }
