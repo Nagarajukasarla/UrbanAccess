@@ -62,5 +62,5 @@ fun OutlinedInputField () {
 @Preview
 @Composable
 fun defaultPreview () {
-    OutlinedInputField()
+//    OutlinedInputField()
 }
