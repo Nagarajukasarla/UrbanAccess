@@ -28,7 +28,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.buspassapplication.components.PasswordField
+import com.example.buspassapplication.samples.PasswordField
+import com.example.buspassapplication.samples.StaggeredDotLoader
+import com.example.buspassapplication.screens.LoginScreen
 import com.example.buspassapplication.screens.SignUpScreen
 import com.example.buspassapplication.ui.theme.BusPassApplicationTheme
 
@@ -60,7 +62,8 @@ class MainActivity : ComponentActivity() {
                     //StaggeredDotLoader()
 //                    LoadingAnimation()
 //                    Home1()
-                    SignUpScreen()
+//                    SignUpScreen()
+                    LoginScreen()
                 }
             }
         }
