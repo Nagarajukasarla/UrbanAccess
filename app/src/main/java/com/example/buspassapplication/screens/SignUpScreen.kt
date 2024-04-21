@@ -33,6 +33,7 @@ fun SignUpScreen () {
                 value = "Create an Account",
                 isSmall = false
             )
+
         }
     }
 }
