@@ -1,6 +1,5 @@
 package com.example.buspassapplication.components
 
-import android.provider.ContactsContract.CommonDataKinds.StructuredName
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
