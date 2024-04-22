@@ -1,51 +1,64 @@
 package com.example.buspassapplication.components
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.buspassapplication.ui.theme.NavyBlue
+import com.example.buspassapplication.R
+import com.example.buspassapplication.ui.theme.DimGray
+import java.lang.reflect.Modifier
 
 @Composable
 fun NavigationBar() {
+
+
+    val passIcon = R.drawable.pass
+    val mapIcon = R.drawable.map
+    val notificationIcon = R.drawable.notifications
+    val walletIcon = R.drawable.wallet
+    val feedbackIcon = R.drawable.feedback
+
     Box(
         modifier = Modifier
-            .height(43.dp)
+            .height(100.dp)
             .width(326.dp)
-            .background(color = Color(0xFF5b5d6b), shape = RoundedCornerShape(30.dp))
+            .background(DimGray)
     ) {
         Row(
             modifier = Modifier.fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.Top
         ) {
             NavigationBarItem(
-
-                label = "Notification",
+                iconResourceId = passIcon,
                 isSelected = false
             )
             NavigationBarItem(
-
-                label = "Wallet",
+                iconResourceId = mapIcon,
                 isSelected = false
             )
             NavigationBarItem(
-                label = "Pass",
+                iconResourceId = notificationIcon,
                 isSelected = true
             )
             NavigationBarItem(
-                label = "Location",
+                iconResourceId =walletIcon,
                 isSelected = false
             )
             NavigationBarItem(
-                label = "Profile",
+                iconResourceId = feedbackIcon,
                 isSelected = false
             )
         }
@@ -54,24 +67,25 @@ fun NavigationBar() {
 
 @Composable
 fun NavigationBarItem(
-    icon: Painter? = null,
-    label: String,
-    isSelected: Boolean
+    @DrawableRes iconResourceId : Int,
+    isSelected: Boolean,
+
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .padding(horizontal = 8.dp)
     ) {
-        if (icon != null) {
             Spacer(modifier = Modifier.width(8.dp))
+        IconButton(
+            onClick = { /*TODO*/ }
+        ) {
+
+            Icon(
+                painter = painterResource(id = iconResourceId),
+                contentDescription = "Visibility",
+            )
         }
-        Text(
-            text = label,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Normal,
-            color = if (isSelected) Color.White else Color.Gray
-        )
     }
 }
 
