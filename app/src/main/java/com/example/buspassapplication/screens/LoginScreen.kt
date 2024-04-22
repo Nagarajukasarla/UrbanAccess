@@ -1,6 +1,7 @@
 package com.example.buspassapplication.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,18 +21,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.buspassapplication.Screen
 import com.example.buspassapplication.components.HeadingText
-import com.example.buspassapplication.components.MyButton
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.OutlinedInputField
 import com.example.buspassapplication.components.PasswordField
+import com.example.buspassapplication.components.PrimaryButton
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.NavyBlue
 import com.example.buspassapplication.ui.theme.PoppinsMedium
 
 @ExperimentalMaterial3Api
 @Composable
-fun LoginScreen(){
+fun LoginScreen(
+    navController: NavController
+){
 
     Surface(
         modifier = Modifier
@@ -65,7 +71,7 @@ fun LoginScreen(){
             Spacer(modifier = Modifier.height(25.dp))
             Row {
                 NormalText(
-                    value= AnnotatedString("Forgot password? "),
+                    value= "Forgot password? ",
                     fontSize = 15.sp,
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
@@ -73,7 +79,7 @@ fun LoginScreen(){
                     modifier = Modifier
                 )
                 NormalText(
-                    value= AnnotatedString("Reset"),
+                    value= "Reset",
                     fontSize = 15.sp,
                     fontFamily = PoppinsMedium,
                     color = NavyBlue,
@@ -82,13 +88,13 @@ fun LoginScreen(){
                 )
             }
             Spacer(modifier = Modifier.height(25.dp))
-            MyButton(
-                text = AnnotatedString("Submit"),
+            PrimaryButton(
+                text = "Submit",
                 width = 280.dp
             )
             Row {
                 NormalText(
-                    value = AnnotatedString("Not a member? "),
+                    value = "Not a member? ",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
                     fontFamily = PoppinsMedium,
@@ -97,13 +103,14 @@ fun LoginScreen(){
 
                 )
                 NormalText(
-                    value = AnnotatedString("Signup"),
+                    value = "Signup",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
                     fontFamily = PoppinsMedium,
                     color = NavyBlue,
-                    modifier = Modifier
-
+                    modifier = Modifier.clickable {
+                        navController.navigate(Screen.Signup.route)
+                    }
                 )
             }
         }
@@ -115,5 +122,5 @@ fun LoginScreen(){
 @Preview
 @Composable
 fun LoginPreview(){
-    LoginScreen()
+    LoginScreen(navController = rememberNavController())
 }

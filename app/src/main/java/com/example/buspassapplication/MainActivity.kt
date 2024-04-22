@@ -19,6 +19,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,6 +29,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.components.PasswordField
 import com.example.buspassapplication.screens.LoginScreen
 import com.example.buspassapplication.screens.SignUpScreen
@@ -35,6 +38,8 @@ import com.example.buspassapplication.ui.theme.BusPassApplicationTheme
 
 @ExperimentalMaterial3Api
 class MainActivity : ComponentActivity() {
+
+    lateinit var navController: NavHostController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -46,6 +51,9 @@ class MainActivity : ComponentActivity() {
 //                ) {
 //                    LoginScreen()
 //                }
+
+                navController = rememberNavController()
+                SetupNavGraph(navHostController = navController)
 
                 Column(
                     modifier = Modifier.fillMaxSize(),
@@ -61,7 +69,7 @@ class MainActivity : ComponentActivity() {
                     //StaggeredDotLoader()
 //                    LoadingAnimation()
 //                    Home1()
-                    SignUpScreen()
+                   // SignUpScreen()
 //                    LoginScreen()
                 }
             }

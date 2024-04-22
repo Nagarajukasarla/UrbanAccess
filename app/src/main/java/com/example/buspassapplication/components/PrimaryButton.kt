@@ -1,6 +1,5 @@
 package com.example.buspassapplication.components
 
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
@@ -11,8 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.buspassapplication.ui.theme.NavyBlue
@@ -21,8 +18,8 @@ import com.example.buspassapplication.ui.theme.White
 
 @ExperimentalMaterial3Api
 @Composable
-fun MyButton(
-    text: AnnotatedString,
+fun PrimaryButton(
+    text: String,
     width: Dp
 ) {
     Button(
@@ -36,7 +33,7 @@ fun MyButton(
         )
     ) {
         NormalText(
-            value = AnnotatedString("Submit"),
+            value = text,
             fontSize = 17.sp,
             fontWeight = FontWeight(18),
             fontFamily = PoppinsMedium,

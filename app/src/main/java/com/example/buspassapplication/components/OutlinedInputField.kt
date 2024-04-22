@@ -1,6 +1,5 @@
 package com.example.buspassapplication.components
 
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -11,10 +10,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.NavyBlue
@@ -43,10 +41,13 @@ fun OutlinedInputField (
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = NavyBlue,
             focusedLabelColor = NavyBlue,
-            cursorColor = DarkGray
+            cursorColor = DarkGray,
+            focusedSupportingTextColor = Color.Black,
+            textColor = Color.Black
+
         ),
         textStyle = TextStyle(
-            letterSpacing = 0.4.sp
+            letterSpacing = 0.7.sp
         ),
         singleLine = true
     )

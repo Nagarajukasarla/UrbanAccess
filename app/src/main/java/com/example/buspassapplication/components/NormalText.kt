@@ -16,26 +16,9 @@ import androidx.compose.ui.unit.sp
 import com.example.buspassapplication.ui.theme.TextColor
 
 @Composable
-fun HeadingText (
-    value: String,
-    isSmall: Boolean,
-
-) {
-    Text(
-        text = AnnotatedString(value),
-        modifier = Modifier
-            .fillMaxWidth(),
-        style = if(isSmall) MaterialTheme.typography.titleSmall else MaterialTheme.typography.titleLarge,
-        color = TextColor,
-        textAlign = TextAlign.Center,
-
-    )
-}
-
-@Composable
 fun NormalText (
     modifier: Modifier,
-    value: AnnotatedString,
+    value: String,
     fontSize: TextUnit,
     fontWeight: FontWeight,
     fontFamily: FontFamily,
@@ -44,7 +27,7 @@ fun NormalText (
 ) {
     Text(
         modifier = modifier,
-        text = value,
+        text = AnnotatedString(value),
         style = TextStyle(
             letterSpacing = letterSpacing,
             fontWeight = fontWeight,
