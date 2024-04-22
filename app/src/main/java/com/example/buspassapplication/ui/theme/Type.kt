@@ -18,9 +18,15 @@ val Roboto = FontFamily(
     Font(resId = R.font.roboto_bold)
 )
 
-val Poppins = FontFamily(
+val PoppinsMedium = FontFamily(
     Font(resId = R.font.poppins_medium),
-    Font(resId = R.font.poppins_regular),
+)
+
+val PoppinsLight = FontFamily(
+    Font(resId = R.font.poppins_light)
+)
+
+val PoppinsBold = FontFamily(
     Font(resId = R.font.poppins_bold)
 )
 
@@ -35,18 +41,24 @@ val Typography = Typography(
         letterSpacing = 0.5.sp
     ),
     titleSmall = TextStyle(
-        fontFamily = Poppins,
-        fontWeight = FontWeight.Normal,
-        fontSize = 24.sp,
-        lineHeight = 24.sp,
+        fontFamily = PoppinsLight,
+        fontSize = 20.sp,
+        lineHeight = 20.sp,
         letterSpacing = 0.4.sp
     ),
     titleLarge = TextStyle(
-        fontFamily = Poppins,
-        fontWeight = FontWeight.Bold,
-        fontSize = 25.sp,
-        lineHeight = 20.sp,
+        fontFamily = PoppinsMedium,
+        fontWeight = FontWeight.Medium,
+        fontSize = 22.sp,
+        lineHeight = 18.sp,
         letterSpacing = 0.4.sp
+    ),
+    labelSmall = TextStyle(
+        fontFamily = PoppinsMedium,
+        fontWeight = FontWeight.Normal,
+        fontSize = 18.sp,
+        lineHeight = 18.sp,
+        letterSpacing = 0.2.sp
     )
     /* Other default text styles to override
     titleLarge = TextStyle(

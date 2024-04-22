@@ -28,8 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.buspassapplication.samples.PasswordField
-import com.example.buspassapplication.samples.StaggeredDotLoader
+import com.example.buspassapplication.components.PasswordField
 import com.example.buspassapplication.screens.LoginScreen
 import com.example.buspassapplication.screens.SignUpScreen
 import com.example.buspassapplication.ui.theme.BusPassApplicationTheme
@@ -62,8 +61,8 @@ class MainActivity : ComponentActivity() {
                     //StaggeredDotLoader()
 //                    LoadingAnimation()
 //                    Home1()
-//                    SignUpScreen()
-                    LoginScreen()
+                    SignUpScreen()
+//                    LoginScreen()
                 }
             }
         }
@@ -84,12 +83,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 fun GreetingPreview() {
     BusPassApplicationTheme {
        // GoogleSignupButton(drawableId = R.drawable.ic_google_logo)
-        val visibilityOffResourceId = R.drawable.visibility_off
-        val visibilityResourceId = R.drawable.visibilty
-        PasswordField(
-            visibilityOffResourceId = visibilityOffResourceId,
-            visibilityPainterResourceId = visibilityResourceId
-        )
     }
 }
 
