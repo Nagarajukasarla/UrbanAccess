@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.buspassapplication.screens.LoginScreen
+import com.example.buspassapplication.screens.PassScreen
 import com.example.buspassapplication.screens.SignUpScreen
 
 @ExperimentalMaterial3Api
@@ -15,7 +16,7 @@ fun SetupNavGraph (
 ) {
     NavHost(
         navController = navHostController,
-        startDestination = Screen.Signup.route
+        startDestination = Screen.Pass.route
     ) {
         composable(
             route= Screen.Signup.route
@@ -26,6 +27,11 @@ fun SetupNavGraph (
             route= Screen.Login.route
         ) {
             LoginScreen(navHostController)
+        }
+        composable(
+            route = Screen.Pass.route
+        ) {
+            PassScreen(navController = navHostController)
         }
     }
 }

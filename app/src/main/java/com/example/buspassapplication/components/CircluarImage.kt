@@ -1,6 +1,5 @@
 package com.example.buspassapplication.components
 
-import android.media.Image
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -16,9 +15,9 @@ import com.example.buspassapplication.R
 fun CircleWithImage() {
     Image(
         modifier=Modifier
-            .size(115.dp)
+            .size(100.dp)
             .clip(CircleShape),
-        painter=painterResource(id=R.drawable.test3),
+        painter = painterResource(id = R.drawable.test3),
         contentDescription = "Photo"
     )
 }

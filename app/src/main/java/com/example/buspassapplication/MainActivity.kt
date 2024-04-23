@@ -55,11 +55,11 @@ class MainActivity : ComponentActivity() {
                 navController = rememberNavController()
                 SetupNavGraph(navHostController = navController)
 
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
+//                Column(
+//                    modifier = Modifier.fillMaxSize(),
+//                    verticalArrangement = Arrangement.Center,
+//                    horizontalAlignment = Alignment.CenterHorizontally
+//                ) {
 //                    GoogleSignupButton(drawableId = R.drawable.ic_google_logo)
 //                    CoilImage()
 //                    PasswordField(
@@ -72,7 +72,7 @@ class MainActivity : ComponentActivity() {
                    // SignUpScreen()
 //                    LoginScreen()
                 }
-            }
+//            }
         }
     }
 }
