@@ -25,9 +25,8 @@ import com.example.buspassapplication.ui.theme.*
 
 
 @Composable
-fun Home(
-    @DrawableRes drawableRes: Int
-) {
+fun Home() {
+
     Surface {
         Column(
             modifier = Modifier
@@ -72,38 +71,13 @@ fun Home(
             Spacer(modifier = Modifier.weight(1f))
 
             // Footer
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(60.dp)
-                    .border(width = 1.dp, Color.Black),
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
-                Box(
-                    modifier = Modifier
-                        .background(Color.DarkGray)
-                        .width(70.dp)
-                        .height(60.dp)
-                ) {}
-                Box(
-                    modifier = Modifier
-                        .background(Color.DarkGray)
-                        .width(70.dp)
-                        .height(60.dp)
-                ) {}
-                Box(
-                    modifier = Modifier
-                        .background(Color.DarkGray)
-                        .width(70.dp)
-                        .height(60.dp)
-                ) {}
-                Box(
-                    modifier = Modifier
-                        .background(Color.DarkGray)
-                        .width(70.dp)
-                        .height(60.dp)
-                ) {}
-            }
+
         }
     }
+}
+
+@Preview
+@Composable
+fun HomePreview () {
+    Home()
 }

@@ -14,6 +14,7 @@ val NavyBlue = Color(0xFF14589B)
 
 
 /* Theme colors for dark mode */
+val LightGray = Color(0xFFF4F4F4)
 val DimGray = Color(0xFF494949)
 val AshGary = Color(0xFF212121)
 val DarkGray = Color(0xFF171717)

@@ -12,12 +12,10 @@ import com.example.buspassapplication.ui.theme.TextColor
 @Composable
 fun HeadingText (
     value: String,
-    isSmall: Boolean
+    isSmall: Boolean = false
 ) {
     Text(
         text = AnnotatedString(value),
-        modifier = Modifier
-            .fillMaxWidth(),
         style = if(isSmall) MaterialTheme.typography.titleSmall else MaterialTheme.typography.titleLarge,
         color = TextColor,
         textAlign = TextAlign.Center
