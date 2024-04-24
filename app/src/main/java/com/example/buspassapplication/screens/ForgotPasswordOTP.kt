@@ -31,11 +31,12 @@ import com.example.buspassapplication.components.PasswordField
 import com.example.buspassapplication.components.PrimaryButton
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.NavyBlue
+import com.example.buspassapplication.ui.theme.PoppinsLight
 import com.example.buspassapplication.ui.theme.PoppinsMedium
 
 @ExperimentalMaterial3Api
 @Composable
-fun ForgotPasswordOTP(){
+fun ForgotPasswordOTP(navController: NavController){
 
     Surface(
         modifier = Modifier
@@ -53,13 +54,21 @@ fun ForgotPasswordOTP(){
                 isSmall = false
             )
             Spacer(modifier = Modifier.height(20.dp))
-            HeadingText(
-                value = "We have sent OTP to your e-mail",
-                isSmall = true
+            NormalText(
+                value= "We have sent otp to your mail",
+                fontSize = 15.sp,
+                fontFamily = PoppinsLight,
+                color = DarkGray,
+                fontWeight = FontWeight.Normal,
+                modifier = Modifier
             )
-            HeadingText(
-                value = "please type code in here.",
-                isSmall = true
+            NormalText(
+                value= "please type the code here. ",
+                fontSize = 15.sp,
+                fontFamily = PoppinsLight,
+                color = DarkGray,
+                fontWeight = FontWeight.Normal,
+                modifier = Modifier
             )
             Spacer(modifier = Modifier.height(20.dp))
             OutlinedInputField(
@@ -90,5 +99,5 @@ fun ForgotPasswordOTP(){
 @Preview
 @Composable
 fun LoginPasswordOTPPreview(){
-    ForgotPasswordOTP()
+    ForgotPasswordOTP(navController = rememberNavController())
 }

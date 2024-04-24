@@ -31,11 +31,14 @@ import com.example.buspassapplication.components.PasswordField
 import com.example.buspassapplication.components.PrimaryButton
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.NavyBlue
+import com.example.buspassapplication.ui.theme.PoppinsLight
 import com.example.buspassapplication.ui.theme.PoppinsMedium
 
 @ExperimentalMaterial3Api
 @Composable
-fun ChangePassword(){
+fun ChangePassword(
+    navController: NavController
+){
 
     Surface(
         modifier = Modifier
@@ -53,23 +56,31 @@ fun ChangePassword(){
                 isSmall = false
             )
             Spacer(modifier = Modifier.height(20.dp))
-            HeadingText(
-                value = "Create a new, strong password that you don't use for",
-                isSmall = true
+            NormalText(
+                value= "Create a new , strong password that ",
+                fontSize = 15.sp,
+                fontFamily = PoppinsLight,
+                color = DarkGray,
+                fontWeight = FontWeight.Normal,
+                modifier = Modifier
             )
-            HeadingText(
-                value = "other websites.",
-                isSmall = true
+            NormalText(
+                value= "that you don't use for websites. ",
+                fontSize = 15.sp,
+                fontFamily = PoppinsLight,
+                color = DarkGray,
+                fontWeight = FontWeight.Normal,
+                modifier = Modifier
             )
             Spacer(modifier = Modifier.height(20.dp))
-            OutlinedInputField(
-                label = AnnotatedString("Create password"),
-                modifier = Modifier.width(330.dp)
+            PasswordField(
+                modifier = Modifier.width(330.dp),
+                label = AnnotatedString("New Password"),
             )
             Spacer(modifier = Modifier.height(20.dp))
-            OutlinedInputField(
-                label = AnnotatedString("Confirm password"),
-                modifier = Modifier.width(330.dp)
+            PasswordField(
+                modifier = Modifier.width(330.dp),
+                label = AnnotatedString("Confirm Password"),
             )
             Spacer(modifier = Modifier.height(25.dp))
             PrimaryButton(
@@ -98,5 +109,5 @@ fun ChangePassword(){
 @Preview
 @Composable
 fun ChangePasswordPreview(){
-    ChangePassword()
+    ChangePassword(navController = rememberNavController())
 }

@@ -66,7 +66,8 @@ fun PasswordField (
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedLabelColor = NavyBlue,
             focusedBorderColor = NavyBlue,
-            cursorColor = DarkGray
+            cursorColor = DarkGray,
+            textColor = DarkGray
         ),
         visualTransformation = if (passwordVisibilityState) VisualTransformation.None
             else PasswordVisualTransformation(),

@@ -11,9 +11,11 @@ import androidx.compose.foundation.layout.Box
 import com.example.buspassapplication.R
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.layout.ContentScale
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun ComingSoonScreen(){
+fun ComingSoonScreen(navController: NavController){
     Box(modifier= Modifier.fillMaxSize()){
         Image(painter = painterResource(id=R.drawable.coming_soon_image),
             contentDescription = "Coming Soon image",
@@ -25,5 +27,5 @@ fun ComingSoonScreen(){
 @Composable
 @Preview
 fun ComingSoonScreenPreview(){
-    ComingSoonScreen()
+    ComingSoonScreen(navController = rememberNavController())
 }
