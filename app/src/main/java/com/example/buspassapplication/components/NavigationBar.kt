@@ -10,10 +10,16 @@ import androidx.compose.ui.unit.dp
 import com.example.buspassapplication.R
 import com.example.buspassapplication.ui.theme.DimGray
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.example.buspassapplication.Screen
 import com.example.buspassapplication.ui.theme.LightGray
 
 @Composable
-fun NavigationBar() {
+fun NavigationBar(
+    navController: NavController
+) {
 
     val homeResourceId = R.drawable.home
     val passResourceId = R.drawable.pass
@@ -23,7 +29,8 @@ fun NavigationBar() {
 
     Column {
         Divider(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .height(2.dp),
             color = DimGray
         )
@@ -38,18 +45,58 @@ fun NavigationBar() {
         ) {
             NavigationBarItem(
                 iconResourceId = homeResourceId,
+                onClick = {
+                    navController.navigate(route = Screen.ComingSoon.route) {
+                        popUpTo(Screen.Pass.route) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
+                }
             )
             NavigationBarItem(
                 iconResourceId = walletResourceId,
+                onClick = {
+                    navController.navigate(route = Screen.ComingSoon.route) {
+                        popUpTo(Screen.Pass.route) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
+                }
             )
             NavigationBarItem(
                 iconResourceId = passResourceId,
+                onClick = {
+                    navController.navigate(route = Screen.Pass.route) {
+                        popUpTo(Screen.Pass.route) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
+                }
             )
             NavigationBarItem(
-                iconResourceId = mapResourceId
+                iconResourceId = mapResourceId,
+                onClick = {
+                    navController.navigate(route = Screen.Map.route) {
+                        popUpTo(Screen.Pass.route) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
+                }
             )
             NavigationBarItem(
                 iconResourceId = profileResourceId,
+                onClick = {
+                    navController.navigate(route = Screen.ComingSoon.route) {
+                        popUpTo(Screen.Pass.route) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
+                }
             )
         }
     }
@@ -58,5 +105,5 @@ fun NavigationBar() {
 @Preview
 @Composable
 fun Dummy(){
-    NavigationBar()
+    NavigationBar(navController = rememberNavController())
 }

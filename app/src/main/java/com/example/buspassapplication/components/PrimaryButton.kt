@@ -19,10 +19,11 @@ import com.example.buspassapplication.ui.theme.White
 @Composable
 fun PrimaryButton(
     text: String,
-    width: Dp
+    width: Dp,
+    onClick: () -> Unit = {}
 ) {
     Button(
-        onClick = {},
+        onClick = onClick,
         modifier = Modifier
             .width(width)
             .padding(horizontal = 16.dp, vertical = 8.dp),

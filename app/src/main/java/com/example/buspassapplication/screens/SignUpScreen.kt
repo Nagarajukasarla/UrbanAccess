@@ -153,7 +153,12 @@ fun SignUpScreen (
                     modifier = Modifier
                         .padding(top = 4.dp)
                         .clickable {
-                            navController.navigate(route = Screen.Login.route)
+                            navController.navigate(route = Screen.Login.route) {
+                                popUpTo(route = Screen.Signup.route) {
+                                    inclusive = true
+                                }
+                                launchSingleTop = true
+                            }
                         },
                     value = "Login",
                     fontSize = 14.sp,
@@ -169,6 +174,6 @@ fun SignUpScreen (
 @ExperimentalMaterial3Api
 @Preview
 @Composable
-fun DefaultPreviewOfSignupScreeen() {
+fun DefaultPreviewOfSignupScreen() {
     SignUpScreen(navController = rememberNavController())
 }

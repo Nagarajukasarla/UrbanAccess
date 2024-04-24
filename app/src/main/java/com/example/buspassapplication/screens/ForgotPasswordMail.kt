@@ -128,7 +128,7 @@ fun ForgotPasswordMail(){
                 Spacer(modifier = Modifier.height(25.dp))
                 PrimaryButton(
                     text = "Reset Password",
-                    width = 280.dp
+                    width = 280.dp,
                 )
 
                 NormalText(

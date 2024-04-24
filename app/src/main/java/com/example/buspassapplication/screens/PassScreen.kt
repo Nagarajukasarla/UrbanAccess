@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.components.Header
 import com.example.buspassapplication.components.NavigationBar
@@ -18,7 +18,7 @@ import com.example.buspassapplication.components.PassScreenContent
 
 @Composable
 fun PassScreen(
-    navController: NavController
+    navController: NavHostController
 ) {
     Surface {
         Column {
@@ -34,7 +34,7 @@ fun PassScreen(
                     PassScreenContent()
                 }
             }
-            NavigationBar()
+            NavigationBar(navController = rememberNavController())
         }
     }
 }

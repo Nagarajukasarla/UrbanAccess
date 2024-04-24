@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.Screen
 import com.example.buspassapplication.components.HeadingText
@@ -90,7 +91,15 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(25.dp))
             PrimaryButton(
                 text = "Submit",
-                width = 280.dp
+                width = 280.dp,
+                onClick = {
+                    navController.navigate(route = Screen.Pass.route) {
+                        popUpTo(route = Screen.Login.route) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
+                }
             )
             Row {
                 NormalText(
@@ -109,7 +118,12 @@ fun LoginScreen(
                     fontFamily = PoppinsMedium,
                     color = NavyBlue,
                     modifier = Modifier.clickable {
-                        navController.navigate(Screen.Signup.route)
+                        navController.navigate(route = Screen.Signup.route) {
+                            popUpTo(route = Screen.Login.route) {
+                                inclusive = true
+                            }
+                            launchSingleTop = true
+                        }
                     }
                 )
             }

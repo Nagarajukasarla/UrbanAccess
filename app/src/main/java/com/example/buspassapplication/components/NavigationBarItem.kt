@@ -18,12 +18,13 @@ import com.example.buspassapplication.ui.theme.DimGray
 
 @Composable
 fun NavigationBarItem(
-    @DrawableRes iconResourceId : Int
+    @DrawableRes iconResourceId : Int,
+    onClick: ()  -> Unit = {}
 ) {
     Box (
     ) {
         IconButton(
-            onClick = { /*TODO*/ }
+            onClick = onClick
         ) {
 
             Icon(

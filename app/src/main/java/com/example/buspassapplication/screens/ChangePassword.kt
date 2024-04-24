@@ -74,7 +74,10 @@ fun ChangePassword(){
             Spacer(modifier = Modifier.height(25.dp))
             PrimaryButton(
                 text = "Save Password",
-                width = 280.dp
+                width = 280.dp,
+                onClick = {
+
+                }
             )
 
             NormalText(
