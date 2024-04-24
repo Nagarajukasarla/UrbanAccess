@@ -37,12 +37,13 @@ import com.example.buspassapplication.components.PasswordField
 import com.example.buspassapplication.components.PrimaryButton
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.NavyBlue
+import com.example.buspassapplication.ui.theme.PoppinsLight
 import com.example.buspassapplication.ui.theme.PoppinsMedium
 import com.example.buspassapplication.ui.theme.White
 
 @ExperimentalMaterial3Api
 @Composable
-fun ForgotPasswordMail(){
+fun ForgotPasswordMail(navController: NavController){
     var isContentVisible by remember {
         mutableStateOf(false)
     }
@@ -63,13 +64,21 @@ fun ForgotPasswordMail(){
                 isSmall = false
             )
             Spacer(modifier = Modifier.height(20.dp))
-            HeadingText(
-                value = "Enter your email and we'll send you instructions",
-                isSmall = true
+            NormalText(
+                value= "Enter your email and we'll send you instructions",
+                fontSize = 15.sp,
+                fontFamily = PoppinsLight,
+                color = DarkGray,
+                fontWeight = FontWeight.Normal,
+                modifier = Modifier
             )
-            HeadingText(
-                value = "to reset your password.",
-                isSmall = true
+            NormalText(
+                value= "to reset password. ",
+                fontSize = 15.sp,
+                fontFamily = PoppinsLight,
+                color = DarkGray,
+                fontWeight = FontWeight.Normal,
+                modifier = Modifier
             )
             Spacer(modifier = Modifier.height(20.dp))
             OutlinedInputField(
@@ -150,5 +159,5 @@ fun ForgotPasswordMail(){
 @Preview
 @Composable
 fun LoginPasswordMailPreview(){
-    ForgotPasswordMail()
+    ForgotPasswordMail(navController = rememberNavController())
 }
