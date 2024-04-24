@@ -30,7 +30,7 @@ fun NavigationBar() {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(65.dp)
+                .height(52.dp)
                 .background(color = LightGray)
                 .padding(start = 5.dp, end = 5.dp),
             verticalAlignment = Alignment.CenterVertically,

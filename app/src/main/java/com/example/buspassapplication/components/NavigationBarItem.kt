@@ -30,7 +30,7 @@ fun NavigationBarItem(
                 painter = painterResource(id = iconResourceId),
                 contentDescription = "Visibility",
                 tint = DimGray,
-                modifier = Modifier.size(50.dp)
+                modifier = Modifier.size(35.dp)
             )
         }
     }

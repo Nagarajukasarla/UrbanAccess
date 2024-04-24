@@ -1,5 +1,6 @@
 package com.example.buspassapplication.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,9 +22,13 @@ fun PassScreenContent () {
     val studentResourceId = R.drawable.student
     val routeResourceId = R.drawable.route
 
-    Column {
+    Column (
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
         Box(modifier = Modifier
             .fillMaxWidth()
+            .padding(start = 40.dp, top = 20.dp)
         ) {
             HeadingText(
                 value = "My Pass",
@@ -35,22 +40,25 @@ fun PassScreenContent () {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             PassComponent()
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(50.dp))
             CardWithIcon (
                 icon = generalResourceId,
                 title = "General Pass",
                 subTitle = "Apply now"
             )
+            Spacer(modifier = Modifier.height(20.dp))
             CardWithIcon(
                 icon = metroResourceId,
                 title = "Metro Pass",
                 subTitle = "Apply now"
             )
+            Spacer(modifier = Modifier.height(20.dp))
             CardWithIcon(
                 icon = studentResourceId,
                 title = "Student Pass",
                 subTitle = "Apply now"
             )
+            Spacer(modifier = Modifier.height(20.dp))
             CardWithIcon(
                 icon = routeResourceId,
                 title = "Route Pass",
