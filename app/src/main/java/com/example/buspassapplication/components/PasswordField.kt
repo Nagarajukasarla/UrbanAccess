@@ -32,7 +32,7 @@ import com.example.buspassapplication.ui.theme.NavyBlue
 @Composable
 fun PasswordField (
     modifier: Modifier,
-    label: AnnotatedString,
+    label: String,
     width: Dp = 280.dp,
     maxWidth: Dp = 340.dp,
     onPasswordChange: (String) -> Unit = {}
@@ -57,7 +57,7 @@ fun PasswordField (
         },
         label= {
             Text(
-                text = label,
+                text = AnnotatedString(label),
                 style = TextStyle(
                     letterSpacing = 0.3.sp
                 )

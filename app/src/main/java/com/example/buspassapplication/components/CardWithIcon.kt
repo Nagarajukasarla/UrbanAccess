@@ -3,6 +3,7 @@ package com.example.buspassapplication.components
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,6 +23,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.DefaultShadowColor
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.buspassapplication.R
@@ -33,23 +35,28 @@ import com.example.buspassapplication.ui.theme.White
 
 @Composable
 fun CardWithIcon (
+    width: Dp = 325.dp,
+    height: Dp = 85.dp,
     title: String,
-    subTitle: String,
-    @DrawableRes icon: Int
+    subTitle: String = "",
+    @DrawableRes icon: Int,
+    spaceAfterTrailingIcon: Dp = 30.dp,
+    titlesColumnWidth: Dp = 170.dp,
+    iconButtonSize: Dp = 30.dp,
+    iconSize: Dp = 16.dp
 ) {
 
-    val forwardArrowResourceId = R.drawable.arrow_forward
+    val forwardArrowResourceId = R.drawable.travaling_gps
 
     Box(
         modifier = Modifier
-            .width(325.dp)
-            .height(80.dp)
+            .width(width)
+            .height(height)
             .shadow(
                 elevation = 3.dp,
                 shape = RoundedCornerShape(8.dp),
                 spotColor = DimGray,
             )
-
     ) {
         Row (
             modifier = Modifier
@@ -59,7 +66,7 @@ fun CardWithIcon (
                     bottom = 20.dp
                 ).clip(shape = RoundedCornerShape(8.dp)),
             verticalAlignment = Alignment.CenterVertically
-        ){
+        ) {
             Image(
                 modifier = Modifier
                     .width(30.dp)
@@ -67,10 +74,12 @@ fun CardWithIcon (
                 painter = painterResource(id = icon),
                 contentDescription = title
             )
-            Spacer(modifier = Modifier.width(30.dp))
+            Spacer(modifier = Modifier.width(spaceAfterTrailingIcon))
             Column (
-                modifier = Modifier.width(170.dp)
-            ){
+                modifier = Modifier.width(titlesColumnWidth),
+                verticalArrangement = if (!(subTitle.isEmpty() && subTitle.isEmpty()))
+                    Arrangement.Center else Arrangement.Top
+            ) {
                 NormalText(
                     modifier = Modifier,
                     value = title,
@@ -80,14 +89,16 @@ fun CardWithIcon (
                     color = DarkGray,
                     letterSpacing = 0.5.sp
                 )
-                NormalText(
-                    modifier = Modifier,
-                    value = subTitle,
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Normal,
-                    fontFamily = PoppinsLight,
-                    color = DimGray
-                )
+                if (!(subTitle.isEmpty() && subTitle.isEmpty())) {
+                    NormalText(
+                        modifier = Modifier,
+                        value = subTitle,
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Normal,
+                        fontFamily = PoppinsLight,
+                        color = DimGray
+                    )
+                }
             }
             Spacer(modifier = Modifier.width(10.dp))
             IconButton(
@@ -98,7 +109,7 @@ fun CardWithIcon (
                         color = DimGray,
                         shape = RoundedCornerShape(50.dp)
                     )
-                    .size(30.dp)
+                    .size(iconButtonSize)
             ) {
                 Icon(
                     painter = painterResource(
@@ -106,7 +117,7 @@ fun CardWithIcon (
                     ),
                     contentDescription = "Forward arrow",
                     tint = DarkGray,
-                    modifier = Modifier.size(16.dp)
+                    modifier = Modifier.size(iconSize)
                 )
             }
         }

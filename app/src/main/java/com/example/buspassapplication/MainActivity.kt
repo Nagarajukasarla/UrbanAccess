@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.components.PasswordField
+import com.example.buspassapplication.graphs.RootNavigationGraph
 import com.example.buspassapplication.screens.LoginScreen
 import com.example.buspassapplication.screens.SignUpScreen
 import com.example.buspassapplication.ui.theme.BusPassApplicationTheme
@@ -53,8 +54,7 @@ class MainActivity : ComponentActivity() {
 //                }
 
                 navController = rememberNavController()
-                SetupNavGraph(navHostController = navController)
-
+                RootNavigationGraph(navController)
 //                Column(
 //                    modifier = Modifier.fillMaxSize(),
 //                    verticalArrangement = Arrangement.Center,
@@ -102,7 +102,7 @@ fun Home1() {
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            // Header
+            // TopBar
             Row(
                 modifier = Modifier
                     .fillMaxWidth()

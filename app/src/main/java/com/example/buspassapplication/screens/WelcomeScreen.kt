@@ -16,7 +16,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.buspassapplication.Screen
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.PrimaryButton
 import com.example.buspassapplication.ui.theme.Black
@@ -43,19 +42,19 @@ fun WelcomeScreen(
         ) {
             NormalText(
                 modifier = Modifier,
-                value = "Welcome to City Buss",
+                value = "Welcome to Urban Access",
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Black,
                 fontFamily = PoppinsBold,
                 color = Black
             )
-            PrimaryButton(
-                text = "Get Started",
-                width = 300.dp,
-                onClick = {
-                    navController.navigate(route = Screen.Signup.route)
-                }
-            )
+//            PrimaryButton(
+//                text = "Get Started",
+//                width = 300.dp,
+//                onClick = {
+//                    navController.navigate(route = Screen.Signup.route)
+//                }
+//            )
         }
     }
 }

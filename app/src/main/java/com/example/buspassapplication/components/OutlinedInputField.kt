@@ -21,7 +21,7 @@ import com.example.buspassapplication.ui.theme.NavyBlue
 @Composable
 fun OutlinedInputField (
     modifier: Modifier,
-    label: AnnotatedString,
+    label: String,
 ) {
 
     var textValue by rememberSaveable { mutableStateOf("") }

@@ -1,10 +1,8 @@
 package com.example.buspassapplication.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -22,18 +20,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.buspassapplication.Screen
 import com.example.buspassapplication.components.HeadingText
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.OutlinedInputField
-import com.example.buspassapplication.components.PasswordField
 import com.example.buspassapplication.components.PrimaryButton
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.NavyBlue
@@ -43,7 +38,7 @@ import com.example.buspassapplication.ui.theme.White
 
 @ExperimentalMaterial3Api
 @Composable
-fun ForgotPasswordMail(navController: NavController){
+fun ForgotPasswordScreen (navController: NavController){
     var isContentVisible by remember {
         mutableStateOf(false)
     }
@@ -52,17 +47,14 @@ fun ForgotPasswordMail(navController: NavController){
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Transparent)
-            .padding(28.dp)
+            .padding(18.dp)
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            HeadingText(
-                value = "Password Recovery",
-                isSmall = false
-            )
+            HeadingText(value = "Password Recovery")
             Spacer(modifier = Modifier.height(20.dp))
             NormalText(
                 value= "Enter your email and we'll send you instructions",
@@ -82,12 +74,14 @@ fun ForgotPasswordMail(navController: NavController){
             )
             Spacer(modifier = Modifier.height(20.dp))
             OutlinedInputField(
-                label = AnnotatedString("Email"),
+                label = "Email",
                 modifier = Modifier.width(330.dp)
             )
             Spacer(modifier = Modifier.height(25.dp))
             Button(
-                onClick = {isContentVisible= !isContentVisible},
+                onClick = {
+                    isContentVisible = !isContentVisible
+                },
                 modifier = Modifier
                     .width(280.dp)
                     .padding(horizontal = 16.dp, vertical = 8.dp),
@@ -131,7 +125,7 @@ fun ForgotPasswordMail(navController: NavController){
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 OutlinedInputField(
-                    label = AnnotatedString("One time password"),
+                    label = "One time password",
                     modifier = Modifier.width(330.dp)
                 )
                 Spacer(modifier = Modifier.height(25.dp))
@@ -139,7 +133,6 @@ fun ForgotPasswordMail(navController: NavController){
                     text = "Reset Password",
                     width = 280.dp,
                 )
-
                 NormalText(
                     value = "< Back to Log in",
                     fontSize = 16.sp,
@@ -149,7 +142,6 @@ fun ForgotPasswordMail(navController: NavController){
                     modifier = Modifier
                 )
             }
-
         }
     }
 
@@ -159,5 +151,5 @@ fun ForgotPasswordMail(navController: NavController){
 @Preview
 @Composable
 fun LoginPasswordMailPreview(){
-    ForgotPasswordMail(navController = rememberNavController())
+    ForgotPasswordScreen(navController = rememberNavController())
 }

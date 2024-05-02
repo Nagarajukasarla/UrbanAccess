@@ -16,20 +16,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.rememberNavController
-import com.example.buspassapplication.Screen
+import com.example.buspassapplication.AuthenticationScreenRoutes
 import com.example.buspassapplication.components.HeadingText
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.OutlinedInputField
 import com.example.buspassapplication.components.PasswordField
 import com.example.buspassapplication.components.PrimaryButton
+import com.example.buspassapplication.graphs.Graph
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.NavyBlue
 import com.example.buspassapplication.ui.theme.PoppinsMedium
@@ -61,13 +60,13 @@ fun LoginScreen(
             )
             Spacer(modifier = Modifier.height(20.dp))
             OutlinedInputField(
-                label = AnnotatedString("Email"),
+                label = "Email",
                 modifier = Modifier.width(330.dp)
             )
             Spacer(modifier = Modifier.height(20.dp))
             PasswordField(
                 modifier = Modifier.width(330.dp),
-                label = AnnotatedString("Password"),
+                label = "Password",
             )
             Spacer(modifier = Modifier.height(25.dp))
             Row {
@@ -90,14 +89,14 @@ fun LoginScreen(
             }
             Spacer(modifier = Modifier.height(25.dp))
             PrimaryButton(
-                text = "Submit",
+                text = "Submi" +
+                        "t",
                 width = 280.dp,
                 onClick = {
-                    navController.navigate(route = Screen.Pass.route) {
-                        popUpTo(route = Screen.Login.route) {
+                    navController.navigate(route = Graph.MAIN) {
+                        popUpTo(route = Graph.AUTHENTICATION) {
                             inclusive = true
                         }
-                        launchSingleTop = true
                     }
                 }
             )
@@ -118,8 +117,8 @@ fun LoginScreen(
                     fontFamily = PoppinsMedium,
                     color = NavyBlue,
                     modifier = Modifier.clickable {
-                        navController.navigate(route = Screen.Signup.route) {
-                            popUpTo(route = Screen.Login.route) {
+                        navController.navigate(route = AuthenticationScreenRoutes.Signup.route) {
+                            popUpTo(route = AuthenticationScreenRoutes.Login.route) {
                                 inclusive = true
                             }
                             launchSingleTop = true

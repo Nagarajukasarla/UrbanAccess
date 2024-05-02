@@ -71,4 +71,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation("com.google.maps.android:android-maps-utils:3.8.0")
+    implementation("com.google.maps.android:maps-utils-ktx:5.0.0")
+
 }

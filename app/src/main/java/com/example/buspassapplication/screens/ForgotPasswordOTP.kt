@@ -1,10 +1,8 @@
 package com.example.buspassapplication.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -23,11 +21,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.buspassapplication.Screen
 import com.example.buspassapplication.components.HeadingText
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.OutlinedInputField
-import com.example.buspassapplication.components.PasswordField
 import com.example.buspassapplication.components.PrimaryButton
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.NavyBlue
@@ -72,7 +68,7 @@ fun ForgotPasswordOTP(navController: NavController){
             )
             Spacer(modifier = Modifier.height(20.dp))
             OutlinedInputField(
-                label = AnnotatedString("One time password"),
+                label = "One time password",
                 modifier = Modifier.width(330.dp)
             )
             Spacer(modifier = Modifier.height(25.dp))

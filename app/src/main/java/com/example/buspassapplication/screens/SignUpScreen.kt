@@ -25,14 +25,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.buspassapplication.Screen
+import com.example.buspassapplication.AuthenticationScreenRoutes
 import com.example.buspassapplication.components.HeadingText
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.OutlinedInputField
@@ -60,7 +59,7 @@ fun SignUpScreen (
             .padding(bottom = 15.dp)
     ) {
 
-        var termsAndConditionsValue by rememberSaveable { mutableStateOf(false) }
+        var termsAndConditionsValue by rememberSaveable { mutableStateOf(false)  }
 
         Column(
             modifier = Modifier
@@ -81,27 +80,27 @@ fun SignUpScreen (
             )
             Spacer(modifier = Modifier.height(17.dp))
             OutlinedInputField(
-                label = AnnotatedString("First Name"),
+                label = "First Name",
                 modifier = Modifier.width(300.dp)
             )
             Spacer(modifier = Modifier.height(16.dp))
             OutlinedInputField(
-                label = AnnotatedString("Last Name"),
+                label = "Last Name",
                 modifier = Modifier.width(300.dp)
             )
             Spacer(modifier = Modifier.height(16.dp))
             OutlinedInputField(
-                label = AnnotatedString("Email"),
+                label = "Email",
                 modifier = Modifier.width(300.dp)
             )
             Spacer(modifier = Modifier.height(16.dp))
             PasswordField(
-                label = AnnotatedString("Password"),
+                label = "Password",
                 modifier = Modifier.width(300.dp)
             )
             Spacer(modifier = Modifier.height(16.dp))
             PasswordField(
-                label = AnnotatedString("Confirm Password"),
+                label = "Confirm Password",
                 modifier = Modifier.width(300.dp),
             )
             Row  (
@@ -153,8 +152,8 @@ fun SignUpScreen (
                     modifier = Modifier
                         .padding(top = 4.dp)
                         .clickable {
-                            navController.navigate(route = Screen.Login.route) {
-                                popUpTo(route = Screen.Signup.route) {
+                            navController.navigate(route = AuthenticationScreenRoutes.Login.route) {
+                                popUpTo(route = AuthenticationScreenRoutes.Signup.route) {
                                     inclusive = true
                                 }
                                 launchSingleTop = true

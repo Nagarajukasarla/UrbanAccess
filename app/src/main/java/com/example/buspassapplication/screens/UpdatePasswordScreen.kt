@@ -1,10 +1,8 @@
 package com.example.buspassapplication.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -16,17 +14,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.buspassapplication.Screen
 import com.example.buspassapplication.components.HeadingText
 import com.example.buspassapplication.components.NormalText
-import com.example.buspassapplication.components.OutlinedInputField
 import com.example.buspassapplication.components.PasswordField
 import com.example.buspassapplication.components.PrimaryButton
 import com.example.buspassapplication.ui.theme.DarkGray
@@ -36,7 +31,7 @@ import com.example.buspassapplication.ui.theme.PoppinsMedium
 
 @ExperimentalMaterial3Api
 @Composable
-fun ChangePassword(
+fun UpdatePasswordScreen (
     navController: NavController
 ){
 
@@ -75,12 +70,12 @@ fun ChangePassword(
             Spacer(modifier = Modifier.height(20.dp))
             PasswordField(
                 modifier = Modifier.width(330.dp),
-                label = AnnotatedString("New Password"),
+                label = "New Password",
             )
             Spacer(modifier = Modifier.height(20.dp))
             PasswordField(
                 modifier = Modifier.width(330.dp),
-                label = AnnotatedString("Confirm Password"),
+                label = "Confirm Password",
             )
             Spacer(modifier = Modifier.height(25.dp))
             PrimaryButton(
@@ -109,5 +104,5 @@ fun ChangePassword(
 @Preview
 @Composable
 fun ChangePasswordPreview(){
-    ChangePassword(navController = rememberNavController())
+    UpdatePasswordScreen(navController = rememberNavController())
 }

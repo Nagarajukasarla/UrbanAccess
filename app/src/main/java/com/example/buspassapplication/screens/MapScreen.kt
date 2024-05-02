@@ -20,10 +20,8 @@ import com.example.buspassapplication.ui.theme.PoppinsMedium
 import androidx.compose.foundation.Image
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.buspassapplication.components.NavigationBar
 
 @ExperimentalMaterial3Api
 @Composable
@@ -49,17 +47,11 @@ Box(modifier=Modifier.fillMaxSize()) {
                 color = Black
             )
             SearchScreen()
-
-            Box(modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.BottomEnd
-            ){
-                NavigationBar(navController = rememberNavController())
-            }
     }
 }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@ExperimentalMaterial3Api
 @Preview
 @Composable
 fun RoutePreview(){

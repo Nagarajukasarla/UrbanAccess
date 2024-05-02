@@ -8,13 +8,14 @@ val Black = Color(0xFF000000)
 
 /* Theme colors for light mode */
 val BabyBlue = Color(0xFF54C5F8)
-val IceBlue = Color(0xFF4AB6F6)
+val IceBlue = Color(0xFF456EAC)
 val ShinyBlue = Color(0xFF2D5BA8)   // Good for button with combination of white surface and black text similar to linkedIn
 val NavyBlue = Color(0xFF14589B)
 
 
 /* Theme colors for dark mode */
-val LightGray = Color(0xFFF4F4F4)
+val VeryLightGray = Color(0xFFD5D5D5)
+val LightGray = Color(0xFF9B9B9B)
 val DimGray = Color(0xFF494949)
 val AshGary = Color(0xFF212121)
 val DarkGray = Color(0xFF171717)
