@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.buspassapplication.R
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.PoppinsMedium
 
@@ -27,6 +28,8 @@ import com.example.buspassapplication.ui.theme.PoppinsMedium
 @Composable
 fun PassComponent(){
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
+
+    val image = R.drawable.test3
 
     Column (
         modifier= Modifier
@@ -47,7 +50,7 @@ fun PassComponent(){
             Box (
                 modifier = Modifier.padding(top = 15.dp, start = 5.dp)
             ) {
-                CircleWithImage()
+                CircularImage(image = image)
             }
             Spacer(modifier=Modifier.size(10.dp))
             Column (

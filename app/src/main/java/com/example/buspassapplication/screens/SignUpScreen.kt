@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -136,13 +137,15 @@ fun SignUpScreen (
             )
             PrimaryButton(
                 text = "Signup",
-                width = 300.dp
+                width = 300.dp,
+                height = 45.dp,
+                borderShape = RoundedCornerShape(36)
             )
             Row (
             ) {
                 NormalText(
                     modifier = Modifier.padding(top = 4.dp),
-                    value = "Already a memeber? ",
+                    value = "Already a member? ",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Normal,
                     fontFamily = PoppinsMedium,

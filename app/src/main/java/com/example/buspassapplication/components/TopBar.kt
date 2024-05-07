@@ -48,15 +48,16 @@ fun TopBar(
             modifier = Modifier
                 .height(45.dp)
                 .fillMaxWidth()
-                .border(width = 1.dp, color = Color.Red)
         ){
             IconButton(
-                onClick = {  }
+                onClick = {
+                    navController.navigate(TopBarRoutes.Profile.route) {}
+                }
             ) {
                 Icon(
                     painter = painterResource(id = profileResourceId),
                     contentDescription = "Profile",
-                    modifier = Modifier.size(50.dp),
+                    modifier = Modifier.size(45.dp),
                     tint = NavyBlue
                 )
             }
@@ -69,7 +70,7 @@ fun TopBar(
                 Icon(
                     painter = painterResource(id = settingsResourceId),
                     contentDescription = "Settings",
-                    modifier = Modifier.size(50.dp),
+                    modifier = Modifier.size(45.dp),
                     tint = NavyBlue
                 )
             }

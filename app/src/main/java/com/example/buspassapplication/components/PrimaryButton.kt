@@ -1,7 +1,10 @@
 package com.example.buspassapplication.components
 
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -20,13 +23,19 @@ import com.example.buspassapplication.ui.theme.White
 fun PrimaryButton(
     text: String,
     width: Dp,
+    height: Dp,
+    contentPadding: PaddingValues = PaddingValues(5.dp),
+    borderShape: RoundedCornerShape = RoundedCornerShape(5),
     onClick: () -> Unit = {}
 ) {
+
     Button(
         onClick = onClick,
         modifier = Modifier
             .width(width)
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .height(height),
+        shape = borderShape,
+        contentPadding = contentPadding,
         colors = ButtonDefaults.buttonColors(
             contentColor = White,
             containerColor = NavyBlue

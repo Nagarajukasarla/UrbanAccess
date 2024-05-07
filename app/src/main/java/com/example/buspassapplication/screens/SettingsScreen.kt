@@ -1,5 +1,6 @@
 package com.example.buspassapplication.screens
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -7,10 +8,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
@@ -25,8 +29,10 @@ import com.example.buspassapplication.R
 import com.example.buspassapplication.components.CardWithIcon
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.ui.theme.DarkGray
+import com.example.buspassapplication.ui.theme.DimGray
+import com.example.buspassapplication.ui.theme.OpenSansCondensedRegular
 import com.example.buspassapplication.ui.theme.PoppinsBold
-import com.example.buspassapplication.ui.theme.VeryLightGray
+import com.example.buspassapplication.ui.theme.CloudGray
 
 @Composable
 fun SettingsScreen (
@@ -77,38 +83,91 @@ fun SettingsScreen (
             modifier = Modifier
                 .height(1.dp)
                 .padding(start = paddingStart, end = paddingEnd),
-            color = VeryLightGray
+            color = CloudGray
         )
-        CardWithIcon(
-            width = 350.dp,
-            height = 60.dp,
-            title = "ACCOUNT",
-            icon = account
-        )
-        CardWithIcon(
-            width = 350.dp,
-            height = 65.dp,
-            title = "APPREARANCE",
-            icon = theme
-        )
-        CardWithIcon(
-            width = 350.dp,
-            height = 65.dp,
-            title = "TRAVALING GPS",
-            icon = travelingGps
-        )
-        CardWithIcon(
-            width = 350.dp,
-            height = 65.dp,
-            title = "PAYMENT OPTIONS",
-            icon = paymentOptions
-        )
-        CardWithIcon(
-            width = 350.dp,
-            height = 65.dp,
-            title = "REPORT BUG",
-            icon = reportBug
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 30.dp)
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            CardWithIcon(
+                width = 290.dp,
+                height = 36.dp,
+                titleSize = 15.sp,
+                titlesColumnWidth = 180.dp,
+                title = "ACCOUNT",
+                icon = account,
+                trailingIconSize = 25.dp,
+                leadingIconSize = 17.dp,
+                roundedButton = false,
+                boxShadow = false,
+                underLine = true
+            )
+            CardWithIcon(
+                width = 290.dp,
+                height = 36.dp,
+                titleSize = 15.sp,
+                titlesColumnWidth = 180.dp,
+                title = "APPEARANCE",
+                icon = theme,
+                trailingIconSize = 25.dp,
+                leadingIconSize = 17.dp,
+                roundedButton = false,
+                boxShadow = false,
+                underLine = true
+            )
+            CardWithIcon(
+                width = 290.dp,
+                height = 36.dp,
+                titleSize = 15.sp,
+                titlesColumnWidth = 180.dp,
+                title = "TRAVELING GPS",
+                icon = travelingGps,
+                trailingIconSize = 25.dp,
+                leadingIconSize = 17.dp,
+                roundedButton = false,
+                boxShadow = false,
+                underLine = true
+            )
+            CardWithIcon(
+                width = 290.dp,
+                height = 36.dp,
+                titleSize = 15.sp,
+                titlesColumnWidth = 180.dp,
+                title = "PAYMENT OPTIONS",
+                icon = paymentOptions,
+                trailingIconSize = 25.dp,
+                leadingIconSize = 17.dp,
+                roundedButton = false,
+                boxShadow = false,
+                underLine = true
+            )
+            CardWithIcon(
+                width = 290.dp,
+                height = 36.dp,
+                titleSize = 15.sp,
+                titlesColumnWidth = 180.dp,
+                title = "REPORT BUG",
+                icon = reportBug,
+                trailingIconSize = 25.dp,
+                leadingIconSize = 17.dp,
+                roundedButton = false,
+                boxShadow = false,
+                underLine = true
+            )
+            NormalText(
+                modifier = Modifier.padding(top = 20.dp),
+                value = "Version 0.0.0.1",
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Normal,
+                fontFamily = OpenSansCondensedRegular,
+                color = DimGray,
+                letterSpacing = 0.5.sp
+            )
+        }
     }
 }
 

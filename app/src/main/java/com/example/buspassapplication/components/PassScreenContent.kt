@@ -25,7 +25,7 @@ fun PassScreenContent () {
     val routeResourceId = R.drawable.route
 
     Column (
-        modifier = Modifier.padding(bottom = 80.dp),
+        modifier = Modifier.padding(bottom = 30.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
@@ -39,29 +39,26 @@ fun PassScreenContent () {
             )
         }
         Column (
-            modifier = Modifier.padding(top = 40.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.padding(top = 40.dp).fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             PassComponent()
-            Spacer(modifier = Modifier.height(50.dp))
+            Spacer(modifier = Modifier.height(30.dp))
             CardWithIcon (
                 icon = generalResourceId,
                 title = "General Pass",
                 subTitle = "Apply now"
             )
-            Spacer(modifier = Modifier.height(20.dp))
             CardWithIcon(
                 icon = metroResourceId,
                 title = "Metro Pass",
                 subTitle = "Apply now"
             )
-            Spacer(modifier = Modifier.height(20.dp))
             CardWithIcon(
                 icon = studentResourceId,
                 title = "Student Pass",
                 subTitle = "Apply now"
             )
-            Spacer(modifier = Modifier.height(20.dp))
             CardWithIcon(
                 icon = routeResourceId,
                 title = "Route Pass",

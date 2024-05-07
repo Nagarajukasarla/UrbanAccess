@@ -81,10 +81,8 @@ fun UpdatePasswordScreen (
             PrimaryButton(
                 text = "Save Password",
                 width = 280.dp,
-                onClick = {
-
-                }
-            )
+                height = 16.dp
+            ) { }
 
             NormalText(
                 value = "< Back to Log in",
@@ -101,7 +99,7 @@ fun UpdatePasswordScreen (
 }
 
 @ExperimentalMaterial3Api
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun ChangePasswordPreview(){
     UpdatePasswordScreen(navController = rememberNavController())

@@ -44,11 +44,10 @@ fun OutlinedInputField (
             cursorColor = DarkGray,
             focusedSupportingTextColor = Color.Black,
             textColor = Color.Black
-
         ),
         textStyle = TextStyle(
             letterSpacing = 0.7.sp
         ),
-        singleLine = true
+        singleLine = true,
     )
 }

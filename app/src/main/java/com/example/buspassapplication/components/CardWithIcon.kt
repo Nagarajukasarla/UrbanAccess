@@ -4,7 +4,6 @@ import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
@@ -20,10 +20,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.DefaultShadowColor
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.buspassapplication.R
@@ -31,95 +31,117 @@ import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.DimGray
 import com.example.buspassapplication.ui.theme.PoppinsLight
 import com.example.buspassapplication.ui.theme.PoppinsMedium
-import com.example.buspassapplication.ui.theme.White
+import com.example.buspassapplication.ui.theme.CloudGray
 
 @Composable
 fun CardWithIcon (
-    width: Dp = 325.dp,
-    height: Dp = 85.dp,
+    width: Dp = 320.dp,
+    height: Dp = 80.dp,
     title: String,
     subTitle: String = "",
+    titleSize: TextUnit =  17.sp,
     @DrawableRes icon: Int,
     spaceAfterTrailingIcon: Dp = 30.dp,
     titlesColumnWidth: Dp = 170.dp,
     iconButtonSize: Dp = 30.dp,
-    iconSize: Dp = 16.dp
+    trailingIconSize: Dp = 30.dp,
+    leadingIconSize: Dp = 16.dp,
+    roundedButton: Boolean = true,
+    boxShadow: Boolean = true,
+    underLine: Boolean = false
 ) {
 
-    val forwardArrowResourceId = R.drawable.travaling_gps
+    val forwardArrowResourceId = R.drawable.arrow_forward
 
-    Box(
-        modifier = Modifier
-            .width(width)
-            .height(height)
-            .shadow(
-                elevation = 3.dp,
-                shape = RoundedCornerShape(8.dp),
-                spotColor = DimGray,
-            )
+    val boxWithShadow = Modifier
+        .padding(
+            top = 20.dp,
+            bottom = 20.dp
+        )
+        .height(height)
+        .width(width)
+        .shadow(
+            elevation = 0.1.dp,
+            shape = RoundedCornerShape(10.dp),
+            spotColor = DimGray
+        )
+        .clip(shape = RoundedCornerShape(10.dp))
+
+    val boxWithoutShadow = Modifier
+        .padding(
+            top = 20.dp,
+            bottom = 20.dp
+        )
+        .width(width)
+        .height(height)
+        .clip(shape = RoundedCornerShape(8.dp))
+
+    Row (
+        modifier = if (boxShadow) boxWithShadow else boxWithoutShadow,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
     ) {
-        Row (
-            modifier = Modifier
-                .padding(
-                    start = 30.dp,
-                    top = 20.dp,
-                    bottom = 20.dp
-                ).clip(shape = RoundedCornerShape(8.dp)),
-            verticalAlignment = Alignment.CenterVertically
+        Image(
+            modifier = Modifier.size(trailingIconSize),
+            painter = painterResource(id = icon),
+            contentDescription = title
+        )
+        Spacer(modifier = Modifier.width(spaceAfterTrailingIcon))
+        Column (
+            modifier = Modifier.width(titlesColumnWidth),
+            verticalArrangement = if (!(subTitle.isEmpty() && subTitle.isEmpty()))
+                Arrangement.Center else Arrangement.Top
         ) {
-            Image(
-                modifier = Modifier
-                    .width(30.dp)
-                    .height(30.dp),
-                painter = painterResource(id = icon),
-                contentDescription = title
+            NormalText(
+                modifier = Modifier,
+                value = title,
+                fontSize = titleSize,
+                fontWeight = FontWeight.Normal,
+                fontFamily = PoppinsMedium,
+                color = DarkGray,
+                letterSpacing = 0.5.sp
             )
-            Spacer(modifier = Modifier.width(spaceAfterTrailingIcon))
-            Column (
-                modifier = Modifier.width(titlesColumnWidth),
-                verticalArrangement = if (!(subTitle.isEmpty() && subTitle.isEmpty()))
-                    Arrangement.Center else Arrangement.Top
-            ) {
+            if (!(subTitle.isEmpty() && subTitle.isEmpty())) {
                 NormalText(
                     modifier = Modifier,
-                    value = title,
-                    fontSize = 17.sp,
+                    value = subTitle,
+                    fontSize = 15.sp,
                     fontWeight = FontWeight.Normal,
-                    fontFamily = PoppinsMedium,
-                    color = DarkGray,
-                    letterSpacing = 0.5.sp
-                )
-                if (!(subTitle.isEmpty() && subTitle.isEmpty())) {
-                    NormalText(
-                        modifier = Modifier,
-                        value = subTitle,
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.Normal,
-                        fontFamily = PoppinsLight,
-                        color = DimGray
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.width(10.dp))
-            IconButton(
-                onClick = {},
-                modifier = Modifier
-                    .border(
-                        width = 1.dp,
-                        color = DimGray,
-                        shape = RoundedCornerShape(50.dp)
-                    )
-                    .size(iconButtonSize)
-            ) {
-                Icon(
-                    painter = painterResource(
-                        id = forwardArrowResourceId,
-                    ),
-                    contentDescription = "Forward arrow",
-                    tint = DarkGray,
-                    modifier = Modifier.size(iconSize)
+                    fontFamily = PoppinsLight,
+                    color = DimGray
                 )
             }
         }
+        Spacer(modifier = Modifier.width(10.dp))
+
+        val iconButtonStyleWithBorder = Modifier
+            .border(
+                width = 1.dp,
+                color = DimGray,
+                shape = RoundedCornerShape(50.dp)
+            )
+            .size(iconButtonSize)
+
+        val iconButtonStyleWithoutBorder = Modifier.size(iconButtonSize).padding(start = 10.dp)
+
+        IconButton(
+            onClick = {},
+            modifier = if (roundedButton) iconButtonStyleWithBorder else iconButtonStyleWithoutBorder
+        ) {
+            Icon(
+                painter = painterResource(
+                    id = forwardArrowResourceId,
+                ),
+                contentDescription = "Forward arrow",
+                tint = DarkGray,
+                modifier = Modifier.size(leadingIconSize)
+            )
+        }
+    }
+    if (underLine) {
+        Divider(
+            modifier = Modifier.height(1.dp).width(width),
+            color = CloudGray
+        )
     }
 }

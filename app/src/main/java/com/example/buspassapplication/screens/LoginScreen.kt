@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -76,7 +77,12 @@ fun LoginScreen(
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
-                    modifier = Modifier
+                    modifier = Modifier.clickable {
+                        navController.navigate(route = AuthenticationScreenRoutes.ForgotPassword.route) {
+                            navController.popBackStack()
+                            launchSingleTop = true
+                        }
+                    }
                 )
                 NormalText(
                     value= "Reset",
@@ -89,18 +95,20 @@ fun LoginScreen(
             }
             Spacer(modifier = Modifier.height(25.dp))
             PrimaryButton(
-                text = "Submi" +
-                        "t",
+                text = "Submit",
                 width = 280.dp,
-                onClick = {
-                    navController.navigate(route = Graph.MAIN) {
-                        popUpTo(route = Graph.AUTHENTICATION) {
-                            inclusive = true
-                        }
+                height = 45.dp,
+                borderShape = RoundedCornerShape(36)
+            ) {
+                navController.navigate(route = Graph.MAIN) {
+                    popUpTo(route = Graph.AUTHENTICATION) {
+                        inclusive = true
                     }
                 }
-            )
-            Row {
+            }
+            Row(
+                modifier = Modifier.padding(top = 15.dp)
+            ) {
                 NormalText(
                     value = "Not a member? ",
                     fontSize = 16.sp,

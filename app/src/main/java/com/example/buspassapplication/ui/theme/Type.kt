@@ -8,9 +8,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.buspassapplication.R
 
-val OpenSans = FontFamily(
+val OpenSansMedium = FontFamily(
     Font(resId = R.font.open_sans_medium),
-    Font(resId = R.font.open_sans_regular)
+)
+val OpenSansCondensedRegular = FontFamily(
+    Font(resId = R.font.open_sans_condensed_regular)
 )
 
 val Roboto = FontFamily(

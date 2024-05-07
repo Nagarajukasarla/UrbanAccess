@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -132,6 +133,8 @@ fun ForgotPasswordScreen (navController: NavController){
                 PrimaryButton(
                     text = "Reset Password",
                     width = 280.dp,
+                    height = 16.dp,
+                    borderShape = RoundedCornerShape(36)
                 )
                 NormalText(
                     value = "< Back to Log in",

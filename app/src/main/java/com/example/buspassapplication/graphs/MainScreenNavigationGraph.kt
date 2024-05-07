@@ -37,5 +37,8 @@ fun MainScreenNavigationGraph (
         composable(route = TopBarRoutes.Settings.route) {
             SettingsScreen(navController = navController)
         }
+        composable(route = TopBarRoutes.Profile.route) {
+            ProfileScreen(navController = navController)
+        }
     }
 }

@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -74,7 +73,8 @@ fun ForgotPasswordOTP(navController: NavController){
             Spacer(modifier = Modifier.height(25.dp))
             PrimaryButton(
                 text = "Reset Password",
-                width = 280.dp
+                width = 280.dp,
+                height = 16.dp
             )
 
             NormalText(
