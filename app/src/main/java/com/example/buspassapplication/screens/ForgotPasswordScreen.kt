@@ -39,10 +39,10 @@ import com.example.buspassapplication.ui.theme.White
 
 @ExperimentalMaterial3Api
 @Composable
-fun ForgotPasswordScreen (navController: NavController){
-    var isContentVisible by remember {
-        mutableStateOf(false)
-    }
+fun ForgotPasswordScreen (
+    navController: NavController
+) {
+    var isContentVisible by remember { mutableStateOf(false) }
 
     Surface(
         modifier = Modifier

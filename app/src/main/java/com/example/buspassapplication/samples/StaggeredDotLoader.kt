@@ -1,15 +1,9 @@
 package com.example.buspassapplication.samples
 
-import android.util.Log
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.material3.Surface
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.buspassapplication.ui.theme.NavyBlue
 import androidx.compose.animation.core.Animatable
@@ -19,12 +13,9 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.keyframes
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.buspassapplication.ui.theme.Shapes
 import kotlinx.coroutines.delay
@@ -53,10 +44,10 @@ fun StaggeredDotLoader(
                 animationSpec = infiniteRepeatable(
                     animation = keyframes {
                         durationMillis = 1400
-                        0.0f at 0 with LinearOutSlowInEasing
-                        1.0f at 350 with LinearOutSlowInEasing
-                        0.0f at 700 with LinearOutSlowInEasing
-                        0.0f at 1400 with LinearOutSlowInEasing
+                        0.0f at 0 using LinearOutSlowInEasing
+                        1.0f at 350 using LinearOutSlowInEasing
+                        0.0f at 700 using LinearOutSlowInEasing
+                        0.0f at 1400 using LinearOutSlowInEasing
                     },
                     repeatMode = RepeatMode.Restart
                 )

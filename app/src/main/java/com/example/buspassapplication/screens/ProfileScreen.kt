@@ -1,6 +1,7 @@
 package com.example.buspassapplication.screens
 
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -41,7 +42,9 @@ import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.OutlinedInputField
 import com.example.buspassapplication.components.PrimaryButton
 import com.example.buspassapplication.ui.theme.DarkGray
+import com.example.buspassapplication.ui.theme.NavyBlue
 import com.example.buspassapplication.ui.theme.PoppinsBold
+import com.example.buspassapplication.ui.theme.White
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -86,10 +89,12 @@ fun ProfileScreen (
     var newState by rememberSaveable { mutableStateOf(state) }
     var newCountry by rememberSaveable { mutableStateOf(country) }
 
-    var isEditable by rememberSaveable { mutableStateOf(true) }
+    var isEditable by rememberSaveable { mutableStateOf(false) }
 
 
-    Column {
+    Column(
+        modifier = Modifier.padding(top = 5.dp)
+    ) {
         Row (
             modifier = Modifier
                 .fillMaxWidth()
@@ -113,7 +118,7 @@ fun ProfileScreen (
                 }
             }
             NormalText(
-                modifier = Modifier,
+                modifier = Modifier.padding(top = 2.dp),
                 value = "Profile",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
@@ -121,29 +126,44 @@ fun ProfileScreen (
                 color = DarkGray,
                 letterSpacing = 0.7.sp
             )
-            Box(modifier = Modifier.width(100.dp)) {
+            Box(modifier = Modifier.width(100.dp).align(Alignment.CenterVertically)) {
                 if (isEditable) {
-                    PrimaryButton(
-                        text = "SAVE",
-                        width = 90.dp,
-                        height = 45.dp,
-                        contentPadding = PaddingValues(
-                            horizontal = 3.dp,
-                            vertical = 3.dp
-                        ),
-                        borderShape = RoundedCornerShape(22)
-                    )
+                    Box(
+                        modifier = Modifier.align(Alignment.CenterEnd)
+                    ) {
+                        PrimaryButton(
+                            text = "SAVE",
+                            fontSize = 15.sp,
+                            width = 68.dp,
+                            height = 30.dp,
+                            contentPadding = PaddingValues(
+                                horizontal = 3.dp,
+                                vertical = 3.dp
+                            ),
+                            borderShape = RoundedCornerShape(30),
+                            onClick = {
+                                isEditable = false
+                            }
+                        )
+                    }
                 }
                 else {
                     IconButton(
-                        modifier = Modifier.align(Alignment.CenterEnd),
+                        modifier = Modifier
+                            .background(
+                                color = NavyBlue,
+                                shape = RoundedCornerShape(50)
+                            )
+                            .size(38.dp)
+                            .align(Alignment.CenterEnd),
                         onClick = {
-                            isEditable = !isEditable
+                            isEditable = true
                         }
                     ) {
                         Icon(
                             painter = painterResource(id = editResourceId),
-                            contentDescription = ""
+                            contentDescription = "",
+                            tint = White
                         )
                     }
                 }
@@ -270,8 +290,6 @@ fun ProfileScreen (
                     Spacer(modifier = Modifier.height(60.dp))
                 }
             }
-
-
         }
     }
 }

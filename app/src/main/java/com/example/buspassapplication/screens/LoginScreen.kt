@@ -77,12 +77,7 @@ fun LoginScreen(
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
-                    modifier = Modifier.clickable {
-                        navController.navigate(route = AuthenticationScreenRoutes.ForgotPassword.route) {
-                            navController.popBackStack()
-                            launchSingleTop = true
-                        }
-                    }
+                    modifier = Modifier
                 )
                 NormalText(
                     value= "Reset",
@@ -90,7 +85,12 @@ fun LoginScreen(
                     fontFamily = PoppinsMedium,
                     color = NavyBlue,
                     fontWeight = FontWeight.Normal,
-                    modifier = Modifier
+                    modifier = Modifier.clickable {
+                        navController.navigate(route = AuthenticationScreenRoutes.ForgotPassword.route) {
+                            navController.popBackStack()
+                            launchSingleTop = true
+                        }
+                    }
                 )
             }
             Spacer(modifier = Modifier.height(25.dp))
@@ -98,7 +98,7 @@ fun LoginScreen(
                 text = "Submit",
                 width = 280.dp,
                 height = 45.dp,
-                borderShape = RoundedCornerShape(36)
+                borderShape = RoundedCornerShape(50)
             ) {
                 navController.navigate(route = Graph.MAIN) {
                     popUpTo(route = Graph.AUTHENTICATION) {

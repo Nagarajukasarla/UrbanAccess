@@ -139,7 +139,7 @@ fun SignUpScreen (
                 text = "Signup",
                 width = 300.dp,
                 height = 45.dp,
-                borderShape = RoundedCornerShape(36)
+                borderShape = RoundedCornerShape(50)
             )
             Row (
             ) {

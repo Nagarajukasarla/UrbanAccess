@@ -1,13 +1,15 @@
 package com.example.buspassapplication.components
 
 
-import androidx.compose.foundation.border
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Divider
@@ -39,17 +41,20 @@ fun TopBar(
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     val screenWidthPixels = with(LocalDensity.current) { screenWidth.toPx() }
     val screenWidthDp = (screenWidthPixels)
-    Column(
+
+    Box(
 
     ) {
         Row (
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
+            horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                .height(45.dp)
+                .height(48.dp)
                 .fillMaxWidth()
-        ){
+                .background(color = Color.White)
+        ) {
             IconButton(
+                modifier = Modifier.padding(start = 5.dp),
                 onClick = {
                     navController.navigate(TopBarRoutes.Profile.route) {}
                 }
@@ -57,12 +62,12 @@ fun TopBar(
                 Icon(
                     painter = painterResource(id = profileResourceId),
                     contentDescription = "Profile",
-                    modifier = Modifier.size(45.dp),
+                    modifier = Modifier.size(40.dp),
                     tint = NavyBlue
                 )
             }
-            Spacer(modifier = Modifier.width(3.dp))
             IconButton(
+                modifier = Modifier.padding(end = 5.dp),
                 onClick = {
                     navController.navigate(TopBarRoutes.Settings.route) {}
                 }
@@ -70,7 +75,7 @@ fun TopBar(
                 Icon(
                     painter = painterResource(id = settingsResourceId),
                     contentDescription = "Settings",
-                    modifier = Modifier.size(45.dp),
+                    modifier = Modifier.size(40.dp),
                     tint = NavyBlue
                 )
             }
@@ -78,11 +83,11 @@ fun TopBar(
         Divider (
             modifier = Modifier
                 .fillMaxWidth()
-                .height(1.dp),
+                .height(1.dp)
+                .align(Alignment.BottomCenter),
             color = Color.LightGray
         )
     }
-    
 }
 
 @Preview

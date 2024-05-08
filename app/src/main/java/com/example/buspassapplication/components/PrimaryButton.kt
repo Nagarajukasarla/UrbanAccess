@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.buspassapplication.ui.theme.NavyBlue
@@ -22,6 +23,7 @@ import com.example.buspassapplication.ui.theme.White
 @Composable
 fun PrimaryButton(
     text: String,
+    fontSize: TextUnit = 17.sp,
     width: Dp,
     height: Dp,
     contentPadding: PaddingValues = PaddingValues(5.dp),
@@ -43,7 +45,7 @@ fun PrimaryButton(
     ) {
         NormalText(
             value = text,
-            fontSize = 17.sp,
+            fontSize = fontSize,
             fontWeight = FontWeight(18),
             fontFamily = PoppinsMedium,
             color = White,
