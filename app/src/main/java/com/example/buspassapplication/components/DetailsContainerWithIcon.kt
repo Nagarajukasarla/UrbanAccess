@@ -14,16 +14,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.wear.compose.material.Icon
-import com.example.buspassapplication.R
 import com.example.buspassapplication.ui.theme.DimGray
 import com.example.buspassapplication.ui.theme.LightGray
 import com.example.buspassapplication.ui.theme.PoppinsMedium
-import com.example.buspassapplication.ui.theme.CloudGray
 import com.example.buspassapplication.ui.theme.StoneWhite
 
 @Composable
@@ -50,7 +47,7 @@ fun DetailsContainerWithIcon (
             tint = DimGray
         )
         NormalText(
-            modifier = Modifier.padding(start = 20.dp),
+            modifier = Modifier.padding(start = 20.dp, end = 5.dp),
             value = value,
             fontSize = 16.sp,
             fontWeight = FontWeight.Normal,

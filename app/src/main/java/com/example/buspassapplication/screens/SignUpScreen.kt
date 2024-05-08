@@ -60,6 +60,12 @@ fun SignUpScreen (
             .padding(bottom = 15.dp)
     ) {
 
+        var firstName by rememberSaveable { mutableStateOf("") }
+        var lastName by rememberSaveable { mutableStateOf("") }
+        var email by rememberSaveable { mutableStateOf("") }
+        var password by rememberSaveable { mutableStateOf("") }
+        var confirmPassword by rememberSaveable { mutableStateOf("") }
+
         var termsAndConditionsValue by rememberSaveable { mutableStateOf(false)  }
 
         Column(
@@ -82,35 +88,47 @@ fun SignUpScreen (
             Spacer(modifier = Modifier.height(17.dp))
             OutlinedInputField(
                 label = "First Name",
-                modifier = Modifier.width(300.dp)
+                modifier = Modifier.width(300.dp),
+                value = firstName,
+                onValueChange = { firstName = it }
             )
             Spacer(modifier = Modifier.height(16.dp))
             OutlinedInputField(
                 label = "Last Name",
-                modifier = Modifier.width(300.dp)
+                modifier = Modifier.width(300.dp),
+                value = lastName,
+                onValueChange = { lastName = it }
             )
             Spacer(modifier = Modifier.height(16.dp))
             OutlinedInputField(
                 label = "Email",
-                modifier = Modifier.width(300.dp)
+                modifier = Modifier.width(300.dp),
+                value = email,
+                onValueChange = { email = it }
             )
             Spacer(modifier = Modifier.height(16.dp))
             PasswordField(
                 label = "Password",
-                modifier = Modifier.width(300.dp)
+                modifier = Modifier.width(300.dp),
+                value = password,
+                onValueChange = { password = it }
             )
             Spacer(modifier = Modifier.height(16.dp))
             PasswordField(
                 label = "Confirm Password",
                 modifier = Modifier.width(300.dp),
+                value = confirmPassword,
+                onValueChange = { confirmPassword = it }
             )
             Row  (
                 modifier = Modifier
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .padding(top = 20.dp)
+                    .height(25.dp),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically,
 
-            ){
+            ) {
                 Checkbox(
                     checked = termsAndConditionsValue,
                     onCheckedChange = {
@@ -133,7 +151,7 @@ fun SignUpScreen (
                 fontWeight = FontWeight.Normal,
                 fontFamily = PoppinsMedium,
                 color = NavyBlue,
-                modifier = Modifier
+                modifier = Modifier.padding(bottom = 20.dp)
             )
             PrimaryButton(
                 text = "Signup",
@@ -142,9 +160,10 @@ fun SignUpScreen (
                 borderShape = RoundedCornerShape(50)
             )
             Row (
+                modifier = Modifier.padding(top = 14.dp)
             ) {
                 NormalText(
-                    modifier = Modifier.padding(top = 4.dp),
+                    modifier = Modifier,
                     value = "Already a member? ",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Normal,
@@ -153,7 +172,6 @@ fun SignUpScreen (
                 )
                 NormalText(
                     modifier = Modifier
-                        .padding(top = 4.dp)
                         .clickable {
                             navController.navigate(route = AuthenticationScreenRoutes.Login.route) {
                                 popUpTo(route = AuthenticationScreenRoutes.Signup.route) {

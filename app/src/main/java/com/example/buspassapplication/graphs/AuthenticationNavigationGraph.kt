@@ -6,7 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.buspassapplication.AuthenticationScreenRoutes
-import com.example.buspassapplication.screens.ForgotPasswordScreen
+import com.example.buspassapplication.screens.PasswordRecoveryScreen
 import com.example.buspassapplication.screens.LoginScreen
 import com.example.buspassapplication.screens.SignUpScreen
 import com.example.buspassapplication.screens.UpdatePasswordScreen
@@ -32,7 +32,7 @@ fun NavGraphBuilder.authenticationNavigationGraph (
         composable(
             route = AuthenticationScreenRoutes.ForgotPassword.route
         ) {
-            ForgotPasswordScreen(navController = navController)
+            PasswordRecoveryScreen(navController = navController)
         }
         composable(
             route = AuthenticationScreenRoutes.UpdatePassword.route

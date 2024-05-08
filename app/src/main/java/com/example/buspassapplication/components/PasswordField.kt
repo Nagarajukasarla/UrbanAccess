@@ -31,14 +31,15 @@ import com.example.buspassapplication.ui.theme.NavyBlue
 @ExperimentalMaterial3Api
 @Composable
 fun PasswordField (
+    value: String,
+    onValueChange: (String) -> Unit,
     modifier: Modifier,
     label: String,
     width: Dp = 280.dp,
     maxWidth: Dp = 340.dp,
     onPasswordChange: (String) -> Unit = {}
 ) {
-    var password by rememberSaveable { mutableStateOf("") }
-    var passwordVisibilityState by remember { mutableStateOf(false) }
+    var passwordVisibilityState by rememberSaveable { mutableStateOf(false) }
 
     val visibilityResourceId = R.drawable.visibilty
     val visibilityOffResourceId = R.drawable.visibility_off
@@ -51,10 +52,8 @@ fun PasswordField (
 
     OutlinedTextField(
         modifier = modifier,
-        value = password,
-        onValueChange = {inputValue ->
-            password = inputValue
-        },
+        value = value,
+        onValueChange = onValueChange,
         label= {
             Text(
                 text = AnnotatedString(label),

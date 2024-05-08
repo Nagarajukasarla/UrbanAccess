@@ -14,6 +14,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,6 +44,9 @@ fun LoginScreen(
     navController: NavController
 ){
 
+    var email by rememberSaveable { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
+
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -62,12 +69,16 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(20.dp))
             OutlinedInputField(
                 label = "Email",
-                modifier = Modifier.width(330.dp)
+                modifier = Modifier.width(330.dp),
+                value = email,
+                onValueChange = { email = it }
             )
             Spacer(modifier = Modifier.height(20.dp))
             PasswordField(
                 modifier = Modifier.width(330.dp),
                 label = "Password",
+                value = password,
+                onValueChange = { password = it }
             )
             Spacer(modifier = Modifier.height(25.dp))
             Row {
@@ -87,7 +98,6 @@ fun LoginScreen(
                     fontWeight = FontWeight.Normal,
                     modifier = Modifier.clickable {
                         navController.navigate(route = AuthenticationScreenRoutes.ForgotPassword.route) {
-                            navController.popBackStack()
                             launchSingleTop = true
                         }
                     }
@@ -116,7 +126,6 @@ fun LoginScreen(
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     modifier = Modifier
-
                 )
                 NormalText(
                     value = "Signup",
@@ -126,9 +135,6 @@ fun LoginScreen(
                     color = NavyBlue,
                     modifier = Modifier.clickable {
                         navController.navigate(route = AuthenticationScreenRoutes.Signup.route) {
-                            popUpTo(route = AuthenticationScreenRoutes.Login.route) {
-                                inclusive = true
-                            }
                             launchSingleTop = true
                         }
                     }
