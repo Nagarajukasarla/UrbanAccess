@@ -47,7 +47,7 @@ import com.example.buspassapplication.ui.theme.PoppinsMedium
 @ExperimentalMaterial3Api
 @Composable
 fun GeneralRoutePassScreen(){
-    var fullname by rememberSaveable { mutableStateOf("") }
+    var fullName by rememberSaveable { mutableStateOf("") }
     var guardian by rememberSaveable { mutableStateOf("") }
     var dateOfBirth by rememberSaveable { mutableStateOf("") }
     var phone by rememberSaveable { mutableStateOf("") }
@@ -60,6 +60,7 @@ fun GeneralRoutePassScreen(){
     var fromPlace by rememberSaveable { mutableStateOf("") }
     var toPlace by rememberSaveable { mutableStateOf("") }
     var pincode by rememberSaveable { mutableStateOf("") }
+    var gender by rememberSaveable { mutableStateOf("") }
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -93,97 +94,121 @@ fun GeneralRoutePassScreen(){
             )
             OutlinedInputField(
                 label = "Full name",
-                modifier = Modifier.width(280.dp)
-                    .padding(bottom=15.dp),
-                value = fullname,
-                onValueChange = { fullname = it }
+                modifier = Modifier
+                    .width(280.dp)
+                    .padding(bottom = 15.dp),
+                value = fullName,
+                onValueChange = { fullName = it }
             )
             OutlinedInputField(
                 label = "Guardian name",
-                modifier = Modifier.width(280.dp)
-                    .padding(bottom=15.dp),
+                modifier = Modifier
+                    .width(280.dp)
+                    .padding(bottom = 15.dp),
                 value = guardian,
                 onValueChange = { guardian = it }
             )
             OutlinedInputField(
                 label = "Date of birth",
-                modifier = Modifier.width(280.dp)
-                    .padding(bottom=15.dp),
+                modifier = Modifier
+                    .width(280.dp)
+                    .padding(bottom = 15.dp),
                 value = dateOfBirth,
                 onValueChange = { dateOfBirth = it }
             )
-           DropDown()
+           DropDown(
+               options = listOf("Male","Female","Others"),
+               value = "Gender",
+               onItemSelected = {gender = it}
+               )
+            Spacer(modifier = Modifier.padding(bottom=15.dp))
             OutlinedInputField(
                 label = "Mobile",
-                modifier = Modifier.width(280.dp)
-                    .padding(bottom=15.dp),
+                modifier = Modifier
+                    .width(280.dp)
+                    .padding(bottom = 15.dp),
                 value = phone,
                 onValueChange = { phone = it }
             )
             OutlinedInputField(
                 label = "Email",
-                modifier = Modifier.width(280.dp)
-                    .padding(bottom=15.dp),
+                modifier = Modifier
+                    .width(280.dp)
+                    .padding(bottom = 15.dp),
                 value = email,
                 onValueChange = { email = it }
             )
             OutlinedInputField(
                 label = "Aadhar no",
-                modifier = Modifier.width(280.dp)
-                    .padding(bottom=15.dp),
+                modifier = Modifier
+                    .width(280.dp)
+                    .padding(bottom = 15.dp),
                 value = aadhar,
                 onValueChange = { aadhar = it }
             )
             OutlinedInputField(
                 label = "Applicant address",
-                modifier = Modifier.width(280.dp)
-                    .padding(bottom=15.dp),
+                modifier = Modifier
+                    .width(280.dp)
+                    .padding(bottom = 15.dp),
                 value = address,
                 onValueChange = { address = it }
             )
             OutlinedInputField(
                 label = "District",
-                modifier = Modifier.width(280.dp)
-                    .padding(bottom=15.dp),
+                modifier = Modifier
+                    .width(280.dp)
+                    .padding(bottom = 15.dp),
                 value = district,
                 onValueChange = { district = it }
             )
             OutlinedInputField(
                 label = "Mandal",
-                modifier = Modifier.width(280.dp)
-                    .padding(bottom=15.dp),
+                modifier = Modifier
+                    .width(280.dp)
+                    .padding(bottom = 15.dp),
                 value = mandal,
                 onValueChange = { mandal = it }
             )
             OutlinedInputField(
                 label = "village",
-                modifier = Modifier.width(280.dp)
-                    .padding(bottom=15.dp),
+                modifier = Modifier
+                    .width(280.dp)
+                    .padding(bottom = 15.dp),
                 value = village,
                 onValueChange = { village = it }
             )
             OutlinedInputField(
                 label = "Pin Code",
-                modifier = Modifier.width(280.dp)
-                    .padding(bottom=15.dp),
+                modifier = Modifier
+                    .width(280.dp)
+                    .padding(bottom = 15.dp),
                 value = pincode,
                 onValueChange = { pincode = it }
             )
-            ImagePickerInputField()
             BlueLabelledText(text = "Route details")
+
             OutlinedInputField(
                 label = "From Place",
-                modifier = Modifier.width(280.dp)
-                    .padding(bottom=15.dp),
+                modifier = Modifier
+                    .width(280.dp)
+                    .padding(bottom = 15.dp),
                 value = fromPlace,
                 onValueChange = { fromPlace = it }
             )
             OutlinedInputField(
                 label = "To Place",
-                modifier = Modifier.width(280.dp)
-                    .padding(bottom=15.dp),
+                modifier = Modifier
+                    .width(280.dp)
+                    .padding(bottom = 15.dp),
                 value = toPlace,
                 onValueChange = { toPlace = it }
+            )
+            PrimaryButton(
+                text = "Submit",
+                width = 280.dp,
+                height = 45.dp,
+                borderShape = RoundedCornerShape(50)
             )
         }
     }
