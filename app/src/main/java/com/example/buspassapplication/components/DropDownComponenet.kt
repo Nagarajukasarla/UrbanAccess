@@ -24,16 +24,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.NavyBlue
+import com.example.buspassapplication.components.OutlinedInputField
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DropDown(){
-    val list = listOf("Other","Male","Female")
+fun DropDown(
+    options: List<String>,
+    value: String,
+    onItemSelected: (String) -> Unit
+){
+    val list = options
     var isExpanded by remember {
         mutableStateOf(false)
     }
     var selectedText by remember {
-        mutableStateOf(list[0])
+        mutableStateOf(value)
     }
     Column(
         modifier = Modifier
@@ -48,11 +53,14 @@ fun DropDown(){
         {
             OutlinedTextField(
                 modifier = Modifier.menuAnchor(),
-                value = selectedText, onValueChange = {},
+                value = selectedText, onValueChange = onItemSelected,
                 readOnly = true,
                 label = {
                     Text(
                         text = "Gender",
+                        style = TextStyle(
+                            letterSpacing = 0.3.sp
+                        )
                     )
                 },
                 textStyle = TextStyle(
@@ -61,13 +69,15 @@ fun DropDown(){
                 trailingIcon = {
                     ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded)
                 },
+                singleLine = true,
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedBorderColor = NavyBlue,
                     focusedLabelColor = NavyBlue,
                     cursorColor = DarkGray,
-                    focusedSupportingTextColor = Color.DarkGray,
+                    focusedSupportingTextColor = Color.Black,
                     textColor = Color.Black
-                ))
+                )
+            )
             ExposedDropdownMenu(
                 expanded = isExpanded,
                 onDismissRequest = { isExpanded=false}) {

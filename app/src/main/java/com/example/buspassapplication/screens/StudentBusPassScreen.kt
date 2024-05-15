@@ -44,9 +44,10 @@ import com.example.buspassapplication.ui.theme.NavyBlue
 import com.example.buspassapplication.ui.theme.PoppinsBold
 import com.example.buspassapplication.ui.theme.PoppinsMedium
 
+
 @ExperimentalMaterial3Api
 @Composable
-fun GeneralRoutePassScreen(){
+fun StudentBusPass(){
     var fullName by rememberSaveable { mutableStateOf("") }
     var guardian by rememberSaveable { mutableStateOf("") }
     var dateOfBirth by rememberSaveable { mutableStateOf("") }
@@ -54,30 +55,37 @@ fun GeneralRoutePassScreen(){
     var email by rememberSaveable { mutableStateOf("") }
     var aadhar by rememberSaveable { mutableStateOf("") }
     var address by rememberSaveable { mutableStateOf("") }
-    var district by rememberSaveable { mutableStateOf("") }
-    var mandal by rememberSaveable { mutableStateOf("") }
-    var village by rememberSaveable { mutableStateOf("") }
-    var fromPlace by rememberSaveable { mutableStateOf("") }
-    var toPlace by rememberSaveable { mutableStateOf("") }
-    var pincode by rememberSaveable { mutableStateOf("") }
+    var districtOfStudent by rememberSaveable { mutableStateOf("") }
+    var mandalOfStudent by rememberSaveable { mutableStateOf("") }
+    var villageOfStudent by rememberSaveable { mutableStateOf("") }
+    var pincodeOfStudent by rememberSaveable { mutableStateOf("") }
     var gender by rememberSaveable { mutableStateOf("") }
+    var tenthBoard by rememberSaveable { mutableStateOf("") }
+    var yearOfPass by rememberSaveable { mutableStateOf("") }
+    var regularOrSupply by rememberSaveable { mutableStateOf("") }
+    var sscHallTicket by rememberSaveable { mutableStateOf("") }
+    var districtOfInstitute by rememberSaveable { mutableStateOf("") }
+    var mandalOfInstitute by rememberSaveable { mutableStateOf("") }
+    var instituteAddress by rememberSaveable { mutableStateOf("") }
+    var instituteName by rememberSaveable { mutableStateOf("") }
+    var courseName by rememberSaveable { mutableStateOf("") }
+    var admissionNumber by rememberSaveable { mutableStateOf("") }
     Surface(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Transparent)
             .padding(28.dp)
-    ) {
-
+    ){
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
+        ){
             NormalText(
                 modifier = Modifier
                     .padding(top=70.dp, bottom = 10.dp),
-                value = "General Route",
+                value = "Student",
                 fontSize = 25.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = PoppinsBold,
@@ -92,6 +100,44 @@ fun GeneralRoutePassScreen(){
                 fontFamily = PoppinsBold,
                 color = Color.Black
             )
+            BlueLabelledText(text = "Student 10th details")
+            DropDown(
+                options = listOf("State Board","CBSE","ICSE","Others"),
+                value = "SSC Board type",
+                onItemSelected = {tenthBoard = it}
+            )
+            Spacer(modifier = Modifier.padding(bottom=15.dp))
+            OutlinedInputField(
+                label = "SSC Year of pass",
+                modifier = Modifier
+                    .width(280.dp)
+                    .padding(bottom = 15.dp),
+                value = phone,
+                onValueChange = { yearOfPass = it }
+            )
+            OutlinedInputField(
+                label = "Date of birth",
+                modifier = Modifier
+                    .width(280.dp)
+                    .padding(bottom = 15.dp),
+                value = dateOfBirth,
+                onValueChange = { dateOfBirth = it }
+            )
+            DropDown(
+                options = listOf("Regular","Supplementary"),
+                value = "SSC Regular / Supplementary",
+                onItemSelected = {regularOrSupply = it}
+            )
+            Spacer(modifier = Modifier.padding(bottom=15.dp))
+            OutlinedInputField(
+                label = "SSC Hall ticket no.",
+                modifier = Modifier
+                    .width(280.dp)
+                    .padding(bottom = 15.dp),
+                value = sscHallTicket,
+                onValueChange = { sscHallTicket = it }
+            )
+            BlueLabelledText(text = "Student details")
             OutlinedInputField(
                 label = "Full name",
                 modifier = Modifier
@@ -108,19 +154,11 @@ fun GeneralRoutePassScreen(){
                 value = guardian,
                 onValueChange = { guardian = it }
             )
-            OutlinedInputField(
-                label = "Date of birth",
-                modifier = Modifier
-                    .width(280.dp)
-                    .padding(bottom = 15.dp),
-                value = dateOfBirth,
-                onValueChange = { dateOfBirth = it }
+            DropDown(
+                options = listOf("Male","Female","Others"),
+                value = "Gender",
+                onItemSelected = {gender = it}
             )
-           DropDown(
-               options = listOf("Male","Female","Others"),
-               value = "Gender",
-               onItemSelected = {gender = it}
-               )
             Spacer(modifier = Modifier.padding(bottom=15.dp))
             OutlinedInputField(
                 label = "Mobile",
@@ -131,21 +169,20 @@ fun GeneralRoutePassScreen(){
                 onValueChange = { phone = it }
             )
             OutlinedInputField(
-                label = "Email",
-                modifier = Modifier
-                    .width(280.dp)
-                    .padding(bottom = 15.dp),
-                value = email,
-                onValueChange = { email = it }
-            )
-            OutlinedInputField(
-                label = "Aadhar no",
+                label = "Aadhar no.",
                 modifier = Modifier
                     .width(280.dp)
                     .padding(bottom = 15.dp),
                 value = aadhar,
                 onValueChange = { aadhar = it }
             )
+            DropDown(
+                options = listOf("Yes","No"),
+                value = "Is Employee Children",
+                onItemSelected = {gender = it}
+            )
+            Spacer(modifier = Modifier.padding(bottom=15.dp))
+            BlueLabelledText(text = "Residential address details")
             OutlinedInputField(
                 label = "Applicant address",
                 modifier = Modifier
@@ -159,50 +196,81 @@ fun GeneralRoutePassScreen(){
                 modifier = Modifier
                     .width(280.dp)
                     .padding(bottom = 15.dp),
-                value = district,
-                onValueChange = { district = it }
+                value = districtOfStudent,
+                onValueChange = { districtOfStudent = it }
             )
             OutlinedInputField(
                 label = "Mandal",
                 modifier = Modifier
                     .width(280.dp)
                     .padding(bottom = 15.dp),
-                value = mandal,
-                onValueChange = { mandal = it }
+                value = mandalOfStudent,
+                onValueChange = { mandalOfStudent = it }
             )
             OutlinedInputField(
                 label = "village",
                 modifier = Modifier
                     .width(280.dp)
                     .padding(bottom = 15.dp),
-                value = village,
-                onValueChange = { village = it }
+                value = villageOfStudent,
+                onValueChange = {villageOfStudent = it }
             )
             OutlinedInputField(
                 label = "Pin Code",
                 modifier = Modifier
                     .width(280.dp)
                     .padding(bottom = 15.dp),
-                value = pincode,
-                onValueChange = { pincode = it }
+                value = pincodeOfStudent,
+                onValueChange = { pincodeOfStudent= it }
             )
-            BlueLabelledText(text = "Route details")
-
+            BlueLabelledText(text = "Institution details")
             OutlinedInputField(
-                label = "From Place",
+                label = "District",
                 modifier = Modifier
                     .width(280.dp)
                     .padding(bottom = 15.dp),
-                value = fromPlace,
-                onValueChange = { fromPlace = it }
+                value = districtOfInstitute,
+                onValueChange = { districtOfInstitute = it }
             )
             OutlinedInputField(
-                label = "To Place",
+                label = "Mandal",
                 modifier = Modifier
                     .width(280.dp)
                     .padding(bottom = 15.dp),
-                value = toPlace,
-                onValueChange = { toPlace = it }
+                value = mandalOfInstitute,
+                onValueChange = { mandalOfInstitute = it }
+            )
+            OutlinedInputField(
+                label = "Institution Name",
+                modifier = Modifier
+                    .width(280.dp)
+                    .padding(bottom = 15.dp),
+                value = instituteName,
+                onValueChange = { instituteName = it }
+            )
+            OutlinedInputField(
+                label = "Course name",
+                modifier = Modifier
+                    .width(280.dp)
+                    .padding(bottom = 15.dp),
+                value = courseName,
+                onValueChange = { courseName = it }
+            )
+            OutlinedInputField(
+                label = "Admission number",
+                modifier = Modifier
+                    .width(280.dp)
+                    .padding(bottom = 15.dp),
+                value = admissionNumber,
+                onValueChange = { admissionNumber = it }
+            )
+            OutlinedInputField(
+                label = "Institution Address",
+                modifier = Modifier
+                    .width(280.dp)
+                    .padding(bottom = 15.dp),
+                value = instituteAddress,
+                onValueChange = { instituteAddress = it }
             )
             PrimaryButton(
                 text = "Submit",
@@ -212,11 +280,4 @@ fun GeneralRoutePassScreen(){
             )
         }
     }
-}
-
-@ExperimentalMaterial3Api
-@Preview
-@Composable
-fun GeneralRoutePassPreview(){
-    GeneralRoutePassScreen()
 }

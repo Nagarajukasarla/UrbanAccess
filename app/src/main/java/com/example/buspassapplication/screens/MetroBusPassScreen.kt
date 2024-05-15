@@ -46,7 +46,7 @@ import com.example.buspassapplication.ui.theme.PoppinsMedium
 
 @ExperimentalMaterial3Api
 @Composable
-fun GeneralRoutePassScreen(){
+fun MetroBusPass(){
     var fullName by rememberSaveable { mutableStateOf("") }
     var guardian by rememberSaveable { mutableStateOf("") }
     var dateOfBirth by rememberSaveable { mutableStateOf("") }
@@ -57,8 +57,6 @@ fun GeneralRoutePassScreen(){
     var district by rememberSaveable { mutableStateOf("") }
     var mandal by rememberSaveable { mutableStateOf("") }
     var village by rememberSaveable { mutableStateOf("") }
-    var fromPlace by rememberSaveable { mutableStateOf("") }
-    var toPlace by rememberSaveable { mutableStateOf("") }
     var pincode by rememberSaveable { mutableStateOf("") }
     var gender by rememberSaveable { mutableStateOf("") }
     Surface(
@@ -76,8 +74,8 @@ fun GeneralRoutePassScreen(){
         ) {
             NormalText(
                 modifier = Modifier
-                    .padding(top=70.dp, bottom = 10.dp),
-                value = "General Route",
+                    .padding(top = 70.dp, bottom = 10.dp),
+                value = "Metro",
                 fontSize = 25.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = PoppinsBold,
@@ -116,12 +114,12 @@ fun GeneralRoutePassScreen(){
                 value = dateOfBirth,
                 onValueChange = { dateOfBirth = it }
             )
-           DropDown(
-               options = listOf("Male","Female","Others"),
-               value = "Gender",
-               onItemSelected = {gender = it}
-               )
-            Spacer(modifier = Modifier.padding(bottom=15.dp))
+            DropDown(
+                options = listOf("Male", "Female", "Others"),
+                value = "Gender",
+                onItemSelected = { gender = it }
+            )
+            Spacer(modifier = Modifier.padding(bottom = 15.dp))
             OutlinedInputField(
                 label = "Mobile",
                 modifier = Modifier
@@ -186,24 +184,6 @@ fun GeneralRoutePassScreen(){
                 value = pincode,
                 onValueChange = { pincode = it }
             )
-            BlueLabelledText(text = "Route details")
-
-            OutlinedInputField(
-                label = "From Place",
-                modifier = Modifier
-                    .width(280.dp)
-                    .padding(bottom = 15.dp),
-                value = fromPlace,
-                onValueChange = { fromPlace = it }
-            )
-            OutlinedInputField(
-                label = "To Place",
-                modifier = Modifier
-                    .width(280.dp)
-                    .padding(bottom = 15.dp),
-                value = toPlace,
-                onValueChange = { toPlace = it }
-            )
             PrimaryButton(
                 text = "Submit",
                 width = 280.dp,
@@ -212,11 +192,4 @@ fun GeneralRoutePassScreen(){
             )
         }
     }
-}
-
-@ExperimentalMaterial3Api
-@Preview
-@Composable
-fun GeneralRoutePassPreview(){
-    GeneralRoutePassScreen()
 }
