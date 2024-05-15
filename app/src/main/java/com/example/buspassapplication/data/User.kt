@@ -1,4 +1,4 @@
-package com.example.buspassapplication
+package com.example.buspassapplication.data
 
 data class User(
     var name: String = "Vasudev Krishna",

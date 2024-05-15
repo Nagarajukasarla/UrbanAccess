@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.buspassapplication.AuthenticationScreenRoutes
+import com.example.buspassapplication.routes.AuthenticationScreenRoutes
 import com.example.buspassapplication.components.HeadingText
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.OutlinedInputField

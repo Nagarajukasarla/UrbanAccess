@@ -5,7 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.example.buspassapplication.AuthenticationScreenRoutes
+import com.example.buspassapplication.routes.AuthenticationScreenRoutes
 import com.example.buspassapplication.screens.PasswordRecoveryScreen
 import com.example.buspassapplication.screens.LoginScreen
 import com.example.buspassapplication.screens.SignUpScreen

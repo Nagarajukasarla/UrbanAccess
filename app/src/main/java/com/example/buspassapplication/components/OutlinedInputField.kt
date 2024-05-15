@@ -2,6 +2,7 @@ package com.example.buspassapplication.components
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -34,15 +35,15 @@ fun OutlinedInputField (
                 )
             )
         },
-        colors = TextFieldDefaults.outlinedTextFieldColors(
+        colors = OutlinedTextFieldDefaults.colors(
             focusedBorderColor = NavyBlue,
             focusedLabelColor = NavyBlue,
             cursorColor = DarkGray,
-            focusedSupportingTextColor = Black,
-            textColor = Black
+            focusedSupportingTextColor = DarkGray,
         ),
         textStyle = TextStyle(
-            letterSpacing = 0.7.sp
+            letterSpacing = 0.7.sp,
+            color = DarkGray
         ),
         singleLine = true,
         enabled = enabled

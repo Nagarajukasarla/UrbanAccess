@@ -37,7 +37,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.R
-import com.example.buspassapplication.User
+import com.example.buspassapplication.data.User
 import com.example.buspassapplication.components.CircularImageWithAddPhoto
 import com.example.buspassapplication.components.DetailsContainerWithIcon
 import com.example.buspassapplication.components.NormalText

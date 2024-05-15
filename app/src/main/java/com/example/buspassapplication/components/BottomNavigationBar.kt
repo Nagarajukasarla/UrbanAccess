@@ -28,7 +28,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.wear.compose.material.Icon
-import com.example.buspassapplication.BottomBarRoutes
+import com.example.buspassapplication.routes.BottomBarRoutes
 import com.example.buspassapplication.ui.theme.IceBlue
 import com.example.buspassapplication.ui.theme.LightGray
 import com.example.buspassapplication.ui.theme.NavyBlue

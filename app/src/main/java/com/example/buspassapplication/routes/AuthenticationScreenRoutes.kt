@@ -1,4 +1,4 @@
-package com.example.buspassapplication
+package com.example.buspassapplication.routes
 
 sealed class AuthenticationScreenRoutes(val route: String) {
     object Login: AuthenticationScreenRoutes(route = "login_screen")

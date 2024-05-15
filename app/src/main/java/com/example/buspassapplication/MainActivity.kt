@@ -19,11 +19,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -31,11 +29,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.buspassapplication.components.PasswordField
 import com.example.buspassapplication.graphs.RootNavigationGraph
-import com.example.buspassapplication.screens.LoginScreen
-import com.example.buspassapplication.screens.SignUpScreen
 import com.example.buspassapplication.ui.theme.BusPassApplicationTheme
+import com.google.firebase.BuildConfig
+import com.google.firebase.Firebase
+import com.google.firebase.app
+import com.google.firebase.auth.auth
+import com.google.firebase.firestore.firestore
 
 @ExperimentalMaterial3Api
 class MainActivity : ComponentActivity() {
@@ -43,6 +43,7 @@ class MainActivity : ComponentActivity() {
     lateinit var navController: NavHostController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        configureFirebaseServices()
         setContent {
             BusPassApplicationTheme {
                 // A surface container using the 'background' color from the theme
@@ -73,6 +74,13 @@ class MainActivity : ComponentActivity() {
 //                    LoginScreen()
                 }
 //            }
+        }
+    }
+
+    private fun configureFirebaseServices() {
+        if (BuildConfig.DEBUG) {
+            Firebase.auth.useEmulator("127.0.0.1", 9099)
+            Firebase.firestore.useEmulator("127.0.0.1", 8080)
         }
     }
 }

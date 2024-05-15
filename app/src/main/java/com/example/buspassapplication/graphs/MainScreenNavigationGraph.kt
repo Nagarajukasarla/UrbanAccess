@@ -5,8 +5,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.buspassapplication.BottomBarRoutes
-import com.example.buspassapplication.TopBarRoutes
+import androidx.navigation.compose.rememberNavController
+import com.example.buspassapplication.routes.BottomBarRoutes
+import com.example.buspassapplication.routes.TopBarRoutes
 import com.example.buspassapplication.screens.MapScreen
 import com.example.buspassapplication.screens.PassScreen
 import com.example.buspassapplication.screens.ProfileScreen
@@ -39,6 +40,9 @@ fun MainScreenNavigationGraph (
         }
         composable(route = TopBarRoutes.Profile.route) {
             ProfileScreen(navController = navController)
+        }
+        composable(route = Graph.PASS) {
+            passScreenNavigationGraph(navController = rememberNavController())
         }
     }
 }

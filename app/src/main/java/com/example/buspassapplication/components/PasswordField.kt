@@ -5,6 +5,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -62,11 +63,11 @@ fun PasswordField (
                 )
             )
         },
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedLabelColor = NavyBlue,
+        colors = OutlinedTextFieldDefaults.colors(
             focusedBorderColor = NavyBlue,
+            focusedLabelColor = NavyBlue,
             cursorColor = DarkGray,
-            textColor = DarkGray
+            focusedSupportingTextColor = DarkGray
         ),
         visualTransformation = if (passwordVisibilityState) VisualTransformation.None
             else PasswordVisualTransformation(),

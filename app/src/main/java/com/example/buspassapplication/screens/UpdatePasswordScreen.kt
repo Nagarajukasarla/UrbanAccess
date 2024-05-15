@@ -1,7 +1,6 @@
 package com.example.buspassapplication.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -26,15 +25,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.buspassapplication.AuthenticationScreenRoutes
+import com.example.buspassapplication.routes.AuthenticationScreenRoutes
 import com.example.buspassapplication.components.HeadingText
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.PasswordField
 import com.example.buspassapplication.components.PrimaryButton
 import com.example.buspassapplication.ui.theme.DarkGray
-import com.example.buspassapplication.ui.theme.NavyBlue
 import com.example.buspassapplication.ui.theme.PoppinsLight
-import com.example.buspassapplication.ui.theme.PoppinsMedium
 
 @ExperimentalMaterial3Api
 @Composable

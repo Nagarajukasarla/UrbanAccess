@@ -1,4 +1,6 @@
-package com.example.buspassapplication
+package com.example.buspassapplication.routes
+
+import com.example.buspassapplication.R
 
 sealed class BottomBarRoutes (
     val route: String,
