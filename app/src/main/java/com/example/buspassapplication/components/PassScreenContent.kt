@@ -55,42 +55,32 @@ fun PassScreenContent(
                 title = "General Pass",
                 subTitle = "Apply now",
                 onClick = {
-
-                },
-                onButtonClick = {
                     navController.navigate(route = Graph.PASS) { }
-                }
+                },
             )
             CardWithIcon(
                 icon = metroResourceId,
                 title = "Metro Pass",
                 subTitle = "Apply now",
                 onClick = {
+                    navController.navigate(route = PassScreenRoutes.MetroForm.route) { }
                 },
-                onButtonClick = {
-                    navController.navigate(route = PassScreenRoutes.MetroForm.route) {
-                    }
-                }
             )
             CardWithIcon(
                 icon = studentResourceId,
                 title = "Student Pass",
                 subTitle = "Apply now",
                 onClick = {
-
-                },
-                onButtonClick = {
                     navController.navigate(route = PassScreenRoutes.StudentForm.route) { }
-                }
+                },
             )
             CardWithIcon(
                 icon = routeResourceId,
                 title = "Route Pass",
                 subTitle = "Apply now",
-                onButtonClick = {
+                onClick = {
                     navController.navigate(route = PassScreenRoutes.RouteForm.route) { }
-                },
-                onClick = { }
+                }
             )
         }
     }

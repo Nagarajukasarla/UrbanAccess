@@ -74,7 +74,6 @@ fun ProfileScreen (
     val countryResourceId = R.drawable.flag
     val editResourceId = R.drawable.edit
 
-
     val user = User()
 
     var name by rememberSaveable { mutableStateOf(user.name) }

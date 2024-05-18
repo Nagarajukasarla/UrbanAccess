@@ -49,7 +49,6 @@ fun CardWithIcon (
     isBordered: Boolean = true,
     underLine: Boolean = false,
     onClick: () -> Unit,
-    onButtonClick: () -> Unit
 ) {
 
     val forwardArrowResourceId = R.drawable.arrow_forward
@@ -63,7 +62,7 @@ fun CardWithIcon (
         .width(width)
         .border(width = 1.dp, color = DimGray, shape = RoundedCornerShape(10.dp))
         .clickable {
-            onClick
+            onClick()
         }
 
     val boxWithoutBorder = Modifier
@@ -73,7 +72,7 @@ fun CardWithIcon (
         )
         .width(width)
         .height(height)
-        .clickable { onClick }
+        .clickable { onClick() }
 
     Row (
         modifier = if (isBordered) boxWithBorder else boxWithoutBorder,
@@ -124,7 +123,7 @@ fun CardWithIcon (
         val iconButtonStyleWithoutBorder = Modifier.size(iconButtonSize).padding(start = 10.dp)
 
         IconButton(
-            onClick = { onButtonClick() },
+            onClick = { },
             modifier = if (roundedButton) iconButtonStyleWithBorder else iconButtonStyleWithoutBorder
         ) {
             Icon(

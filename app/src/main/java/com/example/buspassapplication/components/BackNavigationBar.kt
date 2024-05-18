@@ -30,9 +30,7 @@ fun BackNavigationBar (
     navController: NavHostController
 ) {
 
-
     val leftArrowResourceId = R.drawable.arrow_left
-    val submit = R.drawable.feedback
 
     Row (
         modifier = Modifier
@@ -41,7 +39,7 @@ fun BackNavigationBar (
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Box(
-            modifier = Modifier.weight(1f).border(width = 1.dp, color = DarkGray)
+            modifier = Modifier.weight(1f)
         ) {
             IconButton(
                 onClick = {
@@ -60,27 +58,31 @@ fun BackNavigationBar (
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            NormalText(
-                modifier = Modifier,
-                value = "Profile",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = PoppinsBold,
-                color = DarkGray,
-                letterSpacing = 0.7.sp
-            )
-        }
-        Box(modifier = Modifier.weight(1f).border(width = 1.dp, color = DarkGray)) {
-            IconButton(
-                onClick = {
-                    //
-                }
-            ) {
-                Icon(
-                    painter = painterResource(submit),
-                    contentDescription = "Back",
-                    modifier = Modifier.size(55.dp)
+            if (text.isNotEmpty()) {
+                NormalText(
+                    modifier = Modifier,
+                    value = "Profile",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = PoppinsBold,
+                    color = DarkGray,
+                    letterSpacing = 0.7.sp
                 )
+            }
+        }
+        Box(modifier = Modifier.weight(1f)) {
+            if (trailingIcon != 0) {
+                IconButton(
+                    onClick = {
+                        //
+                    }
+                ) {
+                    Icon(
+                        painter = painterResource(trailingIcon),
+                        contentDescription = "Back",
+                        modifier = Modifier.size(55.dp)
+                    )
+                }
             }
         }
     }

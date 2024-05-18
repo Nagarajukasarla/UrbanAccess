@@ -108,7 +108,6 @@ fun SettingsScreen (
                 onClick = {
                     // Should be navigated to ACCOUNT Screen
                 },
-                onButtonClick = { }
             )
             CardWithIcon(
                 width = 290.dp,
@@ -125,7 +124,6 @@ fun SettingsScreen (
                 onClick = {
                     // Should be to navigated to APPEARANCE Screen
                 },
-                onButtonClick = { }
             )
             CardWithIcon(
                 width = 290.dp,
@@ -142,7 +140,6 @@ fun SettingsScreen (
                 onClick = {
                     // Should be navigated to TRAVELING GPS Screen
                 },
-                onButtonClick = { }
             )
             CardWithIcon(
                 width = 290.dp,
@@ -159,7 +156,6 @@ fun SettingsScreen (
                 onClick = {
                     // Should be navigated to PAYMENT OPTIONS Screen
                 },
-                onButtonClick = { }
             )
             CardWithIcon(
                 width = 290.dp,
@@ -176,7 +172,6 @@ fun SettingsScreen (
                 onClick = {
                     // Should be navigated to REPORT BUG Screen
                 },
-                onButtonClick = { }
             )
             NormalText(
                 modifier = Modifier.padding(top = 20.dp),

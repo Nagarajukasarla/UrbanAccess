@@ -1,11 +1,12 @@
 package com.example.buspassapplication.data
 
 data class User(
-    var name: String = "Vasudev Krishna",
-    var email: String = "vasudevkrishna@gmail.com",
-    var phone: String = "9900088457",
-    var place: String = "Yashoda Nagar",
-    var city: String = "Dvarathi",
-    var state: String = "Dwaraka",
-    var country: String = "Bharath"
+    val id: String = "",
+    val name: String = "Vasudev Krishna",
+    val email: String = "vasudevkrishna@gmail.com",
+    val phone: String = "9900088457",
+    val place: String = "Yashoda Nagar",
+    val city: String = "Dvalathi",
+    val state: String = "Dwaraka",
+    val country: String = "Bharath"
 )
