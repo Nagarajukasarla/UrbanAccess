@@ -39,10 +39,8 @@ fun TopBar(
     val screenWidthPixels = with(LocalDensity.current) { screenWidth.toPx() }
     val screenWidthDp = (screenWidthPixels)
 
-    Box(
-
-    ) {
-        Row (
+    Box {
+        Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
@@ -77,7 +75,7 @@ fun TopBar(
                 )
             }
         }
-        Divider (
+        Divider(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(1.dp)

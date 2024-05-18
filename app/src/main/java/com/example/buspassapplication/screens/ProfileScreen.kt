@@ -22,7 +22,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -37,12 +36,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.R
-import com.example.buspassapplication.data.User
 import com.example.buspassapplication.components.CircularImageWithAddPhoto
 import com.example.buspassapplication.components.DetailsContainerWithIcon
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.OutlinedInputField
 import com.example.buspassapplication.components.PrimaryButton
+import com.example.buspassapplication.data.User
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.NavyBlue
 import com.example.buspassapplication.ui.theme.PoppinsBold
@@ -76,7 +75,7 @@ fun ProfileScreen (
     val editResourceId = R.drawable.edit
 
 
-    var user by remember { mutableStateOf(User()) }
+    val user = User()
 
     var name by rememberSaveable { mutableStateOf(user.name) }
     var email by rememberSaveable { mutableStateOf(user.email) }
@@ -154,9 +153,7 @@ fun ProfileScreen (
                             )
                             .size(38.dp)
                             .align(Alignment.CenterEnd),
-                        onClick = {
-                            isEditable = true
-                        }
+                        onClick = { isEditable = true }
                     ) {
                         Icon(
                             painter = painterResource(id = editResourceId),

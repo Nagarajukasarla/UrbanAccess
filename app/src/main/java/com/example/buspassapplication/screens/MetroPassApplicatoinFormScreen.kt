@@ -1,12 +1,16 @@
 package com.example.buspassapplication.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,19 +24,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.buspassapplication.components.BlueLabelledText
+import androidx.navigation.compose.rememberNavController
+import com.example.buspassapplication.components.BackNavigationBar
 import com.example.buspassapplication.components.DropDown
-import com.example.buspassapplication.components.ImagePickerInputField
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.OutlinedInputField
+import com.example.buspassapplication.components.PrimaryButton
 import com.example.buspassapplication.ui.theme.PoppinsBold
 
 @ExperimentalMaterial3Api
 @Composable
-fun GeneralRoutePassScreen(
+fun MetroPassApplicationFormScreen(
     navController: NavHostController
 ) {
-
     var fullName by rememberSaveable { mutableStateOf("") }
     var guardian by rememberSaveable { mutableStateOf("") }
     var dateOfBirth by rememberSaveable { mutableStateOf("") }
@@ -43,9 +47,8 @@ fun GeneralRoutePassScreen(
     var district by rememberSaveable { mutableStateOf("") }
     var mandal by rememberSaveable { mutableStateOf("") }
     var village by rememberSaveable { mutableStateOf("") }
-    var fromPlace by rememberSaveable { mutableStateOf("") }
-    var toPlace by rememberSaveable { mutableStateOf("") }
     var pincode by rememberSaveable { mutableStateOf("") }
+    var gender by rememberSaveable { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -53,19 +56,11 @@ fun GeneralRoutePassScreen(
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        BackNavigationBar(navController = navController)
         NormalText(
             modifier = Modifier
-                .padding(top = 70.dp, bottom = 10.dp),
-            value = "General Route",
-            fontSize = 25.sp,
-            fontWeight = FontWeight.Bold,
-            fontFamily = PoppinsBold,
-            color = Color.Black
-        )
-        NormalText(
-            modifier = Modifier
-                .padding(bottom = 30.dp),
-            value = "Bus Pass Application",
+                .padding(top = 15.dp, bottom = 20.dp),
+            value = "Metro Pass Application",
             fontSize = 25.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = PoppinsBold,
@@ -95,7 +90,12 @@ fun GeneralRoutePassScreen(
             value = dateOfBirth,
             onValueChange = { dateOfBirth = it }
         )
-        DropDown()
+        DropDown(
+            options = listOf("Male", "Female", "Others"),
+            value = "Gender",
+            onItemSelected = { gender = it }
+        )
+        Spacer(modifier = Modifier.padding(bottom = 15.dp))
         OutlinedInputField(
             label = "Mobile",
             modifier = Modifier
@@ -160,30 +160,18 @@ fun GeneralRoutePassScreen(
             value = pincode,
             onValueChange = { pincode = it }
         )
-        ImagePickerInputField()
-        BlueLabelledText(text = "Route details")
-        OutlinedInputField(
-            label = "From Place",
-            modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
-            value = fromPlace,
-            onValueChange = { fromPlace = it }
-        )
-        OutlinedInputField(
-            label = "To Place",
-            modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
-            value = toPlace,
-            onValueChange = { toPlace = it }
+        PrimaryButton(
+            text = "Submit",
+            width = 280.dp,
+            height = 45.dp,
+            borderShape = RoundedCornerShape(50)
         )
     }
 }
 
-@ExperimentalMaterial3Api
-@Preview
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview(showBackground = true)
 @Composable
-fun GeneralRoutePassPreview() {
-    GeneralRoutePassScreen()
+fun MetroPassApplicationFormScreenPreview() {
+    MetroPassApplicationFormScreen(navController = rememberNavController())
 }

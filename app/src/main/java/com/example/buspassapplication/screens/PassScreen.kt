@@ -18,13 +18,12 @@ fun PassScreen(
 ) {
     Surface {
         Column {
-            Box(
-            ) {
-                Column (
+            Box {
+                Column(
                     modifier = Modifier
                         .verticalScroll(rememberScrollState())
                 ) {
-                    PassScreenContent()
+                    PassScreenContent(navController = navController)
                 }
             }
         }
@@ -33,6 +32,6 @@ fun PassScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview () {
+fun DefaultPreview() {
     PassScreen(navController = rememberNavController())
 }

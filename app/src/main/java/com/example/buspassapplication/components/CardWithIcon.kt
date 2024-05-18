@@ -3,6 +3,7 @@ package com.example.buspassapplication.components
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,14 +13,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
@@ -27,11 +26,11 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.buspassapplication.R
+import com.example.buspassapplication.ui.theme.CloudGray
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.DimGray
 import com.example.buspassapplication.ui.theme.PoppinsLight
 import com.example.buspassapplication.ui.theme.PoppinsMedium
-import com.example.buspassapplication.ui.theme.CloudGray
 
 @Composable
 fun CardWithIcon (
@@ -47,37 +46,37 @@ fun CardWithIcon (
     trailingIconSize: Dp = 30.dp,
     leadingIconSize: Dp = 16.dp,
     roundedButton: Boolean = true,
-    boxShadow: Boolean = true,
-    underLine: Boolean = false
+    isBordered: Boolean = true,
+    underLine: Boolean = false,
+    onClick: () -> Unit,
+    onButtonClick: () -> Unit
 ) {
 
     val forwardArrowResourceId = R.drawable.arrow_forward
 
-    val boxWithShadow = Modifier
+    val boxWithBorder = Modifier
         .padding(
             top = 20.dp,
             bottom = 20.dp
         )
         .height(height)
         .width(width)
-        .shadow(
-            elevation = 0.1.dp,
-            shape = RoundedCornerShape(10.dp),
-            spotColor = DimGray
-        )
-        .clip(shape = RoundedCornerShape(10.dp))
+        .border(width = 1.dp, color = DimGray, shape = RoundedCornerShape(10.dp))
+        .clickable {
+            onClick
+        }
 
-    val boxWithoutShadow = Modifier
+    val boxWithoutBorder = Modifier
         .padding(
             top = 20.dp,
             bottom = 20.dp
         )
         .width(width)
         .height(height)
-        .clip(shape = RoundedCornerShape(8.dp))
+        .clickable { onClick }
 
     Row (
-        modifier = if (boxShadow) boxWithShadow else boxWithoutShadow,
+        modifier = if (isBordered) boxWithBorder else boxWithoutBorder,
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
@@ -125,7 +124,7 @@ fun CardWithIcon (
         val iconButtonStyleWithoutBorder = Modifier.size(iconButtonSize).padding(start = 10.dp)
 
         IconButton(
-            onClick = {},
+            onClick = { onButtonClick() },
             modifier = if (roundedButton) iconButtonStyleWithBorder else iconButtonStyleWithoutBorder
         ) {
             Icon(
@@ -139,7 +138,7 @@ fun CardWithIcon (
         }
     }
     if (underLine) {
-        Divider(
+        HorizontalDivider(
             modifier = Modifier.height(1.dp).width(width),
             color = CloudGray
         )
