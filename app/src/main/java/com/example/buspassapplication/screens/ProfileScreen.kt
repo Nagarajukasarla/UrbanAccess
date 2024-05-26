@@ -190,49 +190,49 @@ fun ProfileScreen (
                         modifier = Modifier.width(290.dp),
                         label = "Name",
                         value = user.name,
-                        onValueChange = { name = it }
+                        onValueChanged = { name = it }
                     )
                     Spacer(modifier = Modifier.height(30.dp))
                     OutlinedInputField(
                         modifier = Modifier.width(290.dp),
                         label = "Email",
                         value = email,
-                        onValueChange =  { email = it }
+                        onValueChanged =  { email = it }
                     )
                     Spacer(modifier = Modifier.height(30.dp))
                     OutlinedInputField(
                         modifier = Modifier.width(290.dp),
                         label = "Phone",
                         value = phone,
-                        onValueChange = { phone = it }
+                        onValueChanged = { phone = it }
                     )
                     Spacer(modifier = Modifier.height(30.dp))
                     OutlinedInputField(
                         modifier = Modifier.width(290.dp),
                         label = "Place",
                         value = place,
-                        onValueChange = { place = it }
+                        onValueChanged = { place = it }
                     )
                     Spacer(modifier = Modifier.height(30.dp))
                     OutlinedInputField(
                         modifier = Modifier.width(290.dp),
                         label = "City",
                         value = city,
-                        onValueChange = { city = it }
+                        onValueChanged = { city = it }
                     )
                     Spacer(modifier = Modifier.height(30.dp))
                     OutlinedInputField(
                         modifier = Modifier.width(290.dp),
                         label = "State",
                         value = state,
-                        onValueChange = { state = it }
+                        onValueChanged = { state = it }
                     )
                     Spacer(modifier = Modifier.height(30.dp))
                     OutlinedInputField(
                         modifier = Modifier.width(290.dp),
                         label = "Country",
                         value = country,
-                        onValueChange = { country = it }
+                        onValueChanged = { country = it }
                     )
                     Spacer(modifier = Modifier.height(60.dp))
                 }

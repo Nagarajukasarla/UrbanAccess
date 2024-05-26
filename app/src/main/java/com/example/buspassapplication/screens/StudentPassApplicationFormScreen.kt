@@ -97,7 +97,7 @@ fun StudentPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = phone,
-            onValueChange = { yearOfPass = it }
+            onValueChanged = { yearOfPass = it }
         )
         OutlinedInputField(
             label = "Date of birth",
@@ -105,7 +105,7 @@ fun StudentPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = dateOfBirth,
-            onValueChange = { dateOfBirth = it }
+            onValueChanged = { dateOfBirth = it }
         )
         DropDown(
             options = listOf("Regular", "Supplementary"),
@@ -119,7 +119,7 @@ fun StudentPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = sscHallTicket,
-            onValueChange = { sscHallTicket = it }
+            onValueChanged = { sscHallTicket = it }
         )
         BlueLabelledText(text = "Student details")
         OutlinedInputField(
@@ -128,7 +128,7 @@ fun StudentPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = fullName,
-            onValueChange = { fullName = it }
+            onValueChanged = { fullName = it }
         )
         OutlinedInputField(
             label = "Guardian name",
@@ -136,7 +136,7 @@ fun StudentPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = guardian,
-            onValueChange = { guardian = it }
+            onValueChanged = { guardian = it }
         )
         DropDown(
             options = listOf("Male", "Female", "Others"),
@@ -150,7 +150,7 @@ fun StudentPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = phone,
-            onValueChange = { phone = it }
+            onValueChanged = { phone = it }
         )
         OutlinedInputField(
             label = "Aadhar no.",
@@ -158,7 +158,7 @@ fun StudentPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = aadhar,
-            onValueChange = { aadhar = it }
+            onValueChanged = { aadhar = it }
         )
         DropDown(
             options = listOf("Yes", "No"),
@@ -173,7 +173,7 @@ fun StudentPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = address,
-            onValueChange = { address = it }
+            onValueChanged = { address = it }
         )
         OutlinedInputField(
             label = "District",
@@ -181,7 +181,7 @@ fun StudentPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = districtOfStudent,
-            onValueChange = { districtOfStudent = it }
+            onValueChanged = { districtOfStudent = it }
         )
         OutlinedInputField(
             label = "Mandal",
@@ -189,7 +189,7 @@ fun StudentPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = mandalOfStudent,
-            onValueChange = { mandalOfStudent = it }
+            onValueChanged = { mandalOfStudent = it }
         )
         OutlinedInputField(
             label = "village",
@@ -197,7 +197,7 @@ fun StudentPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = villageOfStudent,
-            onValueChange = { villageOfStudent = it }
+            onValueChanged = { villageOfStudent = it }
         )
         OutlinedInputField(
             label = "Pin Code",
@@ -205,7 +205,7 @@ fun StudentPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = pincodeOfStudent,
-            onValueChange = { pincodeOfStudent = it }
+            onValueChanged = { pincodeOfStudent = it }
         )
         BlueLabelledText(text = "Institution details")
         OutlinedInputField(
@@ -214,7 +214,7 @@ fun StudentPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = districtOfInstitute,
-            onValueChange = { districtOfInstitute = it }
+            onValueChanged = { districtOfInstitute = it }
         )
         OutlinedInputField(
             label = "Mandal",
@@ -222,7 +222,7 @@ fun StudentPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = mandalOfInstitute,
-            onValueChange = { mandalOfInstitute = it }
+            onValueChanged = { mandalOfInstitute = it }
         )
         OutlinedInputField(
             label = "Institution Name",
@@ -230,7 +230,7 @@ fun StudentPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = instituteName,
-            onValueChange = { instituteName = it }
+            onValueChanged = { instituteName = it }
         )
         OutlinedInputField(
             label = "Course name",
@@ -238,7 +238,7 @@ fun StudentPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = courseName,
-            onValueChange = { courseName = it }
+            onValueChanged = { courseName = it }
         )
         OutlinedInputField(
             label = "Admission number",
@@ -246,7 +246,7 @@ fun StudentPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = admissionNumber,
-            onValueChange = { admissionNumber = it }
+            onValueChanged = { admissionNumber = it }
         )
         OutlinedInputField(
             label = "Institution Address",
@@ -254,7 +254,7 @@ fun StudentPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = instituteAddress,
-            onValueChange = { instituteAddress = it }
+            onValueChanged = { instituteAddress = it }
         )
         PrimaryButton(
             text = "Submit",

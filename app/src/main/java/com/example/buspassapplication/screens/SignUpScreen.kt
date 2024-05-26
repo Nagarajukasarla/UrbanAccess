@@ -90,21 +90,21 @@ fun SignUpScreen (
                 label = "First Name",
                 modifier = Modifier.width(300.dp),
                 value = firstName,
-                onValueChange = { firstName = it }
+                onValueChanged = { firstName = it }
             )
             Spacer(modifier = Modifier.height(16.dp))
             OutlinedInputField(
                 label = "Last Name",
                 modifier = Modifier.width(300.dp),
                 value = lastName,
-                onValueChange = { lastName = it }
+                onValueChanged = { lastName = it }
             )
             Spacer(modifier = Modifier.height(16.dp))
             OutlinedInputField(
                 label = "Email",
                 modifier = Modifier.width(300.dp),
                 value = email,
-                onValueChange = { email = it }
+                onValueChanged = { email = it }
             )
             Spacer(modifier = Modifier.height(16.dp))
             PasswordField(

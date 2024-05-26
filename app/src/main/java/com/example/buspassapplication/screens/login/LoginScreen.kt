@@ -1,5 +1,6 @@
-package com.example.buspassapplication.screens
+package com.example.buspassapplication.screens.login
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,10 +15,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,27 +23,30 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.buspassapplication.routes.AuthenticationScreenRoutes
 import com.example.buspassapplication.components.HeadingText
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.OutlinedInputField
 import com.example.buspassapplication.components.PasswordField
 import com.example.buspassapplication.components.PrimaryButton
 import com.example.buspassapplication.graphs.Graph
+import com.example.buspassapplication.routes.AuthenticationScreenRoutes
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.NavyBlue
 import com.example.buspassapplication.ui.theme.PoppinsMedium
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @ExperimentalMaterial3Api
 @Composable
 fun LoginScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: LoginViewModel = hiltViewModel()
 ){
 
-    var email by rememberSaveable { mutableStateOf("") }
-    var password by rememberSaveable { mutableStateOf("") }
+    var email = viewModel.email.collectAsState()
+    var password = viewModel.password.collectAsState()
 
     Surface(
         modifier = Modifier
@@ -70,15 +71,19 @@ fun LoginScreen(
             OutlinedInputField(
                 label = "Email",
                 modifier = Modifier.width(330.dp),
-                value = email,
-                onValueChange = { email = it }
+                value = email.value,
+                onValueChanged = {
+                    viewModel.updateEmail(it)
+                }
             )
             Spacer(modifier = Modifier.height(20.dp))
             PasswordField(
                 modifier = Modifier.width(330.dp),
                 label = "Password",
-                value = password,
-                onValueChange = { password = it }
+                value = password.value,
+                onValueChange = {
+                    viewModel.updatePassword(it)
+                }
             )
             Spacer(modifier = Modifier.height(25.dp))
             Row {
@@ -108,14 +113,16 @@ fun LoginScreen(
                 text = "Submit",
                 width = 280.dp,
                 height = 45.dp,
-                borderShape = RoundedCornerShape(50)
-            ) {
-                navController.navigate(route = Graph.MAIN) {
-                    popUpTo(route = Graph.AUTHENTICATION) {
-                        inclusive = true
+                borderShape = RoundedCornerShape(50),
+                onClick = {
+                    viewModel.onLoginClick()
+                    navController.navigate(route = Graph.MAIN) {
+                        popUpTo(route = Graph.AUTHENTICATION) {
+                            inclusive = true
+                        }
                     }
                 }
-            }
+            )
             Row(
                 modifier = Modifier.padding(top = 15.dp)
             ) {

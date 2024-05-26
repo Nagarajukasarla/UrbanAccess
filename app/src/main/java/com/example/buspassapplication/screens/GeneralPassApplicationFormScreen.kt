@@ -71,7 +71,7 @@ fun GeneralPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = fullName,
-            onValueChange = { fullName = it }
+            onValueChanged = { fullName = it }
         )
         OutlinedInputField(
             label = "Guardian Name",
@@ -79,7 +79,7 @@ fun GeneralPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = guardian,
-            onValueChange = { guardian = it }
+            onValueChanged = { guardian = it }
         )
         OutlinedInputField(
             label = "Date of Birth",
@@ -87,7 +87,7 @@ fun GeneralPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = dateOfBirth,
-            onValueChange = { dateOfBirth = it }
+            onValueChanged = { dateOfBirth = it }
         )
         DropDown(
             options = listOf("Male", "Female", "Others"),
@@ -101,7 +101,7 @@ fun GeneralPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = phone,
-            onValueChange = { phone = it }
+            onValueChanged = { phone = it }
         )
         OutlinedInputField(
             label = "Email",
@@ -109,7 +109,7 @@ fun GeneralPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = email,
-            onValueChange = { email = it }
+            onValueChanged = { email = it }
         )
         OutlinedInputField(
             label = "Aadhar no",
@@ -117,7 +117,7 @@ fun GeneralPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = aadhar,
-            onValueChange = { aadhar = it }
+            onValueChanged = { aadhar = it }
         )
         OutlinedInputField(
             label = "Applicant address",
@@ -125,7 +125,7 @@ fun GeneralPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = address,
-            onValueChange = { address = it }
+            onValueChanged = { address = it }
         )
         OutlinedInputField(
             label = "District",
@@ -133,7 +133,7 @@ fun GeneralPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = district,
-            onValueChange = { district = it }
+            onValueChanged = { district = it }
         )
         OutlinedInputField(
             label = "Mandal",
@@ -141,7 +141,7 @@ fun GeneralPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = mandal,
-            onValueChange = { mandal = it }
+            onValueChanged = { mandal = it }
         )
         OutlinedInputField(
             label = "village",
@@ -149,7 +149,7 @@ fun GeneralPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = village,
-            onValueChange = { village = it }
+            onValueChanged = { village = it }
         )
         OutlinedInputField(
             label = "Pin Code",
@@ -157,7 +157,7 @@ fun GeneralPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = pincode,
-            onValueChange = { pincode = it }
+            onValueChanged = { pincode = it }
         )
         PrimaryButton(
             text = "Submit",

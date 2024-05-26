@@ -1,6 +1,5 @@
 package com.example.buspassapplication.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,7 +9,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -72,7 +70,7 @@ fun MetroPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = fullName,
-            onValueChange = { fullName = it }
+            onValueChanged = { fullName = it }
         )
         OutlinedInputField(
             label = "Guardian name",
@@ -80,7 +78,7 @@ fun MetroPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = guardian,
-            onValueChange = { guardian = it }
+            onValueChanged = { guardian = it }
         )
         OutlinedInputField(
             label = "Date of birth",
@@ -88,7 +86,7 @@ fun MetroPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = dateOfBirth,
-            onValueChange = { dateOfBirth = it }
+            onValueChanged = { dateOfBirth = it }
         )
         DropDown(
             options = listOf("Male", "Female", "Others"),
@@ -102,7 +100,7 @@ fun MetroPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = phone,
-            onValueChange = { phone = it }
+            onValueChanged = { phone = it }
         )
         OutlinedInputField(
             label = "Email",
@@ -110,7 +108,7 @@ fun MetroPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = email,
-            onValueChange = { email = it }
+            onValueChanged = { email = it }
         )
         OutlinedInputField(
             label = "Aadhar no",
@@ -118,7 +116,7 @@ fun MetroPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = aadhar,
-            onValueChange = { aadhar = it }
+            onValueChanged = { aadhar = it }
         )
         OutlinedInputField(
             label = "Applicant address",
@@ -126,7 +124,7 @@ fun MetroPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = address,
-            onValueChange = { address = it }
+            onValueChanged = { address = it }
         )
         OutlinedInputField(
             label = "District",
@@ -134,7 +132,7 @@ fun MetroPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = district,
-            onValueChange = { district = it }
+            onValueChanged = { district = it }
         )
         OutlinedInputField(
             label = "Mandal",
@@ -142,7 +140,7 @@ fun MetroPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = mandal,
-            onValueChange = { mandal = it }
+            onValueChanged = { mandal = it }
         )
         OutlinedInputField(
             label = "village",
@@ -150,7 +148,7 @@ fun MetroPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = village,
-            onValueChange = { village = it }
+            onValueChanged = { village = it }
         )
         OutlinedInputField(
             label = "Pin Code",
@@ -158,7 +156,7 @@ fun MetroPassApplicationFormScreen(
                 .width(280.dp)
                 .padding(bottom = 15.dp),
             value = pincode,
-            onValueChange = { pincode = it }
+            onValueChanged = { pincode = it }
         )
         PrimaryButton(
             text = "Submit",

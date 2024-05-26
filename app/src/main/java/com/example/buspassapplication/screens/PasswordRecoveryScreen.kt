@@ -79,7 +79,7 @@ fun PasswordRecoveryScreen (
             modifier = Modifier.width(330.dp),
             enabled = !verificationContentVisibility,
             value = email,
-            onValueChange = { email = it }
+            onValueChanged = { email = it }
         )
         Spacer(modifier = Modifier.height(30.dp))
         if (verificationContentVisibility) {
@@ -106,7 +106,7 @@ fun PasswordRecoveryScreen (
                 label = "One time password",
                 modifier = Modifier.width(330.dp),
                 value = otp,
-                onValueChange = { otp = it }
+                onValueChanged = { otp = it }
             )
         }
         Spacer(modifier = Modifier.height(25.dp))

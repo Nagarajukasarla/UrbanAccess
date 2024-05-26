@@ -4,12 +4,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
-import com.example.buspassapplication.ui.theme.Black
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.NavyBlue
 
@@ -17,7 +15,7 @@ import com.example.buspassapplication.ui.theme.NavyBlue
 @Composable
 fun OutlinedInputField (
     value: String,
-    onValueChange: (String) -> Unit,
+    onValueChanged: (String) -> Unit,
     modifier: Modifier,
     label: String,
     enabled: Boolean = true
@@ -26,7 +24,7 @@ fun OutlinedInputField (
     OutlinedTextField (
         modifier = modifier,
         value = value,
-        onValueChange = onValueChange,
+        onValueChange = onValueChanged,
         label = {
             Text(
                 text = label,
