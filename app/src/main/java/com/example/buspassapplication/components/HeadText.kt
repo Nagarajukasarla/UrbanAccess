@@ -18,10 +18,4 @@ fun HeadingText (
         color = TextColor,
         textAlign = TextAlign.Center
     )
-Text(
-        text = AnnotatedString(value),
-        style = if(isSmall) MaterialTheme.typography.titleSmall else MaterialTheme.typography.titleLarge,
-        color = TextColor,
-        textAlign = TextAlign.Center
-    )
 }
