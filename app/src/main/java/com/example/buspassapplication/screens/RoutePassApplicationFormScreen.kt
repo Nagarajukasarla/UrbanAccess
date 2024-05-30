@@ -161,7 +161,7 @@ fun RoutePassApplicationFormScreen(
             value = pincode,
             onValueChanged = { pincode = it }
         )
-        BlueLabelledText(text = " ")
+        BlueLabelledText(text = "Route Details")
         OutlinedInputField(
             label = "From Place",
             modifier = Modifier
