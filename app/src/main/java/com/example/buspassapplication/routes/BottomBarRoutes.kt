@@ -13,6 +13,7 @@ sealed class BottomBarRoutes (
         title = "Pass",
         icon = R.drawable.pass
     )
+
     object Wallet: BottomBarRoutes(
         route = "wallet",
         title = "Wallet",

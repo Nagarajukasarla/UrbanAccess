@@ -8,7 +8,7 @@ interface AccountService {
     val currentUserId: String
     fun hasUser(): Boolean
     suspend fun signIn(email: String, password: String)
-    suspend fun signUp(email: String, password: String)
+    suspend fun signUp(email: String, password: String, firstName: String, lastName: String)
     suspend fun signOut()
     suspend fun deleteAccount()
 }

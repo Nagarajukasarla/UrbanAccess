@@ -1,16 +1,12 @@
 package com.example.buspassapplication.graphs
 
-import android.util.Log
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.routes.BottomBarRoutes
-import com.example.buspassapplication.routes.PassScreenRoutes
 import com.example.buspassapplication.routes.TopBarRoutes
-import com.example.buspassapplication.screens.GeneralPassApplicationFormScreen
 import com.example.buspassapplication.screens.MapScreen
 import com.example.buspassapplication.screens.PassScreen
 import com.example.buspassapplication.screens.ProfileScreen
@@ -44,8 +40,6 @@ fun MainScreenNavigationGraph (
         composable(route = TopBarRoutes.Profile.route) {
             ProfileScreen(navController = navController)
         }
-
-            passScreenNavigationGraph(navController = navController)
-
+        passScreenNavigationGraph(navController = navController)
     }
 }

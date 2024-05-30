@@ -101,9 +101,14 @@ fun RowScope.AddItem (
             .clip(RoundedCornerShape(30))
             .background(iconBackground)
             .clickable {
-                navController.navigate(screen.route) {
-                    popUpTo(navController.graph.findStartDestination().id)
-                    launchSingleTop = true
+                if (!navController.isRouteActive(screen.route)) {
+                    navController.navigate(screen.route) {
+                        popUpTo(navController.graph.findStartDestination().id) {
+                            saveState = true
+                        }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
                 }
             },
         verticalAlignment = Alignment.CenterVertically,
@@ -116,4 +121,9 @@ fun RowScope.AddItem (
             tint = contentColor
         )
     }
+}
+
+fun NavHostController.isRouteActive(route: String): Boolean {
+    val currentRoute = this.currentBackStackEntry?.destination?.route
+    return currentRoute == route
 }

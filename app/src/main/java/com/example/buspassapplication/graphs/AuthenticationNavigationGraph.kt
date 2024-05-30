@@ -8,7 +8,7 @@ import androidx.navigation.navigation
 import com.example.buspassapplication.routes.AuthenticationScreenRoutes
 import com.example.buspassapplication.screens.PasswordRecoveryScreen
 import com.example.buspassapplication.screens.login.LoginScreen
-import com.example.buspassapplication.screens.SignUpScreen
+import com.example.buspassapplication.screens.signup.SignUpScreen
 import com.example.buspassapplication.screens.UpdatePasswordScreen
 
 @ExperimentalMaterial3Api
