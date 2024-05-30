@@ -28,6 +28,7 @@ import com.example.buspassapplication.components.DropDown
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.OutlinedInputField
 import com.example.buspassapplication.components.PrimaryButton
+import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.PoppinsBold
 
 @ExperimentalMaterial3Api
@@ -62,7 +63,7 @@ fun MetroPassApplicationFormScreen(
             fontSize = 25.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = PoppinsBold,
-            color = Color.Black
+            color =  DarkGray
         )
         OutlinedInputField(
             label = "Full name",
