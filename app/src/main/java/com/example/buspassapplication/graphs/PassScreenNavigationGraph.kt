@@ -6,10 +6,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.buspassapplication.routes.PassScreenRoutes
-import com.example.buspassapplication.screens.GeneralPassApplicationFormScreen
-import com.example.buspassapplication.screens.MetroPassApplicationFormScreen
-import com.example.buspassapplication.screens.RoutePassApplicationFormScreen
-import com.example.buspassapplication.screens.StudentPassApplicationFormScreen
+import com.example.buspassapplication.screens.generalPassApplication.GeneralPassApplicationFormScreen
+import com.example.buspassapplication.screens.metroPassApplication.MetroPassApplicationFormScreen
+import com.example.buspassapplication.screens.routePassApplication.RoutePassApplicationFormScreen
+import com.example.buspassapplication.screens.studentPassApplication.StudentPassApplicationFormScreen
 
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -1,4 +1,4 @@
-package com.example.buspassapplication.screens
+package com.example.buspassapplication.screens.metroPassApplication
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -30,10 +30,9 @@ import com.example.buspassapplication.components.PrimaryButton
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.PoppinsBold
 
-
 @ExperimentalMaterial3Api
 @Composable
-fun GeneralPassApplicationFormScreen(
+fun MetroPassApplicationFormScreen(
     navController: NavHostController
 ) {
     var fullName by rememberSaveable { mutableStateOf("") }
@@ -58,15 +57,15 @@ fun GeneralPassApplicationFormScreen(
         BackNavigationBar(navController = navController)
         NormalText(
             modifier = Modifier
-                .padding(top = 15.dp, bottom =  20.dp),
-            value = "General Pass Application",
+                .padding(top = 15.dp, bottom = 20.dp),
+            value = "Metro Pass Application",
             fontSize = 25.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = PoppinsBold,
-            color = DarkGray
+            color =  DarkGray
         )
         OutlinedInputField(
-            label = "Full Name",
+            label = "Full name",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
@@ -74,7 +73,7 @@ fun GeneralPassApplicationFormScreen(
             onValueChanged = { fullName = it }
         )
         OutlinedInputField(
-            label = "Guardian Name",
+            label = "Guardian name",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
@@ -82,7 +81,7 @@ fun GeneralPassApplicationFormScreen(
             onValueChanged = { guardian = it }
         )
         OutlinedInputField(
-            label = "Date of Birth",
+            label = "Date of birth",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
@@ -171,6 +170,6 @@ fun GeneralPassApplicationFormScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
-fun GeneralPassApplicationFormScreenPreview() {
-    GeneralPassApplicationFormScreen(navController = rememberNavController())
+fun MetroPassApplicationFormScreenPreview() {
+    MetroPassApplicationFormScreen(navController = rememberNavController())
 }

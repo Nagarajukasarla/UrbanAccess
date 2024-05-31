@@ -1,4 +1,4 @@
-package com.example.buspassapplication.screens
+package com.example.buspassapplication.screens.studentPassApplication
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
