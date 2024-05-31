@@ -197,6 +197,7 @@ fun SignUpScreen(
         }
         if (popupStatusForPasswordMatch.value) {
             Popup(
+                width = 310.dp,
                 title = "Password Mismatch",
                 contentOnFirstLine = "Please ensure that confirm password",
                 contentOnSecondLine = "match original password",
@@ -211,15 +212,15 @@ fun SignUpScreen(
         }
         if (popupStatusSigupAction.value) {
             Popup(
-                title = "Account Created",
-                contentOnFirstLine = "Please login to access",
-                contentOnSecondLine = "the application",
+                onDismissRequest = {
+                    viewModel.popupStatusSignupAction.value = false
+                },
                 onConfirmRequest = {
                     viewModel.popupStatusSignupAction.value = false
                 },
-                onDismissRequest = {
-                    viewModel.popupStatusSignupAction.value = false
-                }
+                title = "Account Created",
+                contentOnFirstLine = "Please login to access",
+                contentOnSecondLine = "the application"
             )
         }
     }

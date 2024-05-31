@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -37,6 +38,7 @@ import com.example.buspassapplication.ui.theme.White
 
 @Composable
 fun Popup(
+    width: Dp = 290.dp,
     dismiss: Boolean = true,
     onDismissRequest: () -> Unit = {},
     onConfirmRequest: () -> Unit = {},
@@ -161,11 +163,19 @@ fun Popup(
                             horizontalArrangement = Arrangement.Center,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            Button(onClick = { onDismissRequest() }) {
+                            Button(
+                                onClick = { onDismissRequest() },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = White,
+                                    contentColor = White,
+                                    disabledContainerColor = LightGray,
+                                    disabledContentColor = White,
+                                ),
+                            ) {
                                 NormalText(
                                     modifier = Modifier,
                                     value = "Okay",
-                                    fontSize = 14.sp,
+                                    fontSize = 13.sp,
                                     fontWeight = FontWeight.Bold,
                                     fontFamily = PoppinsBold,
                                     color = ShinyBlue
@@ -189,9 +199,9 @@ fun PopupView() {
     val dismiss = false
 
     Popup(
+        dismiss = dismiss,
         title = title,
         contentOnFirstLine = contentOnFirstLine,
-        contentOnSecondLine = contentOnSecondLine,
-        dismiss = dismiss
+        contentOnSecondLine = contentOnSecondLine
     )
 }

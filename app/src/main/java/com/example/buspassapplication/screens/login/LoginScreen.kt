@@ -16,10 +16,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -52,6 +48,9 @@ fun LoginScreen(
     var popupStatus = viewModel.showPopup.collectAsState()
     var email = viewModel.email.collectAsState()
     var password = viewModel.password.collectAsState()
+    var contentOnFirstLine = viewModel.popupMessageOnFirstLine.collectAsState()
+    var contentOnSecondLine = viewModel.popupMessageOnSecondLine.collectAsState()
+    var popupTitle = viewModel.popupTitle.collectAsState()
 
     Surface(
         modifier = Modifier
@@ -149,15 +148,15 @@ fun LoginScreen(
             }
             if (popupStatus.value) {
                 Popup(
-                    title = "Invalid Credentials",
-                    contentOnFirstLine = "Please check your email",
-                    contentOnSecondLine = "and password",
                     onDismissRequest = {
                         viewModel.updatePopupStatus(false)
                     },
                     onConfirmRequest = {
                         viewModel.updatePopupStatus(false)
-                    }
+                    },
+                    title = popupTitle.value.ifEmpty { "Invalid Credentials" },
+                    contentOnFirstLine = contentOnFirstLine.value,
+                    contentOnSecondLine = contentOnSecondLine.value
                 )
             }
         }

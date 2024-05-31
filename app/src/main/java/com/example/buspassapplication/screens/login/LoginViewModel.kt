@@ -24,6 +24,10 @@ class LoginViewModel @Inject constructor(
     val email = MutableStateFlow("")
     val password = MutableStateFlow("")
     val showPopup = MutableStateFlow(false)
+    val popupTitle = MutableStateFlow("")
+    val popupMessageOnFirstLine = MutableStateFlow("")
+    val popupMessageOnSecondLine = MutableStateFlow("")
+
 
 
     fun updateEmail(newEmail: String) {
@@ -52,17 +56,24 @@ class LoginViewModel @Inject constructor(
                 when (e) {
                     is FirebaseAuthInvalidUserException -> {
                         Log.d("LoginViewModel", "User with this email does not exist.")
+                        popupMessageOnFirstLine.value = "Account doesn't exists"
+                        popupMessageOnSecondLine.value = "on this email"
                         showPopup.value = true
                     }
 
                     is FirebaseAuthInvalidCredentialsException -> {
                         Log.d("LoginViewModel", "Invalid Password")
                         showPopup.value = true
+                        popupMessageOnSecondLine.value = "Password doesn't match"
+                        popupMessageOnSecondLine.value = "try again"
                     }
 
                     else -> {
                         Log.d("LoginViewModel", "Login failed: ${e.message}")
                         showPopup.value = true
+                        popupTitle.value = "Internal Sever Error"
+                        popupMessageOnFirstLine.value = "Operation cannot be processed"
+                        popupMessageOnSecondLine.value = "try again later"
                     }
                 }
 
