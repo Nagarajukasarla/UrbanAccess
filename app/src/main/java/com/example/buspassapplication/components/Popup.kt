@@ -44,12 +44,14 @@ fun Popup(
     onConfirmRequest: () -> Unit = {},
     title: String,
     contentOnFirstLine: String,
-    contentOnSecondLine: String
+    contentOnSecondLine: String,
+    confirmMessage: String = "Okay",
+
 ) {
     Dialog(onDismissRequest = onDismissRequest) {
         Box(
             modifier = Modifier
-                .width(290.dp)
+                .width(width)
                 .height(170.dp)
                 .padding(16.dp)
                 .background(Color.White, shape = RoundedCornerShape(16.dp))
@@ -164,7 +166,7 @@ fun Popup(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Button(
-                                onClick = { onDismissRequest() },
+                                onClick = { onConfirmRequest() },
                                 colors = ButtonDefaults.buttonColors(
                                     containerColor = White,
                                     contentColor = White,
@@ -174,7 +176,7 @@ fun Popup(
                             ) {
                                 NormalText(
                                     modifier = Modifier,
-                                    value = "Okay",
+                                    value = confirmMessage,
                                     fontSize = 13.sp,
                                     fontWeight = FontWeight.Bold,
                                     fontFamily = PoppinsBold,

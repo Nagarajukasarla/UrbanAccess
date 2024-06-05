@@ -25,7 +25,8 @@ import androidx.navigation.compose.rememberNavController
 @ExperimentalMaterial3Api
 @Composable
 fun MapScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    currentUserId: String?
 ) {
 Box(modifier=Modifier.fillMaxSize()) {
     Image(
@@ -50,9 +51,9 @@ Box(modifier=Modifier.fillMaxSize()) {
 }
 }
 
-@ExperimentalMaterial3Api
-@Preview
-@Composable
-fun RoutePreview(){
-    MapScreen(navController = rememberNavController())
-}
+//@ExperimentalMaterial3Api
+//@Preview
+//@Composable
+//fun RoutePreview(){
+//    MapScreen(navController = rememberNavController(), currentUserId = currentUserId)
+//}

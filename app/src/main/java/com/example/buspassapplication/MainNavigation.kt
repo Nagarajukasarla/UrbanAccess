@@ -18,6 +18,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.components.BottomNavigation
 import com.example.buspassapplication.components.TopBar
+import com.example.buspassapplication.data.User
 import com.example.buspassapplication.graphs.MainScreenNavigationGraph
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "RestrictedApi",
@@ -26,8 +27,11 @@ import com.example.buspassapplication.graphs.MainScreenNavigationGraph
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainNavigation(
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
+    currentUserId: String?,
 ) {
+
+
 
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val screenHeightPixels = with (LocalDensity.current) { screenHeight.toPx() }
@@ -62,7 +66,7 @@ fun MainNavigation(
             modifier = if (!isHidden.value) Modifier.padding(top = 40.dp, bottom = 50.dp)
                        else Modifier
         ) {
-            MainScreenNavigationGraph(navController = navController)
+            MainScreenNavigationGraph(navController = navController, currentUserId = currentUserId)
         }
     }
 }

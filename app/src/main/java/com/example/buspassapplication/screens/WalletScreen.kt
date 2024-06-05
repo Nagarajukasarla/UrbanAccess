@@ -13,7 +13,8 @@ import com.example.buspassapplication.components.HeadingText
 
 @Composable
 fun WalletScreen (
-    navController: NavHostController
+    navController: NavHostController,
+    currentUserId: String?
 ) {
     Column(
         modifier = Modifier

@@ -54,13 +54,17 @@ fun SignUpScreen(
     val screenHeightPixels = with(LocalDensity.current) { screenHeight.toPx() }
     val padding = (screenHeightPixels * 0.01f).dp
 
-    var firstName = viewModel.firstName.collectAsState()
-    var lastName = viewModel.lastName.collectAsState()
-    var email = viewModel.email.collectAsState()
-    var password = viewModel.password.collectAsState()
-    var confirmPassword = viewModel.confirmPassword.collectAsState()
-    var popupStatusForPasswordMatch = viewModel.popupStatusForPasswordMatch.collectAsState()
-    var popupStatusSigupAction = viewModel.popupStatusSignupAction.collectAsState()
+    val surname by viewModel.surname.collectAsState()
+    val lastName by viewModel.lastName.collectAsState()
+    val email by viewModel.email.collectAsState()
+    val password by viewModel.password.collectAsState()
+    val confirmPassword by viewModel.confirmPassword.collectAsState()
+    val popStatus by viewModel.popupStatus.collectAsState()
+    val popupTitle by viewModel.popupTitle.collectAsState()
+    val popupMessageOnFirstLine by viewModel.popupMessageOnFirstLine.collectAsState()
+    val popupMessageOnSecondLine by viewModel.popupMessageOnSecondLine.collectAsState()
+    val passwordMismatch by viewModel.passwordMismatch.collectAsState()
+    val accountCreated by viewModel.accountCreated.collectAsState()
 
     var termsAndConditionsValue by rememberSaveable { mutableStateOf(false) }
 
@@ -82,18 +86,18 @@ fun SignUpScreen(
         )
         Spacer(modifier = Modifier.height(17.dp))
         OutlinedInputField(
-            label = "First Name",
+            label = "Surname",
             modifier = Modifier.width(300.dp),
-            value = firstName.value,
+            value = surname,
             onValueChanged = {
-                viewModel.updateFirstname(it)
+                viewModel.updateSurname(it)
             }
         )
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedInputField(
             label = "Last Name",
             modifier = Modifier.width(300.dp),
-            value = lastName.value,
+            value = lastName,
             onValueChanged = {
                 viewModel.updateLastname(it)
             }
@@ -102,7 +106,7 @@ fun SignUpScreen(
         OutlinedInputField(
             label = "Email",
             modifier = Modifier.width(300.dp),
-            value = email.value,
+            value = email,
             onValueChanged = {
                 viewModel.updateEmail(it)
             }
@@ -111,7 +115,7 @@ fun SignUpScreen(
         PasswordField(
             label = "Password",
             modifier = Modifier.width(300.dp),
-            value = password.value,
+            value = password,
             onValueChange = {
                 viewModel.updatePassword(it)
             }
@@ -120,7 +124,7 @@ fun SignUpScreen(
         PasswordField(
             label = "Confirm Password",
             modifier = Modifier.width(300.dp),
-            value = confirmPassword.value,
+            value = confirmPassword,
             onValueChange = {
                 viewModel.updateConfirmPassword(it)
             }
@@ -164,7 +168,7 @@ fun SignUpScreen(
             height = 45.dp,
             borderShape = RoundedCornerShape(50),
             onClick = {
-                viewModel.onLoginClick()
+                viewModel.onSignupClick()
             }
         )
         Row(
@@ -195,32 +199,17 @@ fun SignUpScreen(
                 color = NavyBlue,
             )
         }
-        if (popupStatusForPasswordMatch.value) {
+        if (popStatus) {
             Popup(
                 width = 310.dp,
-                title = "Password Mismatch",
-                contentOnFirstLine = "Please ensure that confirm password",
-                contentOnSecondLine = "match original password",
+                title = popupTitle,
+                contentOnFirstLine = popupMessageOnFirstLine,
+                contentOnSecondLine = popupMessageOnSecondLine,
                 dismiss = false,
+                confirmMessage = if (accountCreated) "Login" else "Okay",
                 onConfirmRequest = {
-                    viewModel.popupStatusForPasswordMatch.value = false
-                },
-                onDismissRequest = {
-                    viewModel.popupStatusForPasswordMatch.value = false
+                    viewModel.resetPopup()
                 }
-            )
-        }
-        if (popupStatusSigupAction.value) {
-            Popup(
-                onDismissRequest = {
-                    viewModel.popupStatusSignupAction.value = false
-                },
-                onConfirmRequest = {
-                    viewModel.popupStatusSignupAction.value = false
-                },
-                title = "Account Created",
-                contentOnFirstLine = "Please login to access",
-                contentOnSecondLine = "the application"
             )
         }
     }

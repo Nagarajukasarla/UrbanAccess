@@ -14,7 +14,8 @@ import com.example.buspassapplication.components.PassScreenContent
 
 @Composable
 fun PassScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    currentUserId: String?
 ) {
     Surface {
         Column {
@@ -23,15 +24,9 @@ fun PassScreen(
                     modifier = Modifier
                         .verticalScroll(rememberScrollState())
                 ) {
-                    PassScreenContent(navController = navController)
+                    PassScreenContent(navController = navController, currentUserId = currentUserId)
                 }
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    PassScreen(navController = rememberNavController())
 }

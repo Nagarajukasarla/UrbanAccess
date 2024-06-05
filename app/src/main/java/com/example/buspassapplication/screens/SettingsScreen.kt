@@ -37,6 +37,7 @@ import com.example.buspassapplication.ui.theme.CloudGray
 @Composable
 fun SettingsScreen (
     navController: NavHostController,
+    currentUserId: String?
 ) {
 
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
@@ -186,8 +187,8 @@ fun SettingsScreen (
     }
 }
 
-@Preview(showBackground = true, heightDp = 720)
-@Composable
-fun DefaultSettingsScreenPreview () {
-    SettingsScreen(navController = rememberNavController())
-}
+//@Preview(showBackground = true, heightDp = 720)
+//@Composable
+//fun DefaultSettingsScreenPreview () {
+//    SettingsScreen(navController = rememberNavController())
+//}

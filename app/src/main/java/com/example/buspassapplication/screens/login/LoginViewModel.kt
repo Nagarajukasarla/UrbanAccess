@@ -3,6 +3,8 @@ package com.example.buspassapplication.screens.login
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import com.example.buspassapplication.app.launchCatching
 import com.example.buspassapplication.graphs.Graph
 import com.example.buspassapplication.models.AppViewModel
@@ -29,7 +31,6 @@ class LoginViewModel @Inject constructor(
     val popupMessageOnSecondLine = MutableStateFlow("")
 
 
-
     fun updateEmail(newEmail: String) {
         email.value = newEmail
     }
@@ -42,14 +43,26 @@ class LoginViewModel @Inject constructor(
         showPopup.value = newStatus
     }
 
+
+
     fun onLoginClick(navController: NavHostController) {
         viewModelScope.launchCatching(
             block = {
                 val taskResult = Firebase.auth.signInWithEmailAndPassword(email.value, password.value).await()
-                navController.navigate(route = Graph.MAIN) {
-                    popUpTo(route = Graph.AUTHENTICATION) {
-                        inclusive = true
+                if (taskResult.user != null) {
+                    val currentUserId = taskResult.user?.uid
+                    Log.d("LoginViewModel", "TaskResult: ${taskResult.user?.uid}")
+                    navController.navigate(route = "${Graph.MAIN}/${currentUserId}") {
+                        popUpTo(route = Graph.AUTHENTICATION){
+                            inclusive = true
+                        }
                     }
+                }
+                else {
+                    showPopup.value = true
+                    popupTitle.value = "An error occurred"
+                    popupMessageOnSecondLine.value = "Please try again later"
+                    popupMessageOnSecondLine.value = "or restart app"
                 }
             },
             onError = { e ->
@@ -63,9 +76,10 @@ class LoginViewModel @Inject constructor(
 
                     is FirebaseAuthInvalidCredentialsException -> {
                         Log.d("LoginViewModel", "Invalid Password")
-                        showPopup.value = true
-                        popupMessageOnSecondLine.value = "Password doesn't match"
+                        popupMessageOnFirstLine.value = "Password doesn't match"
                         popupMessageOnSecondLine.value = "try again"
+                        showPopup.value = true
+                        updatePassword("")
                     }
 
                     else -> {

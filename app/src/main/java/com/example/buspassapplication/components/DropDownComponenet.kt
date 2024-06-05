@@ -25,10 +25,11 @@ import com.example.buspassapplication.ui.theme.NavyBlue
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DropDown(
+    label: String,
     options: List<String>,
     value: String,
     onItemSelected: (String) -> Unit
-){
+) {
     val list = options
     var isExpanded by remember {
         mutableStateOf(false)
@@ -39,12 +40,11 @@ fun DropDown(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding()
-        , horizontalAlignment = Alignment.CenterHorizontally
-    ){
+            .padding(), horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         ExposedDropdownMenuBox(
             expanded = isExpanded,
-            onExpandedChange = {isExpanded = !isExpanded}
+            onExpandedChange = { isExpanded = !isExpanded }
         )
         {
             OutlinedTextField(
@@ -53,7 +53,7 @@ fun DropDown(
                 readOnly = true,
                 label = {
                     Text(
-                        text = "Gender",
+                        text = label,
                         style = TextStyle(
                             letterSpacing = 0.3.sp
                         )
@@ -76,18 +76,22 @@ fun DropDown(
             )
             ExposedDropdownMenu(
                 expanded = isExpanded,
-                onDismissRequest = { isExpanded=false}) {
+                onDismissRequest = { isExpanded = false }) {
                 list.forEachIndexed { index, text ->
                     DropdownMenuItem(
-                        text={
+                        text = {
                             Text(
-                                text=text,
-                                style = TextStyle(fontSize = 16.sp)) },
-                        onClick = { selectedText=list[index]
-                                    isExpanded=false},
-                        contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding)
+                                text = text,
+                                style = TextStyle(fontSize = 16.sp)
+                            )
+                        },
+                        onClick = {
+                            selectedText = list[index]
+                            isExpanded = false
+                        },
+                        contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
+                    )
                 }
-
             }
         }
 
