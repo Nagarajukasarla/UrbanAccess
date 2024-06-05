@@ -18,12 +18,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.components.BackNavigationBar
 import com.example.buspassapplication.components.BlueLabelledText
 import com.example.buspassapplication.components.DropDown
@@ -36,8 +34,9 @@ import com.example.buspassapplication.ui.theme.PoppinsBold
 @ExperimentalMaterial3Api
 @Composable
 fun RoutePassApplicationFormScreen(
-    navController: NavHostController,
-    viewModel: RoutePassApplicationViewModel = hiltViewModel()
+        navController: NavHostController,
+        viewModel: RoutePassApplicationViewModel = hiltViewModel(),
+        currentUserId: String?
 ) {
     var fullName = viewModel.fullname.collectAsState()
     var guardian = viewModel.guardian.collectAsState()
@@ -101,6 +100,7 @@ fun RoutePassApplicationFormScreen(
             }
         )
         DropDown(
+            label = "gender",
             options = listOf("Male", "Female", "Others"),
             value = "Gender",
             onItemSelected = { gender = it }

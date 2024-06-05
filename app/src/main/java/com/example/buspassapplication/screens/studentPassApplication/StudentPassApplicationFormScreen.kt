@@ -35,8 +35,9 @@ import com.example.buspassapplication.ui.theme.PoppinsBold
 @ExperimentalMaterial3Api
 @Composable
 fun StudentPassApplicationFormScreen(
-    navController: NavHostController,
-    viewModel: StudentPassApplicationViewModel = hiltViewModel()
+        navController: NavHostController,
+        viewModel: StudentPassApplicationViewModel = hiltViewModel(),
+        currentUserId: String?
 ) {
     var fullName = viewModel.fullName.collectAsState()
     var guardian = viewModel.guardian.collectAsState()
@@ -89,6 +90,7 @@ fun StudentPassApplicationFormScreen(
         )
         BlueLabelledText(text = "Student 10th details")
         DropDown(
+            label="SSC Board type",
             options = listOf("State Board", "CBSE", "ICSE", "Others"),
             value = "SSC Board type",
             onItemSelected = { tenthBoard = it }
@@ -115,6 +117,7 @@ fun StudentPassApplicationFormScreen(
             }
         )
         DropDown(
+            label = "SSC Regular / Supplementary",
             options = listOf("Regular", "Supplementary"),
             value = "SSC Regular / Supplementary",
             onItemSelected = { regularOrSupply = it }
@@ -152,6 +155,7 @@ fun StudentPassApplicationFormScreen(
             }
         )
         DropDown(
+            label = "Gender",
             options = listOf("Male", "Female", "Others"),
             value = "Gender",
             onItemSelected = { gender = it }
@@ -178,6 +182,7 @@ fun StudentPassApplicationFormScreen(
             }
         )
         DropDown(
+            label = "Is Employee",
             options = listOf("Yes", "No"),
             value = "Is Employee Children",
             onItemSelected = { gender = it }
