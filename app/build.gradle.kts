@@ -90,7 +90,7 @@ dependencies {
     implementation("com.google.maps.android:android-maps-utils:3.8.0")
     implementation("com.google.maps.android:maps-utils-ktx:5.0.0")
 
-    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
+    implementation(platform("com.google.firebase:firebase-bom:33.1.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
