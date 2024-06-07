@@ -6,12 +6,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -22,8 +20,8 @@ import com.example.buspassapplication.ui.theme.Black
 
 @Composable
 fun TransactionComponent(
-    time: String,
-    transactionName: String ,
+    time: Int,
+    transactionName: String,
     amount: String,
     titleSize: TextUnit =  17.sp,
     modifier: Modifier
@@ -31,7 +29,7 @@ fun TransactionComponent(
     Column{
          NormalText(
              modifier = Modifier,
-             value = time,
+             value = time.toString(),
              fontSize = 12.sp,
              fontWeight = FontWeight.Bold,
              fontFamily = PoppinsBold,
@@ -59,6 +57,7 @@ fun TransactionComponent(
                 color = Black
             )
         }
+        Spacer(modifier = Modifier.height(10.dp))
         Divider(
             modifier = Modifier,
             thickness = 2.dp,
@@ -73,8 +72,8 @@ fun TransactionComponent(
 fun PreviewTransactionComponent(){
     TransactionComponent(
         modifier = Modifier,
-        time = "Today 6:30",
+        time = 120000,
         transactionName = "TopUp",
-        amount="2",
+        amount ="2",
         )
 }
