@@ -1,6 +1,7 @@
 package com.example.buspassapplication.models.service
 
 import com.example.buspassapplication.data.User
+import com.example.buspassapplication.models.utils.OperationStatus
 import kotlinx.coroutines.flow.Flow
 
 interface AccountService {
@@ -10,6 +11,7 @@ interface AccountService {
     suspend fun signIn(email: String, password: String)
     suspend fun signUp(email: String, password: String, firstName: String, lastName: String)
     suspend fun signOut()
-    suspend fun updateUser(user: User)
+    suspend fun updateUser(userMap: Map<String, Any?>): OperationStatus
+    suspend fun updateUser(user: User): OperationStatus
     suspend fun deleteAccount()
 }

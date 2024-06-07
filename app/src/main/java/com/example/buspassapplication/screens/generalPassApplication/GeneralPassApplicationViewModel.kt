@@ -1,8 +1,7 @@
 package com.example.buspassapplication.screens.generalPassApplication
 
-import androidx.compose.material3.ExperimentalMaterial3Api
+import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.example.buspassapplication.MainActivity
 import com.example.buspassapplication.data.User
 import com.example.buspassapplication.models.AppViewModel
 import com.example.buspassapplication.models.service.AccountService
@@ -11,8 +10,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import androidx.lifecycle.ViewModel
-import com.example.buspassapplication.PaymentActivity
+import com.example.buspassapplication.app.launchCatching
+import com.example.buspassapplication.models.utils.OperationStatus
 
 @HiltViewModel
 class GeneralPassApplicationViewModel @Inject constructor(
@@ -35,6 +34,11 @@ class GeneralPassApplicationViewModel @Inject constructor(
     val state = MutableStateFlow<String?>(null)
     val pincode = MutableStateFlow<String?>(null)
     val currentUser: Flow<User?> = accountService.currentUser
+
+    val popupStatus = MutableStateFlow(false)
+    val popupTitle = MutableStateFlow("")
+    val contentOnFirstLine = MutableStateFlow("")
+    val contentOnSecondLine = MutableStateFlow("")
 
     init {
         viewModelScope.launch {
@@ -105,6 +109,7 @@ class GeneralPassApplicationViewModel @Inject constructor(
 
     private suspend fun setCurrentUserData() {
         currentUser.collect { user ->
+            Log.d("GeneralPassViewModel", "Current user: $user")
             user?.let {
                 surname.value = it.surname
                 lastname.value = it.lastname
@@ -125,13 +130,47 @@ class GeneralPassApplicationViewModel @Inject constructor(
         }
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
     fun onSubmitClick() {
-        var main: MainActivity = MainActivity()
-        main.initiateOrder()
-//
-//        val payment = PaymentActivity()
-//        payment.createOrder()
+        viewModelScope.launchCatching(
+            block = {
+                when (val result = accountService.updateUser(createUserMap())) {
+                    is OperationStatus.Success -> {
+                        Log.d("GeneralPassViewModel", "User updated successfully")
+                        popupStatus.value = true
+                        popupTitle.value = "Application Submitted"
+                        contentOnFirstLine.value = "You will be notified once your"
+                        contentOnSecondLine.value = "application is approved"
+                    }
+                    is OperationStatus.Failure -> {
+                        Log.d("GeneralPassViewModel", "Error: ${result.exception.message}")
+                        popupStatus.value = true
+                        popupTitle.value = "Submission Failed"
+                        contentOnFirstLine.value = "Unable to submit application"
+                        contentOnSecondLine.value = "Please try again later"
+                    }
+                }
+            },
+            onError = { exception ->
+                Log.d("GeneralPassViewModel", "Error: ${exception.message}")
+            }
+        )
+    }
+
+    private fun createUserMap(): Map<String, Any?> {
+        return hashMapOf(
+            "guardian" to guardian.value,
+            "dateOfBirth" to dateOfBirth.value,
+            "aadhar" to aadhar.value,
+            "gender" to gender.value,
+            "phone" to phone.value,
+            "houseNumber" to houseNumber.value,
+            "street" to street.value,
+            "area" to area.value,
+            "city" to city.value,
+            "district" to district.value,
+            "state" to state.value,
+            "pincode" to pincode.value
+        )
     }
 
 }

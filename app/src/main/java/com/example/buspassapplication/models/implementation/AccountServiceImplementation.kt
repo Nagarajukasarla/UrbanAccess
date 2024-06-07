@@ -3,6 +3,7 @@ package com.example.buspassapplication.models.implementation
 import com.example.buspassapplication.data.Education
 import com.example.buspassapplication.data.User
 import com.example.buspassapplication.models.service.AccountService
+import com.example.buspassapplication.models.utils.OperationStatus
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -10,8 +11,10 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
+import kotlin.coroutines.resume
 
 class AccountServiceImplementation @Inject constructor() : AccountService {
     override val currentUser: Flow<User?>
@@ -27,7 +30,7 @@ class AccountServiceImplementation @Inject constructor() : AccountService {
                             .get()
                             .addOnSuccessListener { document ->
                                 val user = document?.let {
-                                    val educationMap = it.get("education") as Map<String, Any>
+                                    val educationMap = it.get("education") as? Map<String, Any?>
                                     val education = educationMap?.let { map ->
                                         Education(
                                             studentId = map["studentId"] as? String,
@@ -48,6 +51,7 @@ class AccountServiceImplementation @Inject constructor() : AccountService {
                                         id = it.getString("uid"),
                                         surname = it.getString("surname"),
                                         lastname = it.getString("lastname"),
+                                        guardian = it.getString("guardian"),
                                         dateOfBirth = it.getString("dateOfBirth"),
                                         gender = it.getString("gender"),
                                         email = firebaseUser.email,
@@ -96,7 +100,6 @@ class AccountServiceImplementation @Inject constructor() : AccountService {
             "uid" to userId,
             "surname" to surname,
             "lastname" to lastname,
-            "email" to null,
             "phone" to null,
             "dateOfBirth" to null,
             "aadhar" to null,
@@ -111,17 +114,36 @@ class AccountServiceImplementation @Inject constructor() : AccountService {
             "route" to null
         )
 
-        val fireStoreResult =
-            FirebaseFirestore.getInstance().collection("users").document(userId).set(userDetails)
-                .await()
+        FirebaseFirestore
+            .getInstance()
+            .collection("users")
+            .document(userId)
+            .set(userDetails)
+            .await()
     }
 
     override suspend fun signIn(email: String, password: String) {
         Firebase.auth.signInWithEmailAndPassword(email, password)
     }
 
-    override suspend fun updateUser(user: User) {
-        FirebaseFirestore.getInstance().collection("users").document()
+    override suspend fun updateUser(userMap: Map<String, Any?>): OperationStatus {
+        return suspendCancellableCoroutine { continuation ->
+            FirebaseFirestore
+                .getInstance()
+                .collection("users")
+                .document(currentUserId)
+                .update(userMap)
+                .addOnSuccessListener {
+                    continuation.resume(OperationStatus.Success)
+                }
+                .addOnFailureListener { exception ->
+                    continuation.resume(OperationStatus.Failure(exception))
+                }
+        }
+    }
+
+    override suspend fun updateUser(user: User): OperationStatus {
+        TODO("Not yet implemented")
     }
 
     override suspend fun signOut() {
@@ -130,5 +152,26 @@ class AccountServiceImplementation @Inject constructor() : AccountService {
 
     override suspend fun deleteAccount() {
         Firebase.auth.currentUser!!.delete().await()
+    }
+
+    private fun createUserMap(user: User): Map<*, *> {
+        return hashMapOf(
+            "uid" to user.id,
+            "surname" to user.surname,
+            "lastname" to user.lastname,
+            "email" to user.email,
+            "phone" to user.phone,
+            "dateOfBirth" to user.dateOfBirth,
+            "aadhar" to user.aadhar,
+            "houseNumber" to user.houseNumber,
+            "street" to user.street,
+            "area" to user.area,
+            "district" to user.district,
+            "city" to user.city,
+            "state" to user.state,
+            "pincode" to user.pincode,
+            "education" to user.education,
+            "route" to user.route
+        )
     }
 }

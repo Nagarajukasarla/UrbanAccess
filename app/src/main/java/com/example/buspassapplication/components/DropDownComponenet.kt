@@ -12,7 +12,6 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.internal.enableLiveLiterals
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -31,17 +30,13 @@ fun DropDown(
     value: String,
     onItemSelected: (String) -> Unit
 ) {
-    val list = options
-    var isExpanded by remember {
-        mutableStateOf(false)
-    }
-    var selectedText by remember {
-        mutableStateOf(value)
-    }
+    var isExpanded by remember { mutableStateOf(false) }
+    var selectedText by remember { mutableStateOf(value) }
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(), horizontalAlignment = Alignment.CenterHorizontally
+            .padding(),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         ExposedDropdownMenuBox(
             expanded = isExpanded,
@@ -50,7 +45,8 @@ fun DropDown(
         {
             OutlinedTextField(
                 modifier = Modifier.menuAnchor(),
-                value = selectedText, onValueChange = onItemSelected,
+                value = value.ifEmpty { selectedText },
+                onValueChange = {  },
                 readOnly = true,
                 label = {
                     Text(
@@ -78,7 +74,7 @@ fun DropDown(
             ExposedDropdownMenu(
                 expanded = isExpanded,
                 onDismissRequest = { isExpanded = false }) {
-                list.forEachIndexed { index, text ->
+                options.forEachIndexed { index, text ->
                     DropdownMenuItem(
                         text = {
                             Text(
@@ -87,7 +83,8 @@ fun DropDown(
                             )
                         },
                         onClick = {
-                            selectedText = list[index]
+                            selectedText = options[index]
+                            onItemSelected(selectedText)
                             isExpanded = false
                         },
                         contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding

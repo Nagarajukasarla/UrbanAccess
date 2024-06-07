@@ -1,6 +1,5 @@
 package com.example.buspassapplication.screens.generalPassApplication
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,16 +15,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.components.BackNavigationBar
 import com.example.buspassapplication.components.DropDown
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.OutlinedInputField
+import com.example.buspassapplication.components.Popup
 import com.example.buspassapplication.components.PrimaryButton
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.PoppinsBold
@@ -56,7 +54,12 @@ fun GeneralPassApplicationFormScreen(
     val pincode by viewModel.pincode.collectAsState()
     val currentUser by viewModel.currentUser.collectAsState(initial = null)
 
-    Log.d("GenPassScreen", "$currentUser")
+    val popupStatus by viewModel.popupStatus.collectAsState()
+    val popupTitle by viewModel.popupTitle.collectAsState()
+    val contentOnFirstLine by viewModel.contentOnFirstLine.collectAsState()
+    val contentOnSecondLine by viewModel.contentOnSecondLine.collectAsState()
+
+
 
     Column(
         modifier = Modifier
@@ -106,7 +109,6 @@ fun GeneralPassApplicationFormScreen(
             onValueChanged = {
                 viewModel.updateGuardian(it)
             },
-            enabled = currentUser?.guardian == null
         )
         OutlinedInputField(
             label = "Date of Birth",
@@ -239,6 +241,21 @@ fun GeneralPassApplicationFormScreen(
                 viewModel.onSubmitClick()
             }
         )
+
+        if (popupStatus) {
+            Popup(
+                title = popupTitle,
+                contentOnFirstLine = contentOnFirstLine,
+                contentOnSecondLine = contentOnSecondLine,
+                dismiss = false,
+                onDismissRequest = {
+                    viewModel.popupStatus.value = false
+                },
+                onConfirmRequest = {
+                    viewModel.popupStatus.value = false
+                }
+            )
+        }
     }
 }
 

@@ -5,7 +5,6 @@ import com.example.buspassapplication.data.User
 import com.example.buspassapplication.models.service.StudentService
 import com.example.buspassapplication.models.utils.OperationStatus
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.ktx.Firebase
@@ -15,7 +14,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
 
-class StudentServiceImplementation @Inject constructor(): StudentService {
+class StudentServiceImplementation @Inject constructor() : StudentService {
     override val currentUserId: String
         get() = Firebase.auth.currentUser?.uid.orEmpty()
 
