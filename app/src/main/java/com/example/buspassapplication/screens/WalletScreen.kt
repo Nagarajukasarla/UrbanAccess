@@ -1,11 +1,11 @@
 package com.example.buspassapplication.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -17,22 +17,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
-import com.example.buspassapplication.R
 import com.example.buspassapplication.components.BlueBoxButton
 import com.example.buspassapplication.components.CardComponent
-import com.example.buspassapplication.components.CardWithIcon
-import com.example.buspassapplication.components.HeadingText
 import com.example.buspassapplication.components.NormalText
-import com.example.buspassapplication.components.PassComponent
 import com.example.buspassapplication.components.TransactionComponent
 import com.example.buspassapplication.components.WalletComponent
-import com.example.buspassapplication.graphs.Graph
-import com.example.buspassapplication.routes.PassScreenRoutes
+import com.example.buspassapplication.routes.WalletScreenRoutes
 import com.example.buspassapplication.ui.theme.Black
 import com.example.buspassapplication.ui.theme.PoppinsBold
 import com.example.buspassapplication.ui.theme.PoppinsMedium
@@ -43,11 +36,6 @@ fun WalletScreen (
     navController: NavHostController,
     currentUserId: String?
 ) {
-    val generalResourceId = R.drawable.person
-    val metroResourceId = R.drawable.metro
-    val studentResourceId = R.drawable.student
-    val routeResourceId = R.drawable.route
-
     Column(
         modifier = Modifier.padding(bottom = 30.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -95,7 +83,7 @@ fun WalletScreen (
                 CardComponent(
                     title = "Past tickets",
                     onClick = {
-                        navController.navigate(route = Graph.PASS) { }
+                        navController.navigate(route = WalletScreenRoutes.PastTicketsScreen.route) { }
                     },
                 )
                 Spacer(modifier = Modifier.height(10.dp))
@@ -112,7 +100,10 @@ fun WalletScreen (
                     )
                     Spacer(modifier = Modifier.width(20.dp))
                     NormalText(
-                        modifier = Modifier,
+                        modifier = Modifier.clickable {
+                                navController.navigate(route = WalletScreenRoutes.TransactionScreen.route) { }
+                        }
+                        ,
                         value = "view more",
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
@@ -123,7 +114,7 @@ fun WalletScreen (
                 Spacer(modifier = Modifier.height(20.dp))
                 Column{
                     TransactionComponent(
-                        time = "Today 6:30",
+                        time = 120000,
                         transactionName = "TopUp",
                         amount = "3",
                         modifier = Modifier

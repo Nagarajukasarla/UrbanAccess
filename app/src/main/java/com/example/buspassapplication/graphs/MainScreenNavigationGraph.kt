@@ -44,5 +44,6 @@ fun MainScreenNavigationGraph (
             ProfileScreen(navController = navController, currentUserId = currentUserId)
         }
         passScreenNavigationGraph(navController = navController, currentUserId = currentUserId)
+        walletScreenNavigationGraph(navController = navController, currentUserId = currentUserId)
     }
 }
