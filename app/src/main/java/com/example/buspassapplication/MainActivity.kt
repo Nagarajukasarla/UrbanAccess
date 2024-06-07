@@ -6,7 +6,9 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Text
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.graphs.RootNavigationGraph
@@ -32,13 +34,20 @@ class MainActivity : ComponentActivity(), PaymentResultWithDataListener, Externa
             BusPassApplicationTheme {
                 navController = rememberNavController()
                 RootNavigationGraph(navController)
+//                Button(
+//                    onClick = {
+//                        initiateOrder()
+//                    },
+//
+//                ) {
+//                    Text(text = "Click me!")
+//                }
             }
         }
-
     }
 
     fun initiateOrder() {
-        Checkout.preload(applicationContext)
+        //Checkout.preload(applicationContext)
         var checkout = Checkout()
         checkout.setKeyID("rzp_test_JmTvsyFwmcuMTd")
         try {

@@ -15,6 +15,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -36,6 +37,9 @@ import com.example.buspassapplication.routes.AuthenticationScreenRoutes
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.NavyBlue
 import com.example.buspassapplication.ui.theme.PoppinsMedium
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @ExperimentalMaterial3Api
@@ -51,6 +55,7 @@ fun LoginScreen(
     var contentOnFirstLine = viewModel.popupMessageOnFirstLine.collectAsState()
     var contentOnSecondLine = viewModel.popupMessageOnSecondLine.collectAsState()
     var popupTitle = viewModel.popupTitle.collectAsState()
+
 
     Surface(
         modifier = Modifier

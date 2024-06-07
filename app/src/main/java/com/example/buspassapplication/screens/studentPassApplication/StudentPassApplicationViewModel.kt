@@ -1,40 +1,92 @@
 package com.example.buspassapplication.screens.studentPassApplication
 
+import androidx.lifecycle.viewModelScope
+import com.example.buspassapplication.data.User
 import com.example.buspassapplication.models.AppViewModel
 import com.example.buspassapplication.models.service.AccountService
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class StudentPassApplicationViewModel @Inject constructor(
     private val accountService: AccountService
-) : AppViewModel(){
-    val fullName = MutableStateFlow("")
-    val guardian = MutableStateFlow("")
-    val dateOfBirth = MutableStateFlow("")
-    val phone = MutableStateFlow("")
-    val email = MutableStateFlow("")
-    val aadhar = MutableStateFlow("")
-    val address = MutableStateFlow("")
-    val districtOfStudent = MutableStateFlow("")
-    val mandalOfStudent = MutableStateFlow("")
-    val pincodeOfStudent = MutableStateFlow("")
-    val villageOfStudent = MutableStateFlow("")
-    val gender = MutableStateFlow("")
-    val tenthBoard = MutableStateFlow("")
-    val yearOfPass = MutableStateFlow("")
-    val regularOrSupply = MutableStateFlow("")
-    val sscHallTicket = MutableStateFlow("")
-    val districtOfInstitute = MutableStateFlow("")
-    val mandalOfInstitute = MutableStateFlow("")
-    val instituteAddress = MutableStateFlow("")
-    val instituteName = MutableStateFlow("")
-    val courseName = MutableStateFlow("")
-    val admissionNumber = MutableStateFlow("")
+) : AppViewModel() {
 
-    fun updateFullName(newFullName: String) {
-        fullName.value = newFullName
+    val surname = MutableStateFlow<String?>(null)
+    val lastname = MutableStateFlow<String?>(null)
+    val guardian = MutableStateFlow<String?>(null)
+    val dateOfBirth = MutableStateFlow<String?>(null)
+    val gender = MutableStateFlow<String?>(null)
+    val phone = MutableStateFlow<String?>(null)
+    val email = MutableStateFlow<String?>(null)
+    val aadhar = MutableStateFlow<String?>(null)
+    val houseNumber = MutableStateFlow<String?>(null)
+    val street = MutableStateFlow<String?>(null)
+    val area = MutableStateFlow<String?>(null)
+    val district = MutableStateFlow<String?>(null)
+    val city = MutableStateFlow<String?>(null)
+    val state = MutableStateFlow<String?>(null)
+    val pincode = MutableStateFlow<String?>(null)
+    val tenthBoard = MutableStateFlow<String?>(null)
+    val yearOfPass = MutableStateFlow<String?>(null)
+    val passType = MutableStateFlow<String?>(null)
+    val tenthHallTicketId = MutableStateFlow<String?>(null)
+    val districtOfInstitute = MutableStateFlow<String?>(null)
+    val mandalOfInstitute = MutableStateFlow<String?>(null)
+    val instituteAddress = MutableStateFlow<String?>(null)
+    val instituteName = MutableStateFlow<String?>(null)
+    val courseName = MutableStateFlow<String?>(null)
+    val admissionNumber = MutableStateFlow<String?>(null)
+    val currentUser: Flow<User?> = accountService.currentUser
+
+
+    init {
+        viewModelScope.launch {
+            setCurrentUserDetails()
+        }
+    }
+
+    private suspend fun setCurrentUserDetails() {
+        currentUser?.collect { currentUser ->
+            currentUser?.let { user ->
+                surname.value = user.surname
+                lastname.value = user.lastname
+                guardian.value = user.guardian
+                dateOfBirth.value = user.dateOfBirth
+                gender.value = user.gender
+                phone.value = user.phone
+                email.value = user.email
+                aadhar.value = user.aadhar
+                houseNumber.value = user.houseNumber
+                street.value = user.street
+                area.value = user.area
+                district.value = user.district
+                city.value = user.city
+                state.value = user.state
+                pincode.value = user.pincode
+                tenthBoard.value = user.education?.tenthBoard
+                yearOfPass.value = user.education?.yearOfPass
+                passType.value = user.education?.passType
+                tenthHallTicketId.value = user.education?.tenthHallTicketId
+                districtOfInstitute.value = user.education?.districtOfInstitute
+                mandalOfInstitute.value = user.education?.mandalOfInstitute
+                instituteAddress.value = user.education?.instituteAddress
+                instituteName.value = user.education?.instituteName
+                courseName.value = user.education?.courseName
+                admissionNumber.value = user.education?.admissionNumber
+            }
+        }
+    }
+
+    fun updateSurname(newSurname: String) {
+        surname.value = newSurname
+    }
+
+    fun updateLastname(newLastname: String) {
+        lastname.value = newLastname
     }
 
     fun updateGuardian(newGuardian: String) {
@@ -43,6 +95,10 @@ class StudentPassApplicationViewModel @Inject constructor(
 
     fun updateDateOfBirth(newDateOfBirth: String) {
         dateOfBirth.value = newDateOfBirth
+    }
+
+    fun updateGender(newGender: String) {
+        gender.value = newGender
     }
 
     fun updatePhone(newPhone: String) {
@@ -57,28 +113,32 @@ class StudentPassApplicationViewModel @Inject constructor(
         aadhar.value = newAadhar
     }
 
-    fun updateAddress(newAddress: String) {
-        address.value = newAddress
+    fun updateHouseNumber(newHouseNumber: String) {
+        houseNumber.value = newHouseNumber
     }
 
-    fun updateDistrictOfStudent(newDistrictOfStudent: String) {
-        districtOfStudent.value = newDistrictOfStudent
+    fun updateStreet(newStreet: String) {
+        street.value = newStreet
     }
 
-    fun updateMandalOfStudent(newMandalOfStudent: String) {
-        mandalOfStudent.value = newMandalOfStudent
+    fun updateArea(newArea: String) {
+        area.value = newArea
     }
 
-    fun updatePincodeOfStudent(newPincodeOfStudent: String) {
-        pincodeOfStudent.value = newPincodeOfStudent
+    fun updateDistrict(newDistrict: String) {
+        district.value = newDistrict
     }
 
-    fun updateVillageOfStudent(newVillageOfStudent: String) {
-        villageOfStudent.value = newVillageOfStudent
+    fun updateCity(newCity: String) {
+        city.value = newCity
     }
 
-    fun updateGender(newGender: String) {
-        gender.value = newGender
+    fun updateState(newState: String) {
+        state.value = newState
+    }
+
+    fun updatePincode(newPincode: String) {
+        pincode.value = newPincode
     }
 
     fun updateTenthBoard(newTenthBoard: String) {
@@ -89,12 +149,12 @@ class StudentPassApplicationViewModel @Inject constructor(
         yearOfPass.value = newYearOfPass
     }
 
-    fun updateRegularOrSupply(newRegularOrSupply: String) {
-        regularOrSupply.value = newRegularOrSupply
+    fun updatePassType(newPassType: String) {
+        passType.value = newPassType
     }
 
-    fun updateSscHallTicket(newSscHallTicket: String) {
-        sscHallTicket.value = newSscHallTicket
+    fun updateTenthHallTicketId(newTenthHallTicketId: String) {
+        tenthHallTicketId.value = newTenthHallTicketId
     }
 
     fun updateDistrictOfInstitute(newDistrictOfInstitute: String) {
@@ -121,7 +181,7 @@ class StudentPassApplicationViewModel @Inject constructor(
         admissionNumber.value = newAdmissionNumber
     }
 
-    fun onSubmit(){
-        //TODO
+    fun onSubmit() {
+
     }
 }

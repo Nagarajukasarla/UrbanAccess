@@ -1,6 +1,8 @@
 package com.example.buspassapplication.screens.login
 
 import android.util.Log
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -12,6 +14,7 @@ import com.example.buspassapplication.models.service.AccountService
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -42,7 +45,6 @@ class LoginViewModel @Inject constructor(
     fun updatePopupStatus(newStatus: Boolean) {
         showPopup.value = newStatus
     }
-
 
 
     fun onLoginClick(navController: NavHostController) {

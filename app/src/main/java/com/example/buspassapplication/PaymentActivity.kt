@@ -4,13 +4,14 @@ import android.app.Activity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.widget.Toast
+import androidx.activity.ComponentActivity
 import com.razorpay.Checkout
 import com.razorpay.ExternalWalletListener
 import com.razorpay.PaymentData
 import com.razorpay.PaymentResultWithDataListener
 import org.json.JSONObject
 
-class PaymentActivity : Activity(), PaymentResultWithDataListener, ExternalWalletListener {
+class PaymentActivity : ComponentActivity(), PaymentResultWithDataListener, ExternalWalletListener {
     override fun onPaymentSuccess(p0: String?, p1: PaymentData?) {
         TODO("Not yet implemented")
     }
@@ -28,7 +29,7 @@ class PaymentActivity : Activity(), PaymentResultWithDataListener, ExternalWalle
     }
 
     fun createOrder() {
-        val activity: Activity  = this
+        val activity: Activity = this
         Checkout.preload(applicationContext)
         val checkout = Checkout()
         checkout.setKeyID("rzp_test_JmTvsyFwmcuMTd")

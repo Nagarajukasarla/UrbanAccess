@@ -17,6 +17,8 @@ data class User(
     val city: String? = null,
     val state: String? = null,
     val country: String? = null,
-    val pincode: String? = null
+    val pincode: String? = null,
+    val route: Route? = null,
+    val education: Education? = null
 )
 

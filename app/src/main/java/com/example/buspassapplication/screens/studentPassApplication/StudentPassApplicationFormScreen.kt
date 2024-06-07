@@ -12,6 +12,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.internal.enableLiveLiterals
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -30,37 +31,43 @@ import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.OutlinedInputField
 import com.example.buspassapplication.components.PrimaryButton
 import com.example.buspassapplication.ui.theme.PoppinsBold
+import kotlinx.coroutines.flow.MutableStateFlow
 
 
 @ExperimentalMaterial3Api
 @Composable
 fun StudentPassApplicationFormScreen(
-        navController: NavHostController,
-        viewModel: StudentPassApplicationViewModel = hiltViewModel(),
-        currentUserId: String?
+    navController: NavHostController,
+    viewModel: StudentPassApplicationViewModel = hiltViewModel(),
+    currentUserId: String?
 ) {
-    var fullName = viewModel.fullName.collectAsState()
-    var guardian = viewModel.guardian.collectAsState()
-    var dateOfBirth = viewModel.dateOfBirth.collectAsState()
-    var phone = viewModel.phone.collectAsState()
-    var email = viewModel.email.collectAsState()
-    var aadhar = viewModel.aadhar.collectAsState()
-    var address = viewModel.address.collectAsState()
-    var districtOfStudent = viewModel.districtOfStudent.collectAsState()
-    var mandalOfStudent = viewModel.mandalOfStudent.collectAsState()
-    var villageOfStudent = viewModel.villageOfStudent.collectAsState()
-    var pincodeOfStudent = viewModel.pincodeOfStudent.collectAsState()
-    var gender by rememberSaveable { mutableStateOf("") }
-    var tenthBoard by rememberSaveable { mutableStateOf("") }
-    var yearOfPass = viewModel.yearOfPass.collectAsState()
-    var regularOrSupply by rememberSaveable { mutableStateOf("") }
-    var districtOfInstitute = viewModel.districtOfInstitute.collectAsState()
-    var mandalOfInstitute = viewModel.mandalOfInstitute.collectAsState()
-    var instituteAddress = viewModel.instituteAddress.collectAsState()
-    var instituteName = viewModel.instituteName.collectAsState()
-    var courseName = viewModel.courseName.collectAsState()
-    var admissionNumber = viewModel.admissionNumber.collectAsState()
-    var sscHallTicket = viewModel.sscHallTicket.collectAsState()
+
+    val surname by viewModel.surname.collectAsState()
+    val lastname by viewModel.lastname.collectAsState()
+    val guardian by viewModel.guardian.collectAsState()
+    val dateOfBirth by viewModel.dateOfBirth.collectAsState()
+    val gender by viewModel.gender.collectAsState()
+    val phone by viewModel.phone.collectAsState()
+    val email by viewModel.email.collectAsState()
+    val aadhar by viewModel.aadhar.collectAsState()
+    val houseNumber by viewModel.houseNumber.collectAsState()
+    val street by viewModel.street.collectAsState()
+    val area by viewModel.area.collectAsState()
+    val district by viewModel.district.collectAsState()
+    val city by viewModel.city.collectAsState()
+    val state by viewModel.state.collectAsState()
+    val pincode by viewModel.pincode.collectAsState()
+    val tenthBoard by viewModel.tenthBoard.collectAsState()
+    val yearOfPass by viewModel.yearOfPass.collectAsState()
+    val passType by viewModel.passType.collectAsState()
+    val tenthHallTicketId by viewModel.tenthHallTicketId.collectAsState()
+    val districtOfInstitute by viewModel.districtOfInstitute.collectAsState()
+    val mandalOfInstitute by viewModel.mandalOfInstitute.collectAsState()
+    val instituteAddress by viewModel.instituteAddress.collectAsState()
+    val instituteName by viewModel.instituteName.collectAsState()
+    val courseName by viewModel.courseName.collectAsState()
+    val admissionNumber by viewModel.admissionNumber.collectAsState()
+    val currentUser by viewModel.currentUser.collectAsState(null)
 
 
     Column(
@@ -73,54 +80,39 @@ fun StudentPassApplicationFormScreen(
         NormalText(
             modifier = Modifier
                 .padding(top = 15.dp, bottom = 20.dp),
-            value = "Student",
+            value = "Student Pass Application",
             fontSize = 25.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = PoppinsBold,
             color = Color.Black
         )
-        NormalText(
-            modifier = Modifier
-                .padding(bottom = 30.dp),
-            value = "Bus Pass Application",
-            fontSize = 25.sp,
-            fontWeight = FontWeight.Bold,
-            fontFamily = PoppinsBold,
-            color = Color.Black
-        )
-        BlueLabelledText(text = "Student 10th details")
+        BlueLabelledText(text = "`Student 10th details`")
         DropDown(
-            label="SSC Board type",
+            label = "10th Board type",
             options = listOf("State Board", "CBSE", "ICSE", "Others"),
-            value = "SSC Board type",
-            onItemSelected = { tenthBoard = it }
+            value = tenthBoard ?: "",
+            onItemSelected = {
+                viewModel.updatePassType(it)
+            },
         )
         Spacer(modifier = Modifier.padding(bottom = 15.dp))
         OutlinedInputField(
-            label = "SSC Year of pass",
+            label = "Year of pass",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = yearOfPass.value,
+            value = yearOfPass ?: "",
             onValueChanged = {
                 viewModel.updateYearOfPass(it)
-            }
-        )
-        OutlinedInputField(
-            label = "Date of birth",
-            modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
-            value = dateOfBirth.value,
-            onValueChanged = {
-                viewModel.updateDateOfBirth(it)
             }
         )
         DropDown(
             label = "SSC Regular / Supplementary",
             options = listOf("Regular", "Supplementary"),
-            value = "SSC Regular / Supplementary",
-            onItemSelected = { regularOrSupply = it }
+            value = passType ?: "",
+            onItemSelected = {
+                viewModel.updatePassType(it)
+            }
         )
         Spacer(modifier = Modifier.padding(bottom = 15.dp))
         OutlinedInputField(
@@ -128,28 +120,40 @@ fun StudentPassApplicationFormScreen(
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = sscHallTicket.value,
+            value = tenthHallTicketId ?: "",
             onValueChanged = {
-                viewModel.updateSscHallTicket(it)
+                viewModel.updateTenthHallTicketId(it)
             }
         )
         BlueLabelledText(text = "Student details")
         OutlinedInputField(
-            label = "Full name",
+            label = "Surname",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = fullName.value,
+            value = surname ?: "",
             onValueChanged = {
-                viewModel.updateFullName(it)
-            }
+                viewModel.updateSurname(it)
+            },
+            enabled = currentUser?.surname == null
+        )
+        OutlinedInputField(
+            label = "Lastname",
+            modifier = Modifier
+                .width(280.dp)
+                .padding(bottom = 15.dp),
+            value = lastname ?: "",
+            onValueChanged = {
+                viewModel.updateLastname(it)
+            },
+            enabled = currentUser?.lastname == null
         )
         OutlinedInputField(
             label = "Guardian name",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = guardian.value,
+            value = guardian ?: "",
             onValueChanged = {
                 viewModel.updateGuardian(it)
             }
@@ -157,46 +161,89 @@ fun StudentPassApplicationFormScreen(
         DropDown(
             label = "Gender",
             options = listOf("Male", "Female", "Others"),
-            value = "Gender",
-            onItemSelected = { gender = it }
+            value = gender ?: "",
+            onItemSelected = {
+                viewModel.updateGender(it)
+            }
         )
-        Spacer(modifier = Modifier.padding(bottom = 15.dp))
+        OutlinedInputField(
+            label = "Date of birth",
+            modifier = Modifier
+                .width(280.dp)
+                .padding(bottom = 15.dp),
+            value = dateOfBirth ?: "",
+            onValueChanged = {
+                viewModel.updateDateOfBirth(it)
+            }
+        )
+        OutlinedInputField(
+            label = "Email",
+            modifier = Modifier
+                .width(280.dp)
+                .padding(bottom = 15.dp),
+            value = email ?: "",
+            onValueChanged = {
+                viewModel.updateEmail(it)
+            },
+            enabled = currentUser?.email == null
+        )
         OutlinedInputField(
             label = "Mobile",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = phone.value,
+            value = phone ?: "",
             onValueChanged = {
                 viewModel.updatePhone(it)
             }
         )
         OutlinedInputField(
-            label = "Aadhar no.",
+            label = "Aadhar number",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = aadhar.value,
+            value = aadhar ?: "",
             onValueChanged = {
                 viewModel.updateAadhar(it)
-            }
+            },
+            enabled = currentUser?.aadhar == null
         )
         DropDown(
-            label = "Is Employee",
+            label = "Is Employee Children",
             options = listOf("Yes", "No"),
             value = "Is Employee Children",
-            onItemSelected = { gender = it }
+            onItemSelected = {  }
         )
         Spacer(modifier = Modifier.padding(bottom = 15.dp))
         BlueLabelledText(text = "Residential address details")
         OutlinedInputField(
-            label = "Applicant address",
+            label = "House Number",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = address.value,
+            value = houseNumber ?: "",
             onValueChanged = {
-                viewModel.updateAddress(it)
+                viewModel.updateHouseNumber(it)
+            }
+        )
+        OutlinedInputField(
+            label = "Street",
+            modifier = Modifier
+                .width(280.dp)
+                .padding(bottom = 15.dp),
+            value = street ?: "",
+            onValueChanged = {
+                viewModel.updateStreet(it)
+            }
+        )
+        OutlinedInputField(
+            label = "Area",
+            modifier = Modifier
+                .width(280.dp)
+                .padding(bottom = 15.dp),
+            value = area ?: "",
+            onValueChanged = {
+                viewModel.updateArea(it)
             }
         )
         OutlinedInputField(
@@ -204,70 +251,80 @@ fun StudentPassApplicationFormScreen(
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = districtOfStudent.value,
+            value = district ?: "",
             onValueChanged = {
-                viewModel.updateDistrictOfStudent(it)
+                viewModel.updateDistrict(it)
             }
         )
         OutlinedInputField(
-            label = "Mandal",
+            label = "City",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = mandalOfStudent.value,
+            value = city ?: "",
             onValueChanged = {
-                viewModel.updateMandalOfStudent(it)
+                viewModel.updateCity(it)
             }
         )
         OutlinedInputField(
-            label = "village",
+            label = "State",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = villageOfStudent.value,
+            value = state ?: "",
             onValueChanged = {
-                viewModel.updateVillageOfStudent(it)
+                viewModel.updateState(it)
             }
         )
         OutlinedInputField(
-            label = "Pin Code",
+            label = "Pincode",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = pincodeOfStudent.value,
+            value = pincode ?: "",
             onValueChanged = {
-                viewModel.updatePincodeOfStudent(it)
+                viewModel.updatePincode(it)
             }
         )
         BlueLabelledText(text = "Institution details")
         OutlinedInputField(
-            label = "District",
+            label = "Name of the Institute",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = districtOfInstitute.value,
+            value = instituteName ?: "",
+            onValueChanged = {
+                viewModel.updateInstituteName(it)
+            }
+        )
+        OutlinedInputField(
+            label = "District of Institute",
+            modifier = Modifier
+                .width(280.dp)
+                .padding(bottom = 15.dp),
+            value = districtOfInstitute ?: "",
             onValueChanged = {
                 viewModel.updateDistrictOfInstitute(it)
             }
         )
         OutlinedInputField(
-            label = "Mandal",
+            label = "Mandal of Institute",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = mandalOfInstitute.value,
+            value = mandalOfInstitute ?: "",
             onValueChanged = {
                 viewModel.updateMandalOfInstitute(it)
             }
         )
         OutlinedInputField(
-            label = "Institution Name",
+            label = "Institution address",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = instituteName.value,
+            value = instituteAddress ?: "",
             onValueChanged = {
-                viewModel.updateInstituteName(it)
+                viewModel.updateInstituteAddress(it)
             }
         )
         OutlinedInputField(
@@ -275,7 +332,7 @@ fun StudentPassApplicationFormScreen(
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = courseName.value,
+            value = courseName ?: "",
             onValueChanged = {
                 viewModel.updateCourseName(it)
             }
@@ -285,19 +342,9 @@ fun StudentPassApplicationFormScreen(
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = admissionNumber.value,
+            value = admissionNumber ?: "",
             onValueChanged = {
                 viewModel.updateAdmissionNumber(it)
-            }
-        )
-        OutlinedInputField(
-            label = "Institution Address",
-            modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
-            value = instituteAddress.value,
-            onValueChanged = {
-                viewModel.updateInstituteAddress(it)
             }
         )
         PrimaryButton(

@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import androidx.lifecycle.ViewModel
+import com.example.buspassapplication.PaymentActivity
 
 @HiltViewModel
 class GeneralPassApplicationViewModel @Inject constructor(
@@ -128,6 +129,9 @@ class GeneralPassApplicationViewModel @Inject constructor(
     fun onSubmitClick() {
         var main: MainActivity = MainActivity()
         main.initiateOrder()
+//
+//        val payment = PaymentActivity()
+//        payment.createOrder()
     }
 
 }

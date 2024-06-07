@@ -1,5 +1,6 @@
 package com.example.buspassapplication.models.implementation
 
+import com.example.buspassapplication.data.Education
 import com.example.buspassapplication.data.User
 import com.example.buspassapplication.models.service.AccountService
 import com.google.firebase.auth.FirebaseAuth
@@ -26,6 +27,23 @@ class AccountServiceImplementation @Inject constructor() : AccountService {
                             .get()
                             .addOnSuccessListener { document ->
                                 val user = document?.let {
+                                    val educationMap = it.get("education") as Map<String, Any>
+                                    val education = educationMap?.let { map ->
+                                        Education(
+                                            studentId = map["studentId"] as? String,
+                                            tenthBoard = map["tenthBoard"] as? String,
+                                            yearOfPass = map["yearOfPass"] as? String,
+                                            passType = map["passType"] as? String,
+                                            tenthHallTicketId = map["tenthHallTicketId"] as? String,
+                                            districtOfInstitute = map["districtOfInstitute"] as? String,
+                                            mandalOfInstitute = map["mandalOfInstitute"] as? String,
+                                            instituteAddress = map["instituteAddress"] as? String,
+                                            instituteName = map["instituteName"] as? String,
+                                            courseName = map["courseName"] as? String,
+                                            admissionNumber = map["admissionNumber"] as? String
+                                        )
+                                    }
+
                                     User(
                                         id = it.getString("uid"),
                                         surname = it.getString("surname"),
@@ -33,7 +51,6 @@ class AccountServiceImplementation @Inject constructor() : AccountService {
                                         dateOfBirth = it.getString("dateOfBirth"),
                                         gender = it.getString("gender"),
                                         email = firebaseUser.email,
-                                        guardian = it.getString("guardian"),
                                         phone = it.getString("phone"),
                                         aadhar = it.getString("aadhar"),
                                         houseNumber = it.getString("houseNumber"),
@@ -42,7 +59,8 @@ class AccountServiceImplementation @Inject constructor() : AccountService {
                                         district = it.getString("district"),
                                         city = it.getString("city"),
                                         state = it.getString("state"),
-                                        pincode = it.getString("pincode")
+                                        pincode = it.getString("pincode"),
+                                        education = education,
                                     )
                                 }
                                 trySend(user)
@@ -78,17 +96,19 @@ class AccountServiceImplementation @Inject constructor() : AccountService {
             "uid" to userId,
             "surname" to surname,
             "lastname" to lastname,
-            "email" to "",
-            "phone" to "",
-            "dateOfBirth" to "",
-            "aadhar" to "",
-            "houseNumber" to "",
-            "street" to "",
-            "area" to "",
-            "district" to "",
-            "city" to "",
-            "state" to "",
-            "pincode" to ""
+            "email" to null,
+            "phone" to null,
+            "dateOfBirth" to null,
+            "aadhar" to null,
+            "houseNumber" to null,
+            "street" to null,
+            "area" to null,
+            "district" to null,
+            "city" to null,
+            "state" to null,
+            "pincode" to null,
+            "education" to null,
+            "route" to null
         )
 
         val fireStoreResult =

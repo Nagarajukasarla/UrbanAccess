@@ -135,8 +135,8 @@ fun WalletScreen (
     }
 }
 
-@Preview(showBackground = true, heightDp = 700)
-@Composable
-fun WalletScreenPreview() {
-    WalletScreen(navController = rememberNavController())
-}
+//@Preview(showBackground = true, heightDp = 700)
+//@Composable
+//fun WalletScreenPreview() {
+//    WalletScreen(navController = rememberNavController())
+//}

@@ -1,6 +1,6 @@
 package com.example.buspassapplication.screens.metroPassApplication
 
-class MetroPassData {
+class Data {
     companion object {
         val genderOptions: List<String> = listOf("Male", "Female", "Transgender", "Others")
     }

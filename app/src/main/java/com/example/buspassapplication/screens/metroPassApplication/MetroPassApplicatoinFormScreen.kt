@@ -12,23 +12,19 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.components.BackNavigationBar
 import com.example.buspassapplication.components.DropDown
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.OutlinedInputField
 import com.example.buspassapplication.components.PrimaryButton
+import com.example.buspassapplication.screens.generalPassApplication.Data
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.PoppinsBold
 
@@ -39,70 +35,89 @@ fun MetroPassApplicationFormScreen(
     viewModel : MetroPassApplicationViewModel = hiltViewModel(),
     currentUserId: String?
 ) {
-    var fullName = viewModel.fullname.collectAsState()
-    var guardian = viewModel.guardian.collectAsState()
-    var dateOfBirth = viewModel.dateOfBirth.collectAsState()
-    var phone = viewModel.phone.collectAsState()
-    var email = viewModel.email.collectAsState()
-    var aadhar = viewModel.aadhar.collectAsState()
-    var address = viewModel.address.collectAsState()
-    var district = viewModel.district.collectAsState()
-    var mandal = viewModel.mandal.collectAsState()
-    var village = viewModel.village.collectAsState()
-    var pincode = viewModel.pincode.collectAsState()
-    var gender by rememberSaveable { mutableStateOf("") }
+    val surname by viewModel.surname.collectAsState()
+    val lastname by viewModel.lastname.collectAsState()
+    val guardian by viewModel.guardian.collectAsState()
+    val dateOfBirth by viewModel.dateOfBirth.collectAsState()
+    val gender by viewModel.gender.collectAsState()
+    val phone by viewModel.phone.collectAsState()
+    val email by viewModel.email.collectAsState()
+    val aadhar by viewModel.aadhar.collectAsState()
+    val houseNumber by viewModel.houseNumber.collectAsState()
+    val street by viewModel.street.collectAsState()
+    val area by viewModel.area.collectAsState()
+    val district by viewModel.district.collectAsState()
+    val city by viewModel.city.collectAsState()
+    val state by viewModel.state.collectAsState()
+    val pincode by viewModel.pincode.collectAsState()
+    val currentUser by viewModel.currentUser.collectAsState(initial = null)
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
+            .verticalScroll(rememberScrollState())
+            .padding(bottom = 40.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         BackNavigationBar(navController = navController)
         NormalText(
             modifier = Modifier
                 .padding(top = 15.dp, bottom = 20.dp),
-            value = "Metro Pass Application",
+            value = "General Pass Application",
             fontSize = 25.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = PoppinsBold,
-            color =  DarkGray
+            color = DarkGray
         )
         OutlinedInputField(
-            label = "Full name",
+            label = "Surname",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = fullName.value,
+            value = surname ?: "",
             onValueChanged = {
-                viewModel.updateFullName(it)
-            }
+                viewModel.updateSurname(it)
+            },
+            enabled = currentUser?.surname == null
         )
         OutlinedInputField(
-            label = "Guardian name",
+            label = "Lastname",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = guardian.value,
+            value = lastname ?: "",
+            onValueChanged = {
+                viewModel.updateLastname(it)
+            },
+            enabled = currentUser?.lastname == null
+        )
+        OutlinedInputField(
+            label = "Guardian Name",
+            modifier = Modifier
+                .width(280.dp)
+                .padding(bottom = 15.dp),
+            value = guardian ?: "",
             onValueChanged = {
                 viewModel.updateGuardian(it)
             }
         )
         OutlinedInputField(
-            label = "Date of birth",
+            label = "Date of Birth",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = dateOfBirth.value,
+            value = dateOfBirth ?: "",
             onValueChanged = {
                 viewModel.updateDateOfBirth(it)
             }
         )
         DropDown(
-            label="gender",
-            options = listOf("Male", "Female", "Others"),
-            value = "Gender",
-            onItemSelected = { gender = it }
+            label = "Gender",
+            options = Data.genderOptions,
+            value = gender ?: "",
+            onItemSelected = {
+                viewModel.updateGender(it)
+            }
         )
         Spacer(modifier = Modifier.padding(bottom = 15.dp))
         OutlinedInputField(
@@ -110,7 +125,7 @@ fun MetroPassApplicationFormScreen(
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = phone.value,
+            value = phone ?: "",
             onValueChanged = {
                 viewModel.updatePhone(it)
             }
@@ -120,29 +135,51 @@ fun MetroPassApplicationFormScreen(
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = email.value,
+            value = email ?: "",
             onValueChanged = {
                 viewModel.updateEmail(it)
-            }
+            },
+            enabled = currentUser?.email == null
         )
         OutlinedInputField(
             label = "Aadhar no",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = aadhar.value,
+            value = aadhar ?: "",
             onValueChanged = {
                 viewModel.updateAadhar(it)
-            }
+            },
+            enabled = currentUser?.aadhar == null
         )
         OutlinedInputField(
-            label = "Applicant address",
+            label = "House No",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = address.value,
+            value = houseNumber ?: "",
             onValueChanged = {
-                viewModel.updateAddress(it)
+                viewModel.updateHouseNumber(it)
+            }
+        )
+        OutlinedInputField(
+            label = "Street",
+            modifier = Modifier
+                .width(280.dp)
+                .padding(bottom = 15.dp),
+            value = street ?: "",
+            onValueChanged = {
+                viewModel.updateStreet(it)
+            }
+        )
+        OutlinedInputField(
+            label = "Area",
+            modifier = Modifier
+                .width(280.dp)
+                .padding(bottom = 15.dp),
+            value = area ?: "",
+            onValueChanged = {
+                viewModel.updateArea(it)
             }
         )
         OutlinedInputField(
@@ -150,37 +187,37 @@ fun MetroPassApplicationFormScreen(
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = district.value,
+            value = district ?: "",
             onValueChanged = {
                 viewModel.updateDistrict(it)
             }
         )
         OutlinedInputField(
-            label = "Mandal",
+            label = "City",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = mandal.value,
+            value = city ?: "",
             onValueChanged = {
-                viewModel.updateMandal(it)
+                viewModel.updateCity(it)
             }
         )
         OutlinedInputField(
-            label = "village",
+            label = "State",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = village.value,
+            value = state ?: "",
             onValueChanged = {
-                viewModel.updateVillage(it)
+                viewModel.updateState(it)
             }
         )
         OutlinedInputField(
             label = "Pin Code",
             modifier = Modifier
                 .width(280.dp)
-                .padding(bottom = 15.dp),
-            value = pincode.value,
+                .padding(bottom = 20.dp),
+            value = pincode ?: "",
             onValueChanged = {
                 viewModel.updatePincode(it)
             }
@@ -189,7 +226,11 @@ fun MetroPassApplicationFormScreen(
             text = "Submit",
             width = 280.dp,
             height = 45.dp,
-            borderShape = RoundedCornerShape(50)
+            borderShape = RoundedCornerShape(50),
+            onClick = {
+                // Call payments page here directly {testing purpose only}
+                viewModel.onClickSubmit()
+            }
         )
     }
 }

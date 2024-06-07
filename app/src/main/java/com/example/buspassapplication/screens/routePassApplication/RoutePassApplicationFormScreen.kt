@@ -28,8 +28,10 @@ import com.example.buspassapplication.components.DropDown
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.OutlinedInputField
 import com.example.buspassapplication.components.PrimaryButton
+import com.example.buspassapplication.screens.generalPassApplication.Data
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.PoppinsBold
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @ExperimentalMaterial3Api
 @Composable
@@ -38,72 +40,91 @@ fun RoutePassApplicationFormScreen(
         viewModel: RoutePassApplicationViewModel = hiltViewModel(),
         currentUserId: String?
 ) {
-    var fullName = viewModel.fullname.collectAsState()
-    var guardian = viewModel.guardian.collectAsState()
-    var dateOfBirth = viewModel.dateOfBirth.collectAsState()
-    var phone = viewModel.phone.collectAsState()
-    var email = viewModel.email.collectAsState()
-    var aadhar = viewModel.aadhar.collectAsState()
-    var address = viewModel.address.collectAsState()
-    var district = viewModel.district.collectAsState()
-    var mandal = viewModel.mandal.collectAsState()
-    var village = viewModel.village.collectAsState()
-    var fromPlace = viewModel.fromplace.collectAsState()
-    var toPlace = viewModel.toplace.collectAsState()
-    var pincode = viewModel.pincode.collectAsState()
-    var gender by rememberSaveable { mutableStateOf("") }
+    val surname by viewModel.surname.collectAsState()
+    val lastname by viewModel.lastname.collectAsState()
+    val guardian by viewModel.guardian.collectAsState()
+    val dateOfBirth by viewModel.dateOfBirth.collectAsState()
+    val gender by viewModel.gender.collectAsState()
+    val phone by viewModel.phone.collectAsState()
+    val email by viewModel.email.collectAsState()
+    val aadhar by viewModel.aadhar.collectAsState()
+    val houseNumber by viewModel.houseNumber.collectAsState()
+    val street by viewModel.street.collectAsState()
+    val area by viewModel.area.collectAsState()
+    val district by viewModel.district.collectAsState()
+    val city by viewModel.city.collectAsState()
+    val state by viewModel.state.collectAsState()
+    val pincode by viewModel.pincode.collectAsState()
+    val startingPoint = viewModel.startingPoint.collectAsState()
+    val destinationPoint = viewModel.destinationPoint.collectAsState()
+    val currentUser by viewModel.currentUser.collectAsState(initial = null)
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
+            .verticalScroll(rememberScrollState())
+            .padding(bottom = 40.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         BackNavigationBar(navController = navController)
         NormalText(
             modifier = Modifier
                 .padding(top = 15.dp, bottom = 20.dp),
-            value = "Route Pass Application",
+            value = "General Pass Application",
             fontSize = 25.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = PoppinsBold,
             color = DarkGray
         )
         OutlinedInputField(
-            label = "Full name",
+            label = "Surname",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = fullName.value,
+            value = surname ?: "",
             onValueChanged = {
-                viewModel.updateFullName(it)
-            }
+                viewModel.updateSurname(it)
+            },
+            enabled = currentUser?.surname == null
         )
         OutlinedInputField(
-            label = "Guardian name",
+            label = "Lastname",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = guardian.value,
+            value = lastname ?: "",
+            onValueChanged = {
+                viewModel.updateLastname(it)
+            },
+            enabled = currentUser?.lastname == null
+        )
+        OutlinedInputField(
+            label = "Guardian Name",
+            modifier = Modifier
+                .width(280.dp)
+                .padding(bottom = 15.dp),
+            value = guardian ?: "",
             onValueChanged = {
                 viewModel.updateGuardian(it)
             }
         )
         OutlinedInputField(
-            label = "Date of birth",
+            label = "Date of Birth",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = dateOfBirth.value,
+            value = dateOfBirth ?: "",
             onValueChanged = {
                 viewModel.updateDateOfBirth(it)
             }
         )
         DropDown(
-            label = "gender",
-            options = listOf("Male", "Female", "Others"),
-            value = "Gender",
-            onItemSelected = { gender = it }
+            label = "Gender",
+            options = Data.genderOptions,
+            value = gender ?: "",
+            onItemSelected = {
+                viewModel.updateGender(it)
+            }
         )
         Spacer(modifier = Modifier.padding(bottom = 15.dp))
         OutlinedInputField(
@@ -111,7 +132,7 @@ fun RoutePassApplicationFormScreen(
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = phone.value,
+            value = phone ?: "",
             onValueChanged = {
                 viewModel.updatePhone(it)
             }
@@ -121,29 +142,51 @@ fun RoutePassApplicationFormScreen(
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = email.value,
+            value = email ?: "",
             onValueChanged = {
                 viewModel.updateEmail(it)
-            }
+            },
+            enabled = currentUser?.email == null
         )
         OutlinedInputField(
             label = "Aadhar no",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = aadhar.value,
+            value = aadhar ?: "",
             onValueChanged = {
                 viewModel.updateAadhar(it)
-            }
+            },
+            enabled = currentUser?.aadhar == null
         )
         OutlinedInputField(
-            label = "Applicant address",
+            label = "House No",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = address.value,
+            value = houseNumber ?: "",
             onValueChanged = {
-                viewModel.updateAddress(it)
+                viewModel.updateHouseNumber(it)
+            }
+        )
+        OutlinedInputField(
+            label = "Street",
+            modifier = Modifier
+                .width(280.dp)
+                .padding(bottom = 15.dp),
+            value = street ?: "",
+            onValueChanged = {
+                viewModel.updateStreet(it)
+            }
+        )
+        OutlinedInputField(
+            label = "Area",
+            modifier = Modifier
+                .width(280.dp)
+                .padding(bottom = 15.dp),
+            value = area ?: "",
+            onValueChanged = {
+                viewModel.updateArea(it)
             }
         )
         OutlinedInputField(
@@ -151,67 +194,71 @@ fun RoutePassApplicationFormScreen(
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = district.value,
+            value = district ?: "",
             onValueChanged = {
                 viewModel.updateDistrict(it)
             }
         )
         OutlinedInputField(
-            label = "Mandal",
+            label = "City",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = mandal.value,
+            value = city ?: "",
             onValueChanged = {
-                viewModel.updateMandal(it)
+                viewModel.updateCity(it)
             }
         )
         OutlinedInputField(
-            label = "village",
+            label = "State",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = village.value,
+            value = state ?: "",
             onValueChanged = {
-                viewModel.updateVillage(it)
+                viewModel.updateState(it)
             }
         )
         OutlinedInputField(
-            label = "Pin Code",
+            label = "Pincode",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = pincode.value,
+            value = pincode ?: "",
             onValueChanged = {
                 viewModel.updatePincode(it)
             }
         )
         BlueLabelledText(text = "Route Details")
         OutlinedInputField(
-            label = "From Place",
+            label = "Starting Point",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = fromPlace.value,
+            value = startingPoint.value ?: "",
             onValueChanged = {
-                viewModel.updateFromPlace(it)
+                viewModel.updateStartingPoint(it)
             }
         )
         OutlinedInputField(
-            label = "To Place",
+            label = "Destination Point",
             modifier = Modifier
                 .width(280.dp)
                 .padding(bottom = 15.dp),
-            value = toPlace.value,
+            value = destinationPoint.value ?: "",
             onValueChanged = {
-                viewModel.updateToPlace(it)
+                viewModel.updateDestinationPoint(it)
             }
         )
         PrimaryButton(
             text = "Submit",
             width = 280.dp,
             height = 45.dp,
-            borderShape = RoundedCornerShape(50)
+            borderShape = RoundedCornerShape(50),
+            onClick = {
+                // Call payments page here directly {testing purpose only}
+                viewModel.onClickSubmit()
+            }
         )
     }
 }

@@ -1,9 +1,13 @@
 package com.example.buspassapplication.screens.routePassApplication
 
+import androidx.lifecycle.viewModelScope
+import com.example.buspassapplication.data.User
 import com.example.buspassapplication.models.AppViewModel
 import com.example.buspassapplication.models.service.AccountService
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -11,79 +15,125 @@ class RoutePassApplicationViewModel @Inject constructor(
     private val accountService: AccountService
 ) : AppViewModel()
 {
-    val fullname = MutableStateFlow("")
-    val guardian = MutableStateFlow("")
-    val dateOfBirth = MutableStateFlow("")
-    val phone = MutableStateFlow("")
-    val email = MutableStateFlow("")
-    val address = MutableStateFlow("")
-    val aadhar = MutableStateFlow("")
-    val district = MutableStateFlow("")
-    val mandal = MutableStateFlow("")
-    val village = MutableStateFlow("")
-    val pincode = MutableStateFlow("")
-    val gender = MutableStateFlow("")
-    val fromplace = MutableStateFlow("")
-    val toplace = MutableStateFlow("")
+    val surname = MutableStateFlow<String?>(null)
+    val lastname = MutableStateFlow<String?>(null)
+    val guardian = MutableStateFlow<String?>(null)
+    val dateOfBirth = MutableStateFlow<String?>(null)
+    val gender = MutableStateFlow<String?>(null)
+    val phone = MutableStateFlow<String?>(null)
+    val email = MutableStateFlow<String?>(null)
+    val aadhar = MutableStateFlow<String?>(null)
+    val houseNumber = MutableStateFlow<String?>(null)
+    val street = MutableStateFlow<String?>(null)
+    val area = MutableStateFlow<String?>(null)
+    val district = MutableStateFlow<String?>(null)
+    val city = MutableStateFlow<String?>(null)
+    val state = MutableStateFlow<String?>(null)
+    val pincode = MutableStateFlow<String?>(null)
+    val startingPoint = MutableStateFlow<String?>(null)
+    val destinationPoint = MutableStateFlow<String?>(null)
+    val currentUser: Flow<User?> = accountService.currentUser
 
-    fun updateFullName(newFullName: String){
-        fullname.value = newFullName
+
+    init {
+        viewModelScope.launch {
+            setCurrentUserData()
+        }
     }
 
-    fun updateGuardian(newGuardian: String){
+    private suspend fun setCurrentUserData() {
+        currentUser.collect { user ->
+            user?.let {
+                surname.value = it.surname
+                lastname.value = it.lastname
+                guardian.value = it.guardian
+                dateOfBirth.value = it.dateOfBirth
+                gender.value = it.gender
+                phone.value = it.phone
+                email.value = it.email
+                aadhar.value = it.aadhar
+                houseNumber.value = it.houseNumber
+                street.value = it.street
+                area.value = it.area
+                city.value = it.city
+                district.value = it.district
+                state.value = it.state
+                pincode.value = it.pincode
+            }
+        }
+    }
+
+    fun updateSurname(newSurname: String) {
+        surname.value = newSurname
+    }
+
+    fun updateLastname(newLastname: String) {
+        lastname.value = newLastname
+    }
+
+    fun updateGuardian(newGuardian: String) {
         guardian.value = newGuardian
     }
 
-    fun updateDateOfBirth(newDateOfBirth: String){
+    fun updateDateOfBirth(newDateOfBirth: String) {
         dateOfBirth.value = newDateOfBirth
     }
 
-    fun updatePhone(newPhone: String){
-        phone.value = newPhone
-    }
-
-    fun updateEmail(newEmail: String){
-        email.value = newEmail
-    }
-
-    fun updateAddress(newAddress: String){
-        address.value = newAddress
-    }
-
-    fun updateAadhar(newAadhar: String){
-        aadhar.value = newAadhar
-    }
-
-    fun updateDistrict(newDistrict: String){
-        district.value = newDistrict
-    }
-
-    fun updateMandal(newMandal: String){
-        mandal.value = newMandal
-    }
-
-    fun updateVillage(newVillage: String){
-        village.value = newVillage
-    }
-
-    fun updatePincode(newPincode: String){
-        pincode.value = newPincode
-    }
-
-    fun updateGender(newGender: String){
+    fun updateGender(newGender: String) {
         gender.value = newGender
     }
 
-    fun updateFromPlace(newFromPlace: String){
-        fromplace.value = newFromPlace
+    fun updatePhone(newPhone: String) {
+        phone.value = newPhone
     }
 
-    fun updateToPlace(newToPlace: String){
-        toplace.value = newToPlace
+    fun updateEmail(newEmail: String) {
+        email.value = newEmail
     }
 
-    fun onSubmit(){
-        //TODO
+    fun updateAadhar(newAadhar: String) {
+        aadhar.value = newAadhar
+    }
+
+    fun updateHouseNumber(newHouseNumber: String) {
+        houseNumber.value = newHouseNumber
+    }
+
+    fun updateStreet(newStreet: String) {
+        street.value = newStreet
+    }
+
+    fun updateArea(newArea: String) {
+        area.value = newArea
+    }
+
+    fun updateDistrict(newDistrict: String) {
+        district.value = newDistrict
+    }
+
+    fun updateCity(newCity: String) {
+        city.value = newCity
+    }
+
+    fun updateState(newState: String) {
+        state.value = newState
+    }
+
+    fun updatePincode(newPincode: String) {
+        pincode.value = newPincode
+    }
+
+    fun updateStartingPoint(newStartingPoint: String) {
+        startingPoint.value = newStartingPoint
+    }
+
+    fun updateDestinationPoint(newDestinationPoint: String) {
+        destinationPoint.value = newDestinationPoint
+    }
+    fun onClickSubmit() {
+        // create an object with all above fields
+        // Initiate firebasefirestore call in Route service and pass the object
+        // based on the response, show message
     }
 
 }

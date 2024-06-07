@@ -146,7 +146,7 @@ fun GeneralPassApplicationFormScreen(
             onValueChanged = {
                 viewModel.updateEmail(it)
             },
-            enabled = email == null
+            enabled = currentUser?.email == null
         )
         OutlinedInputField(
             label = "Aadhar no",
