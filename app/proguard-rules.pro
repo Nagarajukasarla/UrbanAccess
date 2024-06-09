@@ -35,3 +35,6 @@
 -keepclasseswithmembers class * {
   public void onPayment*(...);
 }
+
+-keep class com.razorpay.** { *; }
+-keep class org.json.** { *; }

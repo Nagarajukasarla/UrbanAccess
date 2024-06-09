@@ -1,21 +1,33 @@
 package com.example.buspassapplication.screens.generalPassApplication
 
+import android.app.Activity
+import android.app.Application
+import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.buspassapplication.PaymentActivity
+import com.example.buspassapplication.app.launchCatching
+import com.example.buspassapplication.data.RazorpayOrderRequest
 import com.example.buspassapplication.data.User
 import com.example.buspassapplication.models.AppViewModel
+import com.example.buspassapplication.models.implementation.ExternalApiServiceImplementation
 import com.example.buspassapplication.models.service.AccountService
+import com.example.buspassapplication.models.utils.OperationStatus
+import com.example.buspassapplication.models.utils.RazorpayOrderResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import org.json.JSONObject
+import retrofit2.Response
 import javax.inject.Inject
-import com.example.buspassapplication.app.launchCatching
-import com.example.buspassapplication.models.utils.OperationStatus
 
 @HiltViewModel
 class GeneralPassApplicationViewModel @Inject constructor(
-    private val accountService: AccountService
+    private val accountService: AccountService,
+    private val application: Application,
+    private val externalApiServiceImplementation: ExternalApiServiceImplementation
 ) : AppViewModel() {
 
     val surname = MutableStateFlow<String?>(null)
@@ -130,7 +142,43 @@ class GeneralPassApplicationViewModel @Inject constructor(
         }
     }
 
-    fun onSubmitClick() {
+
+    fun callPaymentScreen(activity: Activity) {
+        var obj = JSONObject(
+            "{address: Hyderabad, receipt: order_rcptid_11}"
+        )
+        val razorpayOrderRequest = RazorpayOrderRequest(
+            amount = 90000,
+            currecy = "INR",
+            receipt = "",
+            partialPayment = false,
+            notes = obj
+        )
+        viewModelScope.launch {
+            val response = externalApiServiceImplementation.generateOrder(razorpayOrderRequest)
+            if (response.isSuccessful) {
+                val orderResponse = response.body()
+                Log.d("GeneralPassViewModel", "Order response: $orderResponse")
+                orderResponse?.let {
+                    val intent = Intent(activity, PaymentActivity::class.java).apply {
+                        putExtra("orderId", orderResponse.id)
+                        putExtra("amount", orderResponse.amount)
+                        putExtra("currency", orderResponse.currency)
+                        putExtra("receipt", orderResponse.receipt)
+                        putExtra("notes", orderResponse.notes.toString())
+                    }
+                    activity.startActivityForResult(intent, PAYMENT_REQUEST_CODE)
+                }
+            }
+        }
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+
+//        viewModelScope.launch(Dispatchers.Main) {
+//        }
+    }
+
+    fun onSubmitClick(activity: Activity) {
         viewModelScope.launchCatching(
             block = {
                 when (val result = accountService.updateUser(createUserMap())) {
@@ -140,7 +188,9 @@ class GeneralPassApplicationViewModel @Inject constructor(
                         popupTitle.value = "Application Submitted"
                         contentOnFirstLine.value = "You will be notified once your"
                         contentOnSecondLine.value = "application is approved"
+                        callPaymentScreen(activity)
                     }
+
                     is OperationStatus.Failure -> {
                         Log.d("GeneralPassViewModel", "Error: ${result.exception.message}")
                         popupStatus.value = true
@@ -173,4 +223,7 @@ class GeneralPassApplicationViewModel @Inject constructor(
         )
     }
 
+    companion object {
+        const val PAYMENT_REQUEST_CODE = 1001
+    }
 }

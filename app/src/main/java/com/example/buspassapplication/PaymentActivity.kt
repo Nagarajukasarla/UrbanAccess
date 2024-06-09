@@ -1,10 +1,10 @@
 package com.example.buspassapplication
 
-import android.app.Activity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import com.example.buspassapplication.data.RazorpayOrderRequest
+import com.example.buspassapplication.models.utils.RazorpayOrderResponse
 import com.razorpay.Checkout
 import com.razorpay.ExternalWalletListener
 import com.razorpay.PaymentData
@@ -13,54 +13,63 @@ import org.json.JSONObject
 
 class PaymentActivity : ComponentActivity(), PaymentResultWithDataListener, ExternalWalletListener {
     override fun onPaymentSuccess(p0: String?, p1: PaymentData?) {
-        TODO("Not yet implemented")
+        Toast.makeText(this, "Payment Successful: $p0", Toast.LENGTH_LONG).show()
+        setResult(RESULT_OK)
+        finish()
     }
 
     override fun onPaymentError(p0: Int, p1: String?, p2: PaymentData?) {
-        TODO("Not yet implemented")
+        Toast.makeText(this, "Payment Error: $p1", Toast.LENGTH_LONG).show()
+        setResult(RESULT_CANCELED)
+        finish()
     }
 
     override fun onExternalWalletSelected(p0: String?, p1: PaymentData?) {
-        TODO("Not yet implemented")
+        Toast.makeText(this, "External Wallet Selected: $p0", Toast.LENGTH_LONG).show()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val amount = intent.getLongExtra("amount", 0)
+        val orderId = intent.getStringExtra("orderId") ?: ""
+        val currency = intent.getStringExtra("currency") ?: ""
+        val notes = intent.getStringExtra("notes") ?: ""
+        createOrder(amount = amount, orderId = orderId, currency =  currency, notes =  JSONObject(notes))
+
     }
 
-    fun createOrder() {
-        val activity: Activity = this
-        Checkout.preload(applicationContext)
+    private fun createOrder(orderId: String?, amount: Long, currency: String, notes: JSONObject?) {
         val checkout = Checkout()
         checkout.setKeyID("rzp_test_JmTvsyFwmcuMTd")
         try {
+
             val options = JSONObject()
             options.put("name", "Razorpay Corp")
             options.put("description", "Demoing Charges")
-            //You can omit the image option to fetch the image from the dashboard
             options.put(
                 "image",
                 "https://w7.pngwing.com/pngs/93/992/png-transparent-razorpay-logo-tech-companies.png"
             )
+            options.put("order_id", orderId)
             options.put("theme.color", "#3399cc")
-            options.put("currency", "INR")
-//            options.put("order_id", "order_DBJOWzybf0sJbb");
-            options.put("amount", "50000")//pass amount in currency subunits
-
-//            val retryObj = JSONObject()
-//            retryObj.put("enabled", true)
-//            retryObj.put("max_count", 4)
-//            options.put("retry", retryObj)
+            options.put("currency", currency)
+            options.put("amount", amount)
 
             val prefill = JSONObject()
             prefill.put("email", "gaurav.kumar@example.com")
             prefill.put("contact", "9876543210")
 
+//            val notes = JSONObject()
+//            notes.put("address", "Razorpay Corporate Office")
+//            notes.put("merchant_order_id", "12312321")
+//            notes.put("Item", "Tea 2 cups")
+
+            options.put("notes", notes)
             options.put("prefill", prefill)
-            checkout.open(activity, options)
+            checkout.open(this, options)
 
         } catch (e: Exception) {
-            Toast.makeText(activity, "Error in payment: " + e.message, Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Error in payment: " + e.message, Toast.LENGTH_LONG).show()
             e.printStackTrace()
         }
     }

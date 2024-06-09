@@ -34,7 +34,9 @@ class MainActivity : ComponentActivity(), PaymentResultWithDataListener, Externa
             BusPassApplicationTheme {
                 navController = rememberNavController()
                 RootNavigationGraph(navController)
-//                Button(
+            }
+
+//            Button(
 //                    onClick = {
 //                        initiateOrder()
 //                    },
@@ -42,12 +44,11 @@ class MainActivity : ComponentActivity(), PaymentResultWithDataListener, Externa
 //                ) {
 //                    Text(text = "Click me!")
 //                }
-            }
         }
     }
 
     fun initiateOrder() {
-        //Checkout.preload(applicationContext)
+        Checkout.preload(applicationContext)
         var checkout = Checkout()
         checkout.setKeyID("rzp_test_JmTvsyFwmcuMTd")
         try {
