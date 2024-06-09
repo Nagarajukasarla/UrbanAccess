@@ -7,6 +7,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -48,8 +49,17 @@ import com.example.buspassapplication.ui.theme.Black
 import com.example.buspassapplication.ui.theme.CloudGray
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.DimGray
+import com.example.buspassapplication.ui.theme.PoppinsLight
 import com.example.buspassapplication.ui.theme.PoppinsMedium
 import com.example.buspassapplication.ui.theme.Shapes
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import com.example.buspassapplication.ui.theme.PoppinsBold
+import com.example.buspassapplication.ui.theme.White
 
 @ExperimentalMaterial3Api
 @Composable
@@ -59,83 +69,120 @@ fun PastTicket(
     title: String,
     titleSize: TextUnit = 25.sp,
     titlesColumnWidth: Dp = 170.dp,
-    leadingIconSize: Dp = 21.dp,
+    leadingIconSize: Dp = 30.dp,
     isBordered: Boolean = true,
     underLine: Boolean = false,
 
-) {
+    ) {
     val forwardArrowResourceId = R.drawable.arrow_forward
-    var expandedState by remember { mutableStateOf(false) }
+    var expandedState by remember { mutableStateOf(true) }
     val rotationState by animateFloatAsState(
-        targetValue = if (expandedState) 90f else 270f, label = ""
+        targetValue = if (expandedState) 270f else 90f, label = ""
     )
-
-    val boxModifier = Modifier
-        .height(height)
-        .width(width)
-        .let { if (isBordered) it.border(2.dp, DimGray, RoundedCornerShape(5.dp)) else it }
-        .clickable { expandedState = !expandedState }
-
-    Column(
+    Card (
         modifier = Modifier
-            .clickable { expandedState = !expandedState }
+            .fillMaxWidth()
             .animateContentSize(
                 animationSpec = tween(
-                    durationMillis = 300,
+                    durationMillis = 500,
                     easing = LinearOutSlowInEasing
                 )
-            )
-            .padding(5.dp)
-            .width(width)
-    ) {
-        Row(
-            modifier = boxModifier,
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+            ).border(width = 2.dp, DimGray,RoundedCornerShape(5.dp))
+            .clickable(
+                indication = null,
+                interactionSource = remember { MutableInteractionSource() }
+            ) { expandedState = !expandedState },
+        shape = Shapes.small,
+        onClick = {
+            expandedState = !expandedState
+        },
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent)
+    ){
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp)
         ) {
-            Column(
-                modifier = Modifier.width(titlesColumnWidth)
+            Row(
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 NormalText(
-                    modifier = Modifier.padding(start=10.dp),
+                    modifier = Modifier.weight(6f).padding(start = 10.dp),
                     value = title,
                     fontSize = titleSize,
-                    fontWeight = FontWeight.Normal,
+                    fontWeight = FontWeight.Bold,
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
-                    letterSpacing = 0.5.sp
                 )
+                
+                    androidx.compose.material3.Icon(
+                        painter = painterResource(id = forwardArrowResourceId),
+                        contentDescription = "Forward arrow",
+                        tint = DarkGray,
+                        modifier = Modifier
+                            .size(leadingIconSize)
+                            .padding(end=10.dp)
+                            .rotate(rotationState)
+                            .clickable { expandedState = !expandedState }
+                    )
+
             }
-            Spacer(modifier = Modifier.width(10.dp))
-            androidx.compose.material3.Icon(
-                painter = painterResource(id = forwardArrowResourceId),
-                contentDescription = "Forward arrow",
-                tint = DarkGray,
-                modifier = Modifier
-                    .size(leadingIconSize)
-                    .padding(end = 10.dp)
-                    .rotate(rotationState),
-            )
-        }
-        if (expandedState) {
-            NormalText(
-                modifier = Modifier.align(Alignment.Start),
-                value = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pretium est nulla, eu finibus orci fringilla non. Phasellus nec porta nisi. Fusce sollicitudin lacus nec laoreet ultricies. Morbi bibendum orci sit amet ultrices congue. Aenean mollis tortor ante, at consequat sapien tempus et. Morbi ornare commodo dictum. Praesent quis facilisis dui, quis ullamcorper metus. Ut felis nisl, pharetra et faucibus et, condimentum non arcu. Curabitur mi neque, ultrices et elementum eu, hendrerit non nunc.\n" +
-                        "\n" +
-                        "In volutpat erat eget lectus egestas, vitae rhoncus orci sodales. Fusce tempor iaculis tempus. Sed sed luctus tellus. Aenean ut lacinia dolor. Ut elementum dapibus ante, ut hendrerit ex sollicitudin in. Etiam ut ante non arcu bibendum maximus. Vestibulum dapibus ultricies felis sed faucibus. Cras ut gravida lorem. Praesent ut iaculis diam. Duis faucibus sed ante ac lobortis. Etiam tincidunt scelerisque sapien, a dapibus urna ullamcorper ut. Pellentesque erat justo, tincidunt eu elit non, tincidunt pharetra tortor. Morbi eget fermentum tellus. Fusce facilisis quam ac varius semper. Nam id nisi ut sapien bibendum sollicitudin vel vitae mi.\n" +
-                        "\n" +
-                        "Donec id suscipit sapien. Vestibulum fermentum eleifend fringilla. Suspendisse a ornare nulla. Vestibulum sit amet scelerisque ipsum. Donec sit amet pretium nulla. Suspendisse dapibus mi dui, a venenatis diam ultricies id. Sed nibh nulla, commodo et arcu a, vehicula dictum erat. Fusce aliquet elit sit amet orci tempor porta.\n" +
-                        "\n" +
-                        "Mauris vitae faucibus lacus. Ut dictum molestie eros, eget posuere lectus. Aliquam quis nisi hendrerit, rutrum odio quis, bibendum ligula. Mauris accumsan lobortis malesuada. Proin ex sem, luctus id porta a, fringilla sit amet neque. Integer a magna non orci ultrices porta eu eget risus. Aenean eu convallis lorem.\n" +
-                        "\n" +
-                        "Sed viverra id diam at pulvinar. Vestibulum vel ultricies ipsum. Maecenas accumsan feugiat velit sed sodales. Donec consectetur a leo at accumsan. Sed sagittis fringilla enim, sit amet ornare tortor consequat id. Nullam vitae risus ut tellus consectetur sagittis ac ut nisi. Proin justo tortor, maximus eget dictum at, viverra at velit. Proin quis enim mattis, varius felis vitae, tristique nunc. Cras feugiat mattis ligula sed sollicitudin. Pellentesque vitae urna erat. Sed aliquet, ligula quis euismod rhoncus, metus lacus congue ex, sed commodo eros dui quis risus.",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Normal,
-                fontFamily = PoppinsMedium,
-                color = Black
-            )
-        }
-    }
+            if (expandedState) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start=10.dp,end=10.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ){
+                    Column(){
+                        NormalText(
+                            modifier = Modifier,
+                            value = "Date of purchase",
+                            fontSize = 14.sp,
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = PoppinsBold,
+                            color = DimGray,
+                        )
+                        Spacer(modifier = Modifier.height(3.dp))
+                        NormalText(
+                            modifier = Modifier,
+                            value = "ID",
+                            fontSize = 13.sp,
+                            fontWeight =FontWeight.Bold,
+                            fontFamily = PoppinsLight,
+                            color = DarkGray,
+                        )
+                        Spacer(modifier = Modifier.height(5.dp))
+                        NormalText(
+                            modifier = Modifier,
+                            value = "From",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = PoppinsMedium,
+                            color = DarkGray,
+                        )
+                        Spacer(modifier = Modifier.height(5.dp))
+                        NormalText(
+                            modifier = Modifier,
+                            value = "To",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            fontFamily = PoppinsMedium,
+                            color = DarkGray,
+                        )
+                    }
+                    Box(){
+                        Image(
+                            modifier=Modifier
+                                .size(100.dp),
+                            painter = painterResource(id = R.drawable.test3),
+                            contentDescription = "QR image"
+                        )
+                    }
+                }
+            }
+        }}
     if (underLine) {
         HorizontalDivider(
             modifier = Modifier

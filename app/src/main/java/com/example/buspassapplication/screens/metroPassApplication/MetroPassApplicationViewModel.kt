@@ -1,9 +1,13 @@
 package com.example.buspassapplication.screens.metroPassApplication
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.buspassapplication.app.launchCatching
 import com.example.buspassapplication.data.User
 import com.example.buspassapplication.models.AppViewModel
 import com.example.buspassapplication.models.service.AccountService
+import com.example.buspassapplication.models.utils.OperationStatus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -31,6 +35,11 @@ class MetroPassApplicationViewModel @Inject constructor(
     val state = MutableStateFlow<String?>(null)
     val pincode = MutableStateFlow<String?>(null)
     val currentUser: Flow<User?> = accountService.currentUser
+
+    val popupStatus = MutableStateFlow(false)
+    val popupTitle = MutableStateFlow("")
+    val contentOnFirstLine = MutableStateFlow("")
+    val contentOnSecondLine = MutableStateFlow("")
 
     init {
         viewModelScope.launch {
@@ -121,6 +130,44 @@ class MetroPassApplicationViewModel @Inject constructor(
         }
     }
     fun onClickSubmit() {
-
+        viewModelScope.launchCatching(
+            block = {
+                when (val result = accountService.updateUser(createUserMap())) {
+                    is OperationStatus.Success -> {
+                        Log.d("MetroPassViewModel", "User updated successfully")
+                        popupStatus.value = true
+                        popupTitle.value = "Application Submitted"
+                        contentOnFirstLine.value = "You will be notified once your"
+                        contentOnSecondLine.value = "application is approved"
+                    }
+                    is OperationStatus.Failure -> {
+                        Log.d("MetroPassViewModel", "Error: ${result.exception.message}")
+                        popupStatus.value = true
+                        popupTitle.value = "Submission Failed"
+                        contentOnFirstLine.value = "Unable to submit application"
+                        contentOnSecondLine.value = "Please try again later"
+                    }
+                }
+            },
+            onError = { exception ->
+                Log.d("GeneralPassViewModel", "Error: ${exception.message}")
+            }
+        )
+    }
+    private fun createUserMap(): Map<String, Any?> {
+        return hashMapOf(
+            "guardian" to guardian.value,
+            "dateOfBirth" to dateOfBirth.value,
+            "aadhar" to aadhar.value,
+            "gender" to gender.value,
+            "phone" to phone.value,
+            "houseNumber" to houseNumber.value,
+            "street" to street.value,
+            "area" to area.value,
+            "city" to city.value,
+            "district" to district.value,
+            "state" to state.value,
+            "pincode" to pincode.value
+        )
     }
 }

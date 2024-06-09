@@ -6,7 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.buspassapplication.routes.WalletScreenRoutes
-import com.example.buspassapplication.screens.PastTicketsScreen
+import com.example.buspassapplication.screens.pastTickets.PastTicketsScreen
 import com.example.buspassapplication.screens.TransactionHistory.TransactionHistoryScreen
 
 @OptIn(ExperimentalMaterial3Api::class)

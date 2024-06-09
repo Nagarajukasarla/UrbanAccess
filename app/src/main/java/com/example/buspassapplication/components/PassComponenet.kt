@@ -124,7 +124,7 @@ fun PassComponent(){
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun PreviewPass() {
     PassComponent()

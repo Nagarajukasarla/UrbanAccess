@@ -46,7 +46,7 @@ import com.google.firebase.ktx.Firebase
 @Composable
 fun LoginScreen(
     navController: NavHostController,
-    viewModel: LoginViewModel = hiltViewModel()
+    viewModel: LoginViewModel = hiltViewModel(),
 ){
 
     var popupStatus = viewModel.showPopup.collectAsState()
@@ -168,9 +168,9 @@ fun LoginScreen(
     }
 }
 
-@ExperimentalMaterial3Api
-@Preview
-@Composable
-fun LoginPreview(){
-    LoginScreen(navController = rememberNavController())
-}
+//@ExperimentalMaterial3Api
+//@Preview
+//@Composable
+//fun LoginPreview(){
+//    LoginScreen(navController = rememberNavController())
+//}

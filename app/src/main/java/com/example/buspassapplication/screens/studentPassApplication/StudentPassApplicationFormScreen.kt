@@ -69,6 +69,11 @@ fun StudentPassApplicationFormScreen(
     val admissionNumber by viewModel.admissionNumber.collectAsState()
     val currentUser by viewModel.currentUser.collectAsState(null)
 
+    val popupStatus = MutableStateFlow(false)
+    val popupTitle = MutableStateFlow("")
+    val contentOnFirstLine = MutableStateFlow("")
+    val contentOnSecondLine = MutableStateFlow("")
+
 
     Column(
         modifier = Modifier
@@ -351,7 +356,10 @@ fun StudentPassApplicationFormScreen(
             text = "Submit",
             width = 280.dp,
             height = 45.dp,
-            borderShape = RoundedCornerShape(50)
+            borderShape = RoundedCornerShape(50),
+            onClick = {
+                viewModel.onSubmit()
+            }
         )
     }
 }

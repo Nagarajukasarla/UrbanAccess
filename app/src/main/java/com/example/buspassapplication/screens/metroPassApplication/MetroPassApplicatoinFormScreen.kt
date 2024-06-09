@@ -23,6 +23,7 @@ import com.example.buspassapplication.components.BackNavigationBar
 import com.example.buspassapplication.components.DropDown
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.OutlinedInputField
+import com.example.buspassapplication.components.Popup
 import com.example.buspassapplication.components.PrimaryButton
 import com.example.buspassapplication.screens.generalPassApplication.Data
 import com.example.buspassapplication.ui.theme.DarkGray
@@ -51,6 +52,11 @@ fun MetroPassApplicationFormScreen(
     val state by viewModel.state.collectAsState()
     val pincode by viewModel.pincode.collectAsState()
     val currentUser by viewModel.currentUser.collectAsState(initial = null)
+
+    val popupStatus by viewModel.popupStatus.collectAsState()
+    val popupTitle by viewModel.popupTitle.collectAsState()
+    val contentOnFirstLine by viewModel.contentOnFirstLine.collectAsState()
+    val contentOnSecondLine by viewModel.contentOnSecondLine.collectAsState()
 
     Column(
         modifier = Modifier
@@ -232,6 +238,21 @@ fun MetroPassApplicationFormScreen(
                 viewModel.onClickSubmit()
             }
         )
+
+        if (popupStatus) {
+            Popup(
+                title = popupTitle,
+                contentOnFirstLine = contentOnFirstLine,
+                contentOnSecondLine = contentOnSecondLine,
+                dismiss = false,
+                onDismissRequest = {
+                    viewModel.popupStatus.value = false
+                },
+                onConfirmRequest = {
+                    viewModel.popupStatus.value = false
+                }
+            )
+        }
     }
 }
 

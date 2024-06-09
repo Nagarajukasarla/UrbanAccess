@@ -1,4 +1,4 @@
-package com.example.buspassapplication.screens
+package com.example.buspassapplication.screens.pastTickets
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -49,7 +49,9 @@ fun PastTicketsScreen(
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 Column {
-                    PastTicket(title = "Top Up")
+                    PastTicket(title = "From to To")
+                    Spacer(modifier = Modifier.height(10.dp))
+                    PastTicket(title = "From to To")
                 }
             }
         }
