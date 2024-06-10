@@ -1,6 +1,7 @@
 package com.example.buspassapplication.screens.generalPassApplication
 
 import android.app.Activity
+import android.util.Log
 import androidx.compose.foundation.LocalOverscrollConfiguration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -26,10 +27,12 @@ import com.example.buspassapplication.components.BackNavigationBar
 import com.example.buspassapplication.components.DropDown
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.OutlinedInputField
+import com.example.buspassapplication.components.PaymentConfirmationPopup
 import com.example.buspassapplication.components.Popup
 import com.example.buspassapplication.components.PrimaryButton
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.PoppinsBold
+import kotlinx.coroutines.flow.MutableStateFlow
 
 
 @ExperimentalMaterial3Api
@@ -58,13 +61,15 @@ fun GeneralPassApplicationFormScreen(
     val state by viewModel.state.collectAsState()
     val pincode by viewModel.pincode.collectAsState()
     val currentUser by viewModel.currentUser.collectAsState(initial = null)
+    val amount = "450"
 
+    val paymentConfirmationPopupStatus by viewModel.paymentConfirmationPopupStatus.collectAsState()
     val popupStatus by viewModel.popupStatus.collectAsState()
     val popupTitle by viewModel.popupTitle.collectAsState()
     val contentOnFirstLine by viewModel.contentOnFirstLine.collectAsState()
     val contentOnSecondLine by viewModel.contentOnSecondLine.collectAsState()
 
-
+    Log.d("GeneralPassApplicationFormScreen", "Popup status: $popupStatus")
 
     Column(
         modifier = Modifier
@@ -254,13 +259,25 @@ fun GeneralPassApplicationFormScreen(
                 contentOnSecondLine = contentOnSecondLine,
                 dismiss = false,
                 onDismissRequest = {
-                    viewModel.popupStatus.value = false
+//                    viewModel.popupStatus.value = false
                 },
                 onConfirmRequest = {
-                    viewModel.popupStatus.value = false
+                    viewModel.updatePopupStatus(false)
                 }
             )
         }
+
+//        if (paymentConfirmationPopupStatus) {
+//            PaymentConfirmationPopup(
+//                amount = amount,
+//                onDismissRequest = {
+//                    viewModel.popupStatus.value = false
+//                },
+//                onPayRequest = {
+//                    viewModel.popupStatus.value = false
+//                }
+//            )
+//        }
     }
 }
 

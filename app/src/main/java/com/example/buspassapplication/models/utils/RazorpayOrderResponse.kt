@@ -1,8 +1,5 @@
 package com.example.buspassapplication.models.utils
 
-import org.json.JSONObject
-
-
 // razorpay response for order creation
 //{
 //    "amount": 50000,
@@ -30,7 +27,6 @@ data class RazorpayOrderResponse(
     val createdAt: Long,
     val currency: String,
     val entity: String,
-    val notes: JSONObject,
     val offerId: String?,
     val receipt: String,
     val status: String

@@ -14,7 +14,7 @@ import javax.inject.Inject
 class ExternalApiServiceImplementation @Inject constructor() : ExternalApiService {
 
     companion object {
-        const val URL = "http://127.0.0.1:5000/"
+        const val URL = "http://192.168.0.38:5000/"
     }
 
     private val retrofit = Retrofit.Builder()
@@ -29,8 +29,10 @@ class ExternalApiServiceImplementation @Inject constructor() : ExternalApiServic
     }
 
     override suspend fun generateOrder(razorpayOrderRequest: RazorpayOrderRequest): Response<RazorpayOrderResponse> {
-        return externalApiService.generateOrder(razorpayOrderRequest)
+            return externalApiService.generateOrder(razorpayOrderRequest)
     }
+
+
 }
 
 // Usage:

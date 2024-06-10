@@ -14,8 +14,9 @@ interface ExternalApiService {
     @GET("upload/{id}")
     suspend fun upload(@Path("id") id : String): Response<UploadResponse>
 
-    @POST("generate-razorpayOrderRequest")
+    @POST("generate-order")
     suspend fun generateOrder(@Body razorpayOrderRequest: RazorpayOrderRequest): Response<RazorpayOrderResponse>
+
 }
 
 

@@ -19,7 +19,8 @@ fun NormalText (
     fontWeight: FontWeight,
     fontFamily: FontFamily,
     color: Color,
-    letterSpacing: TextUnit = 0.4.sp
+    letterSpacing: TextUnit = 0.4.sp,
+    lineHeight: TextUnit = 20.sp
 ) {
     Text(
         modifier = modifier,
@@ -30,6 +31,7 @@ fun NormalText (
             fontFamily = fontFamily,
             color = color,
             fontSize = fontSize
-        )
+        ),
+        lineHeight = lineHeight
     )
 }

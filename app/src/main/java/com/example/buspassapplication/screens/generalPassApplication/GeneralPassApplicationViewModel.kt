@@ -1,11 +1,10 @@
 package com.example.buspassapplication.screens.generalPassApplication
 
 import android.app.Activity
-import android.app.Application
 import android.content.Intent
 import android.util.Log
+import androidx.activity.result.ActivityResultLauncher
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.buspassapplication.PaymentActivity
 import com.example.buspassapplication.app.launchCatching
 import com.example.buspassapplication.data.RazorpayOrderRequest
@@ -16,17 +15,17 @@ import com.example.buspassapplication.models.service.AccountService
 import com.example.buspassapplication.models.utils.OperationStatus
 import com.example.buspassapplication.models.utils.RazorpayOrderResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.toSet
 import kotlinx.coroutines.launch
-import org.json.JSONObject
-import retrofit2.Response
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class GeneralPassApplicationViewModel @Inject constructor(
     private val accountService: AccountService,
-    private val application: Application,
     private val externalApiServiceImplementation: ExternalApiServiceImplementation
 ) : AppViewModel() {
 
@@ -51,6 +50,8 @@ class GeneralPassApplicationViewModel @Inject constructor(
     val popupTitle = MutableStateFlow("")
     val contentOnFirstLine = MutableStateFlow("")
     val contentOnSecondLine = MutableStateFlow("")
+
+    val paymentConfirmationPopupStatus = MutableStateFlow(false)
 
     init {
         viewModelScope.launch {
@@ -118,6 +119,9 @@ class GeneralPassApplicationViewModel @Inject constructor(
         pincode.value = newPincode
     }
 
+    fun updatePopupStatus(newPopupStatus: Boolean) {
+        popupStatus.value = newPopupStatus
+    }
 
     private suspend fun setCurrentUserData() {
         currentUser.collect { user ->
@@ -143,39 +147,65 @@ class GeneralPassApplicationViewModel @Inject constructor(
     }
 
 
-    fun callPaymentScreen(activity: Activity) {
-        var obj = JSONObject(
-            "{address: Hyderabad, receipt: order_rcptid_11}"
-        )
-        val razorpayOrderRequest = RazorpayOrderRequest(
-            amount = 90000,
-            currecy = "INR",
-            receipt = "",
-            partialPayment = false,
-            notes = obj
-        )
-        viewModelScope.launch {
-            val response = externalApiServiceImplementation.generateOrder(razorpayOrderRequest)
-            if (response.isSuccessful) {
-                val orderResponse = response.body()
-                Log.d("GeneralPassViewModel", "Order response: $orderResponse")
-                orderResponse?.let {
-                    val intent = Intent(activity, PaymentActivity::class.java).apply {
-                        putExtra("orderId", orderResponse.id)
-                        putExtra("amount", orderResponse.amount)
-                        putExtra("currency", orderResponse.currency)
-                        putExtra("receipt", orderResponse.receipt)
-                        putExtra("notes", orderResponse.notes.toString())
-                    }
-                    activity.startActivityForResult(intent, PAYMENT_REQUEST_CODE)
-                }
+    fun handlePaymentResult(paymentStatus: String, paymentId: String, errorCode: Int = -1, errorMessage: String = "", paymentData: String) {
+        when (paymentStatus) {
+            "success" -> {
+                updatePopupStatus(true)
+                popupTitle.value = "Application Submitted"
+                contentOnFirstLine.value = "You will be notified once your"
+                contentOnSecondLine.value = "application is approved"
+                Log.d("GeneralPassViewModel", "Payment successful: $paymentId, data: $paymentData")
+            }
+            "error" -> {
+//                popupStatus.value = true
+                popupTitle.value = "Submission Failed"
+                contentOnFirstLine.value = "Contact customer support"
+                contentOnSecondLine.value = "with support@urbanpass.com"
+                Log.e("GeneralPassViewModel", "Payment error: $errorCode, message: $errorMessage, data: $paymentData")
+            }
+            else -> {
+                Log.e("GeneralPassViewModel", "Unknown payment status")
             }
         }
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    }
 
+    private suspend fun generateOrder(razorpayOrderRequest: RazorpayOrderRequest): RazorpayOrderResponse? {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = externalApiServiceImplementation.generateOrder(razorpayOrderRequest)
+                if (response.isSuccessful) {
+                    response.body()
+                } else {
+                    Log.e("GeneralPassViewModel", "Failed to generate order: ${response.errorBody()?.string()}")
+                    null
+                }
+            } catch (e: Exception) {
+                Log.e("GeneralPassViewModel", "Exception during order generation: ${e.message}")
+                null
+            }
+        }
+    }
 
-//        viewModelScope.launch(Dispatchers.Main) {
-//        }
+    private fun callPaymentScreen(activity: Activity) {
+        val razorpayOrderRequest = RazorpayOrderRequest(
+            amount = 90000,
+            currency = "INR",
+            receipt = "",
+        )
+
+        viewModelScope.launch {
+            val orderResponse = generateOrder(razorpayOrderRequest)
+            orderResponse?.let { response ->
+                Log.d("GeneralPassViewModel", "Order response: $response")
+                val intent = Intent(activity, PaymentActivity::class.java).apply {
+                    putExtra("orderId", response.id)
+                    putExtra("amount", response.amount)
+                    putExtra("currency", response.currency)
+                    putExtra("receipt", response.receipt)
+                }
+                activity.startActivityForResult(intent, PAYMENT_REQUEST_CODE)
+            } ?: Log.e("GeneralPassViewModel", "Order response is null")
+        }
     }
 
     fun onSubmitClick(activity: Activity) {
@@ -183,17 +213,16 @@ class GeneralPassApplicationViewModel @Inject constructor(
             block = {
                 when (val result = accountService.updateUser(createUserMap())) {
                     is OperationStatus.Success -> {
+//                        popupStatus.value = true
+//                        popupTitle.value = "Application Submitted"
+//                        contentOnFirstLine.value = "You will be notified once your"
+//                        contentOnSecondLine.value = "application is approved"
                         Log.d("GeneralPassViewModel", "User updated successfully")
-                        popupStatus.value = true
-                        popupTitle.value = "Application Submitted"
-                        contentOnFirstLine.value = "You will be notified once your"
-                        contentOnSecondLine.value = "application is approved"
                         callPaymentScreen(activity)
                     }
-
                     is OperationStatus.Failure -> {
                         Log.d("GeneralPassViewModel", "Error: ${result.exception.message}")
-                        popupStatus.value = true
+//                        popupStatus.value = true
                         popupTitle.value = "Submission Failed"
                         contentOnFirstLine.value = "Unable to submit application"
                         contentOnSecondLine.value = "Please try again later"
@@ -205,6 +234,7 @@ class GeneralPassApplicationViewModel @Inject constructor(
             }
         )
     }
+
 
     private fun createUserMap(): Map<String, Any?> {
         return hashMapOf(

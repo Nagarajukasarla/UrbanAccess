@@ -19,7 +19,6 @@ import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.ui.theme.Black
 import com.example.buspassapplication.ui.theme.PoppinsMedium
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BillingScreen(
     navController: NavHostController,

@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,7 +28,8 @@ import com.example.buspassapplication.ui.theme.PoppinsBold
 fun BackNavigationBar (
     text: String = "",
     @DrawableRes trailingIcon: Int = 0,
-    navController: NavHostController
+    navController: NavHostController,
+    fontFamily: FontFamily = PoppinsBold,
 ) {
 
     val leftArrowResourceId = R.drawable.arrow_left
@@ -61,10 +63,10 @@ fun BackNavigationBar (
             if (text.isNotEmpty()) {
                 NormalText(
                     modifier = Modifier,
-                    value = "Profile",
+                    value = text,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    fontFamily = PoppinsBold,
+                    fontFamily = fontFamily,
                     color = DarkGray,
                     letterSpacing = 0.7.sp
                 )
