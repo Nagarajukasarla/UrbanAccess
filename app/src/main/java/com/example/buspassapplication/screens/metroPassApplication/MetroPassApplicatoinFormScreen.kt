@@ -1,5 +1,6 @@
 package com.example.buspassapplication.screens.metroPassApplication
 
+import android.app.Activity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,6 +15,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -36,6 +38,7 @@ fun MetroPassApplicationFormScreen(
     viewModel : MetroPassApplicationViewModel = hiltViewModel(),
     currentUserId: String?
 ) {
+    val activity = LocalContext.current as Activity
     val surname by viewModel.surname.collectAsState()
     val lastname by viewModel.lastname.collectAsState()
     val guardian by viewModel.guardian.collectAsState()
@@ -235,7 +238,7 @@ fun MetroPassApplicationFormScreen(
             borderShape = RoundedCornerShape(50),
             onClick = {
                 // Call payments page here directly {testing purpose only}
-                viewModel.onClickSubmit()
+                viewModel.onClickSubmit(activity)
             }
         )
 
