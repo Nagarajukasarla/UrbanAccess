@@ -1,24 +1,29 @@
 package com.example.buspassapplication.components
 
 import android.util.Log
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.currentCompositionErrors
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.R
 import com.example.buspassapplication.graphs.Graph
 import com.example.buspassapplication.routes.PassScreenRoutes
+import com.example.buspassapplication.ui.theme.NavyBlue
+import com.example.buspassapplication.ui.theme.Roboto
 
 @Composable
 fun PassScreenContent(
@@ -38,14 +43,37 @@ fun PassScreenContent(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box(
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 40.dp, top = 20.dp)
+                .padding(start = 20.dp, top = 20.dp, end = 20.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             HeadingText(
                 value = "My Pass", isSmall = false
             )
+            Row(
+                modifier = Modifier
+                    .width(115.dp)
+                    .height(40.dp)
+                    .border(width = 1.dp, color = NavyBlue, shape = RoundedCornerShape(50))
+                    .clickable {
+                        navController.navigate(route = PassScreenRoutes.TicketStatus.route) { }
+                    },
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                NormalText(
+                    modifier = Modifier.padding(end = 3.dp),
+                    value = "Processing",
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = Roboto,
+                    color = NavyBlue
+                )
+                Counter(text = "1")
+            }
         }
         Column(
             modifier = Modifier
@@ -68,7 +96,7 @@ fun PassScreenContent(
                 title = "Metro Pass",
                 subTitle = "Apply now",
                 onClick = {
-                    navController.navigate(route = PassScreenRoutes.MetroForm.route) { }
+                    navController.navigate(route = PassScreenRoutes.TicketStatus.route) { }
                 },
             )
             CardWithIcon(

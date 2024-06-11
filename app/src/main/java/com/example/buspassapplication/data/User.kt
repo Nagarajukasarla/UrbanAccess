@@ -1,5 +1,7 @@
 package com.example.buspassapplication.data
 
+import android.net.Uri
+
 data class User(
     val id: String? = null,
     val surname: String? = null,
@@ -19,6 +21,7 @@ data class User(
     val country: String? = null,
     val pincode: String? = null,
     val route: Route? = null,
-    val education: Education? = null
+    val education: Education? = null,
+    val imageUri: Uri = Uri.EMPTY
 )
 

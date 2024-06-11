@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -30,6 +31,7 @@ import com.example.buspassapplication.components.OutlinedInputField
 import com.example.buspassapplication.components.PaymentConfirmationPopup
 import com.example.buspassapplication.components.Popup
 import com.example.buspassapplication.components.PrimaryButton
+import com.example.buspassapplication.routes.PassScreenRoutes
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.PoppinsBold
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -63,11 +65,12 @@ fun GeneralPassApplicationFormScreen(
     val currentUser by viewModel.currentUser.collectAsState(initial = null)
     val amount = "450"
 
-    val paymentConfirmationPopupStatus by viewModel.paymentConfirmationPopupStatus.collectAsState()
     val popupStatus by viewModel.popupStatus.collectAsState()
     val popupTitle by viewModel.popupTitle.collectAsState()
     val contentOnFirstLine by viewModel.contentOnFirstLine.collectAsState()
     val contentOnSecondLine by viewModel.contentOnSecondLine.collectAsState()
+//    val navHostController by viewModel.navHostController.collectAsState()
+
 
     Log.d("GeneralPassApplicationFormScreen", "Popup status: $popupStatus")
 

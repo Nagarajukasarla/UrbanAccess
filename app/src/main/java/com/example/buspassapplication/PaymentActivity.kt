@@ -2,12 +2,20 @@ package com.example.buspassapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavHostController
+import com.example.buspassapplication.routes.PassScreenRoutes
+import com.example.buspassapplication.screens.generalPassApplication.GeneralPassApplicationViewModel
 import com.razorpay.Checkout
 import com.razorpay.ExternalWalletListener
 import com.razorpay.PaymentData
 import com.razorpay.PaymentResultWithDataListener
+import kotlinx.coroutines.flow.MutableStateFlow
+import okhttp3.internal.notifyAll
 import org.json.JSONObject
 
 
@@ -15,6 +23,7 @@ class PaymentActivity : ComponentActivity(), PaymentResultWithDataListener, Exte
 
     override fun onPaymentSuccess(p0: String?, p1: PaymentData?) {
         Toast.makeText(this, "Payment Successful: $p0", Toast.LENGTH_LONG).show()
+        Log.d("PaymentActivity","Payment:  $p0")
         val data = Intent().apply {
             putExtra("paymentStatus", "success")
             putExtra("paymentId", p0)

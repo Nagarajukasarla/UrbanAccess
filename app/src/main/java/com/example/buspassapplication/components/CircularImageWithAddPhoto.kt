@@ -1,5 +1,6 @@
 package com.example.buspassapplication.components
 
+import android.net.Uri
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -17,9 +18,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Icon
+import coil.compose.AsyncImage
 import com.example.buspassapplication.R
 import com.example.buspassapplication.ui.theme.NavyBlue
 import com.example.buspassapplication.ui.theme.White
@@ -27,7 +30,8 @@ import com.example.buspassapplication.ui.theme.White
 
 @Composable
 fun CircularImageWithAddPhoto (
-    @DrawableRes imageResourceId: Int
+    imageResourceUri: Uri? = null,
+    onClickAddPhoto: () -> Unit =  {}
 ) {
     val addCameraResourceId = R.drawable.add_a_photo
 
@@ -37,7 +41,7 @@ fun CircularImageWithAddPhoto (
                 .width(150.dp)
                 .height(160.dp)
         ) {
-            Image(
+            AsyncImage(
                 modifier = Modifier
                     .size(150.dp)
                     .clip(RoundedCornerShape(100))
@@ -46,19 +50,22 @@ fun CircularImageWithAddPhoto (
                         color = NavyBlue,
                         shape = RoundedCornerShape(100)
                     ),
-                painter = painterResource(imageResourceId),
+                model = imageResourceUri,
+                contentScale = ContentScale.Crop,
                 contentDescription = "profile"
             )
             IconButton(
                 modifier = Modifier
-                    .size(50.dp)
+                    .size(45.dp)
                     .align(Alignment.BottomEnd)
                     .background(color = NavyBlue, shape = CircleShape),
-                onClick = {  }
+                onClick = {
+                    onClickAddPhoto()
+                }
             ) {
                 Icon(
                     modifier = Modifier
-                        .size(34.dp),
+                        .size(30.dp),
                     painter = painterResource(id = addCameraResourceId),
                     contentDescription = "add",
                     tint = White

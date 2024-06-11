@@ -4,7 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.util.Log
 import androidx.activity.result.ActivityResultLauncher
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavHostController
 import com.example.buspassapplication.PaymentActivity
 import com.example.buspassapplication.app.launchCatching
 import com.example.buspassapplication.data.RazorpayOrderRequest
@@ -14,10 +17,12 @@ import com.example.buspassapplication.models.implementation.ExternalApiServiceIm
 import com.example.buspassapplication.models.service.AccountService
 import com.example.buspassapplication.models.utils.OperationStatus
 import com.example.buspassapplication.models.utils.RazorpayOrderResponse
+import com.example.buspassapplication.routes.PassScreenRoutes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.toSet
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -52,7 +57,6 @@ class GeneralPassApplicationViewModel @Inject constructor(
     val contentOnSecondLine = MutableStateFlow("")
 
     val paymentConfirmationPopupStatus = MutableStateFlow(false)
-
     init {
         viewModelScope.launch {
             setCurrentUserData()
@@ -146,11 +150,29 @@ class GeneralPassApplicationViewModel @Inject constructor(
         }
     }
 
+    private fun resetCurrentUserData() {
+        surname.value = null
+        lastname.value = null
+        guardian.value = null
+        dateOfBirth.value = null
+        gender.value = null
+        phone.value = null
+        email.value = null
+        aadhar.value = null
+        houseNumber.value = null
+        street.value = null
+        area.value = null
+        city.value = null
+        district.value = null
+        state.value = null
+        pincode.value = null
+    }
+
 
     fun handlePaymentResult(paymentStatus: String, paymentId: String, errorCode: Int = -1, errorMessage: String = "", paymentData: String) {
         when (paymentStatus) {
             "success" -> {
-                updatePopupStatus(true)
+//                updatePopupStatus(true)
                 popupTitle.value = "Application Submitted"
                 contentOnFirstLine.value = "You will be notified once your"
                 contentOnSecondLine.value = "application is approved"
@@ -219,6 +241,7 @@ class GeneralPassApplicationViewModel @Inject constructor(
 //                        contentOnSecondLine.value = "application is approved"
                         Log.d("GeneralPassViewModel", "User updated successfully")
                         callPaymentScreen(activity)
+                        resetCurrentUserData()
                     }
                     is OperationStatus.Failure -> {
                         Log.d("GeneralPassViewModel", "Error: ${result.exception.message}")

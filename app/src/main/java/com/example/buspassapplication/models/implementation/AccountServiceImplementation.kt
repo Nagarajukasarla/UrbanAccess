@@ -1,5 +1,7 @@
 package com.example.buspassapplication.models.implementation
 
+import android.net.Uri
+import android.util.Log
 import com.example.buspassapplication.data.Education
 import com.example.buspassapplication.data.User
 import com.example.buspassapplication.models.service.AccountService
@@ -8,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -15,6 +18,7 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
 class AccountServiceImplementation @Inject constructor() : AccountService {
     override val currentUser: Flow<User?>
@@ -47,6 +51,9 @@ class AccountServiceImplementation @Inject constructor() : AccountService {
                                         )
                                     }
 
+                                    val imageUriString = it.getString("imageUrl")
+                                    val imageUri = if (imageUriString != null) Uri.parse(imageUriString) else Uri.EMPTY
+
                                     User(
                                         id = it.getString("uid"),
                                         surname = it.getString("surname"),
@@ -65,6 +72,7 @@ class AccountServiceImplementation @Inject constructor() : AccountService {
                                         state = it.getString("state"),
                                         pincode = it.getString("pincode"),
                                         education = education,
+                                        imageUri = imageUri
                                     )
                                 }
                                 trySend(user)
@@ -141,6 +149,36 @@ class AccountServiceImplementation @Inject constructor() : AccountService {
                 }
         }
     }
+
+    override suspend fun uploadImageToFirebaseStorage(imageUri: Uri): String? = suspendCancellableCoroutine { continuation ->
+        val storageReference = FirebaseStorage.getInstance().reference.child("images/${currentUserId}")
+        val uploadTask = storageReference.putFile(imageUri)
+
+        uploadTask.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
+                }
+            }
+            storageReference.downloadUrl
+        }.addOnCompleteListener { task ->
+            if (continuation.isActive) {
+                if (task.isSuccessful) {
+                    Log.d("AccountService", "Image uploaded successfully")
+                    continuation.resume(task.result.toString())
+                } else {
+                    continuation.resume(null)
+                }
+            }
+        }.addOnFailureListener {
+            if (continuation.isActive) {
+                Log.e("AccountService", "Image upload failed", it)
+                continuation.resumeWithException(it)
+            }
+        }
+    }
+
+
 
     override suspend fun updateUser(user: User): OperationStatus {
         TODO("Not yet implemented")

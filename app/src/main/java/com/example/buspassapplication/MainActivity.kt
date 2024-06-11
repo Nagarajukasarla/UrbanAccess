@@ -3,6 +3,7 @@ package com.example.buspassapplication
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
@@ -12,6 +13,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.graphs.RootNavigationGraph
+import com.example.buspassapplication.routes.PassScreenRoutes
 import com.example.buspassapplication.screens.generalPassApplication.GeneralPassApplicationViewModel
 import com.example.buspassapplication.ui.theme.BusPassApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint

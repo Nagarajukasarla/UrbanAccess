@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.buspassapplication.routes.PassScreenRoutes
+import com.example.buspassapplication.screens.TicketStatusScreen
 import com.example.buspassapplication.screens.generalPassApplication.GeneralPassApplicationFormScreen
 import com.example.buspassapplication.screens.metroPassApplication.MetroPassApplicationFormScreen
 import com.example.buspassapplication.screens.routePassApplication.RoutePassApplicationFormScreen
@@ -32,6 +33,9 @@ fun NavGraphBuilder.passScreenNavigationGraph (
         }
         composable(route = PassScreenRoutes.StudentForm.route) {
             StudentPassApplicationFormScreen(navController = navController, currentUserId = currentUserId)
+        }
+        composable(route = PassScreenRoutes.TicketStatus.route) {
+            TicketStatusScreen(navController = navController, currentUserId = currentUserId)
         }
     }
 }
