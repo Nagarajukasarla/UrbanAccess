@@ -45,7 +45,7 @@ fun GeneralPassApplicationFormScreen(
     viewModel: GeneralPassApplicationViewModel = hiltViewModel()
 ) {
 
-    val context = LocalContext.current as Activity
+    val activity = LocalContext.current as Activity
 
     val surname by viewModel.surname.collectAsState()
     val lastname by viewModel.lastname.collectAsState()
@@ -251,7 +251,7 @@ fun GeneralPassApplicationFormScreen(
             borderShape = RoundedCornerShape(50),
             onClick = {
                 // Call payments page here directly {testing purpose only}
-                viewModel.onSubmitClick(context)
+                viewModel.onSubmitClick(activity)
             }
         )
 
