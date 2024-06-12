@@ -75,7 +75,7 @@ fun PastTicket(
 
     ) {
     val forwardArrowResourceId = R.drawable.arrow_forward
-    var expandedState by remember { mutableStateOf(true) }
+    var expandedState by remember { mutableStateOf(false) }
     val rotationState by animateFloatAsState(
         targetValue = if (expandedState) 270f else 90f, label = ""
     )
@@ -176,7 +176,7 @@ fun PastTicket(
                         Image(
                             modifier=Modifier
                                 .size(100.dp),
-                            painter = painterResource(id = R.drawable.test3),
+                            painter = painterResource(id = R.drawable.test4),
                             contentDescription = "QR image"
                         )
                     }

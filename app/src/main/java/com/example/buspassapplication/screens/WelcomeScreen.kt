@@ -47,13 +47,6 @@ fun WelcomeScreen(
                 fontFamily = PoppinsBold,
                 color = Black
             )
-//            PrimaryButton(
-//                text = "Get Started",
-//                width = 300.dp,
-//                onClick = {
-//                    navController.navigate(route = Screen.Signup.route)
-//                }
-//            )
         }
     }
 }

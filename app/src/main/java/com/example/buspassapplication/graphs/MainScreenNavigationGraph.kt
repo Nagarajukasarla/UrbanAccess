@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import com.example.buspassapplication.data.User
 import com.example.buspassapplication.routes.BottomBarRoutes
 import com.example.buspassapplication.routes.TopBarRoutes
-import com.example.buspassapplication.screens.MapScreen
+import com.example.buspassapplication.screens.Routes.MapScreen
 import com.example.buspassapplication.screens.PassScreen
 import com.example.buspassapplication.screens.profile.ProfileScreen
 import com.example.buspassapplication.screens.SettingsScreen
@@ -45,5 +45,6 @@ fun MainScreenNavigationGraph (
         }
         passScreenNavigationGraph(navController = navController, currentUserId = currentUserId)
         walletScreenNavigationGraph(navController = navController, currentUserId = currentUserId)
+        mapsScreenNavigationGraph(navController = navController, currentUserId = currentUserId)
     }
 }

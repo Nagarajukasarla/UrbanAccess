@@ -52,7 +52,7 @@ fun SettingsScreen (
     val paymentOptions = R.drawable.payment_rupee
     val reportBug = R.drawable.report_bug
 
-    Column {
+    Column (modifier = Modifier.verticalScroll(rememberScrollState())){
         Row (
             modifier = Modifier
                 .fillMaxWidth()

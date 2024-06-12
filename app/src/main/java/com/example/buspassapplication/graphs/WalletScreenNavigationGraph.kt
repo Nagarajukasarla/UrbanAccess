@@ -6,6 +6,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.buspassapplication.routes.WalletScreenRoutes
+import com.example.buspassapplication.screens.Purchase.PurchaseScreen
+import com.example.buspassapplication.screens.TopUp.TopUpScreen
 import com.example.buspassapplication.screens.pastTickets.PastTicketsScreen
 import com.example.buspassapplication.screens.TransactionHistory.TransactionHistoryScreen
 
@@ -23,6 +25,12 @@ fun NavGraphBuilder.walletScreenNavigationGraph (
         }
         composable(route = WalletScreenRoutes.PastTicketsScreen.route){
             PastTicketsScreen(navController = navController, currentUserId = currentUserId)
+        }
+        composable(route = WalletScreenRoutes.TopUpScreen.route){
+            TopUpScreen(navController = navController, currentUserId = currentUserId)
+        }
+        composable(route = WalletScreenRoutes.PurchaseScreen.route){
+            PurchaseScreen(navController = navController, currentUserId = currentUserId)
         }
     }
 }
