@@ -1,14 +1,11 @@
 package com.example.buspassapplication.components
 
 import android.net.Uri
-import androidx.annotation.DrawableRes
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
@@ -29,9 +26,9 @@ import com.example.buspassapplication.ui.theme.White
 
 
 @Composable
-fun CircularImageWithAddPhoto (
+fun CircularImageWithAddPhoto(
     imageResourceUri: Uri? = null,
-    onClickAddPhoto: () -> Unit =  {}
+    onClickAddPhoto: () -> Unit = {}
 ) {
     val addCameraResourceId = R.drawable.add_a_photo
 

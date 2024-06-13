@@ -40,7 +40,7 @@ fun Counter(
 @Preview(showBackground = true)
 @Composable
 fun CounterPreview() {
-    Counter(text = "1")
+    Counter(text = "2")
 }
 
 

@@ -2,6 +2,7 @@ package com.example.buspassapplication.models.service
 
 import android.net.Uri
 import com.example.buspassapplication.data.User
+import com.example.buspassapplication.data.UserPass
 import com.example.buspassapplication.models.utils.OperationStatus
 import kotlinx.coroutines.flow.Flow
 
@@ -15,6 +16,7 @@ interface AccountService {
     suspend fun updateUser(userMap: Map<String, Any?>): OperationStatus
     suspend fun updateUser(user: User): OperationStatus
 
+    suspend fun createUserPass(userPass: UserPass?): OperationStatus
     suspend fun uploadImageToFirebaseStorage(imageUri: Uri): String?
     suspend fun deleteAccount()
 }

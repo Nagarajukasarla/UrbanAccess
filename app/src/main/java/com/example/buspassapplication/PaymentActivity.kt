@@ -18,12 +18,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import okhttp3.internal.notifyAll
 import org.json.JSONObject
 
+const val RESULT_TAG = "sampleTag"
 
 class PaymentActivity : ComponentActivity(), PaymentResultWithDataListener, ExternalWalletListener {
 
     override fun onPaymentSuccess(p0: String?, p1: PaymentData?) {
         Toast.makeText(this, "Payment Successful: $p0", Toast.LENGTH_LONG).show()
-        Log.d("PaymentActivity","Payment:  $p0")
         val data = Intent().apply {
             putExtra("paymentStatus", "success")
             putExtra("paymentId", p0)

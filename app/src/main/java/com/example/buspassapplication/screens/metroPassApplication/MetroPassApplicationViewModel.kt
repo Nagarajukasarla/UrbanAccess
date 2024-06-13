@@ -142,10 +142,29 @@ class MetroPassApplicationViewModel @Inject constructor(
             }
         }
     }
+
+    private fun resetCurrentUserData() {
+        surname.value = null
+        lastname.value = null
+        guardian.value = null
+        dateOfBirth.value = null
+        gender.value = null
+        phone.value = null
+        email.value = null
+        aadhar.value = null
+        houseNumber.value = null
+        street.value = null
+        area.value = null
+        city.value = null
+        district.value = null
+        state.value = null
+        pincode.value = null
+    }
+
     fun handlePaymentResult(paymentStatus: String, paymentId: String, errorCode: Int = -1, errorMessage: String = "", paymentData: String) {
         when (paymentStatus) {
             "success" -> {
-                updatePopupStatus(true)
+                //updatePopupStatus(true)
                 popupTitle.value = "Application Submitted"
                 contentOnFirstLine.value = "You will be notified once your"
                 contentOnSecondLine.value = "application is approved"
@@ -181,7 +200,7 @@ class MetroPassApplicationViewModel @Inject constructor(
     }
     private fun callPaymentScreen(activity: Activity) {
         val razorpayOrderRequest = RazorpayOrderRequest(
-            amount = 90000,
+            amount = 140000,
             currency = "INR",
             receipt = "",
         )
@@ -196,9 +215,7 @@ class MetroPassApplicationViewModel @Inject constructor(
                     putExtra("currency", response.currency)
                     putExtra("receipt", response.receipt)
                 }
-                activity.startActivityForResult(intent,
-                    GeneralPassApplicationViewModel.PAYMENT_REQUEST_CODE
-                )
+                activity.startActivityForResult(intent, PAYMENT_REQUEST_CODE)
             } ?: Log.e("GeneralPassViewModel", "Order response is null")
         }
     }
@@ -210,17 +227,19 @@ class MetroPassApplicationViewModel @Inject constructor(
                 when (val result = accountService.updateUser(createUserMap())) {
                     is OperationStatus.Success -> {
                         Log.d("MetroPassViewModel", "User updated successfully")
-                        popupStatus.value = true
-                        popupTitle.value = "Application Submitted"
-                        contentOnFirstLine.value = "You will be notified once your"
-                        contentOnSecondLine.value = "application is approved"
+//                        popupStatus.value = true
+//                        popupTitle.value = "Application Submitted"
+//                        contentOnFirstLine.value = "You will be notified once your"
+//                        contentOnSecondLine.value = "application is approved"
+                        callPaymentScreen(activity)
+                        resetCurrentUserData()
                     }
                     is OperationStatus.Failure -> {
                         Log.d("MetroPassViewModel", "Error: ${result.exception.message}")
-                        popupStatus.value = true
-                        popupTitle.value = "Submission Failed"
-                        contentOnFirstLine.value = "Unable to submit application"
-                        contentOnSecondLine.value = "Please try again later"
+//                        popupStatus.value = true
+//                        popupTitle.value = "Submission Failed"
+//                        contentOnFirstLine.value = "Unable to submit application"
+//                        contentOnSecondLine.value = "Please try again later"
                     }
                 }
             },
@@ -232,7 +251,7 @@ class MetroPassApplicationViewModel @Inject constructor(
     private fun createUserMap(): Map<String, Any?> {
         return hashMapOf(
             "guardian" to guardian.value,
-            "dateOfBirth" to dateOfBirth.value,
+             "dateOfBirth" to dateOfBirth.value,
             "aadhar" to aadhar.value,
             "gender" to gender.value,
             "phone" to phone.value,
@@ -246,6 +265,6 @@ class MetroPassApplicationViewModel @Inject constructor(
         )
     }
     companion object {
-        const val PAYMENT_REQUEST_CODE = 1001
+        const val PAYMENT_REQUEST_CODE = 1002
     }
 }

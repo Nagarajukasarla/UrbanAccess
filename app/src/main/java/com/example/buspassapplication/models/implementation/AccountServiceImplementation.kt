@@ -4,11 +4,13 @@ import android.net.Uri
 import android.util.Log
 import com.example.buspassapplication.data.Education
 import com.example.buspassapplication.data.User
+import com.example.buspassapplication.data.UserPass
 import com.example.buspassapplication.models.service.AccountService
 import com.example.buspassapplication.models.utils.OperationStatus
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.channels.awaitClose
@@ -175,6 +177,35 @@ class AccountServiceImplementation @Inject constructor() : AccountService {
                 Log.e("AccountService", "Image upload failed", it)
                 continuation.resumeWithException(it)
             }
+        }
+    }
+
+    override suspend fun createUserPass(userPass: UserPass?): OperationStatus {
+        val userPassHashMap = hashMapOf(
+            "id" to userPass?.id,
+            "mrn" to userPass?.mrn,
+            "name" to userPass?.name,
+            "age" to userPass?.age,
+            "gender" to userPass?.gender,
+            "phone" to userPass?.phone,
+            "validity" to userPass?.validity,
+            "type" to userPass?.type
+        )
+
+        Log.d("AccountService", "UserPassHashMap: $userPassHashMap")
+
+        return suspendCancellableCoroutine { continuation ->
+            FirebaseFirestore
+                .getInstance()
+                .collection("users")
+                .document(currentUserId)
+                .set(mapOf("pass" to userPassHashMap), SetOptions.merge())
+                .addOnSuccessListener {
+                    continuation.resume(OperationStatus.Success)
+                }
+                .addOnFailureListener { exception ->
+                    continuation.resume(OperationStatus.Failure(exception))
+                }
         }
     }
 

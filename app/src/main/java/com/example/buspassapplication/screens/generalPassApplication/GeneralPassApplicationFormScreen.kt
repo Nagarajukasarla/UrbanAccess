@@ -63,7 +63,6 @@ fun GeneralPassApplicationFormScreen(
     val state by viewModel.state.collectAsState()
     val pincode by viewModel.pincode.collectAsState()
     val currentUser by viewModel.currentUser.collectAsState(initial = null)
-    val amount = "450"
 
     val popupStatus by viewModel.popupStatus.collectAsState()
     val popupTitle by viewModel.popupTitle.collectAsState()

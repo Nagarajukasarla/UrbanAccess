@@ -72,7 +72,7 @@ fun MetroPassApplicationFormScreen(
         NormalText(
             modifier = Modifier
                 .padding(top = 15.dp, bottom = 20.dp),
-            value = "General Pass Application",
+            value = "Metro Pass Application",
             fontSize = 25.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = PoppinsBold,

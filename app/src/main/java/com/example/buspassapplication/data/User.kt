@@ -22,6 +22,7 @@ data class User(
     val pincode: String? = null,
     val route: Route? = null,
     val education: Education? = null,
-    val imageUri: Uri = Uri.EMPTY
+    val imageUri: Uri = Uri.EMPTY,
+    val pass: UserPass? = null
 )
 

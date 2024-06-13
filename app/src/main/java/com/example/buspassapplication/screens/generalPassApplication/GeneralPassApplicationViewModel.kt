@@ -3,29 +3,26 @@ package com.example.buspassapplication.screens.generalPassApplication
 import android.app.Activity
 import android.content.Intent
 import android.util.Log
-import androidx.activity.result.ActivityResultLauncher
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavHostController
+import com.example.buspassapplication.MainActivity
 import com.example.buspassapplication.PaymentActivity
 import com.example.buspassapplication.app.launchCatching
 import com.example.buspassapplication.data.RazorpayOrderRequest
 import com.example.buspassapplication.data.User
+import com.example.buspassapplication.data.UserPass
 import com.example.buspassapplication.models.AppViewModel
 import com.example.buspassapplication.models.implementation.ExternalApiServiceImplementation
 import com.example.buspassapplication.models.service.AccountService
 import com.example.buspassapplication.models.utils.OperationStatus
 import com.example.buspassapplication.models.utils.RazorpayOrderResponse
-import com.example.buspassapplication.routes.PassScreenRoutes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.toSet
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Calendar
 import javax.inject.Inject
 
 @HiltViewModel
@@ -55,6 +52,7 @@ class GeneralPassApplicationViewModel @Inject constructor(
     val popupTitle = MutableStateFlow("")
     val contentOnFirstLine = MutableStateFlow("")
     val contentOnSecondLine = MutableStateFlow("")
+    val currentUserPass = MutableStateFlow<UserPass?>(null)
 
     val paymentConfirmationPopupStatus = MutableStateFlow(false)
     init {
@@ -168,21 +166,35 @@ class GeneralPassApplicationViewModel @Inject constructor(
         pincode.value = null
     }
 
-
     fun handlePaymentResult(paymentStatus: String, paymentId: String, errorCode: Int = -1, errorMessage: String = "", paymentData: String) {
         when (paymentStatus) {
             "success" -> {
-//                updatePopupStatus(true)
+                updatePopupStatus(true)
                 popupTitle.value = "Application Submitted"
                 contentOnFirstLine.value = "You will be notified once your"
                 contentOnSecondLine.value = "application is approved"
                 Log.d("GeneralPassViewModel", "Payment successful: $paymentId, data: $paymentData")
+                resetCurrentUserData()
+                viewModelScope.launch {
+                    val result = generateUserPass()
+                    if (result is OperationStatus.Success) {
+                        popupStatus.value = true
+                        popupTitle.value = "Application Submitted"
+                        contentOnFirstLine.value = "You will be notified once your"
+                        contentOnSecondLine.value = "application is approved"
+                    } else {
+                        popupStatus.value = true
+                        popupTitle.value = "Submission Failed"
+                        contentOnFirstLine.value = "Contact customer support"
+                        contentOnSecondLine.value = "with support@urbanpass.com"
+                    }
+                }
             }
             "error" -> {
 //                popupStatus.value = true
-                popupTitle.value = "Submission Failed"
-                contentOnFirstLine.value = "Contact customer support"
-                contentOnSecondLine.value = "with support@urbanpass.com"
+//                popupTitle.value = "Submission Failed"
+//                contentOnFirstLine.value = "Contact customer support"
+//                contentOnSecondLine.value = "with support@urbanpass.com"
                 Log.e("GeneralPassViewModel", "Payment error: $errorCode, message: $errorMessage, data: $paymentData")
             }
             else -> {
@@ -208,9 +220,10 @@ class GeneralPassApplicationViewModel @Inject constructor(
         }
     }
 
+    @OptIn(ExperimentalMaterial3Api::class)
     private fun callPaymentScreen(activity: Activity) {
         val razorpayOrderRequest = RazorpayOrderRequest(
-            amount = 90000,
+            amount = 45000,
             currency = "INR",
             receipt = "",
         )
@@ -219,33 +232,65 @@ class GeneralPassApplicationViewModel @Inject constructor(
             val orderResponse = generateOrder(razorpayOrderRequest)
             orderResponse?.let { response ->
                 Log.d("GeneralPassViewModel", "Order response: $response")
-                val intent = Intent(activity, PaymentActivity::class.java).apply {
-                    putExtra("orderId", response.id)
-                    putExtra("amount", response.amount)
-                    putExtra("currency", response.currency)
-                    putExtra("receipt", response.receipt)
-                }
-                activity.startActivityForResult(intent, PAYMENT_REQUEST_CODE)
+//                val intent = Intent(activity, PaymentActivity::class.java).apply {
+//                    putExtra("orderId", response.id)
+//                    putExtra("amount", response.amount)
+//                    putExtra("currency", response.currency)
+//                    putExtra("receipt", response.receipt)
+//                }
+                (activity as? MainActivity)?.startPaymentActivity(response.id, response.amount, response.currency)
             } ?: Log.e("GeneralPassViewModel", "Order response is null")
+        }
+    }
+
+    suspend fun generateUserPass(): OperationStatus {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = accountService.createUserPass(currentUserPass.value)
+                when (response) {
+                    is OperationStatus.Success -> {
+                        Log.d("GeneralPassViewModel", "User pass generated successfully")
+                    }
+                    is OperationStatus.Failure -> {
+                        Log.e("GeneralPassViewModel", "Error: ${response.exception.message}")
+                    }
+                }
+                response
+            } catch (e: Exception) {
+                Log.e("GeneralPassViewModel", "Exception during user pass generation: ${e.message}")
+                OperationStatus.Failure(e)
+            }
         }
     }
 
     fun onSubmitClick(activity: Activity) {
         viewModelScope.launchCatching(
             block = {
+                createUserPass()
                 when (val result = accountService.updateUser(createUserMap())) {
                     is OperationStatus.Success -> {
-//                        popupStatus.value = true
-//                        popupTitle.value = "Application Submitted"
-//                        contentOnFirstLine.value = "You will be notified once your"
-//                        contentOnSecondLine.value = "application is approved"
                         Log.d("GeneralPassViewModel", "User updated successfully")
+
+                        // Call the payment screen
                         callPaymentScreen(activity)
-                        resetCurrentUserData()
+
+                        // Generate user pass
+                        val generateUserPassResult = generateUserPass()
+                        if (generateUserPassResult is OperationStatus.Success) {
+//                            popupStatus.value = true
+//                            popupTitle.value = "Application Submitted"
+//                            contentOnFirstLine.value = "You will be notified once your"
+//                            contentOnSecondLine.value = "application is approved"
+                        } else {
+//                            popupStatus.value = true
+//                            popupTitle.value = "Submission Failed"
+//                            contentOnFirstLine.value = "Contact customer support"
+//                            contentOnSecondLine.value = "with support@urbanpass.com"
+                        }
                     }
                     is OperationStatus.Failure -> {
                         Log.d("GeneralPassViewModel", "Error: ${result.exception.message}")
-//                        popupStatus.value = true
+                        popupStatus.value = true
                         popupTitle.value = "Submission Failed"
                         contentOnFirstLine.value = "Unable to submit application"
                         contentOnSecondLine.value = "Please try again later"
@@ -275,6 +320,66 @@ class GeneralPassApplicationViewModel @Inject constructor(
             "pincode" to pincode.value
         )
     }
+
+    private fun createUserPass() {
+        currentUserPass.value =  UserPass(
+            name = surname.value + " " + lastname.value,
+            id = generateId(),
+            mrn = generateMrn(),
+            age = calculateAge(dateOfBirth.value ?: ""),
+            gender = gender.value ?: "",
+            phone = phone.value ?: "",
+            type = "general",
+            validity = calculateNextMonth()
+        )
+        Log.d("GeneralPassViewModel", "User pass created at 320line: ${currentUserPass.value}")
+    }
+
+    private fun calculateAge(dateOfBirth: String): Int {
+        if (dateOfBirth.isEmpty()) return 0
+        val dateParts = dateOfBirth.split("-")
+        val year = dateParts[0].toInt()
+        val month = dateParts[1].toInt()
+        val day = dateParts[2].toInt()
+
+        val birthDate = Calendar.getInstance().apply {
+            set(year, month - 1, day) // Calendar month is 0-based
+        }
+
+        val currentDate = Calendar.getInstance()
+        var age = currentDate.get(Calendar.YEAR) - birthDate.get(Calendar.YEAR)
+
+        if (currentDate.get(Calendar.DAY_OF_YEAR) < birthDate.get(Calendar.DAY_OF_YEAR)) {
+            age--
+        }
+
+        Log.d("GeneralPassViewModel", "Age: $age")
+        return age
+    }
+
+    private fun calculateNextMonth(): String {
+        val currentDate = Calendar.getInstance()
+        val currentDay = currentDate.get(Calendar.DAY_OF_MONTH)
+        currentDate.add(Calendar.MONTH, 1)
+        currentDate.set(Calendar.DAY_OF_MONTH, currentDay)
+        val nextMonth = currentDate.get(Calendar.MONTH) + 1 // Calendar month is 0-based
+        val nextYear = currentDate.get(Calendar.YEAR)
+        Log.d("GeneralPassViewModel", "Next month: $nextMonth, year: $nextYear")
+        return String.format("%02d-%02d-%d", currentDay, nextMonth, nextYear)
+    }
+
+    private fun generateId(): String {
+        val prefix = "ID9371"
+        val random = (10000..99999).random()
+        return "$prefix$random"
+    }
+
+    private fun generateMrn(): String {
+        val prefix = "MRN8519"
+        val random = (1000..9999).random()
+        return "$prefix$random"
+    }
+
 
     companion object {
         const val PAYMENT_REQUEST_CODE = 1001

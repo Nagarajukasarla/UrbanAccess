@@ -30,6 +30,7 @@ import com.example.buspassapplication.components.BackNavigationBar
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.ui.theme.PoppinsMedium
 import com.example.buspassapplication.ui.theme.Roboto
+import kotlinx.coroutines.channels.ticker
 
 @Composable
 fun TicketStatusScreen(
@@ -50,12 +51,16 @@ fun TicketStatusScreen(
         )
         HorizontalDivider()
         Column {
-            TicketProcessingItem()
-            TicketProcessingItem()
-            TicketProcessingItem()
-            TicketProcessingItem()
-            TicketProcessingItem()
-            TicketProcessingItem()
+            TicketProcessingItem(
+                ticketId = "pay_uZtIjowNQ02Pwx",
+                date = "June 12 2024",
+                status = "Pending"
+            )
+            TicketProcessingItem(
+                ticketId = "pay_FtrZbV02Pwx",
+                date = "June 12 2024",
+                status = "Pending"
+            )
         }
     }
 }

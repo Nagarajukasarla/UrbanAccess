@@ -72,7 +72,7 @@ fun PassScreenContent(
                     fontFamily = Roboto,
                     color = NavyBlue
                 )
-                Counter(text = "1")
+                Counter(text = "2")
             }
         }
         Column(
@@ -96,7 +96,7 @@ fun PassScreenContent(
                 title = "Metro Pass",
                 subTitle = "Apply now",
                 onClick = {
-                    navController.navigate(route = PassScreenRoutes.TicketStatus.route) { }
+                    navController.navigate(route = PassScreenRoutes.MetroForm.route) { }
                 },
             )
             CardWithIcon(
