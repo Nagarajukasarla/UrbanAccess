@@ -39,4 +39,5 @@ object Graph {
     const val MAIN = "home_graph"
     const val PASS = "pass_graph"
     const val WALLET = "wallet_graph"
+    const val MAP = "map_graph"
 }

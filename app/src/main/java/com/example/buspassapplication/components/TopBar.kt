@@ -1,6 +1,7 @@
 package com.example.buspassapplication.components
 
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -34,11 +35,9 @@ fun TopBar(
 
     val profileResourceId = R.drawable.account_circle
     val settingsResourceId = R.drawable.settings
-
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     val screenWidthPixels = with(LocalDensity.current) { screenWidth.toPx() }
     val screenWidthDp = (screenWidthPixels)
-
     Box {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -48,19 +47,11 @@ fun TopBar(
                 .fillMaxWidth()
                 .background(color = Color.White)
         ) {
-            IconButton(
-                modifier = Modifier.padding(start = 5.dp),
-                onClick = {
-                    navController.navigate(TopBarRoutes.Profile.route) {}
-                }
-            ) {
-                Icon(
-                    painter = painterResource(id = profileResourceId),
-                    contentDescription = "Profile",
-                    modifier = Modifier.size(40.dp),
-                    tint = NavyBlue
-                )
-            }
+            Image(
+                modifier = Modifier.size(43.dp).padding(start = 5.dp),
+                painter = painterResource(id = R.drawable.img),
+                contentDescription = "App icon"
+            )
             IconButton(
                 modifier = Modifier.padding(end = 5.dp),
                 onClick = {

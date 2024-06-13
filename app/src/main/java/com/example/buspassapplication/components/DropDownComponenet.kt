@@ -10,6 +10,7 @@ import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -17,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
 import com.example.buspassapplication.ui.theme.DarkGray
@@ -28,13 +30,13 @@ fun DropDown(
     label: String,
     options: List<String>,
     value: String,
-    onItemSelected: (String) -> Unit
+    onItemSelected: (String) -> Unit,
+    modifier: Modifier = Modifier.fillMaxWidth()
 ) {
     var isExpanded by remember { mutableStateOf(false) }
     var selectedText by remember { mutableStateOf(value) }
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = modifier
             .padding(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -64,11 +66,13 @@ fun DropDown(
                     ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded)
                 },
                 singleLine = true,
-                colors = OutlinedTextFieldDefaults.colors(
+                colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedBorderColor = NavyBlue,
                     focusedLabelColor = NavyBlue,
                     cursorColor = DarkGray,
                     focusedSupportingTextColor = DarkGray,
+                    focusedTrailingIconColor = Color.White,
+                    containerColor = Color.White
                 ),
             )
             ExposedDropdownMenu(

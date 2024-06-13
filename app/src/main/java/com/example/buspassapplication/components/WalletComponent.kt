@@ -72,7 +72,7 @@ fun WalletComponent(){
             Spacer(modifier = Modifier.height(34.dp))
             NormalText(
                 modifier = Modifier.padding(top = 5.dp, start = 200.dp),
-                value = "$00.000",
+                value = "₹00.000",
                 fontSize = 28.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = PoppinsBold,

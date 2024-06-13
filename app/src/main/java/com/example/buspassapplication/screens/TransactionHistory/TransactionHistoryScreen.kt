@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -38,6 +40,7 @@ fun TransactionHistoryScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 33.dp, top = 20.dp, end = 33.dp)
+                .verticalScroll(rememberScrollState())
         ) {
             Column {
                 NormalText(

@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -37,7 +39,7 @@ fun WalletScreen (
     currentUserId: String?
 ) {
     Column(
-        modifier = Modifier.padding(bottom = 30.dp),
+        modifier = Modifier.padding(bottom = 30.dp).verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
@@ -69,14 +71,20 @@ fun WalletScreen (
                         text = "Top up",
                         width = 100.dp,
                         height = 50.dp,
-                        borderShape = RoundedCornerShape(10)
+                        borderShape = RoundedCornerShape(10),
+                        onClick = {
+                            navController.navigate(route = WalletScreenRoutes.TopUpScreen.route) { }
+                        }
                     )
                     Spacer(modifier = Modifier.width(130.dp))
                     BlueBoxButton(
-                        text = "Payment",
+                        text = "Purchase",
                         width = 100.dp,
                         height = 50.dp,
-                        borderShape = RoundedCornerShape(10)
+                        borderShape = RoundedCornerShape(10),
+                        onClick = {
+                            navController.navigate(route = WalletScreenRoutes.PurchaseScreen.route) { }
+                        }
                     )
                 }
                 Spacer(modifier = Modifier.height(20.dp))
