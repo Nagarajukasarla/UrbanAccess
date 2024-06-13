@@ -123,7 +123,7 @@ fun CardWithIcon (
         val iconButtonStyleWithoutBorder = Modifier.size(iconButtonSize).padding(start = 10.dp)
 
         IconButton(
-            onClick = { },
+            onClick = { onClick() },
             modifier = if (roundedButton) iconButtonStyleWithBorder else iconButtonStyleWithoutBorder
         ) {
             Icon(

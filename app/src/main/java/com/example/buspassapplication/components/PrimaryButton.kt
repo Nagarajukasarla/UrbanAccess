@@ -19,7 +19,6 @@ import com.example.buspassapplication.ui.theme.NavyBlue
 import com.example.buspassapplication.ui.theme.PoppinsMedium
 import com.example.buspassapplication.ui.theme.White
 
-@ExperimentalMaterial3Api
 @Composable
 fun PrimaryButton(
     text: String,

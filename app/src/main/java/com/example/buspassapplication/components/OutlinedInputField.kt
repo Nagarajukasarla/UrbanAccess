@@ -19,7 +19,6 @@ import com.example.buspassapplication.ui.theme.DimGray
 import com.example.buspassapplication.ui.theme.LightGray
 import com.example.buspassapplication.ui.theme.NavyBlue
 
-@ExperimentalMaterial3Api
 @Composable
 fun OutlinedInputField (
     defaultStartChar: String="",

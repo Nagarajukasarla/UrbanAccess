@@ -5,11 +5,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.buspassapplication.routes.WalletScreenRoutes
-import com.example.buspassapplication.screens.Purchase.PurchaseScreen
+import com.example.buspassapplication.screens.purchase.PurchaseScreen
 import com.example.buspassapplication.screens.TopUp.TopUpScreen
 import com.example.buspassapplication.screens.pastTickets.PastTicketsScreen
 import com.example.buspassapplication.screens.TransactionHistory.TransactionHistoryScreen
-import com.example.buspassapplication.screens.pastTickets.PastTicketsScreen
 
 fun NavGraphBuilder.walletScreenNavigationGraph(
     navController: NavHostController,

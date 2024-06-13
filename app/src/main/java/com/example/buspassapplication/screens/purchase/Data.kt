@@ -1,4 +1,4 @@
-package com.example.buspassapplication.screens.Purchase
+package com.example.buspassapplication.screens.purchase
 
 class Data {
     companion object {

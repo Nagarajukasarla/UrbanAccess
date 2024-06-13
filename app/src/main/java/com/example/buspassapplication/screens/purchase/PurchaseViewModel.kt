@@ -1,4 +1,4 @@
-package com.example.buspassapplication.screens.Purchase
+package com.example.buspassapplication.screens.purchase
 
 import com.example.buspassapplication.models.AppViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

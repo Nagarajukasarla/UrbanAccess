@@ -9,7 +9,7 @@ import com.example.buspassapplication.data.User
 import com.example.buspassapplication.routes.BottomBarRoutes
 import com.example.buspassapplication.routes.TopBarRoutes
 import com.example.buspassapplication.screens.Routes.MapScreen
-import com.example.buspassapplication.screens.PassScreen
+import com.example.buspassapplication.screens.pass.PassScreen
 import com.example.buspassapplication.screens.profile.ProfileScreen
 import com.example.buspassapplication.screens.SettingsScreen
 import com.example.buspassapplication.screens.WalletScreen

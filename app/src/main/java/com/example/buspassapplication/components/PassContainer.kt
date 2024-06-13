@@ -26,11 +26,8 @@ import com.example.buspassapplication.ui.theme.PoppinsMedium
 
 
 @Composable
-fun PassComponent(){
-    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
-
+fun PassContainer(){
     val image = R.drawable.test3
-
     Column (
         modifier= Modifier
             .width(330.dp)
@@ -127,5 +124,5 @@ fun PassComponent(){
 @Preview(showBackground = true)
 @Composable
 fun PreviewPass() {
-    PassComponent()
+    PassContainer()
 }

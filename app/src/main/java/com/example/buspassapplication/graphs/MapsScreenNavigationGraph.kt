@@ -6,12 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.buspassapplication.routes.MapBarRoutes
-import com.example.buspassapplication.routes.WalletScreenRoutes
 import com.example.buspassapplication.screens.ComingSoonScreen
-import com.example.buspassapplication.screens.Purchase.PurchaseScreen
-import com.example.buspassapplication.screens.TopUp.TopUpScreen
-import com.example.buspassapplication.screens.pastTickets.PastTicketsScreen
-import com.example.buspassapplication.screens.TransactionHistory.TransactionHistoryScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 fun NavGraphBuilder.mapsScreenNavigationGraph (

@@ -1,31 +1,130 @@
-package com.example.buspassapplication.screens
+package com.example.buspassapplication.screens.pass
 
-import androidx.compose.foundation.layout.Box
+import android.util.Log
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
-import com.example.buspassapplication.components.PassScreenContent
+import com.example.buspassapplication.R
+import com.example.buspassapplication.components.CardWithIcon
+import com.example.buspassapplication.components.Counter
+import com.example.buspassapplication.components.HeadingText
+import com.example.buspassapplication.components.NormalText
+import com.example.buspassapplication.components.PassContainer
+import com.example.buspassapplication.graphs.Graph
+import com.example.buspassapplication.routes.PassScreenRoutes
+import com.example.buspassapplication.ui.theme.NavyBlue
+import com.example.buspassapplication.ui.theme.Roboto
 
 @Composable
 fun PassScreen(
     navController: NavHostController,
     currentUserId: String?
 ) {
-    Surface {
-        Column {
-            Box {
-                Column(
+    Column(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+    ) {
+        val generalResourceId = R.drawable.person
+        val metroResourceId = R.drawable.metro
+        val studentResourceId = R.drawable.student
+        val routeResourceId = R.drawable.route
+
+        Log.d("PassScreen", "$currentUserId")
+
+        Column(
+            modifier = Modifier.padding(bottom = 30.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 20.dp, top = 20.dp, end = 20.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                HeadingText(
+                    value = "My Pass", isSmall = false
+                )
+                Row(
                     modifier = Modifier
-                        .verticalScroll(rememberScrollState())
+                        .width(115.dp)
+                        .height(40.dp)
+                        .border(width = 1.dp, color = NavyBlue, shape = RoundedCornerShape(50))
+                        .clickable {
+                            navController.navigate(route = PassScreenRoutes.TicketStatus.route) { }
+                        },
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
                 ) {
-                    PassScreenContent(navController = navController, currentUserId = currentUserId)
+                    NormalText(
+                        modifier = Modifier.padding(end = 3.dp),
+                        value = "Processing",
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = Roboto,
+                        color = NavyBlue
+                    )
+                    Counter(text = "2")
                 }
+            }
+            Column(
+                modifier = Modifier
+                    .padding(top = 40.dp)
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                PassContainer()
+                Spacer(modifier = Modifier.height(30.dp))
+                CardWithIcon(
+                    icon = generalResourceId,
+                    title = "General Pass",
+                    subTitle = "Apply now",
+                    onClick = {
+                        navController.navigate(route = Graph.PASS) { }
+                    },
+                )
+                CardWithIcon(
+                    icon = metroResourceId,
+                    title = "Metro Pass",
+                    subTitle = "Apply now",
+                    onClick = {
+                        navController.navigate(route = PassScreenRoutes.MetroForm.route) { }
+                    },
+                )
+                CardWithIcon(
+                    icon = studentResourceId,
+                    title = "Student Pass",
+                    subTitle = "Apply now",
+                    onClick = {
+                        navController.navigate(route = PassScreenRoutes.StudentForm.route) { }
+                    },
+                )
+                CardWithIcon(
+                    icon = routeResourceId,
+                    title = "Route Pass",
+                    subTitle = "Apply now",
+                    onClick = {
+                        navController.navigate(route = PassScreenRoutes.RouteForm.route) { }
+                    }
+                )
             }
         }
     }
