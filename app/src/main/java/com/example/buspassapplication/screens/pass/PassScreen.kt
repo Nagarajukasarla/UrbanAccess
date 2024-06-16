@@ -105,13 +105,13 @@ fun PassScreen(
             ) {
                 PassContainer(
                     modifier = Modifier,
-                    mrnNo = (mrnNo ?:"").toString(),
-                    name = (name?:"").toString(),
-                    age=(age?:"").toString(),
-                    gender=(gender?:"").toString(),
-                    phone=(phone?:"").toString(),
-                    dob=(dob?:"").toString(),
-                    id=(id?:"").toString(),
+                    mrnNo = mrnNo.value ?:"",
+                    name = name.value?:"",
+                    age=age.value?:"",
+                    gender=gender.value?:"",
+                    phone=phone.value?:"",
+                    dob=dob.value?:"",
+                    id=id.value?:"",
                 )
                 Spacer(modifier = Modifier.height(30.dp))
                 CardWithIcon(

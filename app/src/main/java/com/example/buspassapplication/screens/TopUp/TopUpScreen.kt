@@ -39,6 +39,8 @@ import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.DimGray
 import com.example.buspassapplication.ui.theme.PoppinsMedium
 import com.example.buspassapplication.ui.theme.Roboto
+import com.example.buspassapplication.ui.theme.scale
+import com.example.buspassapplication.ui.theme.scaleText
 
 
 @Composable
@@ -55,23 +57,23 @@ fun TopUpScreen(
     BackNavigationBar(navController = navController)
     Column(
         modifier = Modifier
-            .padding(start = 33.dp, top = 40.dp, end = 33.dp)
+            .padding(start = 33.dp.scale(), top = 40.dp.scale(), end = 33.dp.scale())
             .verticalScroll(
                 rememberScrollState()
             ),
     ) {
         NormalText(
             modifier = Modifier
-                .padding(top = 15.dp, bottom = 10.dp),
+                .padding(top = 15.dp.scale(), bottom = 10.dp.scale()),
             value = "Top Up",
-            fontSize = 40.sp,
+            fontSize = 40.sp.scaleText(),
             fontWeight = FontWeight.Bold,
             fontFamily = PoppinsMedium,
             color = DarkGray
         )
         NormalText(
             modifier = Modifier
-                .padding(top = 10.dp, bottom = 20.dp),
+                .padding(top = 10.dp.scale(), bottom = 20.dp.scale()),
             value = "₹${curAmount}",
             fontSize = 40.sp,
             fontWeight = FontWeight.Light,
@@ -81,7 +83,7 @@ fun TopUpScreen(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 20.dp),
+                .padding(top = 20.dp.scale()),
             contentAlignment = Alignment.Center
         ) {
             Column(
@@ -92,8 +94,8 @@ fun TopUpScreen(
                 OutlinedInputField(
                     label = "Amount",
                     modifier = Modifier
-                        .width(360.dp)
-                        .padding(bottom = 15.dp),
+                        .width(360.dp.scale())
+                        .padding(bottom = 15.dp.scale()),
                     value = amount ?: "",
                     onValueChanged = {
                         viewModel.updateAmount(it)
@@ -102,23 +104,23 @@ fun TopUpScreen(
                         keyboardType = KeyboardType.Number
                     ),
                     textStyle = TextStyle(
-                        fontSize = 50.sp,
-                        letterSpacing = 0.7.sp
+                        fontSize = 50.sp.scaleText(),
+                        letterSpacing = 0.7.sp.scaleText()
                     ),
                     leadingIcon = {
                         Icon(
                             painter = painterResource(id = rupee),
                             contentDescription = null,
                             tint = DimGray,
-                            modifier = Modifier.size(30.dp)
+                            modifier = Modifier.size(30.dp.scale())
                         )
                     }
                 )
-                Spacer(modifier = Modifier.height(40.dp))
+                Spacer(modifier = Modifier.height(40.dp.scale()))
                 PrimaryButton(
                     text = "Add money",
-                    width = 220.dp,
-                    height = 40.dp,
+                    width = 220.dp.scale(),
+                    height = 40.dp.scale(),
                     borderShape = RoundedCornerShape(50),
                     onClick = {
                         viewModel.onSubmit()
