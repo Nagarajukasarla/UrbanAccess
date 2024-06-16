@@ -27,6 +27,8 @@ import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.PrimaryButton
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.PoppinsBold
+import toResponsiveDp
+import toResponsiveSp
 
 @Composable
 fun PurchaseScreen(
@@ -43,15 +45,15 @@ fun PurchaseScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(bottom = 40.dp),
+                .padding(bottom = 40.toResponsiveDp()),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
             NormalText(
                 modifier = Modifier
-                    .padding(top = 15.dp, bottom = 20.dp),
+                    .padding(top = 15.toResponsiveDp(), bottom = 20.toResponsiveDp()),
                 value = "Purchase Ticket",
-                fontSize = 40.sp,
+                fontSize = 40.toResponsiveSp(),
                 fontWeight = FontWeight.Bold,
                 fontFamily = PoppinsBold,
                 color = DarkGray
@@ -64,7 +66,7 @@ fun PurchaseScreen(
                     viewModel.updateFrom(it)
                 }
             )
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(40.toResponsiveDp()))
             DropDown(
                 label = "To",
                 options = Data.toOptions,
@@ -73,11 +75,11 @@ fun PurchaseScreen(
                     viewModel.updateTo(it)
                 }
             )
-            Spacer(modifier = Modifier.height(45.dp))
+            Spacer(modifier = Modifier.height(45.toResponsiveDp()))
             PrimaryButton(
                 text = "Submit",
-                width = 280.dp,
-                height = 45.dp,
+                width = 280.toResponsiveDp(),
+                height = 45.toResponsiveDp(),
                 borderShape = RoundedCornerShape(50),
                 onClick = {
                     viewModel.onSubmit()

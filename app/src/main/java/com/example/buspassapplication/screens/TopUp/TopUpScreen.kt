@@ -26,8 +26,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.buspassapplication.R
@@ -39,8 +37,8 @@ import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.DimGray
 import com.example.buspassapplication.ui.theme.PoppinsMedium
 import com.example.buspassapplication.ui.theme.Roboto
-import com.example.buspassapplication.ui.theme.scale
-import com.example.buspassapplication.ui.theme.scaleText
+import toResponsiveDp
+import toResponsiveSp
 
 
 @Composable
@@ -57,25 +55,29 @@ fun TopUpScreen(
     BackNavigationBar(navController = navController)
     Column(
         modifier = Modifier
-            .padding(start = 33.dp.scale(), top = 40.dp.scale(), end = 33.dp.scale())
+            .padding(
+                start = 33.toResponsiveDp(),
+                top = 40.toResponsiveDp(),
+                end = 33.toResponsiveDp()
+            )
             .verticalScroll(
                 rememberScrollState()
             ),
     ) {
         NormalText(
             modifier = Modifier
-                .padding(top = 15.dp.scale(), bottom = 10.dp.scale()),
+                .padding(top = 15.toResponsiveDp(), bottom = 10.toResponsiveDp()),
             value = "Top Up",
-            fontSize = 40.sp.scaleText(),
+            fontSize = 40.toResponsiveSp(),
             fontWeight = FontWeight.Bold,
             fontFamily = PoppinsMedium,
             color = DarkGray
         )
         NormalText(
             modifier = Modifier
-                .padding(top = 10.dp.scale(), bottom = 20.dp.scale()),
+                .padding(top = 10.toResponsiveDp(), bottom = 20.toResponsiveDp()),
             value = "₹${curAmount}",
-            fontSize = 40.sp,
+            fontSize = 40.toResponsiveSp(),
             fontWeight = FontWeight.Light,
             fontFamily = Roboto,
             color = DarkGray
@@ -83,7 +85,7 @@ fun TopUpScreen(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 20.dp.scale()),
+                .padding(top = 20.toResponsiveDp()),
             contentAlignment = Alignment.Center
         ) {
             Column(
@@ -94,8 +96,8 @@ fun TopUpScreen(
                 OutlinedInputField(
                     label = "Amount",
                     modifier = Modifier
-                        .width(360.dp.scale())
-                        .padding(bottom = 15.dp.scale()),
+                        .width(360.toResponsiveDp())
+                        .padding(bottom = 15.toResponsiveDp()),
                     value = amount ?: "",
                     onValueChanged = {
                         viewModel.updateAmount(it)
@@ -104,23 +106,23 @@ fun TopUpScreen(
                         keyboardType = KeyboardType.Number
                     ),
                     textStyle = TextStyle(
-                        fontSize = 50.sp.scaleText(),
-                        letterSpacing = 0.7.sp.scaleText()
+                        fontSize = 50.toResponsiveSp(),
+                        letterSpacing = 0.7.toResponsiveSp()
                     ),
                     leadingIcon = {
                         Icon(
                             painter = painterResource(id = rupee),
                             contentDescription = null,
                             tint = DimGray,
-                            modifier = Modifier.size(30.dp.scale())
+                            modifier = Modifier.size(30.toResponsiveDp())
                         )
                     }
                 )
-                Spacer(modifier = Modifier.height(40.dp.scale()))
+                Spacer(modifier = Modifier.height(40.toResponsiveDp()))
                 PrimaryButton(
                     text = "Add money",
-                    width = 220.dp.scale(),
-                    height = 40.dp.scale(),
+                    width = 220.toResponsiveDp(),
+                    height = 40.toResponsiveDp(),
                     borderShape = RoundedCornerShape(50),
                     onClick = {
                         viewModel.onSubmit()

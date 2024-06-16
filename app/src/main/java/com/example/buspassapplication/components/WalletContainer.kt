@@ -23,15 +23,16 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.example.buspassapplication.ui.theme.PoppinsBold
 import com.example.buspassapplication.ui.theme.White
+import toResponsiveDp
+import toResponsiveSp
 
 @Composable
 fun WalletComponent(){
-    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
     val image: Painter = painterResource(id = R.drawable.wallet_image)
     Box(
         modifier = Modifier
-            .width(330.dp)
-            .height(170.dp)
+            .width(330.toResponsiveDp())
+            .height(170.toResponsiveDp())
             .clip(RoundedCornerShape(16.dp))
     ) {
         Image(
@@ -44,32 +45,32 @@ fun WalletComponent(){
             modifier = Modifier.fillMaxSize()
         ) {
             NormalText(
-                modifier = Modifier.padding(top = 20.dp, start = 20.dp),
+                modifier = Modifier.padding(top = 20.toResponsiveDp(), start = 20.toResponsiveDp()),
                 value = "First Name",
-                fontSize = 28.sp,
+                fontSize = 28.toResponsiveSp(),
                 fontWeight = FontWeight.Bold,
                 fontFamily = PoppinsBold,
                 color = White,
-                letterSpacing = 0.7.sp
+                letterSpacing = 0.7.toResponsiveSp()
             )
             NormalText(
-                modifier = Modifier.padding(top = 5.dp, start = 20.dp),
+                modifier = Modifier.padding(top = 5.toResponsiveDp(), start = 20.toResponsiveDp()),
                 value = "Last Name",
-                fontSize = 28.sp,
+                fontSize = 28.toResponsiveSp(),
                 fontWeight = FontWeight.Bold,
                 fontFamily = PoppinsBold,
                 color = White,
-                letterSpacing = 0.7.sp
+                letterSpacing = 0.7.toResponsiveSp()
             )
-            Spacer(modifier = Modifier.height(34.dp))
+            Spacer(modifier = Modifier.height(30.toResponsiveDp()))
             NormalText(
-                modifier = Modifier.padding(top = 5.dp, start = 200.dp),
+                modifier = Modifier.padding(start = 200.toResponsiveDp()),
                 value = "₹00.000",
-                fontSize = 28.sp,
+                fontSize = 28.toResponsiveSp(),
                 fontWeight = FontWeight.Bold,
                 fontFamily = PoppinsBold,
                 color = White,
-                letterSpacing = 0.7.sp
+                letterSpacing = 0.7.toResponsiveSp()
             )
         }
     }

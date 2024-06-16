@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.pm.ShortcutInfoCompat
 import com.example.buspassapplication.ui.theme.DimGray
 import com.example.buspassapplication.ui.theme.White
+import toResponsiveDp
 
 @Composable
 fun SearchBar(
@@ -30,8 +31,8 @@ fun SearchBar(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
-            .background(color = Color(0xFFEEFEFD),shape = RoundedCornerShape(16.dp)),
+            .padding(16.toResponsiveDp())
+            .background(color = Color(0xFFEEFEFD),shape = RoundedCornerShape(16.toResponsiveDp())),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(){
@@ -44,7 +45,7 @@ fun SearchBar(
             textStyle = TextStyle(color = Color.Black),
             singleLine = true,
             modifier = Modifier
-                .padding(end = 8.dp)
+                .padding(end = 8.toResponsiveDp())
                 
         )
 

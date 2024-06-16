@@ -20,11 +20,8 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.R
 import com.example.buspassapplication.components.CardWithIcon
 import com.example.buspassapplication.components.NormalText
@@ -33,6 +30,8 @@ import com.example.buspassapplication.ui.theme.DimGray
 import com.example.buspassapplication.ui.theme.OpenSansCondensedRegular
 import com.example.buspassapplication.ui.theme.PoppinsBold
 import com.example.buspassapplication.ui.theme.CloudGray
+import toResponsiveDp
+import toResponsiveSp
 
 @Composable
 fun SettingsScreen (
@@ -40,10 +39,10 @@ fun SettingsScreen (
     currentUserId: String?
 ) {
 
-    val screenWidth = LocalConfiguration.current.screenWidthDp.dp
+    val screenWidth = LocalConfiguration.current.screenWidthDp.toResponsiveDp()
     val screenWidthInPixels = with (LocalDensity.current) { screenWidth.toPx() }
-    val paddingStart = (screenWidthInPixels * 0.03).dp
-    val paddingEnd = (screenWidthInPixels * 0.03).dp
+    val paddingStart = (screenWidthInPixels * 0.03).toResponsiveDp()
+    val paddingEnd = (screenWidthInPixels * 0.03).toResponsiveDp()
 
     val leftArrow = R.drawable.arrow_left
     val account = R.drawable.account
@@ -56,10 +55,10 @@ fun SettingsScreen (
         Row (
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 8.dp, top = 20.dp)
+                .padding(start = 8.toResponsiveDp(), top = 20.toResponsiveDp())
         ) {
             IconButton(
-                modifier = Modifier.padding(start = 10.dp),
+                modifier = Modifier.padding(start = 10.toResponsiveDp()),
                 onClick = {
                     navController.popBackStack()
                 }
@@ -67,42 +66,42 @@ fun SettingsScreen (
                 Icon(
                     painter = painterResource(leftArrow),
                     contentDescription = "Back",
-                    modifier = Modifier.size(55.dp)
+                    modifier = Modifier.size(55.toResponsiveDp())
                 )
             }
         }
         NormalText(
-            modifier = Modifier.padding(start = 35.dp, top = 15.dp),
+            modifier = Modifier.padding(start = 35.toResponsiveDp(), top = 15.toResponsiveDp()),
             value = "Settings",
-            fontSize = 30.sp,
+            fontSize = 30.toResponsiveSp(),
             fontWeight = FontWeight.Bold,
             fontFamily = PoppinsBold,
             color = DarkGray
         )
-        Spacer(modifier = Modifier.size(22.dp))
+        Spacer(modifier = Modifier.size(22.toResponsiveDp()))
         Divider(
             modifier = Modifier
-                .height(1.dp)
+                .height(1.toResponsiveDp())
                 .padding(start = paddingStart, end = paddingEnd),
             color = CloudGray
         )
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 30.dp)
+                .padding(top = 30.toResponsiveDp())
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             CardWithIcon(
-                width = 290.dp,
-                height = 36.dp,
-                titleSize = 15.sp,
-                titlesColumnWidth = 180.dp,
+                width = 290.toResponsiveDp(),
+                height = 36.toResponsiveDp(),
+                titleSize = 15.toResponsiveSp(),
+                titlesColumnWidth = 180.toResponsiveDp(),
                 title = "ACCOUNT",
                 icon = account,
-                trailingIconSize = 25.dp,
-                leadingIconSize = 17.dp,
+                trailingIconSize = 25.toResponsiveDp(),
+                leadingIconSize = 17.toResponsiveDp(),
                 roundedButton = false,
                 isBordered = false,
                 underLine = true,
@@ -111,14 +110,14 @@ fun SettingsScreen (
                 },
             )
             CardWithIcon(
-                width = 290.dp,
-                height = 36.dp,
-                titleSize = 15.sp,
-                titlesColumnWidth = 180.dp,
+                width = 290.toResponsiveDp(),
+                height = 36.toResponsiveDp(),
+                titleSize = 15.toResponsiveSp(),
+                titlesColumnWidth = 180.toResponsiveDp(),
                 title = "APPEARANCE",
                 icon = theme,
-                trailingIconSize = 25.dp,
-                leadingIconSize = 17.dp,
+                trailingIconSize = 25.toResponsiveDp(),
+                leadingIconSize = 17.toResponsiveDp(),
                 roundedButton = false,
                 isBordered = false,
                 underLine = true,
@@ -127,14 +126,14 @@ fun SettingsScreen (
                 },
             )
             CardWithIcon(
-                width = 290.dp,
-                height = 36.dp,
-                titleSize = 15.sp,
-                titlesColumnWidth = 180.dp,
+                width = 290.toResponsiveDp(),
+                height = 36.toResponsiveDp(),
+                titleSize = 15.toResponsiveSp(),
+                titlesColumnWidth = 180.toResponsiveDp(),
                 title = "TRAVELING GPS",
                 icon = travelingGps,
-                trailingIconSize = 25.dp,
-                leadingIconSize = 17.dp,
+                trailingIconSize = 25.toResponsiveDp(),
+                leadingIconSize = 17.toResponsiveDp(),
                 roundedButton = false,
                 isBordered = false,
                 underLine = true,
@@ -143,14 +142,14 @@ fun SettingsScreen (
                 },
             )
             CardWithIcon(
-                width = 290.dp,
-                height = 36.dp,
-                titleSize = 15.sp,
-                titlesColumnWidth = 180.dp,
+                width = 290.toResponsiveDp(),
+                height = 36.toResponsiveDp(),
+                titleSize = 15.toResponsiveSp(),
+                titlesColumnWidth = 180.toResponsiveDp(),
                 title = "PAYMENT OPTIONS",
                 icon = paymentOptions,
-                trailingIconSize = 25.dp,
-                leadingIconSize = 17.dp,
+                trailingIconSize = 25.toResponsiveDp(),
+                leadingIconSize = 17.toResponsiveDp(),
                 roundedButton = false,
                 isBordered = false,
                 underLine = true,
@@ -159,14 +158,14 @@ fun SettingsScreen (
                 },
             )
             CardWithIcon(
-                width = 290.dp,
-                height = 36.dp,
-                titleSize = 15.sp,
-                titlesColumnWidth = 180.dp,
+                width = 290.toResponsiveDp(),
+                height = 36.toResponsiveDp(),
+                titleSize = 15.toResponsiveSp(),
+                titlesColumnWidth = 180.toResponsiveDp(),
                 title = "REPORT BUG",
                 icon = reportBug,
-                trailingIconSize = 25.dp,
-                leadingIconSize = 17.dp,
+                trailingIconSize = 25.toResponsiveDp(),
+                leadingIconSize = 17.toResponsiveDp(),
                 roundedButton = false,
                 isBordered = false,
                 underLine = true,
@@ -175,13 +174,13 @@ fun SettingsScreen (
                 },
             )
             NormalText(
-                modifier = Modifier.padding(top = 20.dp),
+                modifier = Modifier.padding(top = 20.toResponsiveDp()),
                 value = "Version 0.0.0.1",
-                fontSize = 14.sp,
+                fontSize = 14.toResponsiveSp(),
                 fontWeight = FontWeight.Normal,
                 fontFamily = OpenSansCondensedRegular,
                 color = DimGray,
-                letterSpacing = 0.5.sp
+                letterSpacing = 0.5.toResponsiveSp()
             )
         }
     }

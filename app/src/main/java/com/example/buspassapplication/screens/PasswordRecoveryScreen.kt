@@ -24,8 +24,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.routes.AuthenticationScreenRoutes
@@ -37,6 +35,8 @@ import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.NavyBlue
 import com.example.buspassapplication.ui.theme.PoppinsLight
 import com.example.buspassapplication.ui.theme.PoppinsMedium
+import toResponsiveDp
+import toResponsiveSp
 
 @ExperimentalMaterial3Api
 @Composable
@@ -44,7 +44,7 @@ fun PasswordRecoveryScreen (
     navController: NavController
 ) {
 
-    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
+    val screenHeight = LocalConfiguration.current.screenHeightDp.toResponsiveDp()
     val screenHeightPixels = with (LocalDensity.current) { screenHeight.toPx() }
 
     var verificationContentVisibility by remember { mutableStateOf(true) }
@@ -58,65 +58,65 @@ fun PasswordRecoveryScreen (
         verticalArrangement = Arrangement.Center
     ) {
         HeadingText(value = "Password Recovery")
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(20.toResponsiveDp()))
         NormalText(
             value= "Enter your email and we'll send you",
-            fontSize = 15.sp,
+            fontSize = 15.toResponsiveSp(),
             fontFamily = PoppinsLight,
             color = DarkGray,
             fontWeight = FontWeight.Normal,
-            modifier = Modifier.padding(horizontal = 20.dp)
+            modifier = Modifier.padding(horizontal = 20.toResponsiveDp())
         )
         NormalText(
             value= "instructions to reset password. ",
-            fontSize = 15.sp,
+            fontSize = 15.toResponsiveSp(),
             fontFamily = PoppinsLight,
             color = DarkGray,
             fontWeight = FontWeight.Normal,
-            modifier = Modifier.padding(horizontal = 20.dp, vertical = 5.dp)
+            modifier = Modifier.padding(horizontal = 20.toResponsiveDp(), vertical = 5.toResponsiveDp())
         )
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(20.toResponsiveDp()))
         OutlinedInputField(
             label = "Email",
-            modifier = Modifier.width(330.dp),
+            modifier = Modifier.width(330.toResponsiveDp()),
             enabled = !verificationContentVisibility,
             value = email,
             onValueChanged = { email = it }
         )
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(30.toResponsiveDp()))
         if (verificationContentVisibility) {
             NormalText(
                 modifier = Modifier,
                 value = "We have sent OTP to your mail id",
-                fontSize = 15.sp,
+                fontSize = 15.toResponsiveSp(),
                 fontWeight = FontWeight.Normal,
                 fontFamily = PoppinsMedium,
                 color = DarkGray,
-                letterSpacing = 0.7.sp
+                letterSpacing = 0.7.toResponsiveSp()
             )
             NormalText(
                 modifier = Modifier,
                 value = "please type here",
-                fontSize = 15.sp,
+                fontSize = 15.toResponsiveSp(),
                 fontWeight = FontWeight.Normal,
                 fontFamily = PoppinsMedium,
                 color = DarkGray,
-                letterSpacing = 0.7.sp
+                letterSpacing = 0.7.toResponsiveSp()
             )
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(8.toResponsiveDp()))
             OutlinedInputField(
                 label = "One time password",
-                modifier = Modifier.width(330.dp),
+                modifier = Modifier.width(330.toResponsiveDp()),
                 value = otp,
                 onValueChanged = { otp = it }
             )
         }
-        Spacer(modifier = Modifier.height(25.dp))
+        Spacer(modifier = Modifier.height(25.toResponsiveDp()))
         if (verificationContentVisibility) {
             PrimaryButton(
                 text = "Submit",
-                width = 260.dp,
-                height = 45.dp,
+                width = 260.toResponsiveDp(),
+                height = 45.toResponsiveDp(),
                 borderShape = RoundedCornerShape(50),
                 onClick = {
                     /* Verify OTP */
@@ -132,8 +132,8 @@ fun PasswordRecoveryScreen (
         else {
             PrimaryButton(
                 text = "Verify",
-                width = 260.dp,
-                height = 45.dp,
+                width = 260.toResponsiveDp(),
+                height = 45.toResponsiveDp(),
                 borderShape = RoundedCornerShape(50),
                 onClick = {
                     // Verify email and send OTP
@@ -144,12 +144,12 @@ fun PasswordRecoveryScreen (
         }
         NormalText(
             value = "< Back to Log in",
-            fontSize = 16.sp,
+            fontSize = 16.toResponsiveSp(),
             fontWeight = FontWeight.Normal,
             fontFamily = PoppinsMedium,
             color = NavyBlue,
             modifier = Modifier
-                .padding(top = 20.dp)
+                .padding(top = 20.toResponsiveDp())
                 .clickable {
                     navController.popBackStack()
                 }

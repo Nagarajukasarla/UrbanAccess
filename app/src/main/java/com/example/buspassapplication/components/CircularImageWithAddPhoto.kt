@@ -17,12 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Icon
 import coil.compose.AsyncImage
 import com.example.buspassapplication.R
 import com.example.buspassapplication.ui.theme.NavyBlue
 import com.example.buspassapplication.ui.theme.White
+import toResponsiveDp
 
 
 @Composable
@@ -35,15 +35,15 @@ fun CircularImageWithAddPhoto(
     Column {
         Box(
             modifier = Modifier
-                .width(150.dp)
-                .height(160.dp)
+                .width(150.toResponsiveDp())
+                .height(160.toResponsiveDp())
         ) {
             AsyncImage(
                 modifier = Modifier
-                    .size(150.dp)
+                    .size(150.toResponsiveDp())
                     .clip(RoundedCornerShape(100))
                     .border(
-                        width = 4.dp,
+                        width = 4.toResponsiveDp(),
                         color = NavyBlue,
                         shape = RoundedCornerShape(100)
                     ),
@@ -53,7 +53,7 @@ fun CircularImageWithAddPhoto(
             )
             IconButton(
                 modifier = Modifier
-                    .size(45.dp)
+                    .size(45.toResponsiveDp())
                     .align(Alignment.BottomEnd)
                     .background(color = NavyBlue, shape = CircleShape),
                 onClick = {
@@ -62,7 +62,7 @@ fun CircularImageWithAddPhoto(
             ) {
                 Icon(
                     modifier = Modifier
-                        .size(30.dp),
+                        .size(30.toResponsiveDp()),
                     painter = painterResource(id = addCameraResourceId),
                     contentDescription = "add",
                     tint = White

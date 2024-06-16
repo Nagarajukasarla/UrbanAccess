@@ -23,6 +23,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.NavyBlue
+import toResponsiveSp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,12 +55,12 @@ fun DropDown(
                     Text(
                         text = label,
                         style = TextStyle(
-                            letterSpacing = 0.3.sp
+                            letterSpacing = 0.3.toResponsiveSp()
                         )
                     )
                 },
                 textStyle = TextStyle(
-                    letterSpacing = 0.7.sp,
+                    letterSpacing = 0.7.toResponsiveSp(),
                     color = DarkGray
                 ),
                 trailingIcon = {
@@ -83,7 +84,7 @@ fun DropDown(
                         text = {
                             Text(
                                 text = text,
-                                style = TextStyle(fontSize = 16.sp)
+                                style = TextStyle(fontSize = 16.toResponsiveSp())
                             )
                         },
                         onClick = {

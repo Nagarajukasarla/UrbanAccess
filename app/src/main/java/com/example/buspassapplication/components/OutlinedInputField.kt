@@ -1,23 +1,17 @@
 package com.example.buspassapplication.components
 
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.unit.sp
-import com.example.buspassapplication.ui.theme.AshGary
-import com.example.buspassapplication.ui.theme.CloudGray
 import com.example.buspassapplication.ui.theme.DarkGray
-import com.example.buspassapplication.ui.theme.DimGray
 import com.example.buspassapplication.ui.theme.LightGray
 import com.example.buspassapplication.ui.theme.NavyBlue
+import toResponsiveSp
 
 @Composable
 fun OutlinedInputField (
@@ -36,7 +30,7 @@ fun OutlinedInputField (
     disabledBorderColor = LightGray
 ),
     keyboardOptions : KeyboardOptions = KeyboardOptions.Default,
-    textStyle : TextStyle = TextStyle(letterSpacing = 0.7.sp,
+    textStyle : TextStyle = TextStyle(letterSpacing = 0.7.toResponsiveSp(),
     ),
     leadingIcon: @Composable (() -> Unit)? = null
 ) {
@@ -52,7 +46,7 @@ fun OutlinedInputField (
             Text(
                 text = label,
                 style = TextStyle(
-                    letterSpacing = 0.3.sp
+                    letterSpacing = 0.3.toResponsiveSp()
                 )
             )
         },

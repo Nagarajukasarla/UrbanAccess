@@ -34,6 +34,8 @@ import com.example.buspassapplication.graphs.Graph
 import com.example.buspassapplication.routes.PassScreenRoutes
 import com.example.buspassapplication.ui.theme.NavyBlue
 import com.example.buspassapplication.ui.theme.Roboto
+import toResponsiveDp
+import toResponsiveSp
 
 @ExperimentalMaterial3Api
 @Composable
@@ -61,14 +63,14 @@ fun PassScreen(
         Log.d("PassScreen", "$currentUserId")
 
         Column(
-            modifier = Modifier.padding(bottom = 30.dp),
+            modifier = Modifier.padding(bottom = 30.toResponsiveDp()),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 20.dp, top = 20.dp, end = 20.dp),
+                    .padding(start = 20.toResponsiveDp(), top = 20.toResponsiveDp(), end = 20.toResponsiveDp()),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -77,9 +79,9 @@ fun PassScreen(
                 )
                 Row(
                     modifier = Modifier
-                        .width(115.dp)
-                        .height(40.dp)
-                        .border(width = 1.dp, color = NavyBlue, shape = RoundedCornerShape(50))
+                        .width(115.toResponsiveDp())
+                        .height(40.toResponsiveDp())
+                        .border(width = 1.toResponsiveDp(), color = NavyBlue, shape = RoundedCornerShape(50))
                         .clickable {
                             navController.navigate(route = PassScreenRoutes.TicketStatus.route) { }
                         },
@@ -87,9 +89,9 @@ fun PassScreen(
                     horizontalArrangement = Arrangement.Center
                 ) {
                     NormalText(
-                        modifier = Modifier.padding(end = 3.dp),
+                        modifier = Modifier.padding(end = 3.toResponsiveDp()),
                         value = "Processing",
-                        fontSize = 15.sp,
+                        fontSize = 15.toResponsiveSp(),
                         fontWeight = FontWeight.Bold,
                         fontFamily = Roboto,
                         color = NavyBlue
@@ -99,7 +101,7 @@ fun PassScreen(
             }
             Column(
                 modifier = Modifier
-                    .padding(top = 40.dp)
+                    .padding(top = 40.toResponsiveDp())
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
@@ -113,7 +115,7 @@ fun PassScreen(
                     dob=dob.value?:"",
                     id=id.value?:"",
                 )
-                Spacer(modifier = Modifier.height(30.dp))
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                 CardWithIcon(
                     icon = generalResourceId,
                     title = "General Pass",

@@ -14,22 +14,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.buspassapplication.ui.theme.BabyBlue
-import com.example.buspassapplication.ui.theme.NavyBlue
 import com.example.buspassapplication.ui.theme.PoppinsMedium
 import com.example.buspassapplication.ui.theme.White
+import toResponsiveDp
+import toResponsiveSp
 
 
 @ExperimentalMaterial3Api
 @Composable
 fun BlueBoxButton(
     text: String,
-    fontSize: TextUnit = 17.sp,
+    fontSize: TextUnit = 17.toResponsiveSp(),
     width: Dp,
     height: Dp,
-    contentPadding: PaddingValues = PaddingValues(5.dp),
+    contentPadding: PaddingValues = PaddingValues(5.toResponsiveDp()),
     borderShape: RoundedCornerShape = RoundedCornerShape(5),
     onClick: () -> Unit = {}
 ) {
@@ -52,7 +51,7 @@ fun BlueBoxButton(
             fontWeight = FontWeight(18),
             fontFamily = PoppinsMedium,
             color = White,
-            letterSpacing = 0.5.sp,
+            letterSpacing = 0.5.toResponsiveSp(),
             modifier = Modifier
         )
     }
@@ -65,8 +64,8 @@ fun BlueBoxButton(
 fun PreviewBlueBoxButton() {
     BlueBoxButton(
         text = "Top up",
-        width = 112.dp,
-        height = 36.dp,
+        width = 112.toResponsiveDp(),
+        height = 36.toResponsiveDp(),
         borderShape = RoundedCornerShape(5)
     )
 }

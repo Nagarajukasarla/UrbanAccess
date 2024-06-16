@@ -13,13 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.ui.theme.Black
 import com.example.buspassapplication.ui.theme.PoppinsBold
 import com.example.buspassapplication.ui.theme.White
+import toResponsiveDp
+import toResponsiveSp
 
 @ExperimentalMaterial3Api
 @Composable
@@ -30,7 +30,7 @@ fun WelcomeScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(White)
-            .padding(bottom = 15.dp)
+            .padding(bottom = 15.toResponsiveDp())
     ) {
         Column(
             modifier = Modifier
@@ -42,7 +42,7 @@ fun WelcomeScreen(
             NormalText(
                 modifier = Modifier,
                 value = "Welcome to Urban Access",
-                fontSize = 22.sp,
+                fontSize = 22.toResponsiveSp(),
                 fontWeight = FontWeight.Black,
                 fontFamily = PoppinsBold,
                 color = Black

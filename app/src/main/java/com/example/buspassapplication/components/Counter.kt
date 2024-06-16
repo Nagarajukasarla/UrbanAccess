@@ -10,11 +10,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.buspassapplication.ui.theme.NavyBlue
 import com.example.buspassapplication.ui.theme.Roboto
 import com.example.buspassapplication.ui.theme.White
+import toResponsiveDp
+import toResponsiveSp
 
 @Composable
 fun Counter(
@@ -22,14 +22,14 @@ fun Counter(
 ) {
     Box(
         modifier = Modifier
-            .width(19.dp)
-            .height(19.dp)
+            .width(19.toResponsiveDp())
+            .height(19.toResponsiveDp())
             .background(color = NavyBlue, shape = RoundedCornerShape(50)),
         contentAlignment = Alignment.Center
     ) {
         NormalText(
             modifier = Modifier,
-            value = text, fontSize = 12.sp,
+            value = text, fontSize = 12.toResponsiveSp(),
             fontWeight = FontWeight.Bold,
             fontFamily = Roboto,
             color = White

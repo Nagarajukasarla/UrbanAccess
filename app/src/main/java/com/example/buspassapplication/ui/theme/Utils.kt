@@ -1,30 +1,30 @@
-package com.example.buspassapplication.ui.theme
-
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
-fun Dp.scale():Dp{
-    val denssity = LocalConfiguration.current.densityDpi/160f
-    return this*denssity
+fun Int.toResponsiveDp(): Dp {
+    val screenWidthDp = LocalConfiguration.current.screenWidthDp
+    return (this * (screenWidthDp / 411f)).dp
+}
+@Composable
+fun Double.toResponsiveDp(): Dp {
+    val screenWidthDp = LocalConfiguration.current.screenWidthDp
+    return (this * (screenWidthDp / 411f)).dp
 }
 
 @Composable
-fun Float.scale():Float{
-    val density = LocalConfiguration.current.densityDpi/160f
-    return this*density
+fun Int.toResponsiveSp(): TextUnit {
+    val screenWidthDp = LocalConfiguration.current.screenWidthDp
+    return (this * (screenWidthDp / 411f)).sp
 }
 
 @Composable
-fun Int.scaleText():Int{
-   val density = LocalConfiguration.current.densityDpi/160f
-    return this * density.toInt()
+fun Double.toResponsiveSp(): TextUnit {
+    val screenWidthDp = LocalConfiguration.current.screenWidthDp
+    return (this * (screenWidthDp / 411f)).sp
 }
 
-@Composable
-fun TextUnit.scaleText(): TextUnit {
-    val density = LocalConfiguration.current.densityDpi / 160f
-    return this * density
-}

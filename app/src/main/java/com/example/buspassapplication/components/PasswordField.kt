@@ -25,6 +25,8 @@ import androidx.compose.ui.unit.sp
 import com.example.buspassapplication.R
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.NavyBlue
+import toResponsiveDp
+import toResponsiveSp
 
 
 @ExperimentalMaterial3Api
@@ -34,8 +36,8 @@ fun PasswordField (
     onValueChange: (String) -> Unit,
     modifier: Modifier,
     label: String,
-    width: Dp = 280.dp,
-    maxWidth: Dp = 340.dp,
+    width: Dp = 280.toResponsiveDp(),
+    maxWidth: Dp = 340.toResponsiveDp(),
     onPasswordChange: (String) -> Unit = {}
 ) {
     var passwordVisibilityState by rememberSaveable { mutableStateOf(false) }
@@ -59,7 +61,7 @@ fun PasswordField (
             Text(
                 text = AnnotatedString(label),
                 style = TextStyle(
-                    letterSpacing = 0.3.sp
+                    letterSpacing = 0.3.toResponsiveSp()
                 )
             )
         },
@@ -75,7 +77,7 @@ fun PasswordField (
             keyboardType = KeyboardType.Password
         ),
         textStyle = TextStyle(
-            letterSpacing = 0.4.sp
+            letterSpacing = 0.4.toResponsiveSp()
         ),
         trailingIcon = {
             IconButton(
