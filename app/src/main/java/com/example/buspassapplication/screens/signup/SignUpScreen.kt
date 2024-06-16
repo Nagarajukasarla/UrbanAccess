@@ -86,7 +86,7 @@ fun SignUpScreen(
         )
         Spacer(modifier = Modifier.height(17.toResponsiveDp()))
         OutlinedInputField(
-            label = "Surname",
+            label = "First Name",
             modifier = Modifier.width(300.toResponsiveDp()),
             value = surname,
             onValueChanged = {
