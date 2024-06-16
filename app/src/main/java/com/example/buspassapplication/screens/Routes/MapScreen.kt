@@ -28,6 +28,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.R
 import com.example.buspassapplication.components.DotLine
 import com.example.buspassapplication.components.DropDown
+import com.example.buspassapplication.components.HeadingText
 import com.example.buspassapplication.components.OutlinedInputField
 import com.example.buspassapplication.components.Popup
 import com.example.buspassapplication.routes.MapBarRoutes
@@ -55,6 +56,7 @@ fun MapScreen(
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.Start
     ) {
+        HeadingText(value = "My Routes")
         Row(
             modifier = Modifier
                 .fillMaxWidth(),

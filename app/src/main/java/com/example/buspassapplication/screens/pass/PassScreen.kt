@@ -14,12 +14,15 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.buspassapplication.R
 import com.example.buspassapplication.components.CardWithIcon
@@ -32,10 +35,12 @@ import com.example.buspassapplication.routes.PassScreenRoutes
 import com.example.buspassapplication.ui.theme.NavyBlue
 import com.example.buspassapplication.ui.theme.Roboto
 
+@ExperimentalMaterial3Api
 @Composable
 fun PassScreen(
     navController: NavHostController,
-    currentUserId: String?
+    currentUserId: String?,
+    viewModel: PassContainerViewModel = hiltViewModel()
 ) {
     Column(
         modifier = Modifier
@@ -45,6 +50,13 @@ fun PassScreen(
         val metroResourceId = R.drawable.metro
         val studentResourceId = R.drawable.student
         val routeResourceId = R.drawable.route
+        val name = viewModel.name.collectAsState()
+        val age = viewModel.age.collectAsState()
+        val mrnNo = viewModel.mrnNo.collectAsState()
+        val gender = viewModel.gender.collectAsState()
+        val phone = viewModel.phone.collectAsState()
+        val dob = viewModel.dob.collectAsState()
+        val id = viewModel.id.collectAsState()
 
         Log.d("PassScreen", "$currentUserId")
 
@@ -91,7 +103,16 @@ fun PassScreen(
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                PassContainer()
+                PassContainer(
+                    modifier = Modifier,
+                    mrnNo = (mrnNo ?:"").toString(),
+                    name = (name?:"").toString(),
+                    age=(age?:"").toString(),
+                    gender=(gender?:"").toString(),
+                    phone=(phone?:"").toString(),
+                    dob=(dob?:"").toString(),
+                    id=(id?:"").toString(),
+                )
                 Spacer(modifier = Modifier.height(30.dp))
                 CardWithIcon(
                     icon = generalResourceId,

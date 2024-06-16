@@ -19,11 +19,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.components.BlueBoxButton
 import com.example.buspassapplication.components.CardComponent
+import com.example.buspassapplication.components.HeadingText
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.TransactionComponent
 import com.example.buspassapplication.components.WalletComponent
@@ -39,31 +42,19 @@ fun WalletScreen (
     currentUserId: String?
 ) {
     Column(
-        modifier = Modifier.padding(bottom = 30.dp).verticalScroll(rememberScrollState()),
+        modifier = Modifier
+            .padding(bottom = 30.dp)
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 33.dp, top = 20.dp,end=33.dp)
+                .padding(start = 33.dp, top = 20.dp, end = 33.dp)
         ) {
             Column{
-                NormalText(
-                    modifier = Modifier.padding(top = 20.dp, bottom = 0.dp, start = 0.dp),
-                    value = "My Wallet",
-                    fontSize = 25.sp,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = PoppinsMedium,
-                    color = Black
-                )
-                NormalText(
-                    modifier = Modifier.padding(top = 10.dp, bottom = 5.dp, start = 0.dp),
-                    value = "Active",
-                    fontSize = 25.sp,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = PoppinsMedium,
-                    color = Color.Gray
-                )
+                HeadingText(value = "My Wallet")
+                HeadingText(value = "Active", isSmall = true)
                 WalletComponent()
                 Spacer(modifier = Modifier.height(50.dp))
                 Row{
@@ -134,8 +125,8 @@ fun WalletScreen (
     }
 }
 
-//@Preview(showBackground = true, heightDp = 700)
-//@Composable
-//fun WalletScreenPreview() {
-//    WalletScreen(navController = rememberNavController())
-//}
+@Preview(showBackground = true, heightDp = 700)
+@Composable
+fun WalletScreenPreview() {
+WalletScreen(navController = rememberNavController(), currentUserId = null)
+}

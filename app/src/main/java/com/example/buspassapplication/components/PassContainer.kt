@@ -26,7 +26,16 @@ import com.example.buspassapplication.ui.theme.PoppinsMedium
 
 
 @Composable
-fun PassContainer(){
+fun PassContainer(
+    modifier: Modifier = Modifier,
+    mrnNo: String = "xxxxxxxx",
+    name: String = "xxxxxxxxxxxx",
+    age: String = "xx",
+    gender: String = "xxxxxxxx",
+    phone: String = "+91xxxxxxxxxx",
+    dob: String = "xx/xx/xxxx",
+    id: String = "1 2 3 4 5 6 7 8 9 0 1 2"
+){
     val image = R.drawable.test3
     Column (
         modifier= Modifier
@@ -55,7 +64,7 @@ fun PassContainer(){
             ) {
                 Spacer(modifier = Modifier.size(12.dp))
                 NormalText(
-                    value = "MRN no: xxxxxxxx",
+                    value = "MRN no: $mrnNo",
                     fontSize = 12.sp,
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
@@ -64,7 +73,7 @@ fun PassContainer(){
                 )
                 Spacer(modifier = Modifier.size(3.dp))
                 NormalText(
-                    value = "Name: xxxxxxxxxx",
+                    value = "Name: $name",
                     fontSize = 12.sp,
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
@@ -73,7 +82,7 @@ fun PassContainer(){
                 )
                 Spacer(modifier = Modifier.size(3.dp))
                 NormalText(
-                    value = "Age: xx",
+                    value = "Age: $age",
                     fontSize = 12.sp,
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
@@ -82,7 +91,7 @@ fun PassContainer(){
                 )
                 Spacer(modifier = Modifier.size(3.dp))
                 NormalText(
-                    value = "Gender: xxxxxx",
+                    value = "Gender: $gender",
                     fontSize = 12.sp,
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
@@ -91,7 +100,7 @@ fun PassContainer(){
                 )
                 Spacer(modifier = Modifier.size(3.dp))
                 NormalText(
-                    value = "Phone: +91xxxxxxxxxx",
+                    value = "Phone: +91$phone",
                     fontSize = 12.sp,
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
@@ -100,7 +109,7 @@ fun PassContainer(){
                 )
                 Spacer(modifier = Modifier.size(3.dp))
                 NormalText(
-                    value = "Date of Birth: xx/xx/xxxx",
+                    value = "Date of Birth: $dob",
                     fontSize = 12.sp,
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
@@ -111,7 +120,7 @@ fun PassContainer(){
             }
         }
         NormalText(
-            value= "ID: 1 2 3 4 5 6 7 8 9 0 1 2",
+            value= "ID: $id",
             fontSize = 18.sp,
             fontFamily = PoppinsMedium,
             color = DarkGray,
