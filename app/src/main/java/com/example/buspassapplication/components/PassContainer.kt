@@ -26,7 +26,6 @@ import com.example.buspassapplication.ui.theme.PoppinsMedium
 import toResponsiveDp
 import toResponsiveSp
 
-
 @Composable
 fun PassContainer(
     modifier: Modifier = Modifier,
@@ -41,7 +40,7 @@ fun PassContainer(
     val image = R.drawable.test3
     Column (
         modifier= Modifier
-            .width(330.toResponsiveDp())
+            .width(360.toResponsiveDp())
             .height(170.toResponsiveDp())
             .background(
                 Brush.linearGradient(

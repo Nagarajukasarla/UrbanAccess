@@ -20,10 +20,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.R
 import com.example.buspassapplication.components.CardWithIcon
 import com.example.buspassapplication.components.Counter
@@ -44,111 +46,121 @@ fun PassScreen(
     currentUserId: String?,
     viewModel: PassContainerViewModel = hiltViewModel()
 ) {
+
+    val generalResourceId = R.drawable.person
+    val metroResourceId = R.drawable.metro
+    val studentResourceId = R.drawable.student
+    val routeResourceId = R.drawable.route
+    val name = viewModel.name.collectAsState()
+    val age = viewModel.age.collectAsState()
+    val mrnNo = viewModel.mrnNo.collectAsState()
+    val gender = viewModel.gender.collectAsState()
+    val phone = viewModel.phone.collectAsState()
+    val dob = viewModel.dob.collectAsState()
+    val id = viewModel.id.collectAsState()
+
+    Log.d("PassScreen", "$currentUserId")
+
     Column(
         modifier = Modifier
-            .verticalScroll(rememberScrollState())
+            .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val generalResourceId = R.drawable.person
-        val metroResourceId = R.drawable.metro
-        val studentResourceId = R.drawable.student
-        val routeResourceId = R.drawable.route
-        val name = viewModel.name.collectAsState()
-        val age = viewModel.age.collectAsState()
-        val mrnNo = viewModel.mrnNo.collectAsState()
-        val gender = viewModel.gender.collectAsState()
-        val phone = viewModel.phone.collectAsState()
-        val dob = viewModel.dob.collectAsState()
-        val id = viewModel.id.collectAsState()
-
-        Log.d("PassScreen", "$currentUserId")
-
-        Column(
-            modifier = Modifier.padding(bottom = 30.toResponsiveDp()),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    start = 20.toResponsiveDp(),
+                    top = 20.toResponsiveDp(),
+                    end = 20.toResponsiveDp()
+                ),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
+            HeadingText(
+                value = "My Pass", isSmall = false
+            )
             Row(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 20.toResponsiveDp(), top = 20.toResponsiveDp(), end = 20.toResponsiveDp()),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                HeadingText(
-                    value = "My Pass", isSmall = false
-                )
-                Row(
-                    modifier = Modifier
-                        .width(115.toResponsiveDp())
-                        .height(40.toResponsiveDp())
-                        .border(width = 1.toResponsiveDp(), color = NavyBlue, shape = RoundedCornerShape(50))
-                        .clickable {
-                            navController.navigate(route = PassScreenRoutes.TicketStatus.route) { }
-                        },
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    NormalText(
-                        modifier = Modifier.padding(end = 3.toResponsiveDp()),
-                        value = "Processing",
-                        fontSize = 15.toResponsiveSp(),
-                        fontWeight = FontWeight.Bold,
-                        fontFamily = Roboto,
-                        color = NavyBlue
+                    .width(115.toResponsiveDp())
+                    .height(40.toResponsiveDp())
+                    .border(
+                        width = 1.toResponsiveDp(),
+                        color = NavyBlue,
+                        shape = RoundedCornerShape(50)
                     )
-                    Counter(text = "2")
-                }
-            }
-            Column(
-                modifier = Modifier
-                    .padding(top = 40.toResponsiveDp())
-                    .fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally,
+                    .clickable {
+                        navController.navigate(route = PassScreenRoutes.TicketStatus.route) { }
+                    },
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
             ) {
-                PassContainer(
-                    modifier = Modifier,
-                    mrnNo = mrnNo.value ?:"",
-                    name = name.value?:"",
-                    age=age.value?:"",
-                    gender=gender.value?:"",
-                    phone=phone.value?:"",
-                    dob=dob.value?:"",
-                    id=id.value?:"",
+                NormalText(
+                    modifier = Modifier.padding(end = 3.toResponsiveDp()),
+                    value = "Processing",
+                    fontSize = 15.toResponsiveSp(),
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = Roboto,
+                    color = NavyBlue
                 )
-                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                CardWithIcon(
-                    icon = generalResourceId,
-                    title = "General Pass",
-                    subTitle = "Apply now",
-                    onClick = {
-                        navController.navigate(route = Graph.PASS) { }
-                    },
-                )
-                CardWithIcon(
-                    icon = metroResourceId,
-                    title = "Metro Pass",
-                    subTitle = "Apply now",
-                    onClick = {
-                        navController.navigate(route = PassScreenRoutes.MetroForm.route) { }
-                    },
-                )
-                CardWithIcon(
-                    icon = studentResourceId,
-                    title = "Student Pass",
-                    subTitle = "Apply now",
-                    onClick = {
-                        navController.navigate(route = PassScreenRoutes.StudentForm.route) { }
-                    },
-                )
-                CardWithIcon(
-                    icon = routeResourceId,
-                    title = "Route Pass",
-                    subTitle = "Apply now",
-                    onClick = {
-                        navController.navigate(route = PassScreenRoutes.RouteForm.route) { }
-                    }
-                )
+                Counter(text = "2")
             }
         }
+        Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+        PassContainer(
+            modifier = Modifier,
+            mrnNo = mrnNo.value ?:"",
+            name = name.value?:"",
+            age = age.value?:"",
+            gender = gender.value?:"",
+            phone = phone.value?:"",
+            dob = dob.value?:"",
+            id = id.value?:"",
+        )
+        Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+        CardWithIcon(
+            icon = generalResourceId,
+            title = "General Pass",
+            subTitle = "Apply now",
+            onClick = {
+                navController.navigate(route = Graph.PASS) { }
+            },
+        )
+        Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+        CardWithIcon(
+            icon = metroResourceId,
+            title = "Metro Pass",
+            subTitle = "Apply now",
+            onClick = {
+                navController.navigate(route = PassScreenRoutes.MetroForm.route) { }
+            },
+        )
+        Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+        CardWithIcon(
+            icon = studentResourceId,
+            title = "Student Pass",
+            subTitle = "Apply now",
+            onClick = {
+                navController.navigate(route = PassScreenRoutes.StudentForm.route) { }
+            },
+        )
+        Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+        CardWithIcon(
+            icon = routeResourceId,
+            title = "Route Pass",
+            subTitle = "Apply now",
+            onClick = {
+                navController.navigate(route = PassScreenRoutes.RouteForm.route) { }
+            }
+        )
+        Spacer(modifier = Modifier.height(30.toResponsiveDp()))
     }
+}
+
+@Preview
+@ExperimentalMaterial3Api
+@Composable
+fun PassScreenPreview() {
+    PassScreen(navController = rememberNavController(), currentUserId = "1")
 }

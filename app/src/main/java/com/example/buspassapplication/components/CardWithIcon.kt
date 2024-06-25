@@ -21,9 +21,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import com.example.buspassapplication.R
+import com.example.buspassapplication.graphs.Graph
 import com.example.buspassapplication.ui.theme.CloudGray
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.DimGray
@@ -34,17 +36,17 @@ import toResponsiveSp
 
 @Composable
 fun CardWithIcon (
-    width: Dp = 320.toResponsiveDp(),
+    width: Dp = 350.toResponsiveDp(),
     height: Dp = 80.toResponsiveDp(),
     title: String,
     subTitle: String = "",
-    titleSize: TextUnit =  17.toResponsiveSp(),
+    titleSize: TextUnit =  18.toResponsiveSp(),
     @DrawableRes icon: Int,
-    spaceAfterTrailingIcon: Dp = 30.toResponsiveDp(),
+    spaceAfterTrailingIcon: Dp = 37.toResponsiveDp(),
     titlesColumnWidth: Dp = 170.toResponsiveDp(),
     iconButtonSize: Dp = 30.toResponsiveDp(),
-    trailingIconSize: Dp = 30.toResponsiveDp(),
-    leadingIconSize: Dp = 16.toResponsiveDp(),
+    trailingIconSize: Dp = 34.toResponsiveDp(),
+    leadingIconSize: Dp = 18.toResponsiveDp(),
     roundedButton: Boolean = true,
     isBordered: Boolean = true,
     underLine: Boolean = false,
@@ -54,22 +56,18 @@ fun CardWithIcon (
     val forwardArrowResourceId = R.drawable.arrow_forward
 
     val boxWithBorder = Modifier
-        .padding(
-            top = 20.toResponsiveDp(),
-            bottom = 20.toResponsiveDp()
-        )
         .height(height)
         .width(width)
-        .border(width = 1.toResponsiveDp(), color = DimGray, shape = RoundedCornerShape(10.toResponsiveDp()))
+        .border(
+            width = 1.toResponsiveDp(),
+            color = DimGray,
+            shape = RoundedCornerShape(10.toResponsiveDp())
+        )
         .clickable {
             onClick()
         }
 
     val boxWithoutBorder = Modifier
-        .padding(
-            top = 20.toResponsiveDp(),
-            bottom = 20.toResponsiveDp()
-        )
         .width(width)
         .height(height)
         .clickable { onClick() }
@@ -103,7 +101,7 @@ fun CardWithIcon (
                 NormalText(
                     modifier = Modifier,
                     value = subTitle,
-                    fontSize = 15.toResponsiveSp(),
+                    fontSize = 16.toResponsiveSp(),
                     fontWeight = FontWeight.Normal,
                     fontFamily = PoppinsLight,
                     color = DimGray
@@ -142,4 +140,18 @@ fun CardWithIcon (
             color = CloudGray
         )
     }
+}
+
+
+@Preview
+@Composable
+fun CardWithIconPreview() {
+
+    val generalResourceId = R.drawable.person
+    CardWithIcon(
+        icon = generalResourceId,
+        title = "General Pass",
+        subTitle = "Apply now",
+        onClick = {  },
+    )
 }

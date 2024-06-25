@@ -27,4 +27,3 @@ fun Double.toResponsiveSp(): TextUnit {
     val screenWidthDp = LocalConfiguration.current.screenWidthDp
     return (this * (screenWidthDp / 411f)).sp
 }
-
