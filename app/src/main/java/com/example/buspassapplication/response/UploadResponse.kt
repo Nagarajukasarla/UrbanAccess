@@ -1,4 +1,4 @@
-package com.example.buspassapplication.models.utils
+package com.example.buspassapplication.response
 
 data class UploadResponse(
     val message: String = "",

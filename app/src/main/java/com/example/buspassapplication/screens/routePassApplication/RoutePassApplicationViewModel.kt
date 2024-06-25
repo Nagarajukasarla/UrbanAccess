@@ -6,13 +6,13 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.example.buspassapplication.PaymentActivity
 import com.example.buspassapplication.app.launchCatching
-import com.example.buspassapplication.data.RazorpayOrderRequest
+import com.example.buspassapplication.request.RazorpayOrderRequest
 import com.example.buspassapplication.data.User
 import com.example.buspassapplication.models.AppViewModel
-import com.example.buspassapplication.models.implementation.ExternalApiServiceImplementation
+import com.example.buspassapplication.models.implementation.RazorpayServiceImplementation
 import com.example.buspassapplication.models.service.AccountService
 import com.example.buspassapplication.models.utils.OperationStatus
-import com.example.buspassapplication.models.utils.RazorpayOrderResponse
+import com.example.buspassapplication.response.RazorpayOrderResponse
 import com.example.buspassapplication.screens.generalPassApplication.GeneralPassApplicationViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +25,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RoutePassApplicationViewModel @Inject constructor(
     private val accountService: AccountService,
-    private val externalApiServiceImplementation: ExternalApiServiceImplementation
+    private val razorpayServiceImplementation: RazorpayServiceImplementation
 ) : AppViewModel()
 {
     val surname = MutableStateFlow<String?>(null)
@@ -176,11 +176,11 @@ class RoutePassApplicationViewModel @Inject constructor(
     private suspend fun generateOrder(razorpayOrderRequest: RazorpayOrderRequest): RazorpayOrderResponse? {
         return withContext(Dispatchers.IO) {
             try {
-                val response = externalApiServiceImplementation.generateOrder(razorpayOrderRequest)
-                if (response.isSuccessful) {
+                val response = razorpayServiceImplementation.createOrder(razorpayOrderRequest)
+                if (response != null && response.isSuccessful) {
                     response.body()
                 } else {
-                    Log.e("GeneralPassViewModel", "Failed to generate order: ${response.errorBody()?.string()}")
+                    Log.e("GeneralPassViewModel", "Failed to generate order: ${response?.errorBody()?.string()}")
                     null
                 }
             } catch (e: Exception) {

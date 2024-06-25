@@ -49,6 +49,12 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        Log.d("MainActivity", "onResume called")
+        generalPassApplicationViewModel.triggerRecomposition()
+    }
+
     fun startPaymentActivity(orderId: String, amount: Long, currency: String) {
         val intent = Intent(this, PaymentActivity::class.java).apply {
             putExtra("orderId", orderId)
