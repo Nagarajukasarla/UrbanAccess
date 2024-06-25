@@ -20,8 +20,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.buspassapplication.components.BackNavigationBar
@@ -34,6 +32,8 @@ import com.example.buspassapplication.screens.generalPassApplication.Data
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.PoppinsBold
 import kotlinx.coroutines.flow.MutableStateFlow
+import toResponsiveDp
+import toResponsiveSp
 
 @ExperimentalMaterial3Api
 @Composable
@@ -66,15 +66,15 @@ fun RoutePassApplicationFormScreen(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(bottom = 40.dp),
+            .padding(bottom = 40.toResponsiveDp()),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         BackNavigationBar(navController = navController)
         NormalText(
             modifier = Modifier
-                .padding(top = 15.dp, bottom = 20.dp),
+                .padding(top = 15.toResponsiveDp(), bottom = 20.toResponsiveDp()),
             value = "General Pass Application",
-            fontSize = 25.sp,
+            fontSize = 25.toResponsiveSp(),
             fontWeight = FontWeight.Bold,
             fontFamily = PoppinsBold,
             color = DarkGray
@@ -82,8 +82,8 @@ fun RoutePassApplicationFormScreen(
         OutlinedInputField(
             label = "Surname",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = surname ?: "",
             onValueChanged = {
                 viewModel.updateSurname(it)
@@ -93,8 +93,8 @@ fun RoutePassApplicationFormScreen(
         OutlinedInputField(
             label = "Lastname",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = lastname ?: "",
             onValueChanged = {
                 viewModel.updateLastname(it)
@@ -104,8 +104,8 @@ fun RoutePassApplicationFormScreen(
         OutlinedInputField(
             label = "Guardian Name",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = guardian ?: "",
             onValueChanged = {
                 viewModel.updateGuardian(it)
@@ -114,8 +114,8 @@ fun RoutePassApplicationFormScreen(
         OutlinedInputField(
             label = "Date of Birth",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = dateOfBirth ?: "",
             onValueChanged = {
                 viewModel.updateDateOfBirth(it)
@@ -129,12 +129,12 @@ fun RoutePassApplicationFormScreen(
                 viewModel.updateGender(it)
             }
         )
-        Spacer(modifier = Modifier.padding(bottom = 15.dp))
+        Spacer(modifier = Modifier.padding(bottom = 15.toResponsiveDp()))
         OutlinedInputField(
             label = "Mobile",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = phone ?: "",
             onValueChanged = {
                 viewModel.updatePhone(it)
@@ -143,8 +143,8 @@ fun RoutePassApplicationFormScreen(
         OutlinedInputField(
             label = "Email",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = email ?: "",
             onValueChanged = {
                 viewModel.updateEmail(it)
@@ -154,8 +154,8 @@ fun RoutePassApplicationFormScreen(
         OutlinedInputField(
             label = "Aadhar no",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = aadhar ?: "",
             onValueChanged = {
                 viewModel.updateAadhar(it)
@@ -165,8 +165,8 @@ fun RoutePassApplicationFormScreen(
         OutlinedInputField(
             label = "House No",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = houseNumber ?: "",
             onValueChanged = {
                 viewModel.updateHouseNumber(it)
@@ -175,8 +175,8 @@ fun RoutePassApplicationFormScreen(
         OutlinedInputField(
             label = "Street",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = street ?: "",
             onValueChanged = {
                 viewModel.updateStreet(it)
@@ -185,8 +185,8 @@ fun RoutePassApplicationFormScreen(
         OutlinedInputField(
             label = "Area",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = area ?: "",
             onValueChanged = {
                 viewModel.updateArea(it)
@@ -195,8 +195,8 @@ fun RoutePassApplicationFormScreen(
         OutlinedInputField(
             label = "District",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = district ?: "",
             onValueChanged = {
                 viewModel.updateDistrict(it)
@@ -205,8 +205,8 @@ fun RoutePassApplicationFormScreen(
         OutlinedInputField(
             label = "City",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = city ?: "",
             onValueChanged = {
                 viewModel.updateCity(it)
@@ -215,8 +215,8 @@ fun RoutePassApplicationFormScreen(
         OutlinedInputField(
             label = "State",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = state ?: "",
             onValueChanged = {
                 viewModel.updateState(it)
@@ -225,8 +225,8 @@ fun RoutePassApplicationFormScreen(
         OutlinedInputField(
             label = "Pincode",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = pincode ?: "",
             onValueChanged = {
                 viewModel.updatePincode(it)
@@ -236,8 +236,8 @@ fun RoutePassApplicationFormScreen(
         OutlinedInputField(
             label = "Starting Point",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = startingPoint.value ?: "",
             onValueChanged = {
                 viewModel.updateStartingPoint(it)
@@ -246,8 +246,8 @@ fun RoutePassApplicationFormScreen(
         OutlinedInputField(
             label = "Destination Point",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = destinationPoint.value ?: "",
             onValueChanged = {
                 viewModel.updateDestinationPoint(it)
@@ -255,8 +255,8 @@ fun RoutePassApplicationFormScreen(
         )
         PrimaryButton(
             text = "Submit",
-            width = 280.dp,
-            height = 45.dp,
+            width = 280.toResponsiveDp(),
+            height = 45.toResponsiveDp(),
             borderShape = RoundedCornerShape(50),
             onClick = {
                 // Call payments page here directly {testing purpose only}

@@ -18,6 +18,7 @@ import com.example.buspassapplication.components.BackNavigationBar
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.ui.theme.Black
 import com.example.buspassapplication.ui.theme.PoppinsMedium
+import toResponsiveDp
 
 @Composable
 fun BillingScreen(
@@ -25,25 +26,25 @@ fun BillingScreen(
     currentUserId: String?
 ){
     Column(
-        modifier = Modifier.padding(bottom = 30.dp),
+        modifier = Modifier.padding(bottom = 30.toResponsiveDp()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         BackNavigationBar(navController = navController)
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 28.dp, top = 20.dp, end = 30.dp)
+                .padding(start = 28.toResponsiveDp(), top = 20.toResponsiveDp(), end = 30.toResponsiveDp())
         ) {
             Column {
                 NormalText(
-                    modifier = Modifier.padding(top = 20.dp, bottom = 0.dp, start = 10.dp),
+                    modifier = Modifier.padding(top = 20.toResponsiveDp(), bottom = 0.toResponsiveDp(), start = 10.toResponsiveDp()),
                     value = "Bill Summary",
                     fontSize = 25.sp,
                     fontWeight = FontWeight.Bold,
                     fontFamily = PoppinsMedium,
                     color = Black
                 )
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(20.toResponsiveDp()))
                 Column {
                    TODO("Add list of bills")
                 }

@@ -24,7 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
+import toResponsiveDp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.LifecycleOwner
@@ -40,6 +40,7 @@ import com.example.buspassapplication.routes.PassScreenRoutes
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.PoppinsBold
 import kotlinx.coroutines.flow.MutableStateFlow
+import toResponsiveSp
 
 
 @ExperimentalMaterial3Api
@@ -97,6 +98,186 @@ fun GeneralPassApplicationFormScreen(
     Log.d("GeneralPassApplicationFormScreen", "Popup status: $popupStatus")
 
     val key = popupStatus // or any other state variable that should trigger recomposition
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(bottom = 40.toResponsiveDp()),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        BackNavigationBar(navController = navController)
+        NormalText(
+            modifier = Modifier
+                .padding(top = 15.toResponsiveDp(), bottom = 20.toResponsiveDp()),
+            value = "General Pass Application",
+            fontSize = 25.toResponsiveSp(),
+            fontWeight = FontWeight.Bold,
+            fontFamily = PoppinsBold,
+            color = DarkGray
+        )
+        OutlinedInputField(
+            label = "Surname",
+            modifier = Modifier
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
+            value = surname ?: "",
+            onValueChanged = {
+                viewModel.updateSurname(it)
+            },
+            enabled = currentUser?.surname == null
+        )
+        OutlinedInputField(
+            label = "Lastname",
+            modifier = Modifier
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
+            value = lastname ?: "",
+            onValueChanged = {
+                viewModel.updateLastname(it)
+            },
+            enabled = currentUser?.lastname == null
+        )
+        OutlinedInputField(
+            label = "Guardian Name",
+            modifier = Modifier
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
+            value = guardian ?: "",
+            onValueChanged = {
+                viewModel.updateGuardian(it)
+            },
+        )
+        OutlinedInputField(
+            label = "Date of Birth",
+            modifier = Modifier
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
+            value = dateOfBirth ?: "",
+            onValueChanged = {
+                viewModel.updateDateOfBirth(it)
+            }
+        )
+        DropDown(
+            label = "Gender",
+            options = Data.genderOptions,
+            value = gender ?: "",
+            onItemSelected = {
+                viewModel.updateGender(it)
+            }
+        )
+        Spacer(modifier = Modifier.padding(bottom = 15.toResponsiveDp()))
+        OutlinedInputField(
+            label = "Mobile",
+            modifier = Modifier
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
+            value = phone ?: "",
+            onValueChanged = {
+                viewModel.updatePhone(it)
+            }
+        )
+        OutlinedInputField(
+            label = "Email",
+            modifier = Modifier
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
+            value = email ?: "",
+            onValueChanged = {
+                viewModel.updateEmail(it)
+            },
+            enabled = currentUser?.email == null
+        )
+        OutlinedInputField(
+            label = "Aadhar no",
+            modifier = Modifier
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
+            value = aadhar ?: "",
+            onValueChanged = {
+                viewModel.updateAadhar(it)
+            },
+            enabled = currentUser?.aadhar == null
+        )
+        OutlinedInputField(
+            label = "House No",
+            modifier = Modifier
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
+            value = houseNumber ?: "",
+            onValueChanged = {
+                viewModel.updateHouseNumber(it)
+            }
+        )
+        OutlinedInputField(
+            label = "Street",
+            modifier = Modifier
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
+            value = street ?: "",
+            onValueChanged = {
+                viewModel.updateStreet(it)
+            }
+        )
+        OutlinedInputField(
+            label = "Area",
+            modifier = Modifier
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
+            value = area ?: "",
+            onValueChanged = {
+                viewModel.updateArea(it)
+            }
+        )
+        OutlinedInputField(
+            label = "District",
+            modifier = Modifier
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
+            value = district ?: "",
+            onValueChanged = {
+                viewModel.updateDistrict(it)
+            }
+        )
+        OutlinedInputField(
+            label = "City",
+            modifier = Modifier
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
+            value = city ?: "",
+            onValueChanged = {
+                viewModel.updateCity(it)
+            }
+        )
+        OutlinedInputField(
+            label = "State",
+            modifier = Modifier
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
+            value = state ?: "",
+            onValueChanged = {
+                viewModel.updateState(it)
+            }
+        )
+        OutlinedInputField(
+            label = "Pin Code",
+            modifier = Modifier
+                .width(280.toResponsiveDp())
+                .padding(bottom = 20.toResponsiveDp()),
+            value = pincode ?: "",
+            onValueChanged = {
+                viewModel.updatePincode(it)
+            }
+        )
+        PrimaryButton(
+            text = "Submit",
+            width = 280.toResponsiveDp(),
+            height = 45.toResponsiveDp(),
+            borderShape = RoundedCornerShape(50),
+            onClick = {
+                // Call payments page here directly {testing purpose only}
+                viewModel.onSubmitClick(activity)
+            }
+        )
 
     CompositionLocalProvider(LocalLifecycleOwner provides LocalContext.current as LifecycleOwner) {
         Column(
@@ -124,6 +305,7 @@ fun GeneralPassApplicationFormScreen(
                 value = surname ?: "",
                 onValueChanged = {
                     viewModel.updateSurname(it)
+        if (popupStatus) {
                 },
                 enabled = currentUser?.surname == null
             )

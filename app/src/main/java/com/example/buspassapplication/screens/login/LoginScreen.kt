@@ -42,6 +42,8 @@ import com.example.buspassapplication.ui.theme.PoppinsMedium
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import toResponsiveDp
+import toResponsiveSp
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @ExperimentalMaterial3Api
@@ -64,7 +66,7 @@ fun LoginScreen(
             .fillMaxSize()
             .background(Color.Transparent)
             .verticalScroll(rememberScrollState())
-            .padding(28.dp)
+            .padding(28.toResponsiveDp())
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -79,29 +81,29 @@ fun LoginScreen(
                 value = "Welcome back!",
                 isSmall = false
             )
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(20.toResponsiveDp()))
             OutlinedInputField(
                 label = "Email",
-                modifier = Modifier.width(330.dp),
+                modifier = Modifier.width(330.toResponsiveDp()),
                 value = email.value,
                 onValueChanged = {
                     viewModel.updateEmail(it)
                 }
             )
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(20.toResponsiveDp()))
             PasswordField(
-                modifier = Modifier.width(330.dp),
+                modifier = Modifier.width(330.toResponsiveDp()),
                 label = "Password",
                 value = password.value,
                 onValueChange = {
                     viewModel.updatePassword(it)
                 }
             )
-            Spacer(modifier = Modifier.height(25.dp))
+            Spacer(modifier = Modifier.height(25.toResponsiveDp()))
             Row {
                 NormalText(
                     value= "Forgot password? ",
-                    fontSize = 15.sp,
+                    fontSize = 15.toResponsiveSp(),
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
@@ -109,7 +111,7 @@ fun LoginScreen(
                 )
                 NormalText(
                     value= "Reset",
-                    fontSize = 15.sp,
+                    fontSize = 15.toResponsiveSp(),
                     fontFamily = PoppinsMedium,
                     color = NavyBlue,
                     fontWeight = FontWeight.Normal,
@@ -120,22 +122,22 @@ fun LoginScreen(
                     }
                 )
             }
-            Spacer(modifier = Modifier.height(25.dp))
+            Spacer(modifier = Modifier.height(25.toResponsiveDp()))
             PrimaryButton(
                 text = "Submit",
-                width = 280.dp,
-                height = 45.dp,
+                width = 280.toResponsiveDp(),
+                height = 45.toResponsiveDp(),
                 borderShape = RoundedCornerShape(50),
                 onClick = {
                     viewModel.onLoginClick(navController = navController)
                 }
             )
             Row(
-                modifier = Modifier.padding(top = 15.dp)
+                modifier = Modifier.padding(top = 15.toResponsiveDp())
             ) {
                 NormalText(
                     value = "Not a member? ",
-                    fontSize = 16.sp,
+                    fontSize = 16.toResponsiveSp(),
                     fontWeight = FontWeight.Normal,
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
@@ -143,7 +145,7 @@ fun LoginScreen(
                 )
                 NormalText(
                     value = "Signup",
-                    fontSize = 16.sp,
+                    fontSize = 16.toResponsiveSp(),
                     fontWeight = FontWeight.Normal,
                     fontFamily = PoppinsMedium,
                     color = NavyBlue,

@@ -18,14 +18,16 @@ import androidx.compose.ui.unit.sp
 import com.example.buspassapplication.ui.theme.NavyBlue
 import com.example.buspassapplication.ui.theme.PoppinsMedium
 import com.example.buspassapplication.ui.theme.White
+import toResponsiveDp
+import toResponsiveSp
 
 @Composable
 fun PrimaryButton(
     text: String,
-    fontSize: TextUnit = 17.sp,
+    fontSize: TextUnit = 17.toResponsiveSp(),
     width: Dp,
     height: Dp,
-    contentPadding: PaddingValues = PaddingValues(5.dp),
+    contentPadding: PaddingValues = PaddingValues(5.toResponsiveDp()),
     borderShape: RoundedCornerShape = RoundedCornerShape(5),
     onClick: () -> Unit = {}
 ) {
@@ -48,7 +50,7 @@ fun PrimaryButton(
             fontWeight = FontWeight(18),
             fontFamily = PoppinsMedium,
             color = White,
-            letterSpacing = 0.5.sp,
+            letterSpacing = 0.5.toResponsiveSp(),
             modifier = Modifier
         )
     }

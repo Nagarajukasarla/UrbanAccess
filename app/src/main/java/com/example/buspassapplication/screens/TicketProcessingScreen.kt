@@ -31,6 +31,8 @@ import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.ui.theme.PoppinsMedium
 import com.example.buspassapplication.ui.theme.Roboto
 import kotlinx.coroutines.channels.ticker
+import toResponsiveDp
+import toResponsiveSp
 
 @Composable
 fun TicketStatusScreen(
@@ -41,7 +43,7 @@ fun TicketStatusScreen(
         modifier = Modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(bottom = 40.dp),
+            .padding(bottom = 40.toResponsiveDp()),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         BackNavigationBar(
@@ -78,33 +80,33 @@ fun TicketProcessingItem(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .height(70.dp)
+            .height(70.toResponsiveDp())
     ) {
         Image(
             painter = painterResource(id = pendingIconRes),
             contentDescription = "Pending",
             modifier = Modifier
-                .width(40.dp)
-                .height(40.dp)
-                .padding(start = 5.dp)
+                .width(40.toResponsiveDp())
+                .height(40.toResponsiveDp())
+                .padding(start = 5.toResponsiveDp())
         )
-        Spacer(modifier = Modifier.width(10.dp))
+        Spacer(modifier = Modifier.width(10.toResponsiveDp()))
         Column(
-            modifier = Modifier.padding(start = 5.dp),
+            modifier = Modifier.padding(start = 5.toResponsiveDp()),
             verticalArrangement = Arrangement.Center,
         ) {
             NormalText(
-                modifier = Modifier.padding(bottom = 3.dp),
+                modifier = Modifier.padding(bottom = 3.toResponsiveDp()),
                 value = "Ticket# $ticketId",
-                fontSize = 15.sp,
+                fontSize = 15.toResponsiveSp(),
                 fontWeight = FontWeight.Medium,
                 fontFamily = Roboto,
                 color = Color.DarkGray
             )
             NormalText(
-                modifier = Modifier.padding(bottom = 3.dp),
+                modifier = Modifier.padding(bottom = 3.toResponsiveDp()),
                 value = date,
-                fontSize = 13.sp,
+                fontSize = 13.toResponsiveSp(),
                 fontWeight = FontWeight.Medium,
                 fontFamily = Roboto,
                 color = Color.DarkGray
@@ -112,7 +114,7 @@ fun TicketProcessingItem(
             NormalText(
                 modifier = Modifier,
                 value = status,
-                fontSize = 13.sp,
+                fontSize = 13.toResponsiveSp(),
                 fontWeight = FontWeight.Medium,
                 fontFamily = Roboto,
                 color = Color.DarkGray

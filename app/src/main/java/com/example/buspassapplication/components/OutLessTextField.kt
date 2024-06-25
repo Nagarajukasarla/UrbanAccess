@@ -21,17 +21,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.buspassapplication.ui.theme.DarkGray
-import com.example.buspassapplication.ui.theme.LightGray
-import com.example.buspassapplication.ui.theme.NavyBlue
+import toResponsiveDp
+import toResponsiveSp
 
 @ExperimentalMaterial3Api
 @Composable
@@ -41,7 +38,7 @@ fun OutLessTextField(
     onValueChanged: (String) -> Unit,
     modifier: Modifier,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    fontSize: TextUnit = 25.sp,
+    fontSize: TextUnit = 25.toResponsiveSp(),
 ) {
 
         var textFieldWidth by remember { mutableStateOf(40.dp) }
@@ -49,13 +46,13 @@ fun OutLessTextField(
         BasicTextField(
             modifier = Modifier
                 .width(textFieldWidth)
-                .padding(8.dp)
-                .height(40.dp),
+                .padding(8.toResponsiveDp())
+                .height(40.toResponsiveDp()),
             value = value,
             onValueChange = onValueChanged,
             singleLine = true,
             textStyle = TextStyle(
-                letterSpacing = 0.7.sp,
+                letterSpacing = 0.7.toResponsiveSp(),
                 fontSize = fontSize,
             ),
             keyboardOptions = keyboardOptions,

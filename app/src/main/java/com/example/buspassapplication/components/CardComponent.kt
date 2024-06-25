@@ -1,7 +1,5 @@
 package com.example.buspassapplication.components
 
-import androidx.annotation.DrawableRes
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -15,7 +13,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,23 +21,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.buspassapplication.R
 import com.example.buspassapplication.ui.theme.CloudGray
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.DimGray
-import com.example.buspassapplication.ui.theme.PoppinsLight
 import com.example.buspassapplication.ui.theme.PoppinsMedium
+import toResponsiveDp
+import toResponsiveSp
 
 @Composable
 fun CardComponent (
-    width: Dp = 330.dp,
-    height: Dp = 60.dp,
+    width: Dp = 330.toResponsiveDp(),
+    height: Dp = 60.toResponsiveDp(),
     title: String,
-    titleSize: TextUnit =  25.sp,
-    titlesColumnWidth: Dp = 170.dp,
-    leadingIconSize: Dp = 21.dp,
+    titleSize: TextUnit =  25.toResponsiveSp(),
+    titlesColumnWidth: Dp = 170.toResponsiveDp(),
+    leadingIconSize: Dp = 21.toResponsiveDp(),
     isBordered: Boolean = true,
     underLine: Boolean = false,
     onClick: () -> Unit,
@@ -50,20 +46,20 @@ fun CardComponent (
 
     val boxWithBorder = Modifier
         .padding(
-            top = 10.dp,
-            bottom = 10.dp
+            top = 10.toResponsiveDp(),
+            bottom = 10.toResponsiveDp()
         )
         .height(height)
         .width(width)
-        .border(width = 2.dp, color = DimGray, shape = RoundedCornerShape(5.dp))
+        .border(width = 2.toResponsiveDp(), color = DimGray, shape = RoundedCornerShape(5.toResponsiveDp()))
         .clickable {
             onClick()
         }
 
     val boxWithoutBorder = Modifier
         .padding(
-            top = 20.dp,
-            bottom = 20.dp
+            top = 20.toResponsiveDp(),
+            bottom = 20.toResponsiveDp()
         )
         .width(width)
         .height(height)
@@ -86,11 +82,11 @@ fun CardComponent (
                 fontWeight = FontWeight.Normal,
                 fontFamily = PoppinsMedium,
                 color = DarkGray,
-                letterSpacing = 0.5.sp
+                letterSpacing = 0.5.toResponsiveSp()
             )
         }
         Spacer(modifier = Modifier
-            .width(10.dp)
+            .width(10.toResponsiveDp())
         )
         Icon(
             painter = painterResource(
@@ -100,12 +96,12 @@ fun CardComponent (
             tint = DarkGray,
             modifier = Modifier
                 .size(leadingIconSize)
-                .padding(end=0.dp)
+                .padding(end=0.toResponsiveDp())
         )
     }
     if (underLine) {
         HorizontalDivider(
-            modifier = Modifier.height(1.dp).width(width),
+            modifier = Modifier.height(1.toResponsiveDp()).width(width),
             color = CloudGray
         )
     }

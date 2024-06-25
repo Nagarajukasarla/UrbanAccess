@@ -12,15 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import com.example.buspassapplication.ui.theme.IceBlue
 
 @Composable
 fun CenteredDotWithVerticalLine(
-    dotRadius: Dp = 16.dp,
+    dotRadius: Dp = 16.toResponsiveDp(),
     lineColor: Color = IceBlue,
-    lineWidth: Dp = 6.dp,
-    lineLength: Dp = 140.dp,
+    lineWidth: Dp = 6.toResponsiveDp(),
+    lineLength: Dp = 140.toResponsiveDp(),
     lineVisible: Boolean = true
 ) {
 

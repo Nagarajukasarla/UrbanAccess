@@ -31,8 +31,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.buspassapplication.R
@@ -48,6 +46,8 @@ import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.NavyBlue
 import com.example.buspassapplication.ui.theme.PoppinsBold
 import com.example.buspassapplication.ui.theme.White
+import toResponsiveDp
+import toResponsiveSp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,10 +57,10 @@ fun ProfileScreen(
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
 
-    val screenWidth = LocalConfiguration.current.screenWidthDp.dp
+    val screenWidth = LocalConfiguration.current.screenWidthDp.toResponsiveDp()
     val screenWidthInPixels = with(LocalDensity.current) { screenWidth.toPx() }
-    val paddingForBackIcon = (screenWidthInPixels * 0.01).dp
-    val paddingForProfileText = (screenWidthInPixels * 0.11).dp
+    val paddingForBackIcon = (screenWidthInPixels * 0.01).toResponsiveDp()
+    val paddingForProfileText = (screenWidthInPixels * 0.11).toResponsiveDp()
 
     Log.d("ProfileScreen", "screenWidth: $screenWidth")
     Log.d("ProfileScreen", "screenWidthInPixels: $screenWidthInPixels")
@@ -119,7 +119,7 @@ fun ProfileScreen(
 
 
     Column(
-        modifier = Modifier.padding(top = 5.dp)
+        modifier = Modifier.padding(top = 5.toResponsiveDp())
     ) {
         Row(
             modifier = Modifier
@@ -129,7 +129,7 @@ fun ProfileScreen(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Box(
-                modifier = Modifier.width(100.dp)
+                modifier = Modifier.width(100.toResponsiveDp())
             ) {
                 IconButton(
                     onClick = {
@@ -139,22 +139,22 @@ fun ProfileScreen(
                     Icon(
                         painter = painterResource(leftArrowResourceId),
                         contentDescription = "Back",
-                        modifier = Modifier.size(55.dp)
+                        modifier = Modifier.size(55.toResponsiveDp())
                     )
                 }
             }
             NormalText(
-                modifier = Modifier.padding(top = 2.dp),
+                modifier = Modifier.padding(top = 2.toResponsiveDp()),
                 value = "Profile",
-                fontSize = 20.sp,
+                fontSize = 20.toResponsiveSp(),
                 fontWeight = FontWeight.Bold,
                 fontFamily = PoppinsBold,
                 color = DarkGray,
-                letterSpacing = 0.7.sp
+                letterSpacing = 0.7.toResponsiveSp()
             )
             Box(
                 modifier = Modifier
-                    .width(100.dp)
+                    .width(100.toResponsiveDp())
                     .align(Alignment.CenterVertically)
             ) {
                 if (isEditable) {
@@ -163,12 +163,12 @@ fun ProfileScreen(
                     ) {
                         PrimaryButton(
                             text = "SAVE",
-                            fontSize = 15.sp,
-                            width = 68.dp,
-                            height = 30.dp,
+                            fontSize = 15.toResponsiveSp(),
+                            width = 68.toResponsiveDp(),
+                            height = 30.toResponsiveDp(),
                             contentPadding = PaddingValues(
-                                horizontal = 3.dp,
-                                vertical = 3.dp
+                                horizontal = 3.toResponsiveDp(),
+                                vertical = 3.toResponsiveDp()
                             ),
                             borderShape = RoundedCornerShape(30),
                             onClick = {
@@ -183,7 +183,7 @@ fun ProfileScreen(
                                 color = NavyBlue,
                                 shape = RoundedCornerShape(50)
                             )
-                            .size(38.dp)
+                            .size(38.toResponsiveDp())
                             .align(Alignment.CenterEnd),
                         onClick = { viewModel.updateIsEditable(true) }
                     ) {
@@ -203,7 +203,7 @@ fun ProfileScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 30.dp),
+                    .padding(top = 30.toResponsiveDp()),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
@@ -220,55 +220,55 @@ fun ProfileScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 70.dp),
+                        .padding(top = 70.toResponsiveDp()),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     OutlinedInputField(
-                        modifier = Modifier.width(290.dp),
+                        modifier = Modifier.width(290.toResponsiveDp()),
                         label = "Surname",
                         value = surname ?: "",
                         onValueChanged = {
                             viewModel.updateSurname(it)
                         }
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     OutlinedInputField(
-                        modifier = Modifier.width(290.dp),
+                        modifier = Modifier.width(290.toResponsiveDp()),
                         label = "Lastname",
                         value = lastname ?: "",
                         onValueChanged = {
                             viewModel.updateLastname(it)
                         }
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     OutlinedInputField(
-                        modifier = Modifier.width(290.dp),
+                        modifier = Modifier.width(290.toResponsiveDp()),
                         label = "Email",
                         value = email ?: "",
                         onValueChanged = {
                             viewModel.updateEmail(it)
                         }
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     OutlinedInputField(
-                        modifier = Modifier.width(290.dp),
+                        modifier = Modifier.width(290.toResponsiveDp()),
                         label = "Phone",
                         value = phone ?: "",
                         onValueChanged = {
                             viewModel.updatePhone(it)
                         }
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     OutlinedInputField(
-                        modifier = Modifier.width(290.dp),
+                        modifier = Modifier.width(290.toResponsiveDp()),
                         label = "Date of Birth",
                         value = dateOfBirth ?: "",
                         onValueChanged = {
                             viewModel.updateDateOfBirth(it)
                         }
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     DropDown(
                         label = "Gender",
                         options = Data.genderOptions,
@@ -277,186 +277,186 @@ fun ProfileScreen(
                             viewModel.updateGender(it)
                         }
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     OutlinedInputField(
-                        modifier = Modifier.width(290.dp),
+                        modifier = Modifier.width(290.toResponsiveDp()),
                         label = "Aadhar",
                         value = aadhar ?: "",
                         onValueChanged = {
                             viewModel.updateAadhar(it)
                         }
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     OutlinedInputField(
-                        modifier = Modifier.width(290.dp),
+                        modifier = Modifier.width(290.toResponsiveDp()),
                         label = "House Number",
                         value = houseNumber ?: "",
                         onValueChanged = {
                             viewModel.updateHouseNumber(it)
                         }
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     OutlinedInputField(
-                        modifier = Modifier.width(290.dp),
+                        modifier = Modifier.width(290.toResponsiveDp()),
                         label = "Street",
                         value = street ?: "",
                         onValueChanged = {
                             viewModel.updateStreet(it)
                         }
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     OutlinedInputField(
-                        modifier = Modifier.width(290.dp),
+                        modifier = Modifier.width(290.toResponsiveDp()),
                         label = "Area",
                         value = area ?: "",
                         onValueChanged = {
                             viewModel.updateArea(it)
                         }
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     OutlinedInputField(
-                        modifier = Modifier.width(290.dp),
+                        modifier = Modifier.width(290.toResponsiveDp()),
                         label = "District",
                         value = district ?: "",
                         onValueChanged = {
                             viewModel.updateDistrict(it)
                         }
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     OutlinedInputField(
-                        modifier = Modifier.width(290.dp),
+                        modifier = Modifier.width(290.toResponsiveDp()),
                         label = "City",
                         value = city ?: "",
                         onValueChanged = {
                             viewModel.updateCity(it)
                         }
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     OutlinedInputField(
-                        modifier = Modifier.width(290.dp),
+                        modifier = Modifier.width(290.toResponsiveDp()),
                         label = "State",
                         value = state ?: "",
                         onValueChanged = {
                             viewModel.updateState(it)
                         }
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     OutlinedInputField(
-                        modifier = Modifier.width(290.dp),
+                        modifier = Modifier.width(290.toResponsiveDp()),
                         label = "Pincode",
                         value = pincode ?: "",
                         onValueChanged = {
                             viewModel.updatePincode(it)
                         }
                     )
-                    Spacer(modifier = Modifier.height(60.dp))
+                    Spacer(modifier = Modifier.height(60.toResponsiveDp()))
                 }
             } else {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top = 70.dp),
+                        .padding(top = 70.toResponsiveDp()),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     DetailsContainerWithIcon(
                         value = surname ?: "",
                         icon = personResourceId,
-                        width = 300.dp,
-                        height = 50.dp
+                        width = 300.toResponsiveDp(),
+                        height = 50.toResponsiveDp()
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     DetailsContainerWithIcon(
                         value = lastname ?: "",
                         icon = personResourceId,
-                        width = 300.dp,
-                        height = 50.dp
+                        width = 300.toResponsiveDp(),
+                        height = 50.toResponsiveDp()
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     DetailsContainerWithIcon(
                         value = dateOfBirth ?: "",
                         icon = dateOfBirthResourceId,
-                        width = 300.dp,
-                        height = 50.dp
+                        width = 300.toResponsiveDp(),
+                        height = 50.toResponsiveDp()
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     DetailsContainerWithIcon(
                         value = gender ?: "",
                         icon = if (gender == "Male") maleResourceId else femaleResourceId,
-                        width = 300.dp,
-                        height = 50.dp
+                        width = 300.toResponsiveDp(),
+                        height = 50.toResponsiveDp()
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     DetailsContainerWithIcon(
                         value = phone ?: "",
                         icon = phoneResourceId,
-                        width = 300.dp,
-                        height = 50.dp
+                        width = 300.toResponsiveDp(),
+                        height = 50.toResponsiveDp()
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     DetailsContainerWithIcon(
                         value = email ?: "",
                         icon = emailResourceId,
-                        width = 300.dp,
-                        height = 50.dp
+                        width = 300.toResponsiveDp(),
+                        height = 50.toResponsiveDp()
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     DetailsContainerWithIcon(
                         value = aadhar ?: "",
                         icon = aadharResourceId,
-                        width = 300.dp,
-                        height = 50.dp
+                        width = 300.toResponsiveDp(),
+                        height = 50.toResponsiveDp()
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     DetailsContainerWithIcon(
                         value = houseNumber ?: "",
                         icon = placeResourceId,
-                        width = 300.dp,
-                        height = 50.dp
+                        width = 300.toResponsiveDp(),
+                        height = 50.toResponsiveDp()
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     DetailsContainerWithIcon(
                         value = street ?: "",
                         icon = streetResourceId,
-                        width = 300.dp,
-                        height = 50.dp
+                        width = 300.toResponsiveDp(),
+                        height = 50.toResponsiveDp()
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     DetailsContainerWithIcon(
                         value = area ?: "",
                         icon = addressResourceId,
-                        width = 300.dp,
-                        height = 50.dp
+                        width = 300.toResponsiveDp(),
+                        height = 50.toResponsiveDp()
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     DetailsContainerWithIcon(
                         value = district ?: "",
                         icon = districtResourceId,
-                        width = 300.dp,
-                        height = 50.dp
+                        width = 300.toResponsiveDp(),
+                        height = 50.toResponsiveDp()
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     DetailsContainerWithIcon(
                         value = city ?: "",
                         icon = cityResourceId,
-                        width = 300.dp,
-                        height = 50.dp
+                        width = 300.toResponsiveDp(),
+                        height = 50.toResponsiveDp()
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     DetailsContainerWithIcon(
                         value = state ?: "",
                         icon = countryResourceId,
-                        width = 300.dp,
-                        height = 50.dp
+                        width = 300.toResponsiveDp(),
+                        height = 50.toResponsiveDp()
                     )
-                    Spacer(modifier = Modifier.height(30.dp))
+                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                     DetailsContainerWithIcon(
                         value = pincode ?: "",
                         icon = postalCodeResourceId,
-                        width = 300.dp,
-                        height = 50.dp
+                        width = 300.toResponsiveDp(),
+                        height = 50.toResponsiveDp()
                     )
-                    Spacer(modifier = Modifier.height(60.dp))
+                    Spacer(modifier = Modifier.height(60.toResponsiveDp()))
                 }
             }
         }

@@ -21,17 +21,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.R
 import com.example.buspassapplication.components.DotLine
 import com.example.buspassapplication.components.DropDown
+import com.example.buspassapplication.components.HeadingText
 import com.example.buspassapplication.components.OutlinedInputField
 import com.example.buspassapplication.components.Popup
 import com.example.buspassapplication.routes.MapBarRoutes
 import com.example.buspassapplication.ui.theme.DimGray
+import toResponsiveDp
 
 @ExperimentalMaterial3Api
 @Composable
@@ -51,10 +52,11 @@ fun MapScreen(
 
     Column(
         modifier = Modifier
-            .padding(bottom = 30.dp, top = 20.dp, start = 20.dp, end = 20.dp)
+            .padding(bottom = 30.toResponsiveDp(), top = 20.toResponsiveDp(), start = 20.toResponsiveDp(), end = 20.toResponsiveDp())
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.Start
     ) {
+        HeadingText(value = "My Routes")
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -78,11 +80,11 @@ fun MapScreen(
                     contentDescription = null,
                     tint = DimGray,
                     modifier = Modifier
-                        .size(50.dp)
+                        .size(50.toResponsiveDp())
                 )
             }
         }
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(20.toResponsiveDp()))
         Row(
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically,
@@ -92,8 +94,8 @@ fun MapScreen(
                 OutlinedInputField(
                     label = "From",
                     modifier = Modifier
-                        .width(286.dp)
-                        .padding(bottom = 15.dp),
+                        .width(286.toResponsiveDp())
+                        .padding(bottom = 15.toResponsiveDp()),
                     value = fromPlace ?: "",
                     onValueChanged = {
                         viewModel.updateFrom(it)
@@ -102,8 +104,8 @@ fun MapScreen(
                 OutlinedInputField(
                     label = "To",
                     modifier = Modifier
-                        .width(286.dp)
-                        .padding(bottom = 10.dp),
+                        .width(286.toResponsiveDp())
+                        .padding(bottom = 10.toResponsiveDp()),
                     value = toPlace ?: "",
                     onValueChanged = {
                         viewModel.updateTo(it)
@@ -125,7 +127,7 @@ fun MapScreen(
                         contentDescription = null,
                         tint = DimGray,
                         modifier = Modifier
-                            .size(50.dp)
+                            .size(50.toResponsiveDp())
                     )
                 }
             }
@@ -144,13 +146,13 @@ fun MapScreen(
             }
         }
 
-        Spacer(modifier = Modifier.height(50.dp))
+        Spacer(modifier = Modifier.height(50.toResponsiveDp()))
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(700.dp)
+                .height(700.toResponsiveDp())
                 .verticalScroll(rememberScrollState())
-                .padding(start = 40.dp)
+                .padding(start = 40.toResponsiveDp())
         ) {
             val busRoute = Data.busNoRouteList[busNumber]
 
@@ -159,16 +161,16 @@ fun MapScreen(
                     if (index < busRoute.size - 1) {
                         DotLine(
                             value = value.capitalize(),
-                            dotRadius = 10.dp,
-                            lineLength = 100.dp,
+                            dotRadius = 10.toResponsiveDp(),
+                            lineLength = 100.toResponsiveDp(),
                             fontSize = 18
                         )
                     }
                 }
                 DotLine(
                     value = busRoute.last().capitalize(),
-                    dotRadius = 10.dp,
-                    lineLength = 100.dp,
+                    dotRadius = 10.toResponsiveDp(),
+                    lineLength = 100.toResponsiveDp(),
                     fontSize = 18,
                     lineVisible = false
                 )

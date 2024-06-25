@@ -27,6 +27,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.R
 import com.example.buspassapplication.routes.TopBarRoutes
 import com.example.buspassapplication.ui.theme.NavyBlue
+import toResponsiveDp
 
 @Composable
 fun TopBar(
@@ -35,7 +36,7 @@ fun TopBar(
 
     val profileResourceId = R.drawable.account_circle
     val settingsResourceId = R.drawable.settings
-    val screenWidth = LocalConfiguration.current.screenWidthDp.dp
+    val screenWidth = LocalConfiguration.current.screenWidthDp.toResponsiveDp()
     val screenWidthPixels = with(LocalDensity.current) { screenWidth.toPx() }
     val screenWidthDp = (screenWidthPixels)
     Box {
@@ -43,17 +44,17 @@ fun TopBar(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                .height(48.dp)
+                .height(48.toResponsiveDp())
                 .fillMaxWidth()
                 .background(color = Color.White)
         ) {
             Image(
-                modifier = Modifier.size(43.dp).padding(start = 5.dp),
+                modifier = Modifier.size(43.toResponsiveDp()).padding(start = 5.toResponsiveDp()),
                 painter = painterResource(id = R.drawable.img),
                 contentDescription = "App icon"
             )
             IconButton(
-                modifier = Modifier.padding(end = 5.dp),
+                modifier = Modifier.padding(end = 5.toResponsiveDp()),
                 onClick = {
                     navController.navigate(TopBarRoutes.Settings.route) {}
                 }
@@ -61,7 +62,7 @@ fun TopBar(
                 Icon(
                     painter = painterResource(id = settingsResourceId),
                     contentDescription = "Settings",
-                    modifier = Modifier.size(40.dp),
+                    modifier = Modifier.size(40.toResponsiveDp()),
                     tint = NavyBlue
                 )
             }
@@ -69,7 +70,7 @@ fun TopBar(
         Divider(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(1.dp)
+                .height(1.toResponsiveDp())
                 .align(Alignment.BottomCenter),
             color = Color.LightGray
         )

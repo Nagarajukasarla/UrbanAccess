@@ -1,6 +1,5 @@
 package com.example.buspassapplication.components
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,7 +16,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,24 +25,21 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.DimGray
 import com.example.buspassapplication.ui.theme.LightGray
-import com.example.buspassapplication.ui.theme.NavyBlue
 import com.example.buspassapplication.ui.theme.PoppinsBold
-import com.example.buspassapplication.ui.theme.PoppinsLight
 import com.example.buspassapplication.ui.theme.PoppinsMedium
-import com.example.buspassapplication.ui.theme.Roboto
 import com.example.buspassapplication.ui.theme.ShinyBlue
 import com.example.buspassapplication.ui.theme.White
+import toResponsiveDp
+import toResponsiveSp
 
 @Composable
 fun Popup(
-    width: Dp = 290.dp,
-    height: Dp = 170.dp,
+    width: Dp = 290.toResponsiveDp(),
+    height: Dp = 170.toResponsiveDp(),
     dismiss: Boolean = true,
     onDismissRequest: () -> Unit = {},
     onConfirmRequest: () -> Unit = {},
@@ -59,8 +54,8 @@ fun Popup(
             modifier = Modifier
                 .width(width)
                 .height(height)
-                .padding(16.dp)
-                .background(Color.White, shape = RoundedCornerShape(16.dp))
+                .padding(16.toResponsiveDp())
+                .background(Color.White, shape = RoundedCornerShape(16.toResponsiveDp()))
         ) {
             Column(
                 modifier = Modifier
@@ -69,9 +64,9 @@ fun Popup(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 NormalText(
-                    modifier = Modifier.padding(top = 15.dp, bottom = 6.dp),
+                    modifier = Modifier.padding(top = 15.toResponsiveDp(), bottom = 6.toResponsiveDp()),
                     value = title,
-                    fontSize = 15.sp,
+                    fontSize = 15.toResponsiveSp(),
                     fontWeight = FontWeight.Bold,
                     fontFamily = PoppinsBold,
                     color = DarkGray
@@ -81,7 +76,7 @@ fun Popup(
                         Alignment.CenterHorizontally
                     ),
                     value = contentOnFirstLine,
-                    fontSize = 13.sp,
+                    fontSize = 13.toResponsiveSp(),
                     fontWeight = FontWeight.Normal,
                     fontFamily = PoppinsMedium,
                     color = DarkGray
@@ -91,12 +86,12 @@ fun Popup(
                         Alignment.CenterHorizontally
                     ),
                     value = contentOnSecondLine,
-                    fontSize = 13.sp,
+                    fontSize = 13.toResponsiveSp(),
                     fontWeight = FontWeight.Normal,
                     fontFamily = PoppinsMedium,
                     color = DarkGray
                 )
-                HorizontalDivider(modifier = Modifier.padding(top = 20.dp))
+                HorizontalDivider(modifier = Modifier.padding(top = 20.toResponsiveDp()))
                 Row(
                     modifier = Modifier
                         .fillMaxHeight()
@@ -105,8 +100,8 @@ fun Popup(
                     if (dismiss) {
                         Row(
                             modifier = Modifier
-                                .width(120.dp)
-                                .height(40.dp),
+                                .width(120.toResponsiveDp())
+                                .height(40.toResponsiveDp()),
                             horizontalArrangement = Arrangement.Center,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
@@ -118,12 +113,12 @@ fun Popup(
                                     disabledContainerColor = LightGray,
                                     disabledContentColor = White,
                                 ),
-                                modifier = Modifier.width(115.dp)
+                                modifier = Modifier.width(115.toResponsiveDp())
                             ) {
                                 NormalText(
                                     modifier = Modifier,
                                     value = "Cancel",
-                                    fontSize = 13.sp,
+                                    fontSize = 13.toResponsiveSp(),
                                     fontWeight = FontWeight.Bold,
                                     fontFamily = PoppinsBold,
                                     color = ShinyBlue
@@ -132,14 +127,14 @@ fun Popup(
                         }
                         Spacer(
                             modifier = Modifier
-                                .width(0.5.dp)
+                                .width(0.5.toResponsiveDp())
                                 .fillMaxHeight()
                                 .background(DimGray, RectangleShape)
                         )
                         Row(
                             modifier = Modifier
-                                .width(120.dp)
-                                .height(40.dp),
+                                .width(120.toResponsiveDp())
+                                .height(40.toResponsiveDp()),
                             horizontalArrangement = Arrangement.Center,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
@@ -151,12 +146,12 @@ fun Popup(
                                     disabledContainerColor = LightGray,
                                     disabledContentColor = White,
                                 ),
-                                modifier = Modifier.width(115.dp)
+                                modifier = Modifier.width(115.toResponsiveDp())
                             ) {
                                 NormalText(
                                     modifier = Modifier,
                                     value = "Okay",
-                                    fontSize = 13.sp,
+                                    fontSize = 13.toResponsiveSp(),
                                     fontWeight = FontWeight.Bold,
                                     fontFamily = PoppinsBold,
                                     color = ShinyBlue
@@ -168,7 +163,7 @@ fun Popup(
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(40.dp),
+                                .height(40.toResponsiveDp()),
                             horizontalArrangement = Arrangement.Center,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
@@ -184,7 +179,7 @@ fun Popup(
                                 NormalText(
                                     modifier = Modifier,
                                     value = confirmMessage,
-                                    fontSize = 13.sp,
+                                    fontSize = 13.toResponsiveSp(),
                                     fontWeight = FontWeight.Bold,
                                     fontFamily = PoppinsBold,
                                     color = ShinyBlue

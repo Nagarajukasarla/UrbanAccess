@@ -22,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -34,6 +33,8 @@ import com.example.buspassapplication.components.OutlinedInputField
 import com.example.buspassapplication.components.PrimaryButton
 import com.example.buspassapplication.ui.theme.PoppinsBold
 import kotlinx.coroutines.flow.MutableStateFlow
+import toResponsiveDp
+import toResponsiveSp
 
 
 @ExperimentalMaterial3Api
@@ -86,9 +87,9 @@ fun StudentPassApplicationFormScreen(
         BackNavigationBar(navController = navController)
         NormalText(
             modifier = Modifier
-                .padding(top = 15.dp, bottom = 20.dp),
+                .padding(top = 15.toResponsiveDp(), bottom = 20.toResponsiveDp()),
             value = "Student Pass Application",
-            fontSize = 25.sp,
+            fontSize = 25.toResponsiveSp(),
             fontWeight = FontWeight.Bold,
             fontFamily = PoppinsBold,
             color = Color.Black
@@ -102,12 +103,12 @@ fun StudentPassApplicationFormScreen(
                 viewModel.updatePassType(it)
             },
         )
-        Spacer(modifier = Modifier.padding(bottom = 15.dp))
+        Spacer(modifier = Modifier.padding(bottom = 15.toResponsiveDp()))
         OutlinedInputField(
             label = "Year of pass",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = yearOfPass ?: "",
             onValueChanged = {
                 viewModel.updateYearOfPass(it)
@@ -121,12 +122,12 @@ fun StudentPassApplicationFormScreen(
                 viewModel.updatePassType(it)
             }
         )
-        Spacer(modifier = Modifier.padding(bottom = 15.dp))
+        Spacer(modifier = Modifier.padding(bottom = 15.toResponsiveDp()))
         OutlinedInputField(
             label = "SSC Hall ticket no.",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = tenthHallTicketId ?: "",
             onValueChanged = {
                 viewModel.updateTenthHallTicketId(it)
@@ -136,8 +137,8 @@ fun StudentPassApplicationFormScreen(
         OutlinedInputField(
             label = "Surname",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = surname ?: "",
             onValueChanged = {
                 viewModel.updateSurname(it)
@@ -147,8 +148,8 @@ fun StudentPassApplicationFormScreen(
         OutlinedInputField(
             label = "Lastname",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = lastname ?: "",
             onValueChanged = {
                 viewModel.updateLastname(it)
@@ -158,8 +159,8 @@ fun StudentPassApplicationFormScreen(
         OutlinedInputField(
             label = "Guardian name",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = guardian ?: "",
             onValueChanged = {
                 viewModel.updateGuardian(it)
@@ -176,8 +177,8 @@ fun StudentPassApplicationFormScreen(
         OutlinedInputField(
             label = "Date of birth",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = dateOfBirth ?: "",
             onValueChanged = {
                 viewModel.updateDateOfBirth(it)
@@ -186,8 +187,8 @@ fun StudentPassApplicationFormScreen(
         OutlinedInputField(
             label = "Email",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = email ?: "",
             onValueChanged = {
                 viewModel.updateEmail(it)
@@ -197,8 +198,8 @@ fun StudentPassApplicationFormScreen(
         OutlinedInputField(
             label = "Mobile",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = phone ?: "",
             onValueChanged = {
                 viewModel.updatePhone(it)
@@ -207,8 +208,8 @@ fun StudentPassApplicationFormScreen(
         OutlinedInputField(
             label = "Aadhar number",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = aadhar ?: "",
             onValueChanged = {
                 viewModel.updateAadhar(it)
@@ -221,13 +222,13 @@ fun StudentPassApplicationFormScreen(
             value = "Is Employee Children",
             onItemSelected = {  }
         )
-        Spacer(modifier = Modifier.padding(bottom = 15.dp))
+        Spacer(modifier = Modifier.padding(bottom = 15.toResponsiveDp()))
         BlueLabelledText(text = "Residential address details")
         OutlinedInputField(
             label = "House Number",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = houseNumber ?: "",
             onValueChanged = {
                 viewModel.updateHouseNumber(it)
@@ -236,8 +237,8 @@ fun StudentPassApplicationFormScreen(
         OutlinedInputField(
             label = "Street",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = street ?: "",
             onValueChanged = {
                 viewModel.updateStreet(it)
@@ -246,8 +247,8 @@ fun StudentPassApplicationFormScreen(
         OutlinedInputField(
             label = "Area",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = area ?: "",
             onValueChanged = {
                 viewModel.updateArea(it)
@@ -256,8 +257,8 @@ fun StudentPassApplicationFormScreen(
         OutlinedInputField(
             label = "District",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = district ?: "",
             onValueChanged = {
                 viewModel.updateDistrict(it)
@@ -266,8 +267,8 @@ fun StudentPassApplicationFormScreen(
         OutlinedInputField(
             label = "City",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = city ?: "",
             onValueChanged = {
                 viewModel.updateCity(it)
@@ -276,8 +277,8 @@ fun StudentPassApplicationFormScreen(
         OutlinedInputField(
             label = "State",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = state ?: "",
             onValueChanged = {
                 viewModel.updateState(it)
@@ -286,8 +287,8 @@ fun StudentPassApplicationFormScreen(
         OutlinedInputField(
             label = "Pincode",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = pincode ?: "",
             onValueChanged = {
                 viewModel.updatePincode(it)
@@ -297,8 +298,8 @@ fun StudentPassApplicationFormScreen(
         OutlinedInputField(
             label = "Name of the Institute",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = instituteName ?: "",
             onValueChanged = {
                 viewModel.updateInstituteName(it)
@@ -307,8 +308,8 @@ fun StudentPassApplicationFormScreen(
         OutlinedInputField(
             label = "District of Institute",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = districtOfInstitute ?: "",
             onValueChanged = {
                 viewModel.updateDistrictOfInstitute(it)
@@ -317,8 +318,8 @@ fun StudentPassApplicationFormScreen(
         OutlinedInputField(
             label = "Mandal of Institute",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = mandalOfInstitute ?: "",
             onValueChanged = {
                 viewModel.updateMandalOfInstitute(it)
@@ -327,8 +328,8 @@ fun StudentPassApplicationFormScreen(
         OutlinedInputField(
             label = "Institution address",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = instituteAddress ?: "",
             onValueChanged = {
                 viewModel.updateInstituteAddress(it)
@@ -337,8 +338,8 @@ fun StudentPassApplicationFormScreen(
         OutlinedInputField(
             label = "Course name",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = courseName ?: "",
             onValueChanged = {
                 viewModel.updateCourseName(it)
@@ -347,8 +348,8 @@ fun StudentPassApplicationFormScreen(
         OutlinedInputField(
             label = "Admission number",
             modifier = Modifier
-                .width(280.dp)
-                .padding(bottom = 15.dp),
+                .width(280.toResponsiveDp())
+                .padding(bottom = 15.toResponsiveDp()),
             value = admissionNumber ?: "",
             onValueChanged = {
                 viewModel.updateAdmissionNumber(it)
@@ -356,8 +357,8 @@ fun StudentPassApplicationFormScreen(
         )
         PrimaryButton(
             text = "Submit",
-            width = 280.dp,
-            height = 45.dp,
+            width = 280.toResponsiveDp(),
+            height = 45.toResponsiveDp(),
             borderShape = RoundedCornerShape(50),
             onClick = {
                 viewModel.onSubmit(activity)
