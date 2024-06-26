@@ -1,39 +1,39 @@
 package com.example.buspassapplication.models.implementation
 
-import com.example.buspassapplication.data.RazorpayOrderRequest
+import com.example.buspassapplication.request.RazorpayOrderRequest
 import com.example.buspassapplication.models.service.ExternalApiService
-import com.example.buspassapplication.models.utils.RazorpayOrderResponse
-import com.example.buspassapplication.models.utils.UploadResponse
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.example.buspassapplication.response.RazorpayOrderResponse
+import com.example.buspassapplication.response.UploadResponse
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
+// ExternalApiServiceImplementation is marked for removal
 
-class ExternalApiServiceImplementation @Inject constructor() : ExternalApiService {
-
-    companion object {
-        const val URL = "http://192.168.0.38:5000/"
-    }
-
-    private val retrofit = Retrofit.Builder()
-        .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl(URL)
-        .build()
-
-    private val externalApiService = retrofit.create(ExternalApiService::class.java)
-
-    override suspend fun upload(id: String): Response<UploadResponse> {
-        return externalApiService.upload(id)
-    }
-
-    override suspend fun generateOrder(razorpayOrderRequest: RazorpayOrderRequest): Response<RazorpayOrderResponse> {
-            return externalApiService.generateOrder(razorpayOrderRequest)
-    }
-
-
-}
+//class ExternalApiServiceImplementation @Inject constructor() : ExternalApiService {
+//
+//    companion object {
+//        const val URL = "http://192.168.0.38:5000/"
+//    }
+//
+//    private val retrofit = Retrofit.Builder()
+//        .addConverterFactory(GsonConverterFactory.create())
+//        .baseUrl(URL)
+//        .build()
+//
+//    private val externalApiService = retrofit.create(ExternalApiService::class.java)
+//
+//    override suspend fun upload(id: String): Response<UploadResponse> {
+//        return externalApiService.upload(id)
+//    }
+//
+//    override suspend fun generateOrder(razorpayOrderRequest: RazorpayOrderRequest): Response<RazorpayOrderResponse> {
+//            return externalApiService.generateOrder(razorpayOrderRequest)
+//    }
+//
+//
+//}
 
 // Usage:
 //class MyViewModel : ViewModel() {

@@ -11,10 +11,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.PoppinsMedium
+import toResponsiveDp
+import toResponsiveSp
 
 @Composable
 fun BillItem(
@@ -27,14 +27,14 @@ fun BillItem(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
-                .height(48.dp)
+                .height(48.toResponsiveDp())
                 .fillMaxWidth()
                 .background(color = Color.White)
         ){
         NormalText(
             modifier = Modifier,
             value = name,
-            fontSize = 16.sp,
+            fontSize = 16.toResponsiveSp(),
             fontWeight = FontWeight.Normal,
             fontFamily = PoppinsMedium,
             color = DarkGray
@@ -42,7 +42,7 @@ fun BillItem(
         NormalText(
             modifier = Modifier,
             value = price,
-            fontSize = 16.sp,
+            fontSize = 16.toResponsiveSp(),
             fontWeight = FontWeight.Normal,
             fontFamily = PoppinsMedium,
             color = DarkGray

@@ -21,30 +21,32 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.buspassapplication.R
+import com.example.buspassapplication.graphs.Graph
 import com.example.buspassapplication.ui.theme.CloudGray
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.DimGray
 import com.example.buspassapplication.ui.theme.PoppinsLight
 import com.example.buspassapplication.ui.theme.PoppinsMedium
+import toResponsiveDp
+import toResponsiveSp
 
 @Composable
 fun CardWithIcon (
-    width: Dp = 320.dp,
-    height: Dp = 80.dp,
+    width: Dp = 350.toResponsiveDp(),
+    height: Dp = 80.toResponsiveDp(),
     title: String,
     subTitle: String = "",
-    titleSize: TextUnit =  17.sp,
+    titleSize: TextUnit =  18.toResponsiveSp(),
     @DrawableRes icon: Int,
-    spaceAfterTrailingIcon: Dp = 30.dp,
-    titlesColumnWidth: Dp = 170.dp,
-    iconButtonSize: Dp = 30.dp,
-    trailingIconSize: Dp = 30.dp,
-    leadingIconSize: Dp = 16.dp,
+    spaceAfterTrailingIcon: Dp = 37.toResponsiveDp(),
+    titlesColumnWidth: Dp = 170.toResponsiveDp(),
+    iconButtonSize: Dp = 30.toResponsiveDp(),
+    trailingIconSize: Dp = 34.toResponsiveDp(),
+    leadingIconSize: Dp = 18.toResponsiveDp(),
     roundedButton: Boolean = true,
     isBordered: Boolean = true,
     underLine: Boolean = false,
@@ -54,22 +56,18 @@ fun CardWithIcon (
     val forwardArrowResourceId = R.drawable.arrow_forward
 
     val boxWithBorder = Modifier
-        .padding(
-            top = 20.dp,
-            bottom = 20.dp
-        )
         .height(height)
         .width(width)
-        .border(width = 1.dp, color = DimGray, shape = RoundedCornerShape(10.dp))
+        .border(
+            width = 1.toResponsiveDp(),
+            color = DimGray,
+            shape = RoundedCornerShape(10.toResponsiveDp())
+        )
         .clickable {
             onClick()
         }
 
     val boxWithoutBorder = Modifier
-        .padding(
-            top = 20.dp,
-            bottom = 20.dp
-        )
         .width(width)
         .height(height)
         .clickable { onClick() }
@@ -97,30 +95,30 @@ fun CardWithIcon (
                 fontWeight = FontWeight.Normal,
                 fontFamily = PoppinsMedium,
                 color = DarkGray,
-                letterSpacing = 0.5.sp
+                letterSpacing = 0.5.toResponsiveSp()
             )
             if (!(subTitle.isEmpty() && subTitle.isEmpty())) {
                 NormalText(
                     modifier = Modifier,
                     value = subTitle,
-                    fontSize = 15.sp,
+                    fontSize = 16.toResponsiveSp(),
                     fontWeight = FontWeight.Normal,
                     fontFamily = PoppinsLight,
                     color = DimGray
                 )
             }
         }
-        Spacer(modifier = Modifier.width(10.dp))
+        Spacer(modifier = Modifier.width(10.toResponsiveDp()))
 
         val iconButtonStyleWithBorder = Modifier
             .border(
-                width = 1.dp,
+                width = 1.toResponsiveDp(),
                 color = DimGray,
-                shape = RoundedCornerShape(50.dp)
+                shape = RoundedCornerShape(50.toResponsiveDp())
             )
             .size(iconButtonSize)
 
-        val iconButtonStyleWithoutBorder = Modifier.size(iconButtonSize).padding(start = 10.dp)
+        val iconButtonStyleWithoutBorder = Modifier.size(iconButtonSize).padding(start = 10.toResponsiveDp())
 
         IconButton(
             onClick = { onClick() },
@@ -138,8 +136,22 @@ fun CardWithIcon (
     }
     if (underLine) {
         HorizontalDivider(
-            modifier = Modifier.height(1.dp).width(width),
+            modifier = Modifier.height(1.toResponsiveDp()).width(width),
             color = CloudGray
         )
     }
+}
+
+
+@Preview
+@Composable
+fun CardWithIconPreview() {
+
+    val generalResourceId = R.drawable.person
+    CardWithIcon(
+        icon = generalResourceId,
+        title = "General Pass",
+        subTitle = "Apply now",
+        onClick = {  },
+    )
 }

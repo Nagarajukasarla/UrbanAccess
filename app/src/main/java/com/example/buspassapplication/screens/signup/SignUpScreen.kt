@@ -27,8 +27,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -42,6 +40,8 @@ import com.example.buspassapplication.components.PrimaryButton
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.NavyBlue
 import com.example.buspassapplication.ui.theme.PoppinsMedium
+import toResponsiveDp
+import toResponsiveSp
 
 @ExperimentalMaterial3Api
 @Composable
@@ -50,9 +50,9 @@ fun SignUpScreen(
     viewModel: SignUpViewModel = hiltViewModel()
 ) {
 
-    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
+    val screenHeight = LocalConfiguration.current.screenHeightDp.toResponsiveDp()
     val screenHeightPixels = with(LocalDensity.current) { screenHeight.toPx() }
-    val padding = (screenHeightPixels * 0.01f).dp
+    val padding = (screenHeightPixels * 0.01).toResponsiveDp()
 
     val surname by viewModel.surname.collectAsState()
     val lastName by viewModel.lastName.collectAsState()
@@ -74,7 +74,7 @@ fun SignUpScreen(
             .padding(top = padding)
             .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(0.dp),
+        verticalArrangement = Arrangement.spacedBy(0.toResponsiveDp()),
     ) {
         HeadingText(
             value = "Hey there,",
@@ -84,46 +84,46 @@ fun SignUpScreen(
             value = "Create an Account",
             isSmall = false
         )
-        Spacer(modifier = Modifier.height(17.dp))
+        Spacer(modifier = Modifier.height(17.toResponsiveDp()))
         OutlinedInputField(
-            label = "Surname",
-            modifier = Modifier.width(300.dp),
+            label = "First Name",
+            modifier = Modifier.width(300.toResponsiveDp()),
             value = surname,
             onValueChanged = {
                 viewModel.updateSurname(it)
             }
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(16.toResponsiveDp()))
         OutlinedInputField(
             label = "Last Name",
-            modifier = Modifier.width(300.dp),
+            modifier = Modifier.width(300.toResponsiveDp()),
             value = lastName,
             onValueChanged = {
                 viewModel.updateLastname(it)
             }
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(16.toResponsiveDp()))
         OutlinedInputField(
             label = "Email",
-            modifier = Modifier.width(300.dp),
+            modifier = Modifier.width(300.toResponsiveDp()),
             value = email,
             onValueChanged = {
                 viewModel.updateEmail(it)
             }
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(16.toResponsiveDp()))
         PasswordField(
             label = "Password",
-            modifier = Modifier.width(300.dp),
+            modifier = Modifier.width(300.toResponsiveDp()),
             value = password,
             onValueChange = {
                 viewModel.updatePassword(it)
             }
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(16.toResponsiveDp()))
         PasswordField(
             label = "Confirm Password",
-            modifier = Modifier.width(300.dp),
+            modifier = Modifier.width(300.toResponsiveDp()),
             value = confirmPassword,
             onValueChange = {
                 viewModel.updateConfirmPassword(it)
@@ -132,8 +132,8 @@ fun SignUpScreen(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 20.dp)
-                .height(25.dp),
+                .padding(top = 20.toResponsiveDp())
+                .height(25.toResponsiveDp()),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
 
@@ -144,10 +144,10 @@ fun SignUpScreen(
                     termsAndConditionsValue = !termsAndConditionsValue
                 }
             )
-            Spacer(modifier = Modifier.width(3.dp))
+            Spacer(modifier = Modifier.width(3.toResponsiveDp()))
             NormalText(
                 value = "Creating an account means I agree with ",
-                fontSize = 12.sp,
+                fontSize = 12.toResponsiveSp(),
                 fontWeight = FontWeight.Normal,
                 fontFamily = PoppinsMedium,
                 color = DarkGray,
@@ -156,28 +156,28 @@ fun SignUpScreen(
         }
         NormalText(
             value = "Terms and Conditions",
-            fontSize = 12.sp,
+            fontSize = 12.toResponsiveSp(),
             fontWeight = FontWeight.Normal,
             fontFamily = PoppinsMedium,
             color = NavyBlue,
-            modifier = Modifier.padding(bottom = 20.dp)
+            modifier = Modifier.padding(bottom = 20.toResponsiveDp())
         )
         PrimaryButton(
             text = "Signup",
-            width = 300.dp,
-            height = 45.dp,
+            width = 300.toResponsiveDp(),
+            height = 45.toResponsiveDp(),
             borderShape = RoundedCornerShape(50),
             onClick = {
                 viewModel.onSignupClick()
             }
         )
         Row(
-            modifier = Modifier.padding(top = 14.dp)
+            modifier = Modifier.padding(top = 14.toResponsiveDp())
         ) {
             NormalText(
                 modifier = Modifier,
                 value = "Already a member? ",
-                fontSize = 14.sp,
+                fontSize = 14.toResponsiveSp(),
                 fontWeight = FontWeight.Normal,
                 fontFamily = PoppinsMedium,
                 color = DarkGray,
@@ -193,7 +193,7 @@ fun SignUpScreen(
                         }
                     },
                 value = "Login",
-                fontSize = 14.sp,
+                fontSize = 14.toResponsiveSp(),
                 fontWeight = FontWeight.Normal,
                 fontFamily = PoppinsMedium,
                 color = NavyBlue,
@@ -201,7 +201,7 @@ fun SignUpScreen(
         }
         if (popStatus) {
             Popup(
-                width = 310.dp,
+                width = 310.toResponsiveDp(),
                 title = popupTitle,
                 contentOnFirstLine = popupMessageOnFirstLine,
                 contentOnSecondLine = popupMessageOnSecondLine,

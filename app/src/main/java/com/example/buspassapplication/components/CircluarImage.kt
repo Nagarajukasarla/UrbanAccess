@@ -14,16 +14,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
 import com.example.buspassapplication.R
 import com.example.buspassapplication.ui.theme.DarkGray
+import toResponsiveDp
+import toResponsiveSp
 
 @Composable
 fun CircularImage(
     @DrawableRes image: Int,
     description: String = "Photo",
-    size: Dp = 100.dp,
-    borderWidth: Dp = 1.dp,
+    size: Dp = 100.toResponsiveDp(),
+    borderWidth: Dp = 1.toResponsiveDp(),
     borderColor: Color = DarkGray,
     borderShape: RoundedCornerShape = RoundedCornerShape(100)
 ) {

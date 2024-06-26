@@ -19,18 +19,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.components.BlueBoxButton
 import com.example.buspassapplication.components.CardComponent
+import com.example.buspassapplication.components.HeadingText
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.TransactionComponent
 import com.example.buspassapplication.components.WalletComponent
 import com.example.buspassapplication.routes.WalletScreenRoutes
 import com.example.buspassapplication.ui.theme.Black
 import com.example.buspassapplication.ui.theme.PoppinsBold
-import com.example.buspassapplication.ui.theme.PoppinsMedium
+import toResponsiveDp
+import toResponsiveSp
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,103 +42,89 @@ fun WalletScreen (
     currentUserId: String?
 ) {
     Column(
-        modifier = Modifier.padding(bottom = 30.dp).verticalScroll(rememberScrollState()),
+        modifier = Modifier
+            .padding(bottom = 30.toResponsiveDp())
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 33.dp, top = 20.dp,end=33.dp)
+                .padding(start = 33.toResponsiveDp(), top = 20.toResponsiveDp(), end = 33.toResponsiveDp())
         ) {
             Column{
-                NormalText(
-                    modifier = Modifier.padding(top = 20.dp, bottom = 0.dp, start = 0.dp),
-                    value = "My Wallet",
-                    fontSize = 25.sp,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = PoppinsMedium,
-                    color = Black
-                )
-                NormalText(
-                    modifier = Modifier.padding(top = 10.dp, bottom = 5.dp, start = 0.dp),
-                    value = "Active",
-                    fontSize = 25.sp,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = PoppinsMedium,
-                    color = Color.Gray
-                )
+                HeadingText(value = "My Wallet")
+                HeadingText(value = "Active", isSmall = true)
                 WalletComponent()
-                Spacer(modifier = Modifier.height(50.dp))
+                Spacer(modifier = Modifier.height(50.toResponsiveDp()))
                 Row{
                     BlueBoxButton(
                         text = "Top up",
-                        width = 100.dp,
-                        height = 50.dp,
+                        width = 100.toResponsiveDp(),
+                        height = 50.toResponsiveDp(),
                         borderShape = RoundedCornerShape(10),
                         onClick = {
                             navController.navigate(route = WalletScreenRoutes.TopUpScreen.route) { }
                         }
                     )
-                    Spacer(modifier = Modifier.width(130.dp))
+                    Spacer(modifier = Modifier.width(130.toResponsiveDp()))
                     BlueBoxButton(
                         text = "Purchase",
-                        width = 100.dp,
-                        height = 50.dp,
+                        width = 100.toResponsiveDp(),
+                        height = 50.toResponsiveDp(),
                         borderShape = RoundedCornerShape(10),
                         onClick = {
                             navController.navigate(route = WalletScreenRoutes.PurchaseScreen.route) { }
                         }
                     )
                 }
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(20.toResponsiveDp()))
                 CardComponent(
                     title = "Past tickets",
                     onClick = {
                         navController.navigate(route = WalletScreenRoutes.PastTicketsScreen.route) { }
                     },
                 )
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(10.toResponsiveDp()))
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ){
                     NormalText(
                         modifier = Modifier,
                         value = "Transaction history ↑↓",
-                        fontSize = 18.sp,
+                        fontSize = 18.toResponsiveSp(),
                         fontWeight = FontWeight.Medium,
                         fontFamily = PoppinsBold,
                         color = Black
                     )
-                    Spacer(modifier = Modifier.width(20.dp))
+                    Spacer(modifier = Modifier.width(20.toResponsiveDp()))
                     NormalText(
                         modifier = Modifier.clickable {
                                 navController.navigate(route = WalletScreenRoutes.TransactionScreen.route) { }
                         }
                         ,
                         value = "view more",
-                        fontSize = 16.sp,
+                        fontSize = 16.toResponsiveSp(),
                         fontWeight = FontWeight.Bold,
                         fontFamily = PoppinsBold,
                         color = Color.Blue
                     )
                 }
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(20.toResponsiveDp()))
                 Column{
                     TransactionComponent(
                         time = 120000,
                         transactionName = "TopUp",
                         amount = "3",
-                        modifier = Modifier
                     )
                 }
             }
         }
-
     }
 }
 
-//@Preview(showBackground = true, heightDp = 700)
-//@Composable
-//fun WalletScreenPreview() {
-//    WalletScreen(navController = rememberNavController())
-//}
+@Preview(showBackground = true, heightDp = 700)
+@Composable
+fun WalletScreenPreview() {
+WalletScreen(navController = rememberNavController(), currentUserId = null)
+}

@@ -28,6 +28,8 @@ import com.example.buspassapplication.ui.theme.PoppinsBold
 import com.example.buspassapplication.ui.theme.PoppinsLight
 import com.example.buspassapplication.ui.theme.Roboto
 import com.example.buspassapplication.ui.theme.White
+import toResponsiveDp
+import toResponsiveSp
 
 @Composable
 fun PaymentConfirmationPopup(
@@ -35,8 +37,8 @@ fun PaymentConfirmationPopup(
     onPayRequest: () -> Unit = {},
     onDismissRequest: () -> Unit = {}
 ) {
-    val width: Dp = 310.dp
-    val height: Dp = 240.dp
+    val width: Dp = 310.toResponsiveDp()
+    val height: Dp = 240.toResponsiveDp()
     val title = "Payment Confirmation"
     val contentOnFirstLine = "Your ticket will be issued"
     val contentOnSecondLine = "within 2 hours"
@@ -46,8 +48,8 @@ fun PaymentConfirmationPopup(
             modifier = Modifier
                 .width(width)
                 .height(height)
-                .padding(16.dp)
-                .background(Color.White, shape = RoundedCornerShape(16.dp))
+                .padding(16.toResponsiveDp())
+                .background(Color.White, shape = RoundedCornerShape(16.toResponsiveDp()))
         ) {
             Column(
                 modifier = Modifier
@@ -55,51 +57,51 @@ fun PaymentConfirmationPopup(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 NormalText(
-                    modifier = Modifier.padding(top = 15.dp, bottom = 6.dp),
+                    modifier = Modifier.padding(top = 15.toResponsiveDp(), bottom = 6.toResponsiveDp()),
                     value = title,
-                    fontSize = 15.sp,
+                    fontSize = 15.toResponsiveSp(),
                     fontWeight = FontWeight.Bold,
                     fontFamily = PoppinsBold,
                     color = DarkGray
                 )
                 NormalText(
                     modifier = Modifier.padding(
-                        top = 20.dp,
-                        start = 20.dp,
-                        end = 20.dp,
+                        top = 20.toResponsiveDp(),
+                        start = 20.toResponsiveDp(),
+                        end = 20.toResponsiveDp(),
                     ),
                     value = contentOnFirstLine,
-                    fontSize = 13.sp,
+                    fontSize = 13.toResponsiveSp(),
                     fontWeight = FontWeight.Normal,
                     fontFamily = PoppinsLight,
                     color = DarkGray,
-                    lineHeight = 10.sp
+                    lineHeight = 10.toResponsiveSp()
                 )
                 NormalText(
                     modifier = Modifier.padding(
-                        start = 20.dp,
-                        end = 20.dp,
-                        bottom = 20.dp
+                        start = 20.toResponsiveDp(),
+                        end = 20.toResponsiveDp(),
+                        bottom = 20.toResponsiveDp()
                     ),
                     value = contentOnSecondLine,
-                    fontSize = 13.sp,
+                    fontSize = 13.toResponsiveSp(),
                     fontWeight = FontWeight.Normal,
                     fontFamily = PoppinsLight,
                     color = DarkGray
                 )
                 Row(
-                    modifier = Modifier.width(300.dp)
-                        .padding(start = 10.dp, end = 10.dp),
+                    modifier = Modifier.width(300.toResponsiveDp())
+                        .padding(start = 10.toResponsiveDp(), end = 10.toResponsiveDp()),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Button(
-                        modifier = Modifier.width(110.dp),
+                        modifier = Modifier.width(110.toResponsiveDp()),
                         shape = RoundedCornerShape(50),
                         colors = ButtonDefaults.buttonColors(
                             contentColor = NavyBlue,
                             containerColor = White
                         ),
-                        border = BorderStroke(1.dp, NavyBlue),
+                        border = BorderStroke(1.toResponsiveDp(), NavyBlue),
                         onClick = {
                             onDismissRequest()
                         }
@@ -107,7 +109,7 @@ fun PaymentConfirmationPopup(
                         NormalText(
                             modifier = Modifier,
                             value = "Cancel",
-                            fontSize = 15.sp,
+                            fontSize = 15.toResponsiveSp(),
                             fontWeight = FontWeight.Bold,
                             fontFamily = Roboto,
                             color = NavyBlue
@@ -115,7 +117,7 @@ fun PaymentConfirmationPopup(
                     }
                     Button(
                         modifier = Modifier
-                            .width(130.dp),
+                            .width(130.toResponsiveDp()),
                         shape = RoundedCornerShape(50),
                         colors = ButtonDefaults.buttonColors(
                             contentColor = White,
@@ -128,7 +130,7 @@ fun PaymentConfirmationPopup(
                         NormalText(
                             modifier = Modifier,
                             value = "Pay  ₹$amount",
-                            fontSize = 15.sp,
+                            fontSize = 15.toResponsiveSp(),
                             fontWeight = FontWeight.Bold,
                             fontFamily = Roboto,
                             color = White

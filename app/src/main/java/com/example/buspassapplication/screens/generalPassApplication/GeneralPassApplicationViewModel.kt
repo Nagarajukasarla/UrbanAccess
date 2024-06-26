@@ -1,23 +1,23 @@
 package com.example.buspassapplication.screens.generalPassApplication
 
 import android.app.Activity
-import android.content.Intent
 import android.util.Log
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.example.buspassapplication.MainActivity
-import com.example.buspassapplication.PaymentActivity
 import com.example.buspassapplication.app.launchCatching
-import com.example.buspassapplication.data.RazorpayOrderRequest
+import com.example.buspassapplication.request.RazorpayOrderRequest
 import com.example.buspassapplication.data.User
 import com.example.buspassapplication.data.UserPass
 import com.example.buspassapplication.models.AppViewModel
-import com.example.buspassapplication.models.implementation.ExternalApiServiceImplementation
+import com.example.buspassapplication.models.implementation.RazorpayServiceImplementation
 import com.example.buspassapplication.models.service.AccountService
 import com.example.buspassapplication.models.utils.OperationStatus
-import com.example.buspassapplication.models.utils.RazorpayOrderResponse
+import com.example.buspassapplication.response.RazorpayOrderResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -28,7 +28,8 @@ import javax.inject.Inject
 @HiltViewModel
 class GeneralPassApplicationViewModel @Inject constructor(
     private val accountService: AccountService,
-    private val externalApiServiceImplementation: ExternalApiServiceImplementation
+    private val razorpayServiceImplementation: RazorpayServiceImplementation,
+    private val savedStateHandle: SavedStateHandle
 ) : AppViewModel() {
 
     val surname = MutableStateFlow<String?>(null)
@@ -54,11 +55,20 @@ class GeneralPassApplicationViewModel @Inject constructor(
     val contentOnSecondLine = MutableStateFlow("")
     val currentUserPass = MutableStateFlow<UserPass?>(null)
 
+    val shouldRecompose = MutableStateFlow(false)
+
     val paymentConfirmationPopupStatus = MutableStateFlow(false)
     init {
         viewModelScope.launch {
             setCurrentUserData()
         }
+    }
+
+    fun triggerRecomposition() {
+        shouldRecompose.value = true
+    }
+    fun clearRecompositionFlag() {
+        shouldRecompose.value = false
     }
 
     fun updateSurname(newSurname: String) {
@@ -166,31 +176,44 @@ class GeneralPassApplicationViewModel @Inject constructor(
         pincode.value = null
     }
 
+    fun updatePopupStatusAsSuccess() {
+        viewModelScope.launch {
+            delay(2000)
+            popupStatus.value = true
+            popupTitle.value = "Application Submitted"
+            contentOnFirstLine.value = "You will be notified once your"
+            contentOnSecondLine.value = "application is approved"
+        }
+    }
+
     fun handlePaymentResult(paymentStatus: String, paymentId: String, errorCode: Int = -1, errorMessage: String = "", paymentData: String) {
         when (paymentStatus) {
             "success" -> {
-                updatePopupStatus(true)
-                popupTitle.value = "Application Submitted"
-                contentOnFirstLine.value = "You will be notified once your"
-                contentOnSecondLine.value = "application is approved"
-                Log.d("GeneralPassViewModel", "Payment successful: $paymentId, data: $paymentData")
-                resetCurrentUserData()
                 viewModelScope.launch {
+                    triggerRecomposition()
+//                    updatePopupStatus(true)
+//                    popupTitle.value = "Application Submitted"
+//                    contentOnFirstLine.value = "You will be notified once your"
+//                    contentOnSecondLine.value = "application is approved"
+                    updatePopupStatusAsSuccess()
+                    Log.d("GeneralPassViewModel", "Payment successful: $paymentId, data: $paymentData")
+                    resetCurrentUserData()
                     val result = generateUserPass()
-                    if (result is OperationStatus.Success) {
-                        popupStatus.value = true
-                        popupTitle.value = "Application Submitted"
-                        contentOnFirstLine.value = "You will be notified once your"
-                        contentOnSecondLine.value = "application is approved"
-                    } else {
-                        popupStatus.value = true
-                        popupTitle.value = "Submission Failed"
-                        contentOnFirstLine.value = "Contact customer support"
-                        contentOnSecondLine.value = "with support@urbanpass.com"
-                    }
+//                    if (result is OperationStatus.Success) {
+//                        popupStatus.value = true
+//                        popupTitle.value = "Application Submitted"
+//                        contentOnFirstLine.value = "You will be notified once your"
+//                        contentOnSecondLine.value = "application is approved"
+//                    } else {
+//                        popupStatus.value = true
+//                        popupTitle.value = "Submission Failed"
+//                        contentOnFirstLine.value = "Contact customer support"
+//                        contentOnSecondLine.value = "with support@urbanpass.com"
+//                    }
                 }
             }
             "error" -> {
+                triggerRecomposition()
 //                popupStatus.value = true
 //                popupTitle.value = "Submission Failed"
 //                contentOnFirstLine.value = "Contact customer support"
@@ -206,11 +229,12 @@ class GeneralPassApplicationViewModel @Inject constructor(
     private suspend fun generateOrder(razorpayOrderRequest: RazorpayOrderRequest): RazorpayOrderResponse? {
         return withContext(Dispatchers.IO) {
             try {
-                val response = externalApiServiceImplementation.generateOrder(razorpayOrderRequest)
-                if (response.isSuccessful) {
+                val response = razorpayServiceImplementation.createOrder(razorpayOrderRequest)
+                Log.d("GeneralPassViewModel", "Order response: $response")
+                if (response != null && response.isSuccessful) {
                     response.body()
                 } else {
-                    Log.e("GeneralPassViewModel", "Failed to generate order: ${response.errorBody()?.string()}")
+                    Log.e("GeneralPassViewModel", "Failed to generate order: ${response?.errorBody()?.string()}")
                     null
                 }
             } catch (e: Exception) {

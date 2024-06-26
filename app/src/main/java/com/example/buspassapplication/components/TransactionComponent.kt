@@ -10,32 +10,30 @@ import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.buspassapplication.ui.theme.PoppinsBold
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.buspassapplication.ui.theme.Black
+import toResponsiveDp
+import toResponsiveSp
 
 @Composable
 fun TransactionComponent(
     time: Int,
     transactionName: String,
     amount: String,
-    titleSize: TextUnit =  17.sp,
-    modifier: Modifier
+
 ){
     Column{
          NormalText(
              modifier = Modifier,
              value = time.toString(),
-             fontSize = 12.sp,
+             fontSize = 12.toResponsiveSp(),
              fontWeight = FontWeight.Bold,
              fontFamily = PoppinsBold,
              color = Color.Gray
          )
-        Spacer(modifier = Modifier.height(5.dp))
+        Spacer(modifier = Modifier.height(5.toResponsiveDp()))
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
@@ -43,7 +41,7 @@ fun TransactionComponent(
             NormalText(
                 modifier = Modifier,
                 value = transactionName,
-                fontSize = 20.sp,
+                fontSize = 20.toResponsiveSp(),
                 fontWeight = FontWeight.Bold,
                 fontFamily = PoppinsBold,
                 color = Black
@@ -51,19 +49,19 @@ fun TransactionComponent(
             NormalText(
                 modifier = Modifier,
                 value = "₹$amount",
-                fontSize = 20.sp,
+                fontSize = 20.toResponsiveSp(),
                 fontWeight = FontWeight.Bold,
                 fontFamily = PoppinsBold,
                 color = Black
             )
         }
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(10.toResponsiveDp()))
         Divider(
             modifier = Modifier,
-            thickness = 2.dp,
+            thickness = 2.toResponsiveDp(),
             color = Color.Gray
         )
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(10.toResponsiveDp()))
     }
 }
 
@@ -71,7 +69,6 @@ fun TransactionComponent(
 @Composable
 fun PreviewTransactionComponent(){
     TransactionComponent(
-        modifier = Modifier,
         time = 120000,
         transactionName = "TopUp",
         amount ="2",

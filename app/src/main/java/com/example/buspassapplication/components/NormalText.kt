@@ -9,7 +9,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.sp
+import toResponsiveSp
+
 
 @Composable
 fun NormalText (
@@ -19,8 +20,8 @@ fun NormalText (
     fontWeight: FontWeight,
     fontFamily: FontFamily,
     color: Color,
-    letterSpacing: TextUnit = 0.4.sp,
-    lineHeight: TextUnit = 20.sp
+    letterSpacing: TextUnit = 0.4.toResponsiveSp(),
+    lineHeight: TextUnit = 20.toResponsiveSp()
 ) {
     Text(
         modifier = modifier,

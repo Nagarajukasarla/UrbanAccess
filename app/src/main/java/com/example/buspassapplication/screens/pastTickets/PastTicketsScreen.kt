@@ -23,6 +23,8 @@ import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.PastTicket
 import com.example.buspassapplication.ui.theme.Black
 import com.example.buspassapplication.ui.theme.PoppinsMedium
+import toResponsiveDp
+import toResponsiveSp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -31,28 +33,28 @@ fun PastTicketsScreen(
     currentUserId: String?
 ){
     Column(
-        modifier = Modifier.padding(bottom = 30.dp) .verticalScroll(rememberScrollState()),
+        modifier = Modifier.padding(bottom = 30.toResponsiveDp()) .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         BackNavigationBar(navController = navController)
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 28.dp, top = 20.dp, end = 30.dp)
+                .padding(start = 28.toResponsiveDp(), top = 20.toResponsiveDp(), end = 30.toResponsiveDp())
         ) {
             Column {
                 NormalText(
-                    modifier = Modifier.padding(top = 20.dp, bottom = 0.dp, start = 10.dp),
+                    modifier = Modifier.padding(top = 20.toResponsiveDp(), bottom = 0.toResponsiveDp(), start = 10.toResponsiveDp()),
                     value = "My Past Tickets",
-                    fontSize = 25.sp,
+                    fontSize = 25.toResponsiveSp(),
                     fontWeight = FontWeight.Bold,
                     fontFamily = PoppinsMedium,
                     color = Black
                 )
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(20.toResponsiveDp()))
                 Column {
                     PastTicket(title = "From to To")
-                    Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.height(10.toResponsiveDp()))
                     PastTicket(title = "From to To")
                 }
             }

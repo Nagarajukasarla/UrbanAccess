@@ -1,8 +1,8 @@
 package com.example.buspassapplication.models.service
 
-import com.example.buspassapplication.data.RazorpayOrderRequest
-import com.example.buspassapplication.models.utils.RazorpayOrderResponse
-import com.example.buspassapplication.models.utils.UploadResponse
+import com.example.buspassapplication.request.RazorpayOrderRequest
+import com.example.buspassapplication.response.RazorpayOrderResponse
+import com.example.buspassapplication.response.UploadResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

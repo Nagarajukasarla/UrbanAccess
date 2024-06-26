@@ -22,38 +22,40 @@ import com.example.buspassapplication.ui.theme.DimGray
 import com.example.buspassapplication.ui.theme.LightGray
 import com.example.buspassapplication.ui.theme.PoppinsMedium
 import com.example.buspassapplication.ui.theme.StoneWhite
+import toResponsiveDp
+import toResponsiveSp
 
 @Composable
 fun DetailsContainerWithIcon (
     value: String,
     @DrawableRes icon: Int,
-    width: Dp = 250.dp,
-    height: Dp = 40.dp
+    width: Dp = 250.toResponsiveDp(),
+    height: Dp = 40.toResponsiveDp()
 ) {
     Row(
         modifier = Modifier
             .width(width)
             .height(height)
-            .background(color = StoneWhite, shape = RoundedCornerShape(8.dp))
-            .border(width = 1.dp, color = LightGray, shape = RoundedCornerShape(8.dp)),
+            .background(color = StoneWhite, shape = RoundedCornerShape(8.toResponsiveDp()))
+            .border(width = 1.toResponsiveDp(), color = LightGray, shape = RoundedCornerShape(8.toResponsiveDp())),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Icon(
             modifier = Modifier
-                .padding(start = 10.dp)
-                .size(26.dp),
+                .padding(start = 10.toResponsiveDp())
+                .size(26.toResponsiveDp()),
             painter = painterResource(id = icon),
             contentDescription = "",
             tint = DimGray
         )
         NormalText(
-            modifier = Modifier.padding(start = 20.dp, end = 5.dp),
+            modifier = Modifier.padding(start = 20.toResponsiveDp(), end = 5.toResponsiveDp()),
             value = value,
-            fontSize = 16.sp,
+            fontSize = 16.toResponsiveSp(),
             fontWeight = FontWeight.Normal,
             fontFamily = PoppinsMedium,
             color = DimGray,
-            letterSpacing = 0.7.sp
+            letterSpacing = 0.7.toResponsiveSp()
         )
     }
 }

@@ -23,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -34,6 +33,8 @@ import com.example.buspassapplication.components.PasswordField
 import com.example.buspassapplication.components.PrimaryButton
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.PoppinsLight
+import toResponsiveDp
+import toResponsiveSp
 
 @ExperimentalMaterial3Api
 @Composable
@@ -48,7 +49,7 @@ fun UpdatePasswordScreen (
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Transparent)
-            .padding(28.dp)
+            .padding(28.toResponsiveDp())
     ) {
         Column(
             modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()),
@@ -59,10 +60,10 @@ fun UpdatePasswordScreen (
                 value = "Update Password",
                 isSmall = false
             )
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(20.toResponsiveDp()))
             NormalText(
                 value= "Create a strong password that ",
-                fontSize = 15.sp,
+                fontSize = 15.toResponsiveSp(),
                 fontFamily = PoppinsLight,
                 color = DarkGray,
                 fontWeight = FontWeight.Normal,
@@ -70,31 +71,31 @@ fun UpdatePasswordScreen (
             )
             NormalText(
                 value= "that you don't use for websites. ",
-                fontSize = 15.sp,
+                fontSize = 15.toResponsiveSp(),
                 fontFamily = PoppinsLight,
                 color = DarkGray,
                 fontWeight = FontWeight.Normal,
                 modifier = Modifier
             )
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(20.toResponsiveDp()))
             PasswordField(
-                modifier = Modifier.width(330.dp),
+                modifier = Modifier.width(330.toResponsiveDp()),
                 label = "New Password",
                 value = newPassword,
                 onValueChange = { newPassword = it }
             )
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(20.toResponsiveDp()))
             PasswordField(
-                modifier = Modifier.width(330.dp),
+                modifier = Modifier.width(330.toResponsiveDp()),
                 label = "Confirm Password",
                 value = confirmPassword,
                 onValueChange = { confirmPassword = it }
             )
-            Spacer(modifier = Modifier.height(45.dp))
+            Spacer(modifier = Modifier.height(45.toResponsiveDp()))
             PrimaryButton(
                 text = "Save Password",
-                width = 280.dp,
-                height = 45.dp,
+                width = 280.toResponsiveDp(),
+                height = 45.toResponsiveDp(),
                 borderShape = RoundedCornerShape(50),
                 onClick = {
                     // Update password

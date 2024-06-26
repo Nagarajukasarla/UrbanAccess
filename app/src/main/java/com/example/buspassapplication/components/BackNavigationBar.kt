@@ -23,6 +23,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.R
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.PoppinsBold
+import toResponsiveDp
+import toResponsiveSp
 
 @Composable
 fun BackNavigationBar (
@@ -51,7 +53,7 @@ fun BackNavigationBar (
                 Icon(
                     painter = painterResource(leftArrowResourceId),
                     contentDescription = "Back",
-                    modifier = Modifier.size(55.dp)
+                    modifier = Modifier.size(55.toResponsiveDp())
                 )
             }
         }
@@ -64,11 +66,11 @@ fun BackNavigationBar (
                 NormalText(
                     modifier = Modifier,
                     value = text,
-                    fontSize = 20.sp,
+                    fontSize = 20.toResponsiveSp(),
                     fontWeight = FontWeight.Bold,
                     fontFamily = fontFamily,
                     color = DarkGray,
-                    letterSpacing = 0.7.sp
+                    letterSpacing = 0.7.toResponsiveSp()
                 )
             }
         }
@@ -82,7 +84,7 @@ fun BackNavigationBar (
                     Icon(
                         painter = painterResource(trailingIcon),
                         contentDescription = "Back",
-                        modifier = Modifier.size(55.dp)
+                        modifier = Modifier.size(55.toResponsiveDp())
                     )
                 }
             }

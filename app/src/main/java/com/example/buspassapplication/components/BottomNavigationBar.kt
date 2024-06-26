@@ -33,6 +33,8 @@ import com.example.buspassapplication.ui.theme.IceBlue
 import com.example.buspassapplication.ui.theme.LightGray
 import com.example.buspassapplication.ui.theme.NavyBlue
 import com.example.buspassapplication.ui.theme.ShinyBlue
+import toResponsiveDp
+import toResponsiveSp
 
 @Composable
 fun BottomNavigation (
@@ -56,12 +58,12 @@ fun BottomNavigation (
         Divider(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(1.dp),
+                .height(1.toResponsiveDp()),
             color = LightGray
         )
         Box(
             modifier = Modifier
-                .padding(horizontal = 20.dp, vertical = 10.dp)
+                .padding(horizontal = 20.toResponsiveDp(), vertical = 10.toResponsiveDp())
                 .fillMaxWidth()
         ) {
             Row(
@@ -96,8 +98,8 @@ fun RowScope.AddItem (
 
     Row(
         modifier = Modifier
-            .height(40.dp)
-            .width(50.dp)
+            .height(40.toResponsiveDp())
+            .width(50.toResponsiveDp())
             .clip(RoundedCornerShape(30))
             .background(iconBackground)
             .clickable {
@@ -117,7 +119,7 @@ fun RowScope.AddItem (
         Icon(
             painter = painterResource(id = screen.icon),
             contentDescription = "Navigation Item",
-            modifier = Modifier.size(32.dp),
+            modifier = Modifier.size(32.toResponsiveDp()),
             tint = contentColor
         )
     }

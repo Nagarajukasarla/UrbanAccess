@@ -6,6 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import com.example.buspassapplication.ui.theme.TextColor
+import toResponsiveDp
+import toResponsiveSp
 
 @Composable
 fun HeadingText (

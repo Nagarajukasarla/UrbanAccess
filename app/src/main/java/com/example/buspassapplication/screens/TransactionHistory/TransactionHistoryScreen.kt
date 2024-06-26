@@ -12,7 +12,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -21,6 +20,8 @@ import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.TransactionComponent
 import com.example.buspassapplication.ui.theme.Black
 import com.example.buspassapplication.ui.theme.PoppinsMedium
+import toResponsiveDp
+import toResponsiveSp
 
 @Composable
 fun TransactionHistoryScreen(
@@ -32,21 +33,21 @@ fun TransactionHistoryScreen(
     val transactions by viewModel.transactions.collectAsState(initial = emptyList())
 
     Column(
-        modifier = Modifier.padding(bottom = 30.dp),
+        modifier = Modifier.padding(bottom = 30.toResponsiveDp()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         BackNavigationBar(navController = navController)
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 33.dp, top = 20.dp, end = 33.dp)
+                .padding(start = 33.toResponsiveDp(), top = 20.toResponsiveDp(), end = 33.toResponsiveDp())
                 .verticalScroll(rememberScrollState())
         ) {
             Column {
                 NormalText(
-                    modifier = Modifier.padding(top = 20.dp, bottom = 0.dp, start = 0.dp),
+                    modifier = Modifier.padding(top = 20.toResponsiveDp(), bottom = 0.toResponsiveDp(), start = 0.toResponsiveDp()),
                     value = "My Transactions",
-                    fontSize = 25.sp,
+                    fontSize = 25.toResponsiveSp(),
                     fontWeight = FontWeight.Bold,
                     fontFamily = PoppinsMedium,
                     color = Black
@@ -59,7 +60,6 @@ fun TransactionHistoryScreen(
                                     time = it1.seconds,
                                     transactionName = it.value,
                                     amount = transaction.amount.toString(),
-                                    modifier = Modifier
                                 )
                             }
                         }
