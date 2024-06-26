@@ -30,17 +30,17 @@ import toResponsiveSp
 @Composable
 fun PassContainer(
     modifier: Modifier = Modifier,
-    mrnNo: String = "xxxxxxxx",
-    name: String = "xxxxxxxxxxxx",
-    age: String = "xx",
-    gender: String = "xxxxxxxx",
-    phone: String = "+91xxxxxxxxxx",
-    dob: String = "xx/xx/xxxx",
-    id: String = "1 2 3 4 5 6 7 8 9 0 1 2"
+    mrnNo: String = "",
+    name: String = "",
+    age: String = "",
+    gender: String = "",
+    phone: String = "",
+    dob: String = "",
+    id: String = "ID"
 ){
     val image = R.drawable.test3
     Column (
-        modifier= Modifier
+        modifier= modifier
             .width(330.toResponsiveDp())
             .height(170.toResponsiveDp())
             .background(
@@ -56,22 +56,25 @@ fun PassContainer(
     ) {
         Row {
             Box (
-                modifier = Modifier.padding(top = 15.toResponsiveDp(), start = 5.toResponsiveDp())
+                modifier = Modifier
+                    .padding(start = 15.toResponsiveDp(), top = 15.toResponsiveDp())
+                    .align(Alignment.CenterVertically)
             ) {
                 CircularImage(image = image)
             }
-            Spacer(modifier=Modifier.size(10.toResponsiveDp()))
+
             Column (
-                modifier = Modifier.padding(top = 5.toResponsiveDp())
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 15.toResponsiveDp(), top = 15.toResponsiveDp(), end = 15.toResponsiveDp())
             ) {
-                Spacer(modifier = Modifier.size(12.toResponsiveDp()))
                 NormalText(
                     value = "MRN no: $mrnNo",
                     fontSize = 12.toResponsiveSp(),
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
-                    modifier = Modifier.padding(start = 10.toResponsiveDp())
+                    modifier = Modifier
                 )
                 Spacer(modifier = Modifier.size(3.toResponsiveDp()))
                 NormalText(
@@ -80,7 +83,7 @@ fun PassContainer(
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
-                    modifier = Modifier.padding(start = 10.toResponsiveDp())
+                    modifier = Modifier
                 )
                 Spacer(modifier = Modifier.size(3.toResponsiveDp()))
                 NormalText(
@@ -88,8 +91,8 @@ fun PassContainer(
                     fontSize = 12.toResponsiveSp(),
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
-                    fontWeight = FontWeight.Normal,
-                    modifier = Modifier.padding(start = 10.toResponsiveDp())
+                    fontWeight =FontWeight.Normal,
+                    modifier = Modifier
                 )
                 Spacer(modifier = Modifier.size(3.toResponsiveDp()))
                 NormalText(
@@ -98,7 +101,7 @@ fun PassContainer(
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
-                    modifier = Modifier.padding(start = 10.toResponsiveDp())
+                    modifier = Modifier
                 )
                 Spacer(modifier = Modifier.size(3.toResponsiveDp()))
                 NormalText(
@@ -107,7 +110,7 @@ fun PassContainer(
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
-                    modifier = Modifier.padding(start = 10.toResponsiveDp())
+                    modifier = Modifier
                 )
                 Spacer(modifier = Modifier.size(3.toResponsiveDp()))
                 NormalText(
@@ -116,22 +119,20 @@ fun PassContainer(
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
-                    modifier = Modifier.padding(start = 10.toResponsiveDp())
+                    modifier = Modifier
                 )
-                Spacer(modifier = Modifier.size(3.toResponsiveDp()))
             }
         }
         NormalText(
-            value= "ID: $id",
+            value= id,
             fontSize = 18.toResponsiveSp(),
             fontFamily = PoppinsMedium,
             color = DarkGray,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(top = 6.toResponsiveDp())
+            modifier = Modifier.padding(start = 15.toResponsiveDp(), bottom = 10.toResponsiveDp())
         )
     }
 }
-
 @Preview(showBackground = true)
 @Composable
 fun PreviewPass() {
