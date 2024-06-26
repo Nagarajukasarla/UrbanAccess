@@ -23,8 +23,6 @@ import androidx.compose.ui.unit.sp
 import com.example.buspassapplication.R
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.PoppinsMedium
-import toResponsiveDp
-import toResponsiveSp
 
 @Composable
 fun PassContainer(
@@ -49,7 +47,7 @@ fun PassContainer(
                         Color(0xFFDAAE3F)
                     )
                 ),
-                shape = RoundedCornerShape(16.toResponsiveDp())
+                shape = RoundedCornerShape(16.dp)
             ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -65,53 +63,53 @@ fun PassContainer(
             ) {
                 Spacer(modifier = Modifier.size(12.toResponsiveDp()))
                 NormalText(
-                    value = "MRN no: $mrnNo",
-                    fontSize = 12.toResponsiveSp(),
+                    value = "MRN no: xxxxxxxx",
+                    fontSize = 12.sp,
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
                     modifier = Modifier.padding(start = 10.toResponsiveDp())
                 )
-                Spacer(modifier = Modifier.size(3.toResponsiveDp()))
+                Spacer(modifier = Modifier.size(3.dp))
                 NormalText(
-                    value = "Name: $name",
-                    fontSize = 12.toResponsiveSp(),
+                    value = "Name: xxxxxxxxxx",
+                    fontSize = 12.sp,
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
                     modifier = Modifier.padding(start = 10.toResponsiveDp())
                 )
-                Spacer(modifier = Modifier.size(3.toResponsiveDp()))
+                Spacer(modifier = Modifier.size(3.dp))
                 NormalText(
-                    value = "Age: $age",
-                    fontSize = 12.toResponsiveSp(),
+                    value = "Age: xx",
+                    fontSize = 12.sp,
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
                     modifier = Modifier.padding(start = 10.toResponsiveDp())
                 )
-                Spacer(modifier = Modifier.size(3.toResponsiveDp()))
+                Spacer(modifier = Modifier.size(3.dp))
                 NormalText(
-                    value = "Gender: $gender",
-                    fontSize = 12.toResponsiveSp(),
+                    value = "Gender: xxxxxx",
+                    fontSize = 12.sp,
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
                     modifier = Modifier.padding(start = 10.toResponsiveDp())
                 )
-                Spacer(modifier = Modifier.size(3.toResponsiveDp()))
+                Spacer(modifier = Modifier.size(3.dp))
                 NormalText(
-                    value = "Phone: +91$phone",
-                    fontSize = 12.toResponsiveSp(),
+                    value = "Phone: +91xxxxxxxxxx",
+                    fontSize = 12.sp,
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
                     modifier = Modifier.padding(start = 10.toResponsiveDp())
                 )
-                Spacer(modifier = Modifier.size(3.toResponsiveDp()))
+                Spacer(modifier = Modifier.size(3.dp))
                 NormalText(
-                    value = "Date of Birth: $dob",
-                    fontSize = 12.toResponsiveSp(),
+                    value = "Date of Birth: xx/xx/xxxx",
+                    fontSize = 12.sp,
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
