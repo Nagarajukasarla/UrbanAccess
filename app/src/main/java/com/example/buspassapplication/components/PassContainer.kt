@@ -26,12 +26,21 @@ import com.example.buspassapplication.ui.theme.PoppinsMedium
 
 
 @Composable
-fun PassContainer(){
+fun PassContainer(
+    modifier: Modifier = Modifier,
+    mrnNo: String = "",
+    name: String = "",
+    age: String = "",
+    gender: String = "",
+    phone: String = "",
+    dob: String = "",
+    id: String = "ID"
+){
     val image = R.drawable.test3
     Column (
-        modifier= Modifier
-            .width(330.dp)
-            .height(170.dp)
+        modifier= modifier
+            .width(330.toResponsiveDp())
+            .height(170.toResponsiveDp())
             .background(
                 Brush.linearGradient(
                     colors = listOf(
@@ -45,22 +54,25 @@ fun PassContainer(){
     ) {
         Row {
             Box (
-                modifier = Modifier.padding(top = 15.dp, start = 5.dp)
+                modifier = Modifier
+                    .padding(start = 15.toResponsiveDp(), top = 15.toResponsiveDp())
+                    .align(Alignment.CenterVertically)
             ) {
                 CircularImage(image = image)
             }
-            Spacer(modifier=Modifier.size(10.dp))
+
             Column (
-                modifier = Modifier.padding(top = 5.dp)
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 15.toResponsiveDp(), top = 15.toResponsiveDp(), end = 15.toResponsiveDp())
             ) {
-                Spacer(modifier = Modifier.size(12.dp))
                 NormalText(
                     value = "MRN no: xxxxxxxx",
                     fontSize = 12.sp,
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
-                    modifier = Modifier.padding(start = 10.dp)
+                    modifier = Modifier
                 )
                 Spacer(modifier = Modifier.size(3.dp))
                 NormalText(
@@ -69,7 +81,7 @@ fun PassContainer(){
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
-                    modifier = Modifier.padding(start = 10.dp)
+                    modifier = Modifier
                 )
                 Spacer(modifier = Modifier.size(3.dp))
                 NormalText(
@@ -77,8 +89,8 @@ fun PassContainer(){
                     fontSize = 12.sp,
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
-                    fontWeight = FontWeight.Normal,
-                    modifier = Modifier.padding(start = 10.dp)
+                    fontWeight =FontWeight.Normal,
+                    modifier = Modifier
                 )
                 Spacer(modifier = Modifier.size(3.dp))
                 NormalText(
@@ -87,7 +99,7 @@ fun PassContainer(){
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
-                    modifier = Modifier.padding(start = 10.dp)
+                    modifier = Modifier
                 )
                 Spacer(modifier = Modifier.size(3.dp))
                 NormalText(
@@ -96,7 +108,7 @@ fun PassContainer(){
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
-                    modifier = Modifier.padding(start = 10.dp)
+                    modifier = Modifier
                 )
                 Spacer(modifier = Modifier.size(3.dp))
                 NormalText(
@@ -105,22 +117,20 @@ fun PassContainer(){
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
-                    modifier = Modifier.padding(start = 10.dp)
+                    modifier = Modifier
                 )
-                Spacer(modifier = Modifier.size(3.dp))
             }
         }
         NormalText(
-            value= "ID: 1 2 3 4 5 6 7 8 9 0 1 2",
-            fontSize = 18.sp,
+            value= id,
+            fontSize = 18.toResponsiveSp(),
             fontFamily = PoppinsMedium,
             color = DarkGray,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(top = 6.dp)
+            modifier = Modifier.padding(start = 15.toResponsiveDp(), bottom = 10.toResponsiveDp())
         )
     }
 }
-
 @Preview(showBackground = true)
 @Composable
 fun PreviewPass() {
