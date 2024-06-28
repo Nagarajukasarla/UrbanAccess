@@ -23,6 +23,8 @@ import androidx.compose.ui.unit.sp
 import com.example.buspassapplication.R
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.PoppinsMedium
+import toResponsiveDp
+import toResponsiveSp
 
 @Composable
 fun PassContainer(

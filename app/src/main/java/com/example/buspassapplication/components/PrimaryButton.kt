@@ -15,6 +15,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.buspassapplication.ui.theme.DimGray
+import com.example.buspassapplication.ui.theme.LightGray
 import com.example.buspassapplication.ui.theme.NavyBlue
 import com.example.buspassapplication.ui.theme.PoppinsMedium
 import com.example.buspassapplication.ui.theme.White
@@ -27,6 +29,7 @@ fun PrimaryButton(
     fontSize: TextUnit = 17.toResponsiveSp(),
     width: Dp,
     height: Dp,
+    enabled: Boolean = true,
     contentPadding: PaddingValues = PaddingValues(5.toResponsiveDp()),
     borderShape: RoundedCornerShape = RoundedCornerShape(5),
     onClick: () -> Unit = {}
@@ -41,8 +44,11 @@ fun PrimaryButton(
         contentPadding = contentPadding,
         colors = ButtonDefaults.buttonColors(
             contentColor = White,
-            containerColor = NavyBlue
-        )
+            containerColor = NavyBlue,
+            disabledContainerColor = LightGray,
+            disabledContentColor = White
+        ),
+        enabled = enabled
     ) {
         NormalText(
             value = text,

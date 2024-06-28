@@ -16,6 +16,7 @@ import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
@@ -35,51 +36,58 @@ class AccountServiceImplementation @Inject constructor() : AccountService {
                             .document(firebaseUser.uid)
                             .get()
                             .addOnSuccessListener { document ->
-                                val user = document?.let {
-                                    val educationMap = it.get("education") as? Map<String, Any?>
-                                    val education = educationMap?.let { map ->
-                                        Education(
-                                            studentId = map["studentId"] as? String,
-                                            tenthBoard = map["tenthBoard"] as? String,
-                                            yearOfPass = map["yearOfPass"] as? String,
-                                            passType = map["passType"] as? String,
-                                            tenthHallTicketId = map["tenthHallTicketId"] as? String,
-                                            districtOfInstitute = map["districtOfInstitute"] as? String,
-                                            mandalOfInstitute = map["mandalOfInstitute"] as? String,
-                                            instituteAddress = map["instituteAddress"] as? String,
-                                            instituteName = map["instituteName"] as? String,
-                                            courseName = map["courseName"] as? String,
-                                            admissionNumber = map["admissionNumber"] as? String
+                                launch {
+                                    val user = document?.let {
+                                        val educationMap = it.get("education") as? Map<String, Any?>
+                                        val education = educationMap?.let { map ->
+                                            Education(
+                                                studentId = map["studentId"] as? String,
+                                                tenthBoard = map["tenthBoard"] as? String,
+                                                yearOfPass = map["yearOfPass"] as? String,
+                                                passType = map["passType"] as? String,
+                                                tenthHallTicketId = map["tenthHallTicketId"] as? String,
+                                                districtOfInstitute = map["districtOfInstitute"] as? String,
+                                                mandalOfInstitute = map["mandalOfInstitute"] as? String,
+                                                instituteAddress = map["instituteAddress"] as? String,
+                                                instituteName = map["instituteName"] as? String,
+                                                courseName = map["courseName"] as? String,
+                                                admissionNumber = map["admissionNumber"] as? String
+                                            )
+                                        }
+
+                                        val imageUri = try {
+                                            val storageRef = FirebaseStorage.getInstance()
+                                                .getReference("images/${firebaseUser.uid}")
+                                            val imageUrl = storageRef.downloadUrl.await()
+                                            imageUrl
+                                        } catch (e: Exception) {
+                                            Uri.EMPTY
+                                        }
+
+                                        User(
+                                            id = it.getString("uid"),
+                                            surname = it.getString("surname"),
+                                            lastname = it.getString("lastname"),
+                                            guardian = it.getString("guardian"),
+                                            dateOfBirth = it.getString("dateOfBirth"),
+                                            gender = it.getString("gender"),
+                                            email = firebaseUser.email,
+                                            phone = it.getString("phone"),
+                                            aadhar = it.getString("aadhar"),
+                                            houseNumber = it.getString("houseNumber"),
+                                            street = it.getString("street"),
+                                            area = it.getString("area"),
+                                            district = it.getString("district"),
+                                            city = it.getString("city"),
+                                            state = it.getString("state"),
+                                            pincode = it.getString("pincode"),
+                                            education = education,
+                                            imageUri = imageUri
                                         )
                                     }
-
-                                    val imageUriString = it.getString("imageUrl")
-                                    val imageUri = if (imageUriString != null) Uri.parse(imageUriString) else Uri.EMPTY
-
-                                    User(
-                                        id = it.getString("uid"),
-                                        surname = it.getString("surname"),
-                                        lastname = it.getString("lastname"),
-                                        guardian = it.getString("guardian"),
-                                        dateOfBirth = it.getString("dateOfBirth"),
-                                        gender = it.getString("gender"),
-                                        email = firebaseUser.email,
-                                        phone = it.getString("phone"),
-                                        aadhar = it.getString("aadhar"),
-                                        houseNumber = it.getString("houseNumber"),
-                                        street = it.getString("street"),
-                                        area = it.getString("area"),
-                                        district = it.getString("district"),
-                                        city = it.getString("city"),
-                                        state = it.getString("state"),
-                                        pincode = it.getString("pincode"),
-                                        education = education,
-                                        imageUri = imageUri
-                                    )
+                                    trySend(user)
                                 }
-                                trySend(user)
-                            }
-                            .addOnFailureListener {
+                            }.addOnFailureListener {
                                 trySend(null)
                             }
                     }
@@ -152,33 +160,36 @@ class AccountServiceImplementation @Inject constructor() : AccountService {
         }
     }
 
-    override suspend fun uploadImageToFirebaseStorage(imageUri: Uri): String? = suspendCancellableCoroutine { continuation ->
-        val storageReference = FirebaseStorage.getInstance().reference.child("images/${currentUserId}")
-        val uploadTask = storageReference.putFile(imageUri)
+    override suspend fun uploadImageToFirebaseStorage(imageUri: Uri): String? =
+        suspendCancellableCoroutine { continuation ->
+            val storageReference =
+                FirebaseStorage.getInstance().reference.child("images/${currentUserId}")
+            val uploadTask = storageReference.putFile(imageUri)
 
-        uploadTask.continueWithTask { task ->
-            if (!task.isSuccessful) {
-                task.exception?.let {
-                    throw it
+            uploadTask.continueWithTask { task ->
+                if (!task.isSuccessful) {
+                    task.exception?.let {
+                        throw it
+                    }
                 }
-            }
-            storageReference.downloadUrl
-        }.addOnCompleteListener { task ->
-            if (continuation.isActive) {
-                if (task.isSuccessful) {
-                    Log.d("AccountService", "Image uploaded successfully")
-                    continuation.resume(task.result.toString())
-                } else {
-                    continuation.resume(null)
+                storageReference.downloadUrl
+            }.addOnCompleteListener { task ->
+                if (continuation.isActive) {
+                    if (task.isSuccessful) {
+                        Log.d("AccountService", "Image uploaded successfully")
+                        Log.d("AccountService", task.result.toString())
+                        continuation.resume(task.result.toString())
+                    } else {
+                        continuation.resume(null)
+                    }
                 }
-            }
-        }.addOnFailureListener {
-            if (continuation.isActive) {
-                Log.e("AccountService", "Image upload failed", it)
-                continuation.resumeWithException(it)
+            }.addOnFailureListener {
+                if (continuation.isActive) {
+                    Log.e("AccountService", "Image upload failed", it)
+                    continuation.resumeWithException(it)
+                }
             }
         }
-    }
 
     override suspend fun createUserPass(userPass: UserPass?): OperationStatus {
         val userPassHashMap = hashMapOf(
@@ -208,7 +219,6 @@ class AccountServiceImplementation @Inject constructor() : AccountService {
                 }
         }
     }
-
 
 
     override suspend fun updateUser(user: User): OperationStatus {

@@ -1,6 +1,8 @@
 package com.example.buspassapplication.components
 
 import android.net.Uri
+import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -19,6 +21,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.wear.compose.material.Icon
 import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
 import com.example.buspassapplication.R
 import com.example.buspassapplication.ui.theme.NavyBlue
 import com.example.buspassapplication.ui.theme.White
@@ -31,7 +34,6 @@ fun CircularImageWithAddPhoto(
     onClickAddPhoto: () -> Unit = {}
 ) {
     val addCameraResourceId = R.drawable.add_a_photo
-
     Column {
         Box(
             modifier = Modifier

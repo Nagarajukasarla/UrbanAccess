@@ -39,13 +39,16 @@ class ProfileViewModel @Inject constructor(
     val currentUser: Flow<User?> = accountService.currentUser
 
     val isEditable = MutableStateFlow(false)
+    val isSaveable = MutableStateFlow(false)
     val popupStatus = MutableStateFlow(false)
     val popupTitle = MutableStateFlow("")
     val contentOnFirstLine = MutableStateFlow("")
     val contentOnSecondLine = MutableStateFlow("")
+    val loading = MutableStateFlow(false)
 
     val profileResourceId = R.drawable.krishna
 
+    val initialImageUri = MutableStateFlow<Uri?>(Uri.EMPTY)
     val selectedImageUri = MutableStateFlow<Uri?>(Uri.EMPTY)
     val downloadUrl: MutableStateFlow<String?> = MutableStateFlow(null)
 
@@ -119,6 +122,21 @@ class ProfileViewModel @Inject constructor(
         popupStatus.value = status
     }
 
+    fun updateUserProfile(uri: Uri?) {
+        selectedImageUri.value = uri
+        if (selectedImageUri.value != Uri.EMPTY) {
+            updateUserProfileImage()
+        }
+    }
+
+    fun isEditable(newIsEditable: Boolean) {
+        isEditable.value = newIsEditable
+    }
+
+    fun updateIsSaveable(newIsSaveable: Boolean) {
+        isSaveable.value = newIsSaveable
+    }
+
     private suspend fun setCurrentUserData() {
         currentUser.collect { user ->
             Log.d("GeneralPassViewModel", "Current user: $user")
@@ -138,6 +156,7 @@ class ProfileViewModel @Inject constructor(
                 state.value = it.state
                 pincode.value = it.pincode
                 selectedImageUri.value = it.imageUri
+                initialImageUri.value = it.imageUri
             }
         }
     }
@@ -176,22 +195,25 @@ class ProfileViewModel @Inject constructor(
         )
     }
 
-    suspend fun updateUserProfileImage() {
-        downloadUrl.value = selectedImageUri.value?.let { uri ->
-            accountService.uploadImageToFirebaseStorage(
-                uri
-            )
+    private fun updateUserProfileImage() {
+        viewModelScope.launch {
+            loading.value = true
+            downloadUrl.value = selectedImageUri.value?.let { uri ->
+                accountService.uploadImageToFirebaseStorage(uri)
+            }
+            Log.d("ProfileViewModel", "Download URL: $downloadUrl")
+            loading.value = false
         }
-        Log.d("ProfileViewModel", "Download URL: $downloadUrl")
     }
 
     fun onSaveClick() {
         viewModelScope.launch {
-            updateUserProfileImage()
+            loading.value = true
             when(val result = accountService.updateUser(createUserMap())) {
                 is OperationStatus.Success -> {
                     Log.d("ProfileViewModel", "User data updated successfully")
                     updateIsEditable(false)
+                    updateIsSaveable(false)
                     popupStatus.value = true
                     popupTitle.value = "Updated"
                     contentOnFirstLine.value = "Your data updated"
@@ -205,6 +227,7 @@ class ProfileViewModel @Inject constructor(
                     contentOnSecondLine.value = "user data"
                 }
             }
+            loading.value = false
         }
     }
 }

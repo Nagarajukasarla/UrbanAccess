@@ -30,7 +30,7 @@ class LoginViewModel @Inject constructor(
 
 
     fun updateEmail(newEmail: String) {
-        email.value = newEmail
+        email.value = newEmail.trim()
     }
 
     fun updatePassword(newPassword: String) {

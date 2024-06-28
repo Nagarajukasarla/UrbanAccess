@@ -18,6 +18,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import com.example.buspassapplication.ui.theme.DarkGray
 import toResponsiveDp
 import toResponsiveSp
@@ -25,6 +27,7 @@ import toResponsiveSp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DropDown(
+    width: Dp = 320.toResponsiveDp(),
     label: String,
     options: List<String>,
     value: String,
@@ -45,7 +48,7 @@ fun DropDown(
         {
             OutlinedTextField(
                 modifier = Modifier
-                    .width(280.toResponsiveDp())
+                    .width(width)
                     .menuAnchor()
                     .padding(bottom = 15.toResponsiveDp()),
                 value = value.ifEmpty { selectedText },

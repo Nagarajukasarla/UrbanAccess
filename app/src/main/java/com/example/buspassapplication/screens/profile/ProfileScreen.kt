@@ -1,12 +1,12 @@
 package com.example.buspassapplication.screens.profile
 
+import android.net.Uri
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -19,7 +19,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
@@ -30,26 +29,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.R
 import com.example.buspassapplication.components.CircularImageWithAddPhoto
+import com.example.buspassapplication.components.CircularLoaderPopup
 import com.example.buspassapplication.components.DetailsContainerWithIcon
 import com.example.buspassapplication.components.DropDown
-import com.example.buspassapplication.components.NormalText
+import com.example.buspassapplication.components.HeadingText
 import com.example.buspassapplication.components.OutlinedInputField
 import com.example.buspassapplication.components.Popup
 import com.example.buspassapplication.components.PrimaryButton
 import com.example.buspassapplication.screens.generalPassApplication.Data
-import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.NavyBlue
-import com.example.buspassapplication.ui.theme.PoppinsBold
 import com.example.buspassapplication.ui.theme.White
 import toResponsiveDp
 import toResponsiveSp
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(
     navController: NavHostController,
@@ -86,6 +84,7 @@ fun ProfileScreen(
     val stateResourceId = R.drawable.radio_button_checked
 
     val isEditable by viewModel.isEditable.collectAsState()
+    val isSaveable by viewModel.isSaveable.collectAsState()
 
     val surname by viewModel.surname.collectAsState()
     val lastname by viewModel.lastname.collectAsState()
@@ -108,59 +107,40 @@ fun ProfileScreen(
     val contentOnFirstLine by viewModel.contentOnFirstLine.collectAsState()
     val contentOnSecondLine by viewModel.contentOnSecondLine.collectAsState()
 
+    val inititalImageUri by viewModel.initialImageUri.collectAsState()
     val selectedImageUri by viewModel.selectedImageUri.collectAsState()
+    val loading by viewModel.loading.collectAsState()
 
     val photoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
-        onResult = {
-            uri -> viewModel.selectedImageUri.value = uri
+        onResult = { uri ->
+            viewModel.updateUserProfile(uri)
         }
     )
 
-
     Column(
-        modifier = Modifier.padding(top = 5.toResponsiveDp())
+        modifier = Modifier
+            .verticalScroll(rememberScrollState()),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = paddingForBackIcon, end = paddingForBackIcon),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+                .padding(
+                    start = 20.toResponsiveDp(),
+                    top = 20.toResponsiveDp(),
+                    end = 20.toResponsiveDp()
+                ),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Box(
-                modifier = Modifier.width(100.toResponsiveDp())
-            ) {
-                IconButton(
-                    onClick = {
-                        navController.popBackStack()
-                    }
-                ) {
-                    Icon(
-                        painter = painterResource(leftArrowResourceId),
-                        contentDescription = "Back",
-                        modifier = Modifier.size(55.toResponsiveDp())
-                    )
-                }
-            }
-            NormalText(
-                modifier = Modifier.padding(top = 2.toResponsiveDp()),
-                value = "Profile",
-                fontSize = 20.toResponsiveSp(),
-                fontWeight = FontWeight.Bold,
-                fontFamily = PoppinsBold,
-                color = DarkGray,
-                letterSpacing = 0.7.toResponsiveSp()
+            HeadingText(
+                value = "Profile", isSmall = false
             )
-            Box(
-                modifier = Modifier
-                    .width(100.toResponsiveDp())
-                    .align(Alignment.CenterVertically)
-            ) {
+            Row {
                 if (isEditable) {
-                    Box(
-                        modifier = Modifier.align(Alignment.CenterEnd)
-                    ) {
+                    if (isSaveable) {
                         PrimaryButton(
                             text = "SAVE",
                             fontSize = 15.toResponsiveSp(),
@@ -173,7 +153,24 @@ fun ProfileScreen(
                             borderShape = RoundedCornerShape(30),
                             onClick = {
                                 viewModel.onSaveClick()
-                            }
+                            },
+                        )
+                    }
+                    else {
+                        PrimaryButton(
+                            text = "BACK",
+                            fontSize = 15.toResponsiveSp(),
+                            width = 68.toResponsiveDp(),
+                            height = 30.toResponsiveDp(),
+                            contentPadding = PaddingValues(
+                                horizontal = 3.toResponsiveDp(),
+                                vertical = 3.toResponsiveDp()
+                            ),
+                            borderShape = RoundedCornerShape(30),
+                            onClick = {
+                                viewModel.updateIsEditable(false)
+                                viewModel.updateIsSaveable(false)
+                            },
                         )
                     }
                 } else {
@@ -183,8 +180,7 @@ fun ProfileScreen(
                                 color = NavyBlue,
                                 shape = RoundedCornerShape(50)
                             )
-                            .size(38.toResponsiveDp())
-                            .align(Alignment.CenterEnd),
+                            .size(38.toResponsiveDp()),
                         onClick = { viewModel.updateIsEditable(true) }
                     ) {
                         Icon(
@@ -196,271 +192,279 @@ fun ProfileScreen(
                 }
             }
         }
-        Column(
+        Row(
             modifier = Modifier
-                .verticalScroll(rememberScrollState())
+                .fillMaxWidth()
+                .padding(top = 30.toResponsiveDp()),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
         ) {
-            Row(
+            CircularImageWithAddPhoto(
+                imageResourceUri = if (selectedImageUri != null || selectedImageUri != Uri.EMPTY) selectedImageUri else inititalImageUri,
+                onClickAddPhoto = {
+                    photoPickerLauncher.launch(
+                        PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                    )
+                }
+            )
+        }
+        if (isEditable) {
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 30.toResponsiveDp()),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
+                    .padding(top = 70.toResponsiveDp()),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                CircularImageWithAddPhoto(
-                    imageResourceUri = selectedImageUri,
-                    onClickAddPhoto = {
-                        photoPickerLauncher.launch(
-                            PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
-                        )
+                OutlinedInputField(
+                    modifier = Modifier.width(320.toResponsiveDp()),
+                    label = "Surname",
+                    value = surname ?: "",
+                    onValueChanged = {
+                        viewModel.updateSurname(it)
+                        viewModel.updateIsSaveable(true)
                     }
                 )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                OutlinedInputField(
+                    modifier = Modifier.width(320.toResponsiveDp()),
+                    label = "Lastname",
+                    value = lastname ?: "",
+                    onValueChanged = {
+                        viewModel.updateLastname(it)
+                        viewModel.updateIsSaveable(true)
+                    }
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                OutlinedInputField(
+                    modifier = Modifier.width(320.toResponsiveDp()),
+                    label = "Email",
+                    value = email ?: "",
+                    onValueChanged = {
+                        viewModel.updateEmail(it)
+                        viewModel.updateIsSaveable(true)
+                    }
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                OutlinedInputField(
+                    modifier = Modifier.width(320.toResponsiveDp()),
+                    label = "Phone",
+                    value = phone ?: "",
+                    onValueChanged = {
+                        viewModel.updatePhone(it)
+                        viewModel.updateIsSaveable(true)
+                    }
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                OutlinedInputField(
+                    modifier = Modifier.width(320.toResponsiveDp()),
+                    label = "Date of Birth",
+                    value = dateOfBirth ?: "",
+                    onValueChanged = {
+                        viewModel.updateDateOfBirth(it)
+                        viewModel.updateIsSaveable(true)
+                    }
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                DropDown(
+                    label = "Gender",
+                    options = Data.genderOptions,
+                    value = gender ?: "",
+                    onItemSelected = {
+                        viewModel.updateGender(it)
+                        viewModel.updateIsSaveable(true)
+                    }
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                OutlinedInputField(
+                    modifier = Modifier.width(320.toResponsiveDp()),
+                    label = "Aadhar",
+                    value = aadhar ?: "",
+                    onValueChanged = {
+                        viewModel.updateAadhar(it)
+                        viewModel.updateIsSaveable(true)
+                    }
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                OutlinedInputField(
+                    modifier = Modifier.width(320.toResponsiveDp()),
+                    label = "House Number",
+                    value = houseNumber ?: "",
+                    onValueChanged = {
+                        viewModel.updateHouseNumber(it)
+                        viewModel.updateIsSaveable(true)
+                    }
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                OutlinedInputField(
+                    modifier = Modifier.width(320.toResponsiveDp()),
+                    label = "Street",
+                    value = street ?: "",
+                    onValueChanged = {
+                        viewModel.updateStreet(it)
+                        viewModel.updateIsSaveable(true)
+                    }
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                OutlinedInputField(
+                    modifier = Modifier.width(320.toResponsiveDp()),
+                    label = "Area",
+                    value = area ?: "",
+                    onValueChanged = {
+                        viewModel.updateArea(it)
+                        viewModel.updateIsSaveable(true)
+                    }
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                OutlinedInputField(
+                    modifier = Modifier.width(320.toResponsiveDp()),
+                    label = "District",
+                    value = district ?: "",
+                    onValueChanged = {
+                        viewModel.updateDistrict(it)
+                        viewModel.updateIsSaveable(true)
+                    }
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                OutlinedInputField(
+                    modifier = Modifier.width(320.toResponsiveDp()),
+                    label = "City",
+                    value = city ?: "",
+                    onValueChanged = {
+                        viewModel.updateCity(it)
+                        viewModel.updateIsSaveable(true)
+                    }
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                OutlinedInputField(
+                    modifier = Modifier.width(320.toResponsiveDp()),
+                    label = "State",
+                    value = state ?: "",
+                    onValueChanged = {
+                        viewModel.updateState(it)
+                        viewModel.updateIsSaveable(true)
+                    }
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                OutlinedInputField(
+                    modifier = Modifier.width(320.toResponsiveDp()),
+                    label = "Pincode",
+                    value = pincode ?: "",
+                    onValueChanged = {
+                        viewModel.updatePincode(it)
+                        viewModel.updateIsSaveable(true)
+                    }
+                )
+                Spacer(modifier = Modifier.height(60.toResponsiveDp()))
             }
-            if (isEditable) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 70.toResponsiveDp()),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    OutlinedInputField(
-                        modifier = Modifier.width(290.toResponsiveDp()),
-                        label = "Surname",
-                        value = surname ?: "",
-                        onValueChanged = {
-                            viewModel.updateSurname(it)
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    OutlinedInputField(
-                        modifier = Modifier.width(290.toResponsiveDp()),
-                        label = "Lastname",
-                        value = lastname ?: "",
-                        onValueChanged = {
-                            viewModel.updateLastname(it)
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    OutlinedInputField(
-                        modifier = Modifier.width(290.toResponsiveDp()),
-                        label = "Email",
-                        value = email ?: "",
-                        onValueChanged = {
-                            viewModel.updateEmail(it)
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    OutlinedInputField(
-                        modifier = Modifier.width(290.toResponsiveDp()),
-                        label = "Phone",
-                        value = phone ?: "",
-                        onValueChanged = {
-                            viewModel.updatePhone(it)
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    OutlinedInputField(
-                        modifier = Modifier.width(290.toResponsiveDp()),
-                        label = "Date of Birth",
-                        value = dateOfBirth ?: "",
-                        onValueChanged = {
-                            viewModel.updateDateOfBirth(it)
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    DropDown(
-                        label = "Gender",
-                        options = Data.genderOptions,
-                        value = gender ?: "",
-                        onItemSelected = {
-                            viewModel.updateGender(it)
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    OutlinedInputField(
-                        modifier = Modifier.width(290.toResponsiveDp()),
-                        label = "Aadhar",
-                        value = aadhar ?: "",
-                        onValueChanged = {
-                            viewModel.updateAadhar(it)
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    OutlinedInputField(
-                        modifier = Modifier.width(290.toResponsiveDp()),
-                        label = "House Number",
-                        value = houseNumber ?: "",
-                        onValueChanged = {
-                            viewModel.updateHouseNumber(it)
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    OutlinedInputField(
-                        modifier = Modifier.width(290.toResponsiveDp()),
-                        label = "Street",
-                        value = street ?: "",
-                        onValueChanged = {
-                            viewModel.updateStreet(it)
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    OutlinedInputField(
-                        modifier = Modifier.width(290.toResponsiveDp()),
-                        label = "Area",
-                        value = area ?: "",
-                        onValueChanged = {
-                            viewModel.updateArea(it)
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    OutlinedInputField(
-                        modifier = Modifier.width(290.toResponsiveDp()),
-                        label = "District",
-                        value = district ?: "",
-                        onValueChanged = {
-                            viewModel.updateDistrict(it)
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    OutlinedInputField(
-                        modifier = Modifier.width(290.toResponsiveDp()),
-                        label = "City",
-                        value = city ?: "",
-                        onValueChanged = {
-                            viewModel.updateCity(it)
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    OutlinedInputField(
-                        modifier = Modifier.width(290.toResponsiveDp()),
-                        label = "State",
-                        value = state ?: "",
-                        onValueChanged = {
-                            viewModel.updateState(it)
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    OutlinedInputField(
-                        modifier = Modifier.width(290.toResponsiveDp()),
-                        label = "Pincode",
-                        value = pincode ?: "",
-                        onValueChanged = {
-                            viewModel.updatePincode(it)
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(60.toResponsiveDp()))
-                }
-            } else {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 70.toResponsiveDp()),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    DetailsContainerWithIcon(
-                        value = surname ?: "",
-                        icon = personResourceId,
-                        width = 300.toResponsiveDp(),
-                        height = 50.toResponsiveDp()
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    DetailsContainerWithIcon(
-                        value = lastname ?: "",
-                        icon = personResourceId,
-                        width = 300.toResponsiveDp(),
-                        height = 50.toResponsiveDp()
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    DetailsContainerWithIcon(
-                        value = dateOfBirth ?: "",
-                        icon = dateOfBirthResourceId,
-                        width = 300.toResponsiveDp(),
-                        height = 50.toResponsiveDp()
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    DetailsContainerWithIcon(
-                        value = gender ?: "",
-                        icon = if (gender == "Male") maleResourceId else femaleResourceId,
-                        width = 300.toResponsiveDp(),
-                        height = 50.toResponsiveDp()
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    DetailsContainerWithIcon(
-                        value = phone ?: "",
-                        icon = phoneResourceId,
-                        width = 300.toResponsiveDp(),
-                        height = 50.toResponsiveDp()
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    DetailsContainerWithIcon(
-                        value = email ?: "",
-                        icon = emailResourceId,
-                        width = 300.toResponsiveDp(),
-                        height = 50.toResponsiveDp()
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    DetailsContainerWithIcon(
-                        value = aadhar ?: "",
-                        icon = aadharResourceId,
-                        width = 300.toResponsiveDp(),
-                        height = 50.toResponsiveDp()
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    DetailsContainerWithIcon(
-                        value = houseNumber ?: "",
-                        icon = placeResourceId,
-                        width = 300.toResponsiveDp(),
-                        height = 50.toResponsiveDp()
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    DetailsContainerWithIcon(
-                        value = street ?: "",
-                        icon = streetResourceId,
-                        width = 300.toResponsiveDp(),
-                        height = 50.toResponsiveDp()
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    DetailsContainerWithIcon(
-                        value = area ?: "",
-                        icon = addressResourceId,
-                        width = 300.toResponsiveDp(),
-                        height = 50.toResponsiveDp()
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    DetailsContainerWithIcon(
-                        value = district ?: "",
-                        icon = districtResourceId,
-                        width = 300.toResponsiveDp(),
-                        height = 50.toResponsiveDp()
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    DetailsContainerWithIcon(
-                        value = city ?: "",
-                        icon = cityResourceId,
-                        width = 300.toResponsiveDp(),
-                        height = 50.toResponsiveDp()
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    DetailsContainerWithIcon(
-                        value = state ?: "",
-                        icon = countryResourceId,
-                        width = 300.toResponsiveDp(),
-                        height = 50.toResponsiveDp()
-                    )
-                    Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                    DetailsContainerWithIcon(
-                        value = pincode ?: "",
-                        icon = postalCodeResourceId,
-                        width = 300.toResponsiveDp(),
-                        height = 50.toResponsiveDp()
-                    )
-                    Spacer(modifier = Modifier.height(60.toResponsiveDp()))
-                }
+        } else {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 70.toResponsiveDp()),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                DetailsContainerWithIcon(
+                    value = surname ?: "",
+                    icon = personResourceId,
+                    width = 320.toResponsiveDp(),
+                    height = 50.toResponsiveDp()
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                DetailsContainerWithIcon(
+                    value = lastname ?: "",
+                    icon = personResourceId,
+                    width = 320.toResponsiveDp(),
+                    height = 50.toResponsiveDp()
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                DetailsContainerWithIcon(
+                    value = dateOfBirth ?: "",
+                    icon = dateOfBirthResourceId,
+                    width = 320.toResponsiveDp(),
+                    height = 50.toResponsiveDp()
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                DetailsContainerWithIcon(
+                    value = gender ?: "",
+                    icon = if (gender == "Male") maleResourceId else femaleResourceId,
+                    width = 320.toResponsiveDp(),
+                    height = 50.toResponsiveDp()
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                DetailsContainerWithIcon(
+                    value = phone ?: "",
+                    icon = phoneResourceId,
+                    width = 320.toResponsiveDp(),
+                    height = 50.toResponsiveDp()
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                DetailsContainerWithIcon(
+                    value = email ?: "",
+                    icon = emailResourceId,
+                    width = 320.toResponsiveDp(),
+                    height = 50.toResponsiveDp()
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                DetailsContainerWithIcon(
+                    value = aadhar ?: "",
+                    icon = aadharResourceId,
+                    width = 320.toResponsiveDp(),
+                    height = 50.toResponsiveDp()
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                DetailsContainerWithIcon(
+                    value = houseNumber ?: "",
+                    icon = placeResourceId,
+                    width = 320.toResponsiveDp(),
+                    height = 50.toResponsiveDp()
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                DetailsContainerWithIcon(
+                    value = street ?: "",
+                    icon = streetResourceId,
+                    width = 320.toResponsiveDp(),
+                    height = 50.toResponsiveDp()
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                DetailsContainerWithIcon(
+                    value = area ?: "",
+                    icon = addressResourceId,
+                    width = 320.toResponsiveDp(),
+                    height = 50.toResponsiveDp()
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                DetailsContainerWithIcon(
+                    value = district ?: "",
+                    icon = districtResourceId,
+                    width = 320.toResponsiveDp(),
+                    height = 50.toResponsiveDp()
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                DetailsContainerWithIcon(
+                    value = city ?: "",
+                    icon = cityResourceId,
+                    width = 320.toResponsiveDp(),
+                    height = 50.toResponsiveDp()
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                DetailsContainerWithIcon(
+                    value = state ?: "",
+                    icon = countryResourceId,
+                    width = 320.toResponsiveDp(),
+                    height = 50.toResponsiveDp()
+                )
+                Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+                DetailsContainerWithIcon(
+                    value = pincode ?: "",
+                    icon = postalCodeResourceId,
+                    width = 320.toResponsiveDp(),
+                    height = 50.toResponsiveDp()
+                )
+                Spacer(modifier = Modifier.height(60.toResponsiveDp()))
             }
         }
-
         if (popupStatus) {
             Popup(
                 title = popupTitle,
@@ -475,11 +479,15 @@ fun ProfileScreen(
                 }
             )
         }
+
+        if (loading) {
+            CircularLoaderPopup()
+        }
     }
 }
 
-//@Preview(showBackground = true, heightDp = 700)
-//@Composable
-//fun ProfileScreenPreview () {
-//    ProfileScreen(navController = rememberNavController(), currentUserId = currentUserId)
-//}
+@Preview(showBackground = true, heightDp = 700)
+@Composable
+fun ProfileScreenPreview() {
+    ProfileScreen(navController = rememberNavController(), currentUserId = "")
+}
