@@ -40,11 +40,10 @@ fun MainScreenNavigationGraph (
         composable(route = TopBarRoutes.Settings.route) {
             SettingsScreen(navController = navController, currentUserId = currentUserId)
         }
-        composable(route = TopBarRoutes.Profile.route) {
-            ProfileScreen(navController = navController, currentUserId = currentUserId)
-        }
         passScreenNavigationGraph(navController = navController, currentUserId = currentUserId)
         walletScreenNavigationGraph(navController = navController, currentUserId = currentUserId)
         mapsScreenNavigationGraph(navController = navController, currentUserId = currentUserId)
+        settingsScreenNavigationGraph(navController = navController, currentUserId = currentUserId)
+
     }
 }

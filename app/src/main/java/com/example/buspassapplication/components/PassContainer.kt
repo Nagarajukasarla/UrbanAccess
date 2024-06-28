@@ -66,7 +66,8 @@ fun PassContainer(
                         start = 15.toResponsiveDp(),
                         top = 15.toResponsiveDp(),
                         end = 15.toResponsiveDp()
-                    )
+                    ),
+                horizontalAlignment = Alignment.Start
             ) {
                 Spacer(modifier = Modifier.size(12.toResponsiveDp()))
                 NormalText(
@@ -111,7 +112,7 @@ fun PassContainer(
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
-                    modifier = Modifier
+                    modifier = Modifier.padding(start = 10.toResponsiveDp())
                 )
                 Spacer(modifier = Modifier.size(3.toResponsiveDp()))
                 NormalText(
@@ -126,7 +127,7 @@ fun PassContainer(
             }
         }
         Row (
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.SpaceBetween
         ){
             NormalText(
                 value = "ID: $id",
