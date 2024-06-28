@@ -40,7 +40,7 @@ fun CardWithIcon (
     height: Dp = 80.toResponsiveDp(),
     title: String,
     subTitle: String = "",
-    titleSize: TextUnit =  18.toResponsiveSp(),
+    titleSize: TextUnit =  16.toResponsiveSp(),
     @DrawableRes icon: Int,
     spaceAfterTrailingIcon: Dp = 37.toResponsiveDp(),
     titlesColumnWidth: Dp = 170.toResponsiveDp(),
@@ -101,7 +101,7 @@ fun CardWithIcon (
                 NormalText(
                     modifier = Modifier,
                     value = subTitle,
-                    fontSize = 16.toResponsiveSp(),
+                    fontSize = 14.toResponsiveSp(),
                     fontWeight = FontWeight.Normal,
                     fontFamily = PoppinsLight,
                     color = DimGray

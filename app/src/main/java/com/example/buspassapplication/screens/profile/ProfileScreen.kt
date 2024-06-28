@@ -273,7 +273,8 @@ fun ProfileScreen(
                     onItemSelected = {
                         viewModel.updateGender(it)
                         viewModel.updateIsSaveable(true)
-                    }
+                    },
+                    modifier = Modifier.width(320.toResponsiveDp())
                 )
                 Spacer(modifier = Modifier.height(30.toResponsiveDp()))
                 OutlinedInputField(

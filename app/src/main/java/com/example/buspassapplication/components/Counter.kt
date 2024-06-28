@@ -22,8 +22,8 @@ fun Counter(
 ) {
     Box(
         modifier = Modifier
-            .width(19.toResponsiveDp())
-            .height(19.toResponsiveDp())
+            .width(17.toResponsiveDp())
+            .height(17.toResponsiveDp())
             .background(color = NavyBlue, shape = RoundedCornerShape(50)),
         contentAlignment = Alignment.Center
     ) {

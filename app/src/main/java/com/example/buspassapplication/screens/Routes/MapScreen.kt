@@ -57,6 +57,7 @@ fun MapScreen(
         horizontalAlignment = Alignment.Start
     ) {
         HeadingText(value = "My Routes")
+        Spacer(modifier = Modifier.height(20.toResponsiveDp()))
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -70,7 +71,7 @@ fun MapScreen(
                 onItemSelected = {
                     viewModel.updateBusNumber(it)
                 },
-                modifier = Modifier
+                modifier = Modifier.width(286.toResponsiveDp()),
             )
             IconButton(
                 onClick = { navController.navigate(route = MapBarRoutes.ComingSoonScreen.route) { } },

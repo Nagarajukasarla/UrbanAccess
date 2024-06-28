@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -64,7 +65,8 @@ fun PurchaseScreen(
                 value = from ?: "",
                 onItemSelected = {
                     viewModel.updateFrom(it)
-                }
+                },
+                modifier = Modifier.width(280.toResponsiveDp())
             )
             Spacer(modifier = Modifier.height(40.toResponsiveDp()))
             DropDown(
@@ -73,7 +75,8 @@ fun PurchaseScreen(
                 value = to ?: "",
                 onItemSelected = {
                     viewModel.updateTo(it)
-                }
+                },
+                modifier = Modifier.width(280.toResponsiveDp())
             )
             Spacer(modifier = Modifier.height(45.toResponsiveDp()))
             PrimaryButton(

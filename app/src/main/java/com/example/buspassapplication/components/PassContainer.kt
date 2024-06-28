@@ -72,7 +72,7 @@ fun PassContainer(
                 Spacer(modifier = Modifier.size(12.toResponsiveDp()))
                 NormalText(
                     value = "MRN no: $mrnNo",
-                    fontSize = 12.toResponsiveSp(),
+                    fontSize = 10.toResponsiveSp(),
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
@@ -81,7 +81,7 @@ fun PassContainer(
                 Spacer(modifier = Modifier.size(3.toResponsiveDp()))
                 NormalText(
                     value = "Name: $name",
-                    fontSize = 12.toResponsiveSp(),
+                    fontSize = 10.toResponsiveSp(),
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
@@ -90,7 +90,7 @@ fun PassContainer(
                 Spacer(modifier = Modifier.size(3.toResponsiveDp()))
                 NormalText(
                     value = "Age: $age",
-                    fontSize = 12.toResponsiveSp(),
+                    fontSize = 10.toResponsiveSp(),
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
@@ -99,7 +99,7 @@ fun PassContainer(
                 Spacer(modifier = Modifier.size(3.toResponsiveDp()))
                 NormalText(
                     value = "Gender: $gender",
-                    fontSize = 12.toResponsiveSp(),
+                    fontSize = 10.toResponsiveSp(),
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
@@ -108,7 +108,7 @@ fun PassContainer(
                 Spacer(modifier = Modifier.size(3.toResponsiveDp()))
                 NormalText(
                     value = "Phone: +91$phone",
-                    fontSize = 12.toResponsiveSp(),
+                    fontSize = 10.toResponsiveSp(),
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
@@ -117,7 +117,7 @@ fun PassContainer(
                 Spacer(modifier = Modifier.size(3.toResponsiveDp()))
                 NormalText(
                     value = "Date of Birth: $dob",
-                    fontSize = 12.toResponsiveSp(),
+                    fontSize = 10.toResponsiveSp(),
                     fontFamily = PoppinsMedium,
                     color = DarkGray,
                     fontWeight = FontWeight.Normal,
@@ -131,7 +131,7 @@ fun PassContainer(
         ){
             NormalText(
                 value = "ID: $id",
-                fontSize = 18.toResponsiveSp(),
+                fontSize = 16.toResponsiveSp(),
                 fontFamily = PoppinsMedium,
                 color = DarkGray,
                 fontWeight = FontWeight.Bold,

@@ -99,8 +99,8 @@ fun SettingsScreen(
             item {
                 CardWithIcon(
                     width = 330.toResponsiveDp(),
-                    height = 50.toResponsiveDp(),
-                    titleSize = 15.toResponsiveSp(),
+                    height = 120.toResponsiveDp(),
+                    titleSize = 17.toResponsiveSp(),
                     titlesColumnWidth = 180.toResponsiveDp(),
                     title = "ACCOUNT",
                     icon = account,
@@ -117,8 +117,8 @@ fun SettingsScreen(
             item {
                 CardWithIcon(
                     width = 330.toResponsiveDp(),
-                    height = 50.toResponsiveDp(),
-                    titleSize = 15.toResponsiveSp(),
+                    height = 120.toResponsiveDp(),
+                    titleSize = 17.toResponsiveSp(),
                     titlesColumnWidth = 180.toResponsiveDp(),
                     title = "APPEARANCE",
                     icon = theme,
@@ -135,8 +135,8 @@ fun SettingsScreen(
             item {
                 CardWithIcon(
                     width = 330.toResponsiveDp(),
-                    height = 50.toResponsiveDp(),
-                    titleSize = 15.toResponsiveSp(),
+                    height = 120.toResponsiveDp(),
+                    titleSize = 17.toResponsiveSp(),
                     titlesColumnWidth = 180.toResponsiveDp(),
                     title = "TRAVELING GPS",
                     icon = travelingGps,
@@ -153,8 +153,8 @@ fun SettingsScreen(
             item {
                 CardWithIcon(
                     width = 330.toResponsiveDp(),
-                    height = 50.toResponsiveDp(),
-                    titleSize = 15.toResponsiveSp(),
+                    height = 120.toResponsiveDp(),
+                    titleSize = 17.toResponsiveSp(),
                     titlesColumnWidth = 180.toResponsiveDp(),
                     title = "PAYMENT OPTIONS",
                     icon = paymentOptions,
@@ -171,8 +171,8 @@ fun SettingsScreen(
             item {
                 CardWithIcon(
                     width = 330.toResponsiveDp(),
-                    height = 50.toResponsiveDp(),
-                    titleSize = 15.toResponsiveSp(),
+                    height = 120.toResponsiveDp(),
+                    titleSize = 17.toResponsiveSp(),
                     titlesColumnWidth = 180.toResponsiveDp(),
                     title = "REPORT BUG",
                     icon = reportBug,

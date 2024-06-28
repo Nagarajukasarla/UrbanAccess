@@ -97,7 +97,7 @@ fun PassScreen(
                 NormalText(
                     modifier = Modifier.padding(end = 3.toResponsiveDp()),
                     value = "Processing",
-                    fontSize = 15.toResponsiveSp(),
+                    fontSize = 13.toResponsiveSp(),
                     fontWeight = FontWeight.Bold,
                     fontFamily = Roboto,
                     color = NavyBlue
