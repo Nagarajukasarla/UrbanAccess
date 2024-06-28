@@ -82,7 +82,7 @@ fun PurchaseScreen(
                 height = 45.toResponsiveDp(),
                 borderShape = RoundedCornerShape(50),
                 onClick = {
-                    viewModel.onSubmit()
+//                    viewModel.onSubmit()
                 }
             )
         }

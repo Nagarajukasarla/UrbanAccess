@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.R
+import com.example.buspassapplication.routes.PassScreenRoutes
 import com.example.buspassapplication.routes.TopBarRoutes
 import com.example.buspassapplication.ui.theme.NavyBlue
 import toResponsiveDp
@@ -56,7 +57,7 @@ fun TopBar(
             IconButton(
                 modifier = Modifier.padding(end = 5.toResponsiveDp()),
                 onClick = {
-                    navController.navigate(TopBarRoutes.Settings.route) {}
+                    navController.navigate(route = TopBarRoutes.Settings.route) { }
                 }
             ) {
                 Icon(

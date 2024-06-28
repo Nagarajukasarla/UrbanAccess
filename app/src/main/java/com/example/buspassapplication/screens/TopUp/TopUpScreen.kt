@@ -1,6 +1,5 @@
 package com.example.buspassapplication.screens.TopUp
 
-
 import android.app.Activity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -125,7 +124,7 @@ fun TopUpScreen(
                     height = 40.toResponsiveDp(),
                     borderShape = RoundedCornerShape(50),
                     onClick = {
-                        viewModel.onSubmit()
+//                        viewModel.onSubmit()
                     }
                 )
             }

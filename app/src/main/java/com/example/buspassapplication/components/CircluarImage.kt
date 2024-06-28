@@ -23,7 +23,7 @@ import toResponsiveSp
 fun CircularImage(
     @DrawableRes image: Int,
     description: String = "Photo",
-    size: Dp = 100.toResponsiveDp(),
+    size: Dp = 120.toResponsiveDp(),
     borderWidth: Dp = 1.toResponsiveDp(),
     borderColor: Color = DarkGray,
     borderShape: RoundedCornerShape = RoundedCornerShape(100)

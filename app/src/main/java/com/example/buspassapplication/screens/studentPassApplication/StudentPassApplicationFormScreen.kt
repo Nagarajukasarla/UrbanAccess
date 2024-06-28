@@ -94,7 +94,7 @@ fun StudentPassApplicationFormScreen(
             fontFamily = PoppinsBold,
             color = Color.Black
         )
-        BlueLabelledText(text = "`Student 10th details`")
+        BlueLabelledText(text = "Student 10th details")
         DropDown(
             label = "10th Board type",
             options = listOf("State Board", "CBSE", "ICSE", "Others"),
