@@ -62,9 +62,9 @@ fun WalletComponent(){
                 color = White,
                 letterSpacing = 0.7.toResponsiveSp()
             )
-            Spacer(modifier = Modifier.height(30.toResponsiveDp()))
+            Spacer(modifier = Modifier.height(27.toResponsiveDp()))
             NormalText(
-                modifier = Modifier.padding(start = 200.toResponsiveDp()),
+                modifier = Modifier.padding(start = 190.toResponsiveDp()),
                 value = "₹00.000",
                 fontSize = 28.toResponsiveSp(),
                 fontWeight = FontWeight.Bold,

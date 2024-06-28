@@ -47,10 +47,9 @@ fun DropDown(
         )
         {
             OutlinedTextField(
-                modifier = Modifier
+                modifier = modifier
                     .width(width)
-                    .menuAnchor()
-                    .padding(bottom = 15.toResponsiveDp()),
+                    .menuAnchor(),
                 value = value.ifEmpty { selectedText },
                 onValueChange = { },
                 readOnly = true,

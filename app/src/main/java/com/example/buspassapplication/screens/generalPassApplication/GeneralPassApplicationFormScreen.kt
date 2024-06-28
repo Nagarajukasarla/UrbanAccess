@@ -158,7 +158,8 @@ fun GeneralPassApplicationFormScreen(
                 value = gender ?: "",
                 onItemSelected = {
                     viewModel.updateGender(it)
-                }
+                },
+                modifier = Modifier.width(280.toResponsiveDp())
             )
             Spacer(modifier = Modifier.padding(bottom = 15.toResponsiveDp()))
             OutlinedInputField(

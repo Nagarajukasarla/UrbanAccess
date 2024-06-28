@@ -70,7 +70,7 @@ fun WalletScreen (
                     Spacer(modifier = Modifier.width(130.toResponsiveDp()))
                     BlueBoxButton(
                         text = "Purchase",
-                        width = 100.toResponsiveDp(),
+                        width = 110.toResponsiveDp(),
                         height = 50.toResponsiveDp(),
                         borderShape = RoundedCornerShape(10),
                         onClick = {
@@ -92,7 +92,7 @@ fun WalletScreen (
                     NormalText(
                         modifier = Modifier,
                         value = "Transaction history ↑↓",
-                        fontSize = 18.toResponsiveSp(),
+                        fontSize = 16.toResponsiveSp(),
                         fontWeight = FontWeight.Medium,
                         fontFamily = PoppinsBold,
                         color = Black
@@ -104,7 +104,7 @@ fun WalletScreen (
                         }
                         ,
                         value = "view more",
-                        fontSize = 16.toResponsiveSp(),
+                        fontSize = 14.toResponsiveSp(),
                         fontWeight = FontWeight.Bold,
                         fontFamily = PoppinsBold,
                         color = Color.Blue

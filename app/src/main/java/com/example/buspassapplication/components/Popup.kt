@@ -39,7 +39,7 @@ import toResponsiveSp
 @Composable
 fun Popup(
     width: Dp = 300.toResponsiveDp(),
-    height: Dp = 170.toResponsiveDp(),
+    height: Dp = 185.toResponsiveDp(),
     dismiss: Boolean = true,
     onDismissRequest: () -> Unit = {},
     onConfirmRequest: () -> Unit = {},

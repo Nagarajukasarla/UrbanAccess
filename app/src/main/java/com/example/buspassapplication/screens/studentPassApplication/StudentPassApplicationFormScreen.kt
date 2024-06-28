@@ -102,6 +102,7 @@ fun StudentPassApplicationFormScreen(
             onItemSelected = {
                 viewModel.updatePassType(it)
             },
+            modifier = Modifier.width(280.toResponsiveDp())
         )
         Spacer(modifier = Modifier.padding(bottom = 15.toResponsiveDp()))
         OutlinedInputField(
@@ -120,7 +121,8 @@ fun StudentPassApplicationFormScreen(
             value = passType ?: "",
             onItemSelected = {
                 viewModel.updatePassType(it)
-            }
+            },
+            modifier = Modifier.width(280.toResponsiveDp())
         )
         Spacer(modifier = Modifier.padding(bottom = 15.toResponsiveDp()))
         OutlinedInputField(
@@ -172,7 +174,8 @@ fun StudentPassApplicationFormScreen(
             value = gender ?: "",
             onItemSelected = {
                 viewModel.updateGender(it)
-            }
+            },
+            modifier = Modifier.width(280.toResponsiveDp())
         )
         OutlinedInputField(
             label = "Date of birth",
@@ -220,7 +223,8 @@ fun StudentPassApplicationFormScreen(
             label = "Is Employee Children",
             options = listOf("Yes", "No"),
             value = "Is Employee Children",
-            onItemSelected = {  }
+            onItemSelected = {  },
+            modifier = Modifier.width(280.toResponsiveDp())
         )
         Spacer(modifier = Modifier.padding(bottom = 15.toResponsiveDp()))
         BlueLabelledText(text = "Residential address details")
