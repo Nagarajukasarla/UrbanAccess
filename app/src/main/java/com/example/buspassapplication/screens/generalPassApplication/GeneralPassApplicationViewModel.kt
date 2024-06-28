@@ -7,13 +7,13 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.example.buspassapplication.MainActivity
 import com.example.buspassapplication.app.launchCatching
-import com.example.buspassapplication.request.RazorpayOrderRequest
 import com.example.buspassapplication.data.User
 import com.example.buspassapplication.data.UserPass
 import com.example.buspassapplication.models.AppViewModel
 import com.example.buspassapplication.models.implementation.RazorpayServiceImplementation
 import com.example.buspassapplication.models.service.AccountService
 import com.example.buspassapplication.models.utils.OperationStatus
+import com.example.buspassapplication.request.RazorpayOrderRequest
 import com.example.buspassapplication.response.RazorpayOrderResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -23,6 +23,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.Calendar
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -41,12 +42,15 @@ class GeneralPassApplicationViewModel @Inject constructor(
     val email = MutableStateFlow<String?>(null)
     val aadhar = MutableStateFlow<String?>(null)
     val houseNumber = MutableStateFlow<String?>(null)
+    val duration = MutableStateFlow<String?>(null)
     val street = MutableStateFlow<String?>(null)
     val area = MutableStateFlow<String?>(null)
     val district = MutableStateFlow<String?>(null)
     val city = MutableStateFlow<String?>(null)
     val state = MutableStateFlow<String?>(null)
     val pincode = MutableStateFlow<String?>(null)
+    val amount = MutableStateFlow<Long?>(null)
+    val paymentConfirmationStatus = MutableStateFlow(false)
     val currentUser: Flow<User?> = accountService.currentUser
 
     val popupStatus = MutableStateFlow(false)
@@ -58,6 +62,7 @@ class GeneralPassApplicationViewModel @Inject constructor(
     val shouldRecompose = MutableStateFlow(false)
 
     val paymentConfirmationPopupStatus = MutableStateFlow(false)
+
     init {
         viewModelScope.launch {
             setCurrentUserData()
@@ -67,6 +72,7 @@ class GeneralPassApplicationViewModel @Inject constructor(
     fun triggerRecomposition() {
         shouldRecompose.value = true
     }
+
     fun clearRecompositionFlag() {
         shouldRecompose.value = false
     }
@@ -107,6 +113,10 @@ class GeneralPassApplicationViewModel @Inject constructor(
         houseNumber.value = newHouseNumber
     }
 
+    fun updateDuration(newDuration: String) {
+        duration.value = newDuration
+    }
+
     fun updateStreet(newStreet: String) {
         street.value = newStreet
     }
@@ -129,6 +139,10 @@ class GeneralPassApplicationViewModel @Inject constructor(
 
     fun updatePincode(newPincode: String) {
         pincode.value = newPincode
+    }
+
+    fun updatePaymentConfirmationStatus(newPaymentConfirmationStatus: Boolean) {
+        paymentConfirmationStatus.value = newPaymentConfirmationStatus
     }
 
     fun updatePopupStatus(newPopupStatus: Boolean) {
@@ -174,6 +188,7 @@ class GeneralPassApplicationViewModel @Inject constructor(
         district.value = null
         state.value = null
         pincode.value = null
+        duration.value = null
     }
 
     fun updatePopupStatusAsSuccess() {
@@ -186,7 +201,13 @@ class GeneralPassApplicationViewModel @Inject constructor(
         }
     }
 
-    fun handlePaymentResult(paymentStatus: String, paymentId: String, errorCode: Int = -1, errorMessage: String = "", paymentData: String) {
+    fun handlePaymentResult(
+        paymentStatus: String,
+        paymentId: String,
+        errorCode: Int = -1,
+        errorMessage: String = "",
+        paymentData: String
+    ) {
         when (paymentStatus) {
             "success" -> {
                 viewModelScope.launch {
@@ -196,7 +217,10 @@ class GeneralPassApplicationViewModel @Inject constructor(
 //                    contentOnFirstLine.value = "You will be notified once your"
 //                    contentOnSecondLine.value = "application is approved"
                     updatePopupStatusAsSuccess()
-                    Log.d("GeneralPassViewModel", "Payment successful: $paymentId, data: $paymentData")
+                    Log.d(
+                        "GeneralPassViewModel",
+                        "Payment successful: $paymentId, data: $paymentData"
+                    )
                     resetCurrentUserData()
                     val result = generateUserPass()
 //                    if (result is OperationStatus.Success) {
@@ -212,14 +236,19 @@ class GeneralPassApplicationViewModel @Inject constructor(
 //                    }
                 }
             }
+
             "error" -> {
                 triggerRecomposition()
 //                popupStatus.value = true
 //                popupTitle.value = "Submission Failed"
 //                contentOnFirstLine.value = "Contact customer support"
 //                contentOnSecondLine.value = "with support@urbanpass.com"
-                Log.e("GeneralPassViewModel", "Payment error: $errorCode, message: $errorMessage, data: $paymentData")
+                Log.e(
+                    "GeneralPassViewModel",
+                    "Payment error: $errorCode, message: $errorMessage, data: $paymentData"
+                )
             }
+
             else -> {
                 Log.e("GeneralPassViewModel", "Unknown payment status")
             }
@@ -234,7 +263,10 @@ class GeneralPassApplicationViewModel @Inject constructor(
                 if (response != null && response.isSuccessful) {
                     response.body()
                 } else {
-                    Log.e("GeneralPassViewModel", "Failed to generate order: ${response?.errorBody()?.string()}")
+                    Log.e(
+                        "GeneralPassViewModel",
+                        "Failed to generate order: ${response?.errorBody()?.string()}"
+                    )
                     null
                 }
             } catch (e: Exception) {
@@ -247,7 +279,7 @@ class GeneralPassApplicationViewModel @Inject constructor(
     @OptIn(ExperimentalMaterial3Api::class)
     private fun callPaymentScreen(activity: Activity) {
         val razorpayOrderRequest = RazorpayOrderRequest(
-            amount = 45000,
+            amount = amount.value ?: 0,
             currency = "INR",
             receipt = "",
         )
@@ -262,7 +294,11 @@ class GeneralPassApplicationViewModel @Inject constructor(
 //                    putExtra("currency", response.currency)
 //                    putExtra("receipt", response.receipt)
 //                }
-                (activity as? MainActivity)?.startPaymentActivity(response.id, response.amount, response.currency)
+                (activity as? MainActivity)?.startPaymentActivity(
+                    response.id,
+                    response.amount,
+                    response.currency
+                )
             } ?: Log.e("GeneralPassViewModel", "Order response is null")
         }
     }
@@ -275,10 +311,12 @@ class GeneralPassApplicationViewModel @Inject constructor(
                     is OperationStatus.Success -> {
                         Log.d("GeneralPassViewModel", "User pass generated successfully")
                     }
+
                     is OperationStatus.Failure -> {
                         Log.e("GeneralPassViewModel", "Error: ${response.exception.message}")
                     }
                 }
+                resetCurrentUserData()
                 response
             } catch (e: Exception) {
                 Log.e("GeneralPassViewModel", "Exception during user pass generation: ${e.message}")
@@ -287,7 +325,12 @@ class GeneralPassApplicationViewModel @Inject constructor(
         }
     }
 
-    fun onSubmitClick(activity: Activity) {
+    fun onClickSubmit() {
+        updatePaymentConfirmationStatus(true)
+        calculatePrice()
+    }
+
+    fun onClickPurchaseConfirm(activity: Activity) {
         viewModelScope.launchCatching(
             block = {
                 createUserPass()
@@ -312,6 +355,7 @@ class GeneralPassApplicationViewModel @Inject constructor(
 //                            contentOnSecondLine.value = "with support@urbanpass.com"
                         }
                     }
+
                     is OperationStatus.Failure -> {
                         Log.d("GeneralPassViewModel", "Error: ${result.exception.message}")
                         popupStatus.value = true
@@ -346,7 +390,7 @@ class GeneralPassApplicationViewModel @Inject constructor(
     }
 
     private fun createUserPass() {
-        currentUserPass.value =  UserPass(
+        currentUserPass.value = UserPass(
             name = surname.value + " " + lastname.value,
             id = generateId(),
             mrn = generateMrn(),
@@ -354,7 +398,7 @@ class GeneralPassApplicationViewModel @Inject constructor(
             gender = gender.value ?: "",
             phone = phone.value ?: "",
             type = "general",
-            validity = calculateNextMonth()
+            validity = calculateDuration(duration.value)
         )
         Log.d("GeneralPassViewModel", "User pass created at 320line: ${currentUserPass.value}")
     }
@@ -381,14 +425,62 @@ class GeneralPassApplicationViewModel @Inject constructor(
         return age
     }
 
-    private fun calculateNextMonth(): String {
+    private fun calculatePrice() {
+        when (duration.value?.lowercase(Locale.getDefault())) {
+            "weekly" -> {
+                amount.value = 15000
+            }
+
+            "monthly" -> {
+                amount.value = 45000
+            }
+
+            "quarterly" -> {
+                amount.value = 150000
+            }
+
+            else -> amount.value = 0
+        }
+    }
+
+    private fun calculateDuration(duration: String?): String {
         val currentDate = Calendar.getInstance()
         val currentDay = currentDate.get(Calendar.DAY_OF_MONTH)
-        currentDate.add(Calendar.MONTH, 1)
+
+        when (duration?.lowercase(Locale.getDefault())) {
+            "weekly" -> {
+                currentDate.add(Calendar.WEEK_OF_YEAR, 1)
+            }
+
+            "monthly" -> {
+                currentDate.add(Calendar.MONTH, 1)
+            }
+
+            "quarterly" -> {
+                currentDate.add(Calendar.MONTH, 3)
+            }
+
+            "yearly" -> {
+                currentDate.add(Calendar.YEAR, 1)
+            }
+
+            else -> return ""
+        }
+
+        // Ensure that the day of the month remains the same
         currentDate.set(Calendar.DAY_OF_MONTH, currentDay)
+
+        // Adjust if setting the day causes an invalid date (e.g., setting February 30)
+        if (currentDate.get(Calendar.DAY_OF_MONTH) != currentDay) {
+            currentDate.set(
+                Calendar.DAY_OF_MONTH,
+                currentDate.getActualMaximum(Calendar.DAY_OF_MONTH)
+            )
+        }
+
         val nextMonth = currentDate.get(Calendar.MONTH) + 1 // Calendar month is 0-based
         val nextYear = currentDate.get(Calendar.YEAR)
-        Log.d("GeneralPassViewModel", "Next month: $nextMonth, year: $nextYear")
+        Log.d("GeneralPassViewModel", "Next date: $currentDay-$nextMonth-$nextYear")
         return String.format("%02d-%02d-%d", currentDay, nextMonth, nextYear)
     }
 
@@ -403,7 +495,6 @@ class GeneralPassApplicationViewModel @Inject constructor(
         val random = (1000..9999).random()
         return "$prefix$random"
     }
-
 
     companion object {
         const val PAYMENT_REQUEST_CODE = 1001

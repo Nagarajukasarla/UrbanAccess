@@ -37,11 +37,11 @@ fun PaymentConfirmationPopup(
     onPayRequest: () -> Unit = {},
     onDismissRequest: () -> Unit = {}
 ) {
-    val width: Dp = 310.toResponsiveDp()
-    val height: Dp = 240.toResponsiveDp()
+    val width: Dp = 380.toResponsiveDp()
+    val height: Dp = 230.toResponsiveDp()
     val title = "Payment Confirmation"
     val contentOnFirstLine = "Your ticket will be issued"
-    val contentOnSecondLine = "within 2 hours"
+    val contentOnSecondLine = "within few minutes"
 
     Dialog(onDismissRequest = onDismissRequest) {
         Box(
@@ -95,7 +95,7 @@ fun PaymentConfirmationPopup(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Button(
-                        modifier = Modifier.width(110.toResponsiveDp()),
+                        modifier = Modifier.width(120.toResponsiveDp()),
                         shape = RoundedCornerShape(50),
                         colors = ButtonDefaults.buttonColors(
                             contentColor = NavyBlue,
@@ -117,7 +117,7 @@ fun PaymentConfirmationPopup(
                     }
                     Button(
                         modifier = Modifier
-                            .width(130.toResponsiveDp()),
+                            .width(155.toResponsiveDp()),
                         shape = RoundedCornerShape(50),
                         colors = ButtonDefaults.buttonColors(
                             contentColor = White,

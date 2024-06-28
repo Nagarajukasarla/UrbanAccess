@@ -29,6 +29,7 @@ import com.example.buspassapplication.components.BackNavigationBar
 import com.example.buspassapplication.components.DropDown
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.OutlinedInputField
+import com.example.buspassapplication.components.PaymentConfirmationPopup
 import com.example.buspassapplication.components.Popup
 import com.example.buspassapplication.components.PrimaryButton
 import com.example.buspassapplication.ui.theme.DarkGray
@@ -54,6 +55,7 @@ fun GeneralPassApplicationFormScreen(
     val phone by viewModel.phone.collectAsState()
     val email by viewModel.email.collectAsState()
     val aadhar by viewModel.aadhar.collectAsState()
+    val duration by viewModel.duration.collectAsState()
     val houseNumber by viewModel.houseNumber.collectAsState()
     val street by viewModel.street.collectAsState()
     val area by viewModel.area.collectAsState()
@@ -61,6 +63,8 @@ fun GeneralPassApplicationFormScreen(
     val city by viewModel.city.collectAsState()
     val state by viewModel.state.collectAsState()
     val pincode by viewModel.pincode.collectAsState()
+    val amount by viewModel.amount.collectAsState()
+    val paymentConfirmationStatus by viewModel.paymentConfirmationStatus.collectAsState()
     val currentUser by viewModel.currentUser.collectAsState(initial = null)
 
     val popupStatus by viewModel.popupStatus.collectAsState()
@@ -73,24 +77,21 @@ fun GeneralPassApplicationFormScreen(
     val savedContentOnFirstLine = rememberSaveable { mutableStateOf(contentOnFirstLine) }
     val savedContentOnSecondLine = rememberSaveable { mutableStateOf(contentOnSecondLine) }
 
-    // Update saved state when view model state changes
     savedPopupStatus.value = popupStatus
     savedPopupTitle.value = popupTitle
     savedContentOnFirstLine.value = contentOnFirstLine
     savedContentOnSecondLine.value = contentOnSecondLine
-//    val navHostController by viewModel.navHostController.collectAsState()
 
     val shouldRecompose by viewModel.shouldRecompose.collectAsState()
 
     if (shouldRecompose) {
-        //viewModel.clearRecompositionFlag()
         viewModel.clearRecompositionFlag()
     }
 
 
     Log.d("GeneralPassApplicationFormScreen", "Popup status: $popupStatus")
 
-    val key = popupStatus // or any other state variable that should trigger recomposition
+    val key = popupStatus
     CompositionLocalProvider(LocalLifecycleOwner provides LocalContext.current as LifecycleOwner) {
         Column(
             modifier = Modifier
@@ -262,14 +263,21 @@ fun GeneralPassApplicationFormScreen(
                     viewModel.updatePincode(it)
                 }
             )
+            DropDown(
+                label = "Duration",
+                options = Data.durationOptions,
+                value = duration ?: "",
+                onItemSelected = {
+                    viewModel.updateDuration(it)
+                }
+            )
             PrimaryButton(
                 text = "Submit",
                 width = 280.toResponsiveDp(),
                 height = 45.toResponsiveDp(),
                 borderShape = RoundedCornerShape(50),
                 onClick = {
-                    // Call payments page here directly {testing purpose only}
-                    viewModel.onSubmitClick(activity)
+                    viewModel.onClickSubmit()
                 }
             )
             if (popupStatus) {
@@ -284,6 +292,19 @@ fun GeneralPassApplicationFormScreen(
                     onConfirmRequest = {
                         viewModel.updatePopupStatus(false)
                     }
+                )
+            }
+            if (paymentConfirmationStatus) {
+                PaymentConfirmationPopup(
+                    amount = amount.toString().substring(0, amount.toString().length - 2),
+                    onDismissRequest = {
+                        viewModel.updatePaymentConfirmationStatus(false)
+                    },
+                    onPayRequest = {
+                        viewModel.onClickPurchaseConfirm(activity = activity)
+                        viewModel.updatePaymentConfirmationStatus(false)
+                    }
+
                 )
             }
         }

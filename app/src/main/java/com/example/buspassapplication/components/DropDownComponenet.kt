@@ -73,7 +73,8 @@ fun DropDown(
             )
             ExposedDropdownMenu(
                 expanded = isExpanded,
-                onDismissRequest = { isExpanded = false }) {
+                onDismissRequest = { isExpanded = false }
+            ) {
                 options.forEachIndexed { index, text ->
                     DropdownMenuItem(
                         text = {

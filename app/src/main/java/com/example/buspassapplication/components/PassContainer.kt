@@ -1,5 +1,6 @@
 package com.example.buspassapplication.components
 
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -33,7 +34,8 @@ fun PassContainer(
     gender: String = "",
     phone: String = "",
     dob: String = "",
-    id: String = ""
+    id: String = "",
+    imageResourceUri: Uri? = null,
 ) {
     val image = R.drawable.test3
     Column(
