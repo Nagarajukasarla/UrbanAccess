@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.buspassapplication.routes.PassScreenRoutes
 import com.example.buspassapplication.routes.SettingScreenRoutes
+import com.example.buspassapplication.screens.AppearanceScreen
 import com.example.buspassapplication.screens.Routes.MapScreen
 import com.example.buspassapplication.screens.TicketStatusScreen
 import com.example.buspassapplication.screens.WalletScreen
@@ -29,7 +30,7 @@ fun NavGraphBuilder.settingsScreenNavigationGraph (
             ProfileScreen(navController = navController, currentUserId = currentUserId)
         }
         composable(route = SettingScreenRoutes.Appearance.route) {
-            MapScreen(navController = navController, currentUserId = currentUserId)
+            AppearanceScreen(navController = navController, currentUserId = currentUserId)
         }
         composable(route = SettingScreenRoutes.Gps.route) {
             MapScreen(navController = navController, currentUserId = currentUserId)

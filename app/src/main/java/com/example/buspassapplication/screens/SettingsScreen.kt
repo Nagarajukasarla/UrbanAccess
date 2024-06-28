@@ -29,6 +29,7 @@ import com.example.buspassapplication.R
 import com.example.buspassapplication.components.CardWithIcon
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.routes.BottomBarRoutes
+import com.example.buspassapplication.routes.MapBarRoutes
 import com.example.buspassapplication.routes.SettingScreenRoutes
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.DimGray
@@ -127,7 +128,7 @@ fun SettingsScreen(
                     isBordered = false,
                     underLine = true,
                     onClick = {
-                        // Should be to navigated to APPEARANCE Screen
+                        navController.navigate(route = MapBarRoutes.ComingSoonScreen.route) { }
                     },
                 )
             }
@@ -181,7 +182,7 @@ fun SettingsScreen(
                     isBordered = false,
                     underLine = true,
                     onClick = {
-                        // Should be navigated to REPORT BUG Screen
+                        navController.navigate(route = MapBarRoutes.ComingSoonScreen.route) { }
                     },
                 )
             }
