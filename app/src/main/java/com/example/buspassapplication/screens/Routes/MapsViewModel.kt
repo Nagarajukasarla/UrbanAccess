@@ -38,15 +38,21 @@ class MapsViewModel @Inject constructor() : AppViewModel() {
                 busNos.add(busNo)
             }
         }
-
-        if (busNos.isNotEmpty()) {
+        if(fromPlace.isEmpty() || toPlace.isEmpty()){
+            popupTitle.value = "Routes not specified"
+            popupMessageOnFirstLine.value = "Please select your starting"
+            popupMessageOnSecondLine.value = "and ending location."
+            showPopup.value = true
+        }
+        else if (busNos.isNotEmpty()) {
             popupTitle.value = "Bus Routes"
             popupMessageOnFirstLine.value="The list of bus names: "
             popupMessageOnSecondLine.value = "${busNos.joinToString(", ")}"
             showPopup.value = true
         } else {
             popupTitle.value = "No Buses Found"
-            popupMessageOnSecondLine.value = "No buses found for the specified routes"
+            popupMessageOnFirstLine.value = "No buses found"
+            popupMessageOnSecondLine.value = "for the specified routes"
             showPopup.value = true
         }
     }

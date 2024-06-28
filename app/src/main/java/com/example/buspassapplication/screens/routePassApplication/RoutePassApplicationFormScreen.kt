@@ -73,7 +73,7 @@ fun RoutePassApplicationFormScreen(
         NormalText(
             modifier = Modifier
                 .padding(top = 15.toResponsiveDp(), bottom = 20.toResponsiveDp()),
-            value = "General Pass Application",
+            value = "Route Pass Application",
             fontSize = 25.toResponsiveSp(),
             fontWeight = FontWeight.Bold,
             fontFamily = PoppinsBold,
