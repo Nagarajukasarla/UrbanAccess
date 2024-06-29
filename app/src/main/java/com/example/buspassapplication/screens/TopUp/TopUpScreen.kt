@@ -14,6 +14,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -25,8 +26,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.buspassapplication.R
 import com.example.buspassapplication.components.BackNavigationBar
 import com.example.buspassapplication.components.NormalText
@@ -47,8 +50,8 @@ fun TopUpScreen(
     viewModel: TopUpViewModel = hiltViewModel()
 ) {
     val amount by viewModel.amount.collectAsState()
-    val size by viewModel.size.collectAsState()
-    val context = LocalContext.current as Activity
+//    val size by viewModel.size.collectAsState()
+//    val context = LocalContext.current as Activity
     val curAmount by viewModel.currAmount.collectAsState()
     val rupee = R.drawable.rupee
     BackNavigationBar(navController = navController)
@@ -67,7 +70,7 @@ fun TopUpScreen(
             modifier = Modifier
                 .padding(top = 15.toResponsiveDp(), bottom = 10.toResponsiveDp()),
             value = "Top Up",
-            fontSize = 40.toResponsiveSp(),
+            fontSize = 30.toResponsiveSp(),
             fontWeight = FontWeight.Bold,
             fontFamily = PoppinsMedium,
             color = DarkGray
@@ -76,7 +79,7 @@ fun TopUpScreen(
             modifier = Modifier
                 .padding(top = 10.toResponsiveDp(), bottom = 20.toResponsiveDp()),
             value = "₹${curAmount}",
-            fontSize = 40.toResponsiveSp(),
+            fontSize = 30.toResponsiveSp(),
             fontWeight = FontWeight.Light,
             fontFamily = Roboto,
             color = DarkGray
@@ -95,6 +98,7 @@ fun TopUpScreen(
                 OutlinedInputField(
                     label = "Amount",
                     modifier = Modifier
+                        .height(90.toResponsiveDp())
                         .width(360.toResponsiveDp())
                         .padding(bottom = 15.toResponsiveDp()),
                     value = amount ?: "",
@@ -124,7 +128,7 @@ fun TopUpScreen(
                     height = 40.toResponsiveDp(),
                     borderShape = RoundedCornerShape(50),
                     onClick = {
-//                        viewModel.onSubmit()
+                        viewModel.onSubmit()
                     }
                 )
             }
@@ -133,9 +137,8 @@ fun TopUpScreen(
     }
 }
 
-//@OptIn(ExperimentalMaterial3Api::class)
-//@Preview(showBackground = true)
-//@Composable
-//fun TopUpScreenPreview() {
-//    TopUpScreen(navController = rememberNavController(), currentUserId = null)
-//}
+@Preview(showBackground = true, heightDp = 700)
+@Composable
+fun TopUpScreenPreview() {
+    TopUpScreen(navController = rememberNavController(), currentUserId = "1")
+}

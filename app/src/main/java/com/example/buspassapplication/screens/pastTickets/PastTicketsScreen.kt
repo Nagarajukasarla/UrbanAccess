@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.buspassapplication.R
 import com.example.buspassapplication.components.BackNavigationBar
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.PastTicket
@@ -25,6 +26,7 @@ import com.example.buspassapplication.ui.theme.Black
 import com.example.buspassapplication.ui.theme.PoppinsMedium
 import toResponsiveDp
 import toResponsiveSp
+import java.time.LocalDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,14 +35,20 @@ fun PastTicketsScreen(
     currentUserId: String?
 ){
     Column(
-        modifier = Modifier.padding(bottom = 30.toResponsiveDp()) .verticalScroll(rememberScrollState()),
+        modifier = Modifier
+            .padding(bottom = 30.toResponsiveDp())
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         BackNavigationBar(navController = navController)
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 28.toResponsiveDp(), top = 20.toResponsiveDp(), end = 30.toResponsiveDp())
+                .padding(
+                    start = 28.toResponsiveDp(),
+                    top = 20.toResponsiveDp(),
+                    end = 30.toResponsiveDp()
+                )
         ) {
             Column {
                 NormalText(
@@ -53,9 +61,9 @@ fun PastTicketsScreen(
                 )
                 Spacer(modifier = Modifier.height(20.toResponsiveDp()))
                 Column {
-                    PastTicket(title = "From to To")
+                    PastTicket(from = "HYD", to = "NYC", dateofPurchase = LocalDateTime.now(), id = "1234", qrImage = R.drawable.test4)
                     Spacer(modifier = Modifier.height(10.toResponsiveDp()))
-                    PastTicket(title = "From to To")
+                    PastTicket(from = "HYD", to = "NYC", dateofPurchase = LocalDateTime.now(), id = "1234", qrImage = R.drawable.test4)
                 }
             }
         }

@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import com.example.buspassapplication.ui.theme.PoppinsBold
+import com.example.buspassapplication.ui.theme.Roboto
 import com.example.buspassapplication.ui.theme.White
 import toResponsiveDp
 import toResponsiveSp
@@ -47,7 +48,7 @@ fun WalletComponent(){
             NormalText(
                 modifier = Modifier.padding(top = 20.toResponsiveDp(), start = 20.toResponsiveDp()),
                 value = "First Name",
-                fontSize = 28.toResponsiveSp(),
+                fontSize = 25.toResponsiveSp(),
                 fontWeight = FontWeight.Bold,
                 fontFamily = PoppinsBold,
                 color = White,
@@ -56,7 +57,7 @@ fun WalletComponent(){
             NormalText(
                 modifier = Modifier.padding(top = 5.toResponsiveDp(), start = 20.toResponsiveDp()),
                 value = "Last Name",
-                fontSize = 28.toResponsiveSp(),
+                fontSize = 25.toResponsiveSp(),
                 fontWeight = FontWeight.Bold,
                 fontFamily = PoppinsBold,
                 color = White,
@@ -68,7 +69,7 @@ fun WalletComponent(){
                 value = "₹00.000",
                 fontSize = 28.toResponsiveSp(),
                 fontWeight = FontWeight.Bold,
-                fontFamily = PoppinsBold,
+                fontFamily = Roboto,
                 color = White,
                 letterSpacing = 0.7.toResponsiveSp()
             )

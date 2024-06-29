@@ -28,11 +28,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.buspassapplication.R
 import com.example.buspassapplication.ui.theme.CloudGray
 import com.example.buspassapplication.ui.theme.DarkGray
@@ -47,14 +44,18 @@ import androidx.compose.ui.graphics.Color
 import com.example.buspassapplication.ui.theme.PoppinsBold
 import toResponsiveDp
 import toResponsiveSp
+import java.time.LocalDateTime
 
 @ExperimentalMaterial3Api
 @Composable
 fun PastTicket(
     width: Dp = 330.toResponsiveDp(),
-    height: Dp = 60.toResponsiveDp(),
-    title: String,
-    titleSize: TextUnit = 25.toResponsiveSp(),
+    from: String,
+    to:String,
+    dateofPurchase: LocalDateTime,
+    id: String,
+    qrImage: Int,
+    titleSize: TextUnit = 23.toResponsiveSp(),
     titlesColumnWidth: Dp = 170.toResponsiveDp(),
     leadingIconSize: Dp = 30.toResponsiveDp(),
     isBordered: Boolean = true,
@@ -95,7 +96,7 @@ fun PastTicket(
             ) {
                 NormalText(
                     modifier = Modifier.weight(6f).padding(start = 10.toResponsiveDp()),
-                    value = title,
+                    value = "$from ⇒ $to",
                     fontSize = titleSize,
                     fontWeight = FontWeight.Bold,
                     fontFamily = PoppinsMedium,
@@ -125,7 +126,7 @@ fun PastTicket(
                     Column(){
                         NormalText(
                             modifier = Modifier,
-                            value = "Date of purchase",
+                            value = dateofPurchase.toString(),
                             fontSize = 14.toResponsiveSp(),
                             fontWeight = FontWeight.Bold,
                             fontFamily = PoppinsBold,
@@ -134,7 +135,7 @@ fun PastTicket(
                         Spacer(modifier = Modifier.height(3.toResponsiveDp()))
                         NormalText(
                             modifier = Modifier,
-                            value = "ID",
+                            value = id,
                             fontSize = 13.toResponsiveSp(),
                             fontWeight =FontWeight.Bold,
                             fontFamily = PoppinsLight,
@@ -143,7 +144,7 @@ fun PastTicket(
                         Spacer(modifier = Modifier.height(5.toResponsiveDp()))
                         NormalText(
                             modifier = Modifier,
-                            value = "From",
+                            value = from,
                             fontSize = 20.toResponsiveSp(),
                             fontWeight = FontWeight.Bold,
                             fontFamily = PoppinsMedium,
@@ -152,7 +153,7 @@ fun PastTicket(
                         Spacer(modifier = Modifier.height(5.toResponsiveDp()))
                         NormalText(
                             modifier = Modifier,
-                            value = "To",
+                            value = to,
                             fontSize = 20.toResponsiveSp(),
                             fontWeight = FontWeight.Bold,
                             fontFamily = PoppinsMedium,
@@ -180,11 +181,11 @@ fun PastTicket(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview
-@Composable
-fun PreviewPastTicket() {
-    PastTicket(
-        title = "Title"
-    )
-}
+//@OptIn(ExperimentalMaterial3Api::class)
+//@Preview
+//@Composable
+//fun PreviewPastTicket() {
+//    PastTicket(
+//        title = "Title"
+//    )
+//}
