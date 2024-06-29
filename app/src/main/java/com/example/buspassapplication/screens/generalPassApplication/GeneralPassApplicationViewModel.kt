@@ -398,6 +398,7 @@ class GeneralPassApplicationViewModel @Inject constructor(
             gender = gender.value ?: "",
             phone = phone.value ?: "",
             type = "general",
+            dob = dateOfBirth.value ?: "",
             validity = calculateDuration(duration.value)
         )
         Log.d("GeneralPassViewModel", "User pass created at 320line: ${currentUserPass.value}")

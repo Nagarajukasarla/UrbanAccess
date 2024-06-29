@@ -23,6 +23,6 @@ data class User(
     val route: Route? = null,
     val education: Education? = null,
     val imageUri: Uri = Uri.EMPTY,
-    val pass: UserPass? = null
+    val passes: List<UserPass?> = emptyList()
 )
 

@@ -104,27 +104,32 @@ fun PassScreen(
             }
         }
         Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-        if (passes.isEmpty()) {
-            PassContainer(
-                registered = false
-            )
-        }
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(
-                    start = 20.toResponsiveDp(),
-                    top = 20.toResponsiveDp()
-                )
                 .horizontalScroll(rememberScrollState())
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Start
         ) {
-            for (pass in passes) {
-                PassContainer(
-                    registered = true,
-                    pass = pass
-                )
-            }
-         }
+            PassContainer(
+            )
+
+//            if (passes.isEmpty()) {
+//                PassContainer(
+//                    registered = false
+//                )
+//            } else {
+//                passes.forEach { pass ->
+//                    if (pass != null && pass.id != "") {
+//                        PassContainer(
+//                            registered = true,
+//                            pass = pass,
+//                            type = pass.type
+//                        )
+//                    }
+//                }
+//            }
+        }
+
         Spacer(modifier = Modifier.height(30.toResponsiveDp()))
         CardWithIcon(
             icon = generalResourceId,

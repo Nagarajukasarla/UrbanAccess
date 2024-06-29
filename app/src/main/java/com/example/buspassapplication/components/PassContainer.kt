@@ -34,14 +34,21 @@ import toResponsiveSp
 @Composable
 fun PassContainer(
     modifier: Modifier = Modifier,
-    pass: UserPass,
+    mrnNo: String = "AJ860WE789",
+    name: String = "Ikshvaku Rama",
+    age: String = "20",
+    gender: String = "Male",
+    phone: String = "7997712586",
+    dob: String = "01-01-2004",
+    id: String = "ID093672394",
+    registered: Boolean = true,
     type: String = "metro",
     imageResourceUri: Uri? = null,
-    registered: Boolean = false
 ) {
     val image = R.drawable.unregistered
+    val photo = R.drawable.krishna
 
-    val backgroundGradientForunRegisteredPass = Brush.linearGradient(
+    val backgroundGradientForNonRegisteredPass = Brush.linearGradient(
         colors = listOf(
             Color(0xFFE0e0e0),
             Color(0xFFE0e0e0)
@@ -69,9 +76,9 @@ fun PassContainer(
             .width(350.toResponsiveDp())
             .height(195.toResponsiveDp())
             .background(
-//                if(type == "metro") backgroundGradientForMetroPass
-//                else backgroundGradientForGeneralPass
-                backgroundGradientForunRegisteredPass,
+                if (type == "general") backgroundGradientForGeneralPass
+                else if(type == "metro") backgroundGradientForMetroPass
+                else backgroundGradientForNonRegisteredPass,
                 shape = RoundedCornerShape(16.toResponsiveDp())
             ),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -91,7 +98,7 @@ fun PassContainer(
                         .padding(start = 15.toResponsiveDp(), top = 15.toResponsiveDp())
                         .align(Alignment.CenterVertically)
                 ) {
-                    CircularImage(image = image)
+                    CircularImage(image = photo)
                 }
                 Column(
                     modifier = Modifier
@@ -105,7 +112,7 @@ fun PassContainer(
                 ) {
                     Spacer(modifier = Modifier.size(12.toResponsiveDp()))
                     NormalText(
-                        value = "MRN : ${pass.mrn}",
+                        value = "MRN : ${mrnNo}",
                         fontSize = 13.toResponsiveSp(),
                         letterSpacing = 0.5.toResponsiveSp(),
                         fontFamily = PoppinsMedium,
@@ -115,7 +122,7 @@ fun PassContainer(
                     )
                     Spacer(modifier = Modifier.size(3.toResponsiveDp()))
                     NormalText(
-                        value = "Name: ${pass.name}",
+                        value = "Name: ${name}",
                         fontSize = 12.toResponsiveSp(),
                         letterSpacing = 0.5.toResponsiveSp(),
                         fontFamily = PoppinsMedium,
@@ -125,7 +132,7 @@ fun PassContainer(
                     )
                     Spacer(modifier = Modifier.size(3.toResponsiveDp()))
                     NormalText(
-                        value = "Age: $age",
+                        value = "Age: 20",
                         fontSize = 12.toResponsiveSp(),
                         letterSpacing = 0.5.toResponsiveSp(),
                         fontFamily = PoppinsMedium,
@@ -135,7 +142,7 @@ fun PassContainer(
                     )
                     Spacer(modifier = Modifier.size(3.toResponsiveDp()))
                     NormalText(
-                        value = "Gender: $gender",
+                        value = "Gender: ${gender}",
                         fontSize = 12.toResponsiveSp(),
                         letterSpacing = 0.5.toResponsiveSp(),
                         fontFamily = PoppinsMedium,
@@ -145,7 +152,7 @@ fun PassContainer(
                     )
                     Spacer(modifier = Modifier.size(3.toResponsiveDp()))
                     NormalText(
-                        value = "Phone: +91$phone",
+                        value = "Phone: +91${phone}",
                         fontSize = 12.toResponsiveSp(),
                         letterSpacing = 0.5.toResponsiveSp(),
                         fontFamily = PoppinsMedium,
@@ -155,7 +162,7 @@ fun PassContainer(
                     )
                     Spacer(modifier = Modifier.size(3.toResponsiveDp()))
                     NormalText(
-                        value = "Date of Birth: $dob",
+                        value = "Date of Birth: 01-01-2000",
                         fontSize = 12.toResponsiveSp(),
                         letterSpacing = 0.5.toResponsiveSp(),
                         fontFamily = PoppinsMedium,
@@ -170,7 +177,7 @@ fun PassContainer(
                 horizontalArrangement = Arrangement.SpaceBetween
             ){
                 NormalText(
-                    value = "ID: $id",
+                    value = "ID: ${id}",
                     fontSize = 16.toResponsiveSp(),
                     fontFamily = PoppinsMedium,
                     color = if (type == "metro") White else DarkGray,
@@ -182,8 +189,8 @@ fun PassContainer(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewPass() {
-    PassContainer()
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewPass() {
+//    PassContainer()
+//}

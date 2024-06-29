@@ -64,6 +64,7 @@ class AccountServiceImplementation @Inject constructor() : AccountService {
                                             Uri.EMPTY
                                         }
 
+
                                         User(
                                             id = it.getString("uid"),
                                             surname = it.getString("surname"),
@@ -82,7 +83,20 @@ class AccountServiceImplementation @Inject constructor() : AccountService {
                                             state = it.getString("state"),
                                             pincode = it.getString("pincode"),
                                             education = education,
-                                            imageUri = imageUri
+                                            imageUri = imageUri,
+                                            passes = (it.get("passes") as? List<Map<String, Any>>)?.map { passMap ->
+                                                UserPass(
+                                                    id = passMap["id"] as? String ?: "",
+                                                    mrn = passMap["mrn"] as? String ?: "",
+                                                    name = passMap["name"] as? String ?: "",
+                                                    age = (passMap["age"] as? Long)?.toInt() ?: 0,
+                                                    gender = passMap["gender"] as? String ?: "",
+                                                    phone = passMap["phone"] as? String ?: "",
+                                                    validity = passMap["validity"] as? String ?: "",
+                                                    type = passMap["type"] as? String ?: "",
+                                                    dob = passMap["dob"] as? String ?: ""
+                                                )
+                                            } ?: emptyList()
                                         )
                                     }
                                     trySend(user)
@@ -191,34 +205,48 @@ class AccountServiceImplementation @Inject constructor() : AccountService {
             }
         }
 
-    override suspend fun createUserPass(userPass: UserPass?): OperationStatus {
-        val userPassHashMap = hashMapOf(
-            "id" to userPass?.id,
-            "mrn" to userPass?.mrn,
-            "name" to userPass?.name,
-            "age" to userPass?.age,
-            "gender" to userPass?.gender,
-            "phone" to userPass?.phone,
-            "validity" to userPass?.validity,
-            "type" to userPass?.type
-        )
 
-        Log.d("AccountService", "UserPassHashMap: $userPassHashMap")
+    override suspend fun createUserPass(userPass: UserPass?): OperationStatus {
+        val currentUserDocument = FirebaseFirestore
+            .getInstance()
+            .collection("users")
+            .document(currentUserId)
 
         return suspendCancellableCoroutine { continuation ->
-            FirebaseFirestore
-                .getInstance()
-                .collection("users")
-                .document(currentUserId)
-                .set(mapOf("pass" to userPassHashMap), SetOptions.merge())
-                .addOnSuccessListener {
-                    continuation.resume(OperationStatus.Success)
+            currentUserDocument.get()
+                .addOnSuccessListener { document ->
+                    val currentPasses = document.get("passes") as? List<Map<String, Any?>>
+                    val updatedPasses = currentPasses?.toMutableList() ?: mutableListOf()
+
+                    val newUserPassMap = hashMapOf(
+                        "id" to userPass?.id,
+                        "mrn" to userPass?.mrn,
+                        "name" to userPass?.name,
+                        "age" to userPass?.age,
+                        "dob" to userPass?.dob,
+                        "gender" to userPass?.gender,
+                        "phone" to userPass?.phone,
+                        "validity" to userPass?.validity,
+                        "type" to userPass?.type
+                    )
+
+                    updatedPasses.add(newUserPassMap)
+
+                    currentUserDocument
+                        .set(mapOf("passes" to updatedPasses), SetOptions.merge())
+                        .addOnSuccessListener {
+                            continuation.resume(OperationStatus.Success)
+                        }
+                        .addOnFailureListener { exception ->
+                            continuation.resume(OperationStatus.Failure(exception))
+                        }
                 }
                 .addOnFailureListener { exception ->
                     continuation.resume(OperationStatus.Failure(exception))
                 }
         }
     }
+
 
 
     override suspend fun updateUser(user: User): OperationStatus {
