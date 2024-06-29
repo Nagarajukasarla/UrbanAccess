@@ -1,8 +1,10 @@
 package com.example.buspassapplication.screens.pass
 
 import android.util.Log
+import android.widget.HorizontalScrollView
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,6 +19,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -42,20 +45,15 @@ import toResponsiveSp
 fun PassScreen(
     navController: NavHostController,
     currentUserId: String?,
-    viewModel: PassContainerViewModel = hiltViewModel()
+    viewModel: PassViewModel = hiltViewModel()
 ) {
 
     val generalResourceId = R.drawable.person
     val metroResourceId = R.drawable.metro
     val studentResourceId = R.drawable.student
     val routeResourceId = R.drawable.route
-    val name = viewModel.name.collectAsState()
-    val age = viewModel.age.collectAsState()
-    val mrnNo = viewModel.mrnNo.collectAsState()
-    val gender = viewModel.gender.collectAsState()
-    val phone = viewModel.phone.collectAsState()
-    val dob = viewModel.dob.collectAsState()
-    val id = viewModel.id.collectAsState()
+
+    val passes by viewModel.passes.collectAsState()
 
     Log.d("PassScreen", "$currentUserId")
 
@@ -106,16 +104,27 @@ fun PassScreen(
             }
         }
         Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-        PassContainer(
-            modifier = Modifier,
-            mrnNo = mrnNo.value ?:"",
-            name = name.value?:"",
-            age = age.value?:"",
-            gender = gender.value?:"",
-            phone = phone.value?:"",
-            dob = dob.value?:"",
-            id = id.value?:"",
-        )
+        if (passes.isEmpty()) {
+            PassContainer(
+                registered = false
+            )
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    start = 20.toResponsiveDp(),
+                    top = 20.toResponsiveDp()
+                )
+                .horizontalScroll(rememberScrollState())
+        ) {
+            for (pass in passes) {
+                PassContainer(
+                    registered = true,
+                    pass = pass
+                )
+            }
+         }
         Spacer(modifier = Modifier.height(30.toResponsiveDp()))
         CardWithIcon(
             icon = generalResourceId,

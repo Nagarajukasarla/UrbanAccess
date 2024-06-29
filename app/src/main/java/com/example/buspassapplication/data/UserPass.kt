@@ -8,5 +8,6 @@ data class UserPass (
     val gender: String,
     val phone: String,
     val validity: String,
-    val type: String
+    val type: String,
+    val dob: String,
 )

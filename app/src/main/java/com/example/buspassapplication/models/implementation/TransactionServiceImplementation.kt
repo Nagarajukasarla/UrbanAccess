@@ -20,7 +20,6 @@ class TransactionServiceImplementation @Inject constructor() : TransactionServic
         val transactions: MutableList<Transaction> = mutableListOf()
         database.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-
                 dataSnapshot.children.forEach { transactionSnapshot ->
                     val transaction = transactionSnapshot.getValue(Transaction::class.java)
                     transaction?.let {
