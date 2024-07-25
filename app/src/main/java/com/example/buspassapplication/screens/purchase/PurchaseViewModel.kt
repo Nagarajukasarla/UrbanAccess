@@ -20,6 +20,5 @@ class PurchaseViewModel @Inject constructor(
     }
 
     fun onSubmit(){
-        TODO("Purchase ticket from , <from> to <to> destination")
     }
 }
