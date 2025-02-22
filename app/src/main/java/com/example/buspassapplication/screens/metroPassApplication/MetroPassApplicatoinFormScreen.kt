@@ -163,7 +163,7 @@ fun MetroPassApplicationFormScreen(
             GenderDropDown(
                 label = "Gender",
                 options = Data.genderOptions,
-                value = gender ?: "",
+                value = gender?.value ?: "",
                 onItemSelected = {
                     viewModel.updateGender(it)
                 },
