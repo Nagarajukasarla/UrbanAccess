@@ -89,6 +89,7 @@ class GeneralPassApplicationViewModel @Inject constructor(
         viewModelScope.launch {
             setCurrentUserData()
         }
+        Log.d("GeneralPassApplicationViewModel", "Gender value: $gender --- ${gender.value}")
     }
 
     fun triggerRecomposition() {
@@ -101,66 +102,131 @@ class GeneralPassApplicationViewModel @Inject constructor(
 
     fun updateSurname(newSurname: String) {
         surname.value = newSurname
+        when (val validation = ValidationUtils.validateSurname(newSurname)) {
+            is ValidationResult.Error -> surnameError.value = validation.message
+            else -> surnameError.value = null
+        }
     }
 
     fun updateLastname(newLastname: String) {
         lastname.value = newLastname
+        when (val validation = ValidationUtils.validateLastname(newLastname)) {
+            is ValidationResult.Error -> lastnameError.value = validation.message
+            else -> lastnameError.value = null
+        }
     }
 
     fun updateGuardian(newGuardian: String) {
         guardian.value = newGuardian
+        when (val validation = ValidationUtils.validateGuardianName(newGuardian)) {
+            is ValidationResult.Error -> guardianError.value = validation.message
+            else -> guardianError.value = null
+        }
     }
 
     fun updateDateOfBirth(newDateOfBirth: String) {
         dateOfBirth.value = newDateOfBirth
+        when (val validation = ValidationUtils.validateDateOfBirth(newDateOfBirth)) {
+            is ValidationResult.Error -> dateOfBirthError.value = validation.message
+            else -> dateOfBirthError.value = null
+        }
     }
 
     fun updateGender(newGender: String) {
         gender.value = GenderEnum.entries.find { it.value == newGender }
+        Log.d("GeneralPassApplicationModel", "=== $gender || ${gender.value}")
+        when (val validation = ValidationUtils.validateGender(newGender)) {
+            is ValidationResult.Error -> genderError.value = validation.message
+            else -> genderError.value = null
+        }
     }
 
     fun updatePhone(newPhone: String) {
         phone.value = newPhone
+        when (val validation = ValidationUtils.validatePhone(newPhone)) {
+            is ValidationResult.Error -> phoneError.value = validation.message
+            else -> phoneError.value = null
+        }
     }
 
     fun updateEmail(newEmail: String) {
         email.value = newEmail
+        when (val validation = ValidationUtils.validateEmail(newEmail)) {
+            is ValidationResult.Error -> emailError.value = validation.message
+            else -> emailError.value = null
+        }
     }
 
     fun updateAadhar(newAadhar: String) {
         aadhar.value = newAadhar
+        when (val validation = ValidationUtils.validateAadhar(newAadhar)) {
+            is ValidationResult.Error -> aadharError.value = validation.message
+            else -> aadharError.value = null
+        }
     }
 
     fun updateHouseNumber(newHouseNumber: String) {
         houseNumber.value = newHouseNumber
+        when (val validation = ValidationUtils.validateHouseNumber(newHouseNumber)) {
+            is ValidationResult.Error -> houseNumberError.value = validation.message
+            else -> houseNumberError.value = null
+        }
     }
 
     fun updateDuration(newDuration: String) {
         duration.value = newDuration
+        when (val validation = ValidationUtils.validateDuration(newDuration)) {
+            is ValidationResult.Error -> durationError.value = validation.message
+            else -> durationError.value = null
+        }
     }
 
     fun updateStreet(newStreet: String) {
         street.value = newStreet
+        when (val validation = ValidationUtils.validateStreet(newStreet)) {
+            is ValidationResult.Error -> streetError.value = validation.message
+            else -> streetError.value = null
+        }
     }
 
     fun updateArea(newArea: String) {
         area.value = newArea
+        when (val validation = ValidationUtils.validateArea(newArea)) {
+            is ValidationResult.Error -> areaError.value = validation.message
+            else -> areaError.value = null
+        }
     }
 
     fun updateDistrict(newDistrict: String) {
         district.value = newDistrict
+        when (val districtValidation = ValidationUtils.validateDistrict(newDistrict)) {
+            is ValidationResult.Error -> districtError.value = districtValidation.message
+            else -> districtError.value = null
+        }
     }
 
     fun updateCity(newCity: String) {
         city.value = newCity
+        when (val validation = ValidationUtils.validateCity(newCity)) {
+            is ValidationResult.Error -> cityError.value = validation.message
+            else -> cityError.value = null
+        }
     }
 
     fun updateState(newState: String) {
         state.value = newState
+        when (val validation = ValidationUtils.validateState(newState)) {
+            is ValidationResult.Error -> stateError.value = validation.message
+            else -> stateError.value = null
+        }
     }
 
     fun updatePincode(newPincode: String) {
         pincode.value = newPincode
+        when (val validation = ValidationUtils.validatePincode(newPincode)) {
+            is ValidationResult.Error -> pincodeError.value = validation.message
+            else -> pincodeError.value = null
+        }
     }
 
     fun updatePaymentConfirmationStatus(newPaymentConfirmationStatus: Boolean) {
@@ -190,7 +256,13 @@ class GeneralPassApplicationViewModel @Inject constructor(
             else -> lastnameError.value = null
         }
 
-        // Call validation for other fields
+        when (val guardianValidation = ValidationUtils.validateGuardianName(guardian.value)){
+            is ValidationResult.Error -> {
+                guardianError.value = guardianValidation.message
+                isValid = false
+            }
+            else -> guardianError.value = null
+        }
 
         when (val dobValidation = ValidationUtils.validateDateOfBirth(dateOfBirth.value)) {
             is ValidationResult.Error -> {
@@ -198,6 +270,13 @@ class GeneralPassApplicationViewModel @Inject constructor(
                 isValid = false
             }
             else -> dateOfBirthError.value = null
+        }
+        when (val genderValidation = ValidationUtils.validateGender(gender.value.toString())){
+            is ValidationResult.Error ->{
+                genderError.value=genderValidation.message
+                isValid = false
+            }
+            else -> genderError.value = null
         }
 
         when (val phoneValidation = ValidationUtils.validatePhone(phone.value)) {
@@ -222,6 +301,55 @@ class GeneralPassApplicationViewModel @Inject constructor(
                 isValid = false
             }
             else -> aadharError.value = null
+        }
+        when (val houseNumberValidation = ValidationUtils.validateHouseNumber(houseNumber.value)){
+            is ValidationResult.Error -> {
+                houseNumberError.value=houseNumberValidation.message
+                isValid = false
+            }
+            else ->houseNumberError.value=null
+        }
+        when (val streetValidation = ValidationUtils.validateStreet(street.value)){
+            is ValidationResult.Error -> {
+                streetError.value=streetValidation.message
+                isValid=false
+            }
+            else ->streetError.value=null
+        }
+        when (val areaValidation = ValidationUtils.validateArea(area.value)){
+            is ValidationResult.Error -> {
+                areaError.value=areaValidation.message
+                isValid=false
+            }
+            else ->areaError.value=null
+        }
+        when (val districtValidation = ValidationUtils.validateDistrict(district.value)) {
+            is ValidationResult.Error -> {
+                districtError.value = districtValidation.message
+                isValid = false
+            }
+            else -> districtError.value = null
+        }
+        when (val cityValidation = ValidationUtils.validateCity(city.value)){
+            is ValidationResult.Error -> {
+                cityError.value=cityValidation.message
+                isValid=false
+            }
+            else ->cityError.value=null
+        }
+        when (val stateValidation = ValidationUtils.validateState(state.value)){
+            is ValidationResult.Error -> {
+                stateError.value=stateValidation.message
+                isValid=false
+            }
+            else ->stateError.value=null
+        }
+        when (val pincodeValidation = ValidationUtils.validatePincode(pincode.value)){
+            is ValidationResult.Error -> {
+                pincodeError.value=pincodeValidation.message
+                isValid=false
+            }
+            else ->pincodeError.value=null
         }
 
         when (val durationValidation = ValidationUtils.validateDuration(duration.value)) {
@@ -297,10 +425,6 @@ class GeneralPassApplicationViewModel @Inject constructor(
             "success" -> {
                 viewModelScope.launch {
                     triggerRecomposition()
-//                    updatePopupStatus(true)
-//                    popupTitle.value = "Application Submitted"
-//                    contentOnFirstLine.value = "You will be notified once your"
-//                    contentOnSecondLine.value = "application is approved"
                     updatePopupStatusAsSuccess()
                     Log.d(
                         "GeneralPassViewModel",
@@ -308,26 +432,11 @@ class GeneralPassApplicationViewModel @Inject constructor(
                     )
                     resetCurrentUserData()
                     val result = generateUserPass()
-//                    if (result is OperationStatus.Success) {
-//                        popupStatus.value = true
-//                        popupTitle.value = "Application Submitted"
-//                        contentOnFirstLine.value = "You will be notified once your"
-//                        contentOnSecondLine.value = "application is approved"
-//                    } else {
-//                        popupStatus.value = true
-//                        popupTitle.value = "Submission Failed"
-//                        contentOnFirstLine.value = "Contact customer support"
-//                        contentOnSecondLine.value = "with support@urbanpass.com"
-//                    }
                 }
             }
 
             "error" -> {
                 triggerRecomposition()
-//                popupStatus.value = true
-//                popupTitle.value = "Submission Failed"
-//                contentOnFirstLine.value = "Contact customer support"
-//                contentOnSecondLine.value = "with support@urbanpass.com"
                 Log.e(
                     "GeneralPassViewModel",
                     "Payment error: $errorCode, message: $errorMessage, data: $paymentData"
@@ -406,8 +515,10 @@ class GeneralPassApplicationViewModel @Inject constructor(
     }
 
     fun onClickSubmit() {
-        updatePaymentConfirmationStatus(true)
-        calculatePrice()
+        if(validateFields()) {
+            updatePaymentConfirmationStatus(true)
+            calculatePrice()
+        }
     }
 
     fun onClickPurchaseConfirm(activity: Activity) {
@@ -418,21 +529,11 @@ class GeneralPassApplicationViewModel @Inject constructor(
                     is OperationStatus.Success -> {
                         Log.d("GeneralPassViewModel", "User updated successfully")
 
-                        // Call the payment screen
                         callPaymentScreen(activity)
 
-                        // Generate user pass
                         val generateUserPassResult = generateUserPass()
                         if (generateUserPassResult is OperationStatus.Success) {
-//                            popupStatus.value = true
-//                            popupTitle.value = "Application Submitted"
-//                            contentOnFirstLine.value = "You will be notified once your"
-//                            contentOnSecondLine.value = "application is approved"
                         } else {
-//                            popupStatus.value = true
-//                            popupTitle.value = "Submission Failed"
-//                            contentOnFirstLine.value = "Contact customer support"
-//                            contentOnSecondLine.value = "with support@urbanpass.com"
                         }
                     }
 
@@ -457,7 +558,7 @@ class GeneralPassApplicationViewModel @Inject constructor(
             "guardian" to guardian.value,
             "dateOfBirth" to dateOfBirth.value,
             "aadhar" to aadhar.value,
-            "gender" to gender.value.toString(),
+            "gender" to (gender.value?.value ?: ""),
             "phone" to phone.value,
             "houseNumber" to houseNumber.value,
             "street" to street.value,
@@ -476,13 +577,13 @@ class GeneralPassApplicationViewModel @Inject constructor(
             id = generateId(),
             mrn = generateMrn(),
             age = calculateAge(dateOfBirth.value ?: ""),
-            gender = gender.value.toString(),
+            gender = gender.value?.value ?: "",
             phone = phone.value ?: "",
             type = "general",
             dob = dateOfBirth.value ?: "",
             validity = calculateDuration(duration.value)
         )
-        Log.d("GeneralPassViewModel", "User pass created at 320line: ${currentUserPass.value}")
+        Log.d("GeneralPassViewModel", "User pass created: ${currentUserPass.value}")
     }
 
     private fun calculateAge(dateOfBirth: String): Int {

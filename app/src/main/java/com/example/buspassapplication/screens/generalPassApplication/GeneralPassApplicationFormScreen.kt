@@ -86,6 +86,24 @@ fun GeneralPassApplicationFormScreen(
 
     val shouldRecompose by viewModel.shouldRecompose.collectAsState()
 
+    // Add error state collections
+    val surnameError by viewModel.surnameError.collectAsState()
+    val lastnameError by viewModel.lastnameError.collectAsState()
+    val guardianError by viewModel.guardianError.collectAsState()
+    val dateOfBirthError by viewModel.dateOfBirthError.collectAsState()
+    val genderError by viewModel.genderError.collectAsState()
+    val phoneError by viewModel.phoneError.collectAsState()
+    val emailError by viewModel.emailError.collectAsState()
+    val aadharError by viewModel.aadharError.collectAsState()
+    val houseNumberError by viewModel.houseNumberError.collectAsState()
+    val streetError by viewModel.streetError.collectAsState()
+    val areaError by viewModel.areaError.collectAsState()
+    val districtError by viewModel.districtError.collectAsState()
+    val cityError by viewModel.cityError.collectAsState()
+    val stateError by viewModel.stateError.collectAsState()
+    val pincodeError by viewModel.pincodeError.collectAsState()
+    val durationError by viewModel.durationError.collectAsState()
+
     if (shouldRecompose) {
         viewModel.clearRecompositionFlag()
     }
@@ -121,7 +139,9 @@ fun GeneralPassApplicationFormScreen(
                 onValueChanged = {
                     viewModel.updateSurname(it)
                 },
-                enabled = currentUser?.surname == null
+                enabled = currentUser?.surname == null,
+                isError = surnameError != null,
+                errorMessage = surnameError
             )
             OutlinedInputField(
                 label = "Lastname",
@@ -132,7 +152,9 @@ fun GeneralPassApplicationFormScreen(
                 onValueChanged = {
                     viewModel.updateLastname(it)
                 },
-                enabled = currentUser?.lastname == null
+                enabled = currentUser?.lastname == null,
+                isError = lastnameError != null,
+                errorMessage = lastnameError
             )
             OutlinedInputField(
                 label = "Guardian Name",
@@ -152,7 +174,9 @@ fun GeneralPassApplicationFormScreen(
                 value = dateOfBirth ?: "",
                 onValueChanged = {
                     viewModel.updateDateOfBirth(it)
-                }
+                },
+                isError = dateOfBirthError != null,
+                errorMessage = dateOfBirthError
             )
             GenderDropDown(
                 label = "Gender",
@@ -161,7 +185,9 @@ fun GeneralPassApplicationFormScreen(
                 onItemSelected = {
                     viewModel.updateGender(it)
                 },
-                modifier = Modifier.width(280.toResponsiveDp())
+                modifier = Modifier.width(280.toResponsiveDp()),
+                isError = genderError != null,
+                errorMessage = genderError,
             )
             Spacer(modifier = Modifier.padding(bottom = 15.toResponsiveDp()))
             OutlinedInputField(
@@ -172,7 +198,9 @@ fun GeneralPassApplicationFormScreen(
                 value = phone ?: "",
                 onValueChanged = {
                     viewModel.updatePhone(it)
-                }
+                },
+                isError = phoneError != null,
+                errorMessage = phoneError
             )
             OutlinedInputField(
                 label = "Email",
@@ -183,7 +211,9 @@ fun GeneralPassApplicationFormScreen(
                 onValueChanged = {
                     viewModel.updateEmail(it)
                 },
-                enabled = currentUser?.email == null
+                enabled = currentUser?.email == null,
+                isError = emailError != null,
+                errorMessage = emailError
             )
             OutlinedInputField(
                 label = "Aadhar no",
@@ -194,7 +224,9 @@ fun GeneralPassApplicationFormScreen(
                 onValueChanged = {
                     viewModel.updateAadhar(it)
                 },
-                enabled = currentUser?.aadhar == null
+                enabled = currentUser?.aadhar == null,
+                isError = aadharError != null,
+                errorMessage = aadharError
             )
             OutlinedInputField(
                 label = "House No",
@@ -204,7 +236,9 @@ fun GeneralPassApplicationFormScreen(
                 value = houseNumber ?: "",
                 onValueChanged = {
                     viewModel.updateHouseNumber(it)
-                }
+                },
+                isError = houseNumberError != null,
+                errorMessage = houseNumberError
             )
             OutlinedInputField(
                 label = "Street",
@@ -214,7 +248,9 @@ fun GeneralPassApplicationFormScreen(
                 value = street ?: "",
                 onValueChanged = {
                     viewModel.updateStreet(it)
-                }
+                },
+                isError = streetError != null,
+                errorMessage = streetError
             )
             OutlinedInputField(
                 label = "Area",
@@ -224,7 +260,9 @@ fun GeneralPassApplicationFormScreen(
                 value = area ?: "",
                 onValueChanged = {
                     viewModel.updateArea(it)
-                }
+                },
+                isError = areaError != null,
+                errorMessage = areaError
             )
             OutlinedInputField(
                 label = "District",
@@ -234,7 +272,9 @@ fun GeneralPassApplicationFormScreen(
                 value = district ?: "",
                 onValueChanged = {
                     viewModel.updateDistrict(it)
-                }
+                },
+                isError = districtError != null,
+                errorMessage = districtError
             )
             OutlinedInputField(
                 label = "City",
@@ -244,7 +284,9 @@ fun GeneralPassApplicationFormScreen(
                 value = city ?: "",
                 onValueChanged = {
                     viewModel.updateCity(it)
-                }
+                },
+                isError = cityError != null,
+                errorMessage = cityError
             )
             OutlinedInputField(
                 label = "State",
@@ -254,7 +296,9 @@ fun GeneralPassApplicationFormScreen(
                 value = state ?: "",
                 onValueChanged = {
                     viewModel.updateState(it)
-                }
+                },
+                isError = stateError != null,
+                errorMessage = stateError
             )
             OutlinedInputField(
                 label = "Pin Code",
@@ -264,7 +308,9 @@ fun GeneralPassApplicationFormScreen(
                 value = pincode ?: "",
                 onValueChanged = {
                     viewModel.updatePincode(it)
-                }
+                },
+                isError = pincodeError != null,
+                errorMessage = pincodeError
             )
             DropDown(
                 label = "Duration",
@@ -272,7 +318,9 @@ fun GeneralPassApplicationFormScreen(
                 value = duration ?: "",
                 onItemSelected = {
                     viewModel.updateDuration(it)
-                }
+                },
+                isError = durationError != null,
+                errorMessage = durationError
             )
             PrimaryButton(
                 text = "Submit",

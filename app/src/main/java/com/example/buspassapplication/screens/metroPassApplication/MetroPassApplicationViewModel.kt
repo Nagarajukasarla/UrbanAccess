@@ -9,17 +9,25 @@ import com.example.buspassapplication.PaymentActivity
 import com.example.buspassapplication.app.launchCatching
 import com.example.buspassapplication.request.RazorpayOrderRequest
 import com.example.buspassapplication.data.User
+import com.example.buspassapplication.data.UserPass
+import com.example.buspassapplication.enums.GenderEnum
 import com.example.buspassapplication.models.AppViewModel
 import com.example.buspassapplication.models.implementation.RazorpayServiceImplementation
 import com.example.buspassapplication.models.service.AccountService
+import com.example.buspassapplication.models.service.PassService
 import com.example.buspassapplication.models.utils.OperationStatus
+import com.example.buspassapplication.models.utils.ValidationResult
+import com.example.buspassapplication.models.utils.ValidationUtils
 import com.example.buspassapplication.response.RazorpayOrderResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Calendar
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,7 +43,7 @@ class MetroPassApplicationViewModel @Inject constructor(
     val lastname = MutableStateFlow<String?>(null)
     val guardian = MutableStateFlow<String?>(null)
     val dateOfBirth = MutableStateFlow<String?>(null)
-    val gender = MutableStateFlow<String?>(null)
+    val gender = MutableStateFlow<GenderEnum?>(null)
     val phone = MutableStateFlow<String?>(null)
     val email = MutableStateFlow<String?>(null)
     val aadhar = MutableStateFlow<String?>(null)
@@ -109,7 +117,7 @@ class MetroPassApplicationViewModel @Inject constructor(
     }
 
     fun updateGender(newGender: String) {
-        gender.value = newGender
+        gender.value = GenderEnum.entries.find { it.value == newGender }
     }
 
     fun updatePhone(newPhone: String) {
@@ -233,7 +241,7 @@ class MetroPassApplicationViewModel @Inject constructor(
                 lastname.value = it.lastname
                 guardian.value = it.guardian
                 dateOfBirth.value = it.dateOfBirth
-                gender.value = it.gender
+                gender.value = GenderEnum.entries.find { enum -> enum.value== it.gender }
                 phone.value = it.phone
                 email.value = it.email
                 aadhar.value = it.aadhar
@@ -356,10 +364,13 @@ class MetroPassApplicationViewModel @Inject constructor(
             }
         }
     }
+    fun onClickSubmit() {
+        updatePaymentConfirmationStatus(true)
+        calculatePrice()
+    }
 
 
-
-    fun onClickSubmit(activity: Activity) {
+    fun onClickPurchaseConfirm(activity: Activity) {
         viewModelScope.launchCatching(
             block = {
                 when (val result = accountService.updateUser(createUserMap())) {

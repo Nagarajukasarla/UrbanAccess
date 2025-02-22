@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.example.buspassapplication.ui.theme.LightGray
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,21 +33,23 @@ fun GenderDropDown(
     onItemSelected: (String) -> Unit,
     modifier: Modifier = Modifier.fillMaxWidth(),
     isError: Boolean = false,
-    errorMessage: String? = null
+    errorMessage: String? = null,
+    enabled: Boolean = true
 ) {
     var isExpanded by remember { mutableStateOf(false) }
     var selectedText by remember { mutableStateOf(value) }
 
     Column {
         ExposedDropdownMenuBox(
-            expanded = isExpanded,
-            onExpandedChange = { isExpanded = !isExpanded }
+            expanded = isExpanded && enabled,
+            onExpandedChange = { if (enabled) isExpanded = !isExpanded }
         ) {
             OutlinedTextField(
                 modifier = modifier.menuAnchor(),
                 value = selectedText,
                 onValueChange = { },
                 readOnly = true,
+                enabled = enabled,
                 label = {
                     Text(
                         text = label,
@@ -64,27 +67,36 @@ fun GenderDropDown(
                         focusedBorderColor = Color.Red,
                         unfocusedBorderColor = Color.Red,
                         focusedLabelColor = Color.Red,
-                        errorBorderColor = Color.Red
+                        errorBorderColor = Color.Red,
+                        disabledTextColor = LightGray,
+                        disabledBorderColor = LightGray,
+                        disabledLabelColor = LightGray
                     )
                 } else {
-                    OutlinedTextFieldDefaults.colors()
+                    OutlinedTextFieldDefaults.colors(
+                        disabledTextColor = LightGray,
+                        disabledBorderColor = LightGray,
+                        disabledLabelColor = LightGray
+                    )
                 }
             )
-            ExposedDropdownMenu(
-                expanded = isExpanded,
-                onDismissRequest = { isExpanded = false }
-            ) {
-                options.forEach { gender ->
-                    DropdownMenuItem(
-                        text = {
-                            Text(text = gender.value)
-                        },
-                        onClick = {
-                            selectedText = gender.value
-                            onItemSelected(selectedText)
-                            isExpanded = false
-                        }
-                    )
+            if (enabled) {
+                ExposedDropdownMenu(
+                    expanded = isExpanded,
+                    onDismissRequest = { isExpanded = false }
+                ) {
+                    options.forEach { gender ->
+                        DropdownMenuItem(
+                            text = {
+                                Text(text = gender.value)
+                            },
+                            onClick = {
+                                selectedText = gender.value
+                                onItemSelected(selectedText)
+                                isExpanded = false
+                            }
+                        )
+                    }
                 }
             }
         }

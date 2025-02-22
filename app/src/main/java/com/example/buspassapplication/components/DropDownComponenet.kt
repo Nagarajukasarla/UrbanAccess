@@ -9,6 +9,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,8 +18,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.buspassapplication.ui.theme.DarkGray
 import toResponsiveDp
 import toResponsiveSp
@@ -31,7 +35,9 @@ fun DropDown(
     options: List<String>,
     value: String,
     onItemSelected: (String) -> Unit,
-    modifier: Modifier = Modifier.fillMaxWidth()
+    modifier: Modifier = Modifier.fillMaxWidth(),
+    isError: Boolean = false,
+    errorMessage: String? = null
 ) {
     var isExpanded by remember { mutableStateOf(false) }
     var selectedText by remember { mutableStateOf(value) }
@@ -67,6 +73,17 @@ fun DropDown(
                     ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded)
                 },
                 singleLine = true,
+                isError = isError,
+                colors = if (isError) {
+                    OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = Color.Red,
+                        unfocusedBorderColor = Color.Red,
+                        focusedLabelColor = Color.Red,
+                        errorBorderColor = Color.Red
+                    )
+                } else {
+                    ExposedDropdownMenuDefaults.outlinedTextFieldColors()
+                }
             )
             ExposedDropdownMenu(
                 expanded = isExpanded,
@@ -89,6 +106,14 @@ fun DropDown(
                     )
                 }
             }
+        }
+        if (isError && errorMessage != null) {
+            Text(
+                text = errorMessage,
+                color = Color.Red,
+                fontSize = 12.sp,
+                modifier = Modifier.padding(start = 16.dp)
+            )
         }
     }
 }

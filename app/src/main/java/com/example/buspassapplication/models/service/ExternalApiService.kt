@@ -17,6 +17,10 @@ interface ExternalApiService {
     @POST("generate-order")
     suspend fun generateOrder(@Body razorpayOrderRequest: RazorpayOrderRequest): Response<RazorpayOrderResponse>
 
+    @POST("submitpass")
+
+    @POST("updatepass")
+
 }
 
 

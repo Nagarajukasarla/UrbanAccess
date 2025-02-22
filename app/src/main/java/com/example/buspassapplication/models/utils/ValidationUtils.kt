@@ -1,6 +1,7 @@
 package com.example.buspassapplication.models.utils
 
 import com.example.buspassapplication.enums.GenderEnum
+import org.checkerframework.checker.units.qual.Area
 import java.util.Calendar
 
 object ValidationUtils {
@@ -103,7 +104,6 @@ object ValidationUtils {
             else -> ValidationResult.Success
         }
     }
-
     fun validateGender(gender: String?): ValidationResult {
         return when {
             gender.isNullOrBlank() -> ValidationResult.Error("Gender is required")
@@ -115,22 +115,29 @@ object ValidationUtils {
     fun validateHouseNumber(houseNumber: String?): ValidationResult {
         return basicTextValidation(houseNumber, "House Number")
     }
-
-    fun validateArea(street: String?): ValidationResult {
-        return basicTextValidation(street, "Area")
+    fun validateStreet(street: String?): ValidationResult {
+        return basicTextValidation(street, "Street")
     }
 
-    fun validateDistrict(street: String?): ValidationResult {
-        return basicTextValidation(street, "District")
+    fun validateArea(area: String?): ValidationResult {
+        return basicTextValidation(area, "Area")
     }
 
-    fun validateCity(street: String?): ValidationResult {
-        return basicTextValidation(street, "City")
+    fun validateDistrict(district: String?): ValidationResult {
+        return basicTextValidation(district, "District")
     }
 
-    fun validatePincode(street: String?): ValidationResult {
-        return basicTextValidation(street, "Pincode")
+    fun validateCity(city: String?): ValidationResult {
+        return basicTextValidation(city, "City")
     }
+    fun validateState(state: String?): ValidationResult {
+        return basicTextValidation(state, "State")
+    }
+
+    fun validatePincode(pincode: String?): ValidationResult {
+        return basicTextValidation(pincode, "Pincode")
+    }
+
 
 
 }

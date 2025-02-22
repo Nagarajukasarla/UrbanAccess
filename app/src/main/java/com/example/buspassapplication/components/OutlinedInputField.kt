@@ -1,5 +1,7 @@
 package com.example.buspassapplication.components
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -12,6 +14,9 @@ import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.LightGray
 import com.example.buspassapplication.ui.theme.NavyBlue
 import toResponsiveSp
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun OutlinedInputField (
@@ -30,31 +35,52 @@ fun OutlinedInputField (
     disabledBorderColor = LightGray
 ),
     keyboardOptions : KeyboardOptions = KeyboardOptions.Default,
-    textStyle : TextStyle = TextStyle(letterSpacing = 0.7.toResponsiveSp(),
-    ),
-    leadingIcon: @Composable (() -> Unit)? = null
+    textStyle : TextStyle = TextStyle(letterSpacing = 0.7.toResponsiveSp()),
+    leadingIcon: @Composable (() -> Unit)? = null,
+    isError: Boolean = false,
+    errorMessage: String? = null
 ) {
-    OutlinedTextField (
-        modifier = modifier,
-        value =  if (value.isEmpty()) defaultStartChar else value,
-        onValueChange = { newValue ->
-            if (newValue.startsWith(defaultStartChar)) {
+    Column {
+        OutlinedTextField(
+            modifier = modifier,
+            value =  if (value.isEmpty()) defaultStartChar else value,
+            onValueChange = { newValue ->
+                if (newValue.startsWith(defaultStartChar)) {
                     onValueChanged(newValue)
-            }
-        },
-        label = {
-            Text(
-                text = label,
-                style = TextStyle(
-                    letterSpacing = 0.3.toResponsiveSp()
+                }
+            },
+            label = {
+                Text(
+                    text = label,
+                    style = TextStyle(
+                        letterSpacing = 0.3.toResponsiveSp()
+                    )
                 )
+            },
+            textStyle = textStyle,
+            colors = if (isError) {
+                OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = Color.Red,
+                    unfocusedBorderColor = Color.Red,
+                    focusedLabelColor = Color.Red,
+                    errorBorderColor = Color.Red
+                )
+            } else {
+                colors
+            },
+            singleLine = true,
+            enabled = enabled,
+            keyboardOptions = keyboardOptions,
+            leadingIcon = leadingIcon,
+            isError = isError
+        )
+        if (isError && errorMessage != null) {
+            Text(
+                text = errorMessage,
+                color = Color.Red,
+                fontSize = 12.sp,
+                modifier = Modifier.padding(start = 16.dp)
             )
-        },
-        textStyle =textStyle,
-        colors = colors,
-        singleLine = true,
-        enabled = enabled,
-        keyboardOptions = keyboardOptions,
-        leadingIcon = leadingIcon
-    )
+        }
+    }
 }
