@@ -22,8 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavHostController
@@ -88,7 +86,6 @@ fun MetroPassApplicationFormScreen(
     if (shouldRecompose) {
         viewModel.clearRecompositionFlag()
     }
-
 
     Log.d("GeneralPassApplicationFormScreen", "Popup status: $popupStatus")
 
@@ -166,7 +163,7 @@ fun MetroPassApplicationFormScreen(
             GenderDropDown(
                 label = "Gender",
                 options = Data.genderOptions,
-                value = gender?.value ?: "",
+                value = gender ?: "",
                 onItemSelected = {
                     viewModel.updateGender(it)
                 },

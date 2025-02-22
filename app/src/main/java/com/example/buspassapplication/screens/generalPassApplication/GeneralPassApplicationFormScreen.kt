@@ -33,7 +33,6 @@ import com.example.buspassapplication.components.OutlinedInputField
 import com.example.buspassapplication.components.PaymentConfirmationPopup
 import com.example.buspassapplication.components.Popup
 import com.example.buspassapplication.components.PrimaryButton
-import com.example.buspassapplication.enums.GenderEnum
 import com.example.buspassapplication.ui.theme.DarkGray
 import com.example.buspassapplication.ui.theme.PoppinsBold
 import toResponsiveDp
