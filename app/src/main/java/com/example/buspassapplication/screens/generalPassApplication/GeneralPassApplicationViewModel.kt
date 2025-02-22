@@ -9,10 +9,14 @@ import com.example.buspassapplication.MainActivity
 import com.example.buspassapplication.app.launchCatching
 import com.example.buspassapplication.data.User
 import com.example.buspassapplication.data.UserPass
+import com.example.buspassapplication.enums.GenderEnum
 import com.example.buspassapplication.models.AppViewModel
 import com.example.buspassapplication.models.implementation.RazorpayServiceImplementation
 import com.example.buspassapplication.models.service.AccountService
+import com.example.buspassapplication.models.service.PassService
 import com.example.buspassapplication.models.utils.OperationStatus
+import com.example.buspassapplication.models.utils.ValidationResult
+import com.example.buspassapplication.models.utils.ValidationUtils
 import com.example.buspassapplication.request.RazorpayOrderRequest
 import com.example.buspassapplication.response.RazorpayOrderResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,6 +33,7 @@ import javax.inject.Inject
 @HiltViewModel
 class GeneralPassApplicationViewModel @Inject constructor(
     private val accountService: AccountService,
+    private val passService: PassService,
     private val razorpayServiceImplementation: RazorpayServiceImplementation,
     private val savedStateHandle: SavedStateHandle
 ) : AppViewModel() {
@@ -37,7 +42,7 @@ class GeneralPassApplicationViewModel @Inject constructor(
     val lastname = MutableStateFlow<String?>(null)
     val guardian = MutableStateFlow<String?>(null)
     val dateOfBirth = MutableStateFlow<String?>(null)
-    val gender = MutableStateFlow<String?>(null)
+    val gender = MutableStateFlow<GenderEnum?>(null)
     val phone = MutableStateFlow<String?>(null)
     val email = MutableStateFlow<String?>(null)
     val aadhar = MutableStateFlow<String?>(null)
@@ -57,11 +62,28 @@ class GeneralPassApplicationViewModel @Inject constructor(
     val popupTitle = MutableStateFlow("")
     val contentOnFirstLine = MutableStateFlow("")
     val contentOnSecondLine = MutableStateFlow("")
-    val currentUserPass = MutableStateFlow<UserPass?>(null)
+    private val currentUserPass = MutableStateFlow<UserPass?>(null)
 
     val shouldRecompose = MutableStateFlow(false)
 
     val paymentConfirmationPopupStatus = MutableStateFlow(false)
+
+    val surnameError = MutableStateFlow<String?>(null)
+    val lastnameError = MutableStateFlow<String?>(null)
+    val guardianError = MutableStateFlow<String?>(null)
+    val dateOfBirthError = MutableStateFlow<String?>(null)
+    val genderError = MutableStateFlow<String?>(null)
+    val phoneError = MutableStateFlow<String?>(null)
+    val emailError = MutableStateFlow<String?>(null)
+    val aadharError = MutableStateFlow<String?>(null)
+    val houseNumberError = MutableStateFlow<String?>(null)
+    val streetError = MutableStateFlow<String?>(null)
+    val areaError = MutableStateFlow<String?>(null)
+    val districtError = MutableStateFlow<String?>(null)
+    val cityError = MutableStateFlow<String?>(null)
+    val stateError = MutableStateFlow<String?>(null)
+    val pincodeError = MutableStateFlow<String?>(null)
+    val durationError = MutableStateFlow<String?>(null)
 
     init {
         viewModelScope.launch {
@@ -94,7 +116,7 @@ class GeneralPassApplicationViewModel @Inject constructor(
     }
 
     fun updateGender(newGender: String) {
-        gender.value = newGender
+        gender.value = GenderEnum.entries.find { it.value == newGender }
     }
 
     fun updatePhone(newPhone: String) {
@@ -149,6 +171,69 @@ class GeneralPassApplicationViewModel @Inject constructor(
         popupStatus.value = newPopupStatus
     }
 
+    private fun validateFields(): Boolean {
+        var isValid = true
+
+        when (val surnameValidation = ValidationUtils.validateSurname(surname.value)) {
+            is ValidationResult.Error -> {
+                surnameError.value = surnameValidation.message
+                isValid = false
+            }
+            else -> surnameError.value = null
+        }
+
+        when (val lastnameValidation = ValidationUtils.validateLastname(lastname.value)) {
+            is ValidationResult.Error -> {
+                lastnameError.value = lastnameValidation.message
+                isValid = false
+            }
+            else -> lastnameError.value = null
+        }
+
+        // Call validation for other fields
+
+        when (val dobValidation = ValidationUtils.validateDateOfBirth(dateOfBirth.value)) {
+            is ValidationResult.Error -> {
+                dateOfBirthError.value = dobValidation.message
+                isValid = false
+            }
+            else -> dateOfBirthError.value = null
+        }
+
+        when (val phoneValidation = ValidationUtils.validatePhone(phone.value)) {
+            is ValidationResult.Error -> {
+                phoneError.value = phoneValidation.message
+                isValid = false
+            }
+            else -> phoneError.value = null
+        }
+
+        when (val emailValidation = ValidationUtils.validateEmail(email.value)) {
+            is ValidationResult.Error -> {
+                emailError.value = emailValidation.message
+                isValid = false
+            }
+            else -> emailError.value = null
+        }
+
+        when (val aadharValidation = ValidationUtils.validateAadhar(aadhar.value)) {
+            is ValidationResult.Error -> {
+                aadharError.value = aadharValidation.message
+                isValid = false
+            }
+            else -> aadharError.value = null
+        }
+
+        when (val durationValidation = ValidationUtils.validateDuration(duration.value)) {
+            is ValidationResult.Error -> {
+                durationError.value = durationValidation.message
+                isValid = false
+            }
+            else -> durationError.value = null
+        }
+        return isValid
+    }
+
     private suspend fun setCurrentUserData() {
         currentUser.collect { user ->
             Log.d("GeneralPassViewModel", "Current user: $user")
@@ -157,7 +242,7 @@ class GeneralPassApplicationViewModel @Inject constructor(
                 lastname.value = it.lastname
                 guardian.value = it.guardian
                 dateOfBirth.value = it.dateOfBirth
-                gender.value = it.gender
+                gender.value = GenderEnum.entries.find { enum -> enum.value == it.gender }
                 phone.value = it.phone
                 email.value = it.email
                 aadhar.value = it.aadhar
@@ -191,7 +276,7 @@ class GeneralPassApplicationViewModel @Inject constructor(
         duration.value = null
     }
 
-    fun updatePopupStatusAsSuccess() {
+    private fun updatePopupStatusAsSuccess() {
         viewModelScope.launch {
             delay(2000)
             popupStatus.value = true
@@ -288,12 +373,6 @@ class GeneralPassApplicationViewModel @Inject constructor(
             val orderResponse = generateOrder(razorpayOrderRequest)
             orderResponse?.let { response ->
                 Log.d("GeneralPassViewModel", "Order response: $response")
-//                val intent = Intent(activity, PaymentActivity::class.java).apply {
-//                    putExtra("orderId", response.id)
-//                    putExtra("amount", response.amount)
-//                    putExtra("currency", response.currency)
-//                    putExtra("receipt", response.receipt)
-//                }
                 (activity as? MainActivity)?.startPaymentActivity(
                     response.id,
                     response.amount,
@@ -303,10 +382,11 @@ class GeneralPassApplicationViewModel @Inject constructor(
         }
     }
 
-    suspend fun generateUserPass(): OperationStatus {
+    private suspend fun generateUserPass(): OperationStatus {
+        if (currentUserPass.value == null) return OperationStatus.Failure(Exception("No Pass is Generated"));
         return withContext(Dispatchers.IO) {
             try {
-                val response = accountService.createUserPass(currentUserPass.value)
+                val response = passService.createPass(currentUserPass.value!!)
                 when (response) {
                     is OperationStatus.Success -> {
                         Log.d("GeneralPassViewModel", "User pass generated successfully")
@@ -377,7 +457,7 @@ class GeneralPassApplicationViewModel @Inject constructor(
             "guardian" to guardian.value,
             "dateOfBirth" to dateOfBirth.value,
             "aadhar" to aadhar.value,
-            "gender" to gender.value,
+            "gender" to gender.value.toString(),
             "phone" to phone.value,
             "houseNumber" to houseNumber.value,
             "street" to street.value,
@@ -391,11 +471,12 @@ class GeneralPassApplicationViewModel @Inject constructor(
 
     private fun createUserPass() {
         currentUserPass.value = UserPass(
+            userId = accountService.currentUserId,
             name = surname.value + " " + lastname.value,
             id = generateId(),
             mrn = generateMrn(),
             age = calculateAge(dateOfBirth.value ?: ""),
-            gender = gender.value ?: "",
+            gender = gender.value.toString(),
             phone = phone.value ?: "",
             type = "general",
             dob = dateOfBirth.value ?: "",

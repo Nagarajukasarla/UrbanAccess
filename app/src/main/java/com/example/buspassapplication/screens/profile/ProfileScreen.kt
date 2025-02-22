@@ -38,6 +38,7 @@ import com.example.buspassapplication.components.CircularImageWithAddPhoto
 import com.example.buspassapplication.components.CircularLoaderPopup
 import com.example.buspassapplication.components.DetailsContainerWithIcon
 import com.example.buspassapplication.components.DropDown
+import com.example.buspassapplication.components.GenderDropDown
 import com.example.buspassapplication.components.HeadingText
 import com.example.buspassapplication.components.OutlinedInputField
 import com.example.buspassapplication.components.Popup
@@ -266,7 +267,7 @@ fun ProfileScreen(
                     }
                 )
                 Spacer(modifier = Modifier.height(30.toResponsiveDp()))
-                DropDown(
+                GenderDropDown(
                     label = "Gender",
                     options = Data.genderOptions,
                     value = gender ?: "",

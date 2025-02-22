@@ -25,6 +25,7 @@ import androidx.navigation.NavHostController
 import com.example.buspassapplication.components.BackNavigationBar
 import com.example.buspassapplication.components.BlueLabelledText
 import com.example.buspassapplication.components.DropDown
+import com.example.buspassapplication.components.GenderDropDown
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.OutlinedInputField
 import com.example.buspassapplication.components.PrimaryButton
@@ -121,7 +122,7 @@ fun RoutePassApplicationFormScreen(
                 viewModel.updateDateOfBirth(it)
             }
         )
-        DropDown(
+        GenderDropDown(
             label = "Gender",
             options = Data.genderOptions,
             value = gender ?: "",

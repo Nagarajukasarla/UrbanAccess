@@ -1,7 +1,10 @@
 package com.example.buspassapplication.data
 
+import com.example.buspassapplication.enums.PassStatus
+
 data class UserPass (
     val id: String,
+    val userId: String,
     val mrn: String,
     val name: String,
     val age: Int,
@@ -10,4 +13,7 @@ data class UserPass (
     val validity: String,
     val type: String,
     val dob: String,
+    val status: PassStatus = PassStatus.PENDING,
+    val adminId: String? = null,
+    val processedAt: String? = null
 )

@@ -64,7 +64,6 @@ class AccountServiceImplementation @Inject constructor() : AccountService {
                                             Uri.EMPTY
                                         }
 
-
                                         User(
                                             id = it.getString("uid"),
                                             surname = it.getString("surname"),
@@ -86,6 +85,7 @@ class AccountServiceImplementation @Inject constructor() : AccountService {
                                             imageUri = imageUri,
                                             passes = (it.get("passes") as? List<Map<String, Any>>)?.map { passMap ->
                                                 UserPass(
+                                                    userId = currentUserId,
                                                     id = passMap["id"] as? String ?: "",
                                                     mrn = passMap["mrn"] as? String ?: "",
                                                     name = passMap["name"] as? String ?: "",
@@ -219,6 +219,7 @@ class AccountServiceImplementation @Inject constructor() : AccountService {
                     val updatedPasses = currentPasses?.toMutableList() ?: mutableListOf()
 
                     val newUserPassMap = hashMapOf(
+
                         "id" to userPass?.id,
                         "mrn" to userPass?.mrn,
                         "name" to userPass?.name,

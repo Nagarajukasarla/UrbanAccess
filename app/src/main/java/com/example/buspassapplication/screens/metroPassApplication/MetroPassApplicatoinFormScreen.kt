@@ -122,15 +122,15 @@ fun MetroPassApplicationFormScreen(
                 viewModel.updateDateOfBirth(it)
             }
         )
-        DropDown(
-            label = "Gender",
-            options = Data.genderOptions,
-            value = gender ?: "",
-            onItemSelected = {
-                viewModel.updateGender(it)
-            },
-            modifier = Modifier.width(280.toResponsiveDp())
-        )
+//        DropDown(
+//            label = "Gender",
+//            options = Data.genderOptions,
+//            value = gender ?: "",
+//            onItemSelected = {
+//                viewModel.updateGender(it)
+//            },
+//            modifier = Modifier.width(280.toResponsiveDp())
+//        )
         Spacer(modifier = Modifier.padding(bottom = 15.toResponsiveDp()))
         OutlinedInputField(
             label = "Mobile",

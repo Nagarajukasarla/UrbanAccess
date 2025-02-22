@@ -3,5 +3,10 @@ package com.example.buspassapplication.enums
 enum class GenderEnum(val value: String) {
     MALE("Male"),
     FEMALE("Female"),
-    OTHER("Other")
+    TRANSGENDER("Transgender"),
+    OTHER("Other");
+
+    override fun toString(): String {
+        return value
+    }
 }
