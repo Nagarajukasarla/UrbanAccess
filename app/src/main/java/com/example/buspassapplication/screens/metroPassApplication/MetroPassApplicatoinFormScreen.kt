@@ -1,6 +1,7 @@
 package com.example.buspassapplication.screens.metroPassApplication
 
 import android.app.Activity
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,20 +12,25 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavHostController
 import com.example.buspassapplication.components.BackNavigationBar
 import com.example.buspassapplication.components.DropDown
+import com.example.buspassapplication.components.GenderDropDown
 import com.example.buspassapplication.components.NormalText
 import com.example.buspassapplication.components.OutlinedInputField
+import com.example.buspassapplication.components.PaymentConfirmationPopup
 import com.example.buspassapplication.components.Popup
 import com.example.buspassapplication.components.PrimaryButton
 import com.example.buspassapplication.screens.generalPassApplication.Data
@@ -65,7 +71,7 @@ fun MetroPassApplicationFormScreen(
     val popupTitle by viewModel.popupTitle.collectAsState()
     val contentOnFirstLine by viewModel.contentOnFirstLine.collectAsState()
     val contentOnSecondLine by viewModel.contentOnSecondLine.collectAsState()
-val savedPopupStatus = rememberSaveable { mutableStateOf(popupStatus) }
+    val savedPopupStatus = rememberSaveable { mutableStateOf(popupStatus) }
     val savedPopupTitle = rememberSaveable { mutableStateOf(popupTitle) }
     val savedContentOnFirstLine = rememberSaveable { mutableStateOf(contentOnFirstLine) }
     val savedContentOnSecondLine = rememberSaveable { mutableStateOf(contentOnSecondLine) }
@@ -80,7 +86,6 @@ val savedPopupStatus = rememberSaveable { mutableStateOf(popupStatus) }
     if (shouldRecompose) {
         viewModel.clearRecompositionFlag()
     }
-
 
     Log.d("GeneralPassApplicationFormScreen", "Popup status: $popupStatus")
 
@@ -157,7 +162,7 @@ val savedPopupStatus = rememberSaveable { mutableStateOf(popupStatus) }
             GenderDropDown(
                 label = "Gender",
                 options = Data.genderOptions,
-                value = gender?.value ?: "",
+                value = gender ?: "",
                 onItemSelected = {
                     viewModel.updateGender(it)
                 },

@@ -9,6 +9,7 @@ import com.example.buspassapplication.PaymentActivity
 import com.example.buspassapplication.app.launchCatching
 import com.example.buspassapplication.request.RazorpayOrderRequest
 import com.example.buspassapplication.data.User
+import com.example.buspassapplication.enums.GenderEnum
 import com.example.buspassapplication.models.AppViewModel
 import com.example.buspassapplication.models.implementation.RazorpayServiceImplementation
 import com.example.buspassapplication.models.service.AccountService
@@ -35,7 +36,7 @@ class MetroPassApplicationViewModel @Inject constructor(
     val lastname = MutableStateFlow<String?>(null)
     val guardian = MutableStateFlow<String?>(null)
     val dateOfBirth = MutableStateFlow<String?>(null)
-    val gender = MutableStateFlow<String?>(null)
+    val gender = MutableStateFlow<GenderEnum?>(null)
     val phone = MutableStateFlow<String?>(null)
     val email = MutableStateFlow<String?>(null)
     val aadhar = MutableStateFlow<String?>(null)
