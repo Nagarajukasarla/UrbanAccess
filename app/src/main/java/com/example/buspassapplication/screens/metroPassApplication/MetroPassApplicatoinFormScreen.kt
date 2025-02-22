@@ -49,6 +49,7 @@ fun MetroPassApplicationFormScreen(
     val phone by viewModel.phone.collectAsState()
     val email by viewModel.email.collectAsState()
     val aadhar by viewModel.aadhar.collectAsState()
+    val duration by viewModel.duration.collectAsState()
     val houseNumber by viewModel.houseNumber.collectAsState()
     val street by viewModel.street.collectAsState()
     val area by viewModel.area.collectAsState()
@@ -56,13 +57,35 @@ fun MetroPassApplicationFormScreen(
     val city by viewModel.city.collectAsState()
     val state by viewModel.state.collectAsState()
     val pincode by viewModel.pincode.collectAsState()
+    val amount by viewModel.amount.collectAsState()
+    val paymentConfirmationStatus by viewModel.paymentConfirmationStatus.collectAsState()
     val currentUser by viewModel.currentUser.collectAsState(initial = null)
 
     val popupStatus by viewModel.popupStatus.collectAsState()
     val popupTitle by viewModel.popupTitle.collectAsState()
     val contentOnFirstLine by viewModel.contentOnFirstLine.collectAsState()
     val contentOnSecondLine by viewModel.contentOnSecondLine.collectAsState()
+val savedPopupStatus = rememberSaveable { mutableStateOf(popupStatus) }
+    val savedPopupTitle = rememberSaveable { mutableStateOf(popupTitle) }
+    val savedContentOnFirstLine = rememberSaveable { mutableStateOf(contentOnFirstLine) }
+    val savedContentOnSecondLine = rememberSaveable { mutableStateOf(contentOnSecondLine) }
 
+    savedPopupStatus.value = popupStatus
+    savedPopupTitle.value = popupTitle
+    savedContentOnFirstLine.value = contentOnFirstLine
+    savedContentOnSecondLine.value = contentOnSecondLine
+
+    val shouldRecompose by viewModel.shouldRecompose.collectAsState()
+
+    if (shouldRecompose) {
+        viewModel.clearRecompositionFlag()
+    }
+
+
+    Log.d("GeneralPassApplicationFormScreen", "Popup status: $popupStatus")
+
+    val key = popupStatus
+    CompositionLocalProvider(LocalLifecycleOwner provides LocalContext.current as LifecycleOwner) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -131,6 +154,15 @@ fun MetroPassApplicationFormScreen(
 //            },
 //            modifier = Modifier.width(280.toResponsiveDp())
 //        )
+            GenderDropDown(
+                label = "Gender",
+                options = Data.genderOptions,
+                value = gender?.value ?: "",
+                onItemSelected = {
+                    viewModel.updateGender(it)
+                },
+                modifier = Modifier.width(280.toResponsiveDp())
+            )
         Spacer(modifier = Modifier.padding(bottom = 15.toResponsiveDp()))
         OutlinedInputField(
             label = "Mobile",
@@ -234,6 +266,14 @@ fun MetroPassApplicationFormScreen(
                 viewModel.updatePincode(it)
             }
         )
+        DropDown(
+                label = "Duration",
+                options = Data.durationOptions,
+                value = duration ?: "",
+                onItemSelected = {
+                    viewModel.updateDuration(it)
+                }
+            )
         PrimaryButton(
             text = "Submit",
             width = 280.toResponsiveDp(),
@@ -259,6 +299,19 @@ fun MetroPassApplicationFormScreen(
                 }
             )
         }
+        if (paymentConfirmationStatus) {
+            PaymentConfirmationPopup(
+                amount = amount.toString().substring(0, amount.toString().length - 2),
+                onDismissRequest = {
+                    viewModel.updatePaymentConfirmationStatus(false)
+                },
+                onPayRequest = {
+                    viewModel.onClickPurchaseConfirm(activity = activity)
+                    viewModel.updatePaymentConfirmationStatus(false)
+                }
+            )
+        }
+        
     }
 }
 
