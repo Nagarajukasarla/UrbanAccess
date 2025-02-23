@@ -552,7 +552,6 @@ class GeneralPassApplicationViewModel @Inject constructor(
         )
     }
 
-
     private fun createUserMap(): Map<String, Any?> {
         return hashMapOf(
             "guardian" to guardian.value,
