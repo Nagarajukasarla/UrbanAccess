@@ -94,6 +94,7 @@ class AccountServiceImplementation @Inject constructor() : AccountService {
                                                     phone = passMap["phone"] as? String ?: "",
                                                     validity = passMap["validity"] as? String ?: "",
                                                     type = passMap["type"] as? String ?: "",
+                                                    divisionId = passMap["divisionId"] as? String ?: "",
                                                     dob = passMap["dob"] as? String ?: ""
                                                 )
                                             } ?: emptyList()

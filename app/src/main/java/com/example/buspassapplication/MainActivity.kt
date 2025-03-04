@@ -17,6 +17,8 @@ import com.example.buspassapplication.routes.PassScreenRoutes
 import com.example.buspassapplication.screens.generalPassApplication.GeneralPassApplicationViewModel
 import com.example.buspassapplication.screens.metroPassApplication.MetroPassApplicationViewModel
 import com.example.buspassapplication.ui.theme.BusPassApplicationTheme
+import com.google.firebase.appcheck.FirebaseAppCheck
+import com.google.firebase.appcheck.safetynet.SafetyNetAppCheckProviderFactory
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

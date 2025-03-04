@@ -14,6 +14,7 @@ data class UserPass (
     val type: String,
     val dob: String,
     val status: PassStatus = PassStatus.PENDING,
+    val divisionId: String,
     val adminId: String? = null,
     val processedAt: String? = null
 )

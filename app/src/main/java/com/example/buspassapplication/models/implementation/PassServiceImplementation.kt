@@ -34,6 +34,7 @@ class PassServiceImplementation @Inject constructor(): PassService {
                         "validity" to userPass.validity,
                         "type" to userPass.type,
                         "status" to userPass.status,
+                        "divisionId" to userPass.divisionId
                     )
 
                     updatedPasses.add(newUserPassMap)

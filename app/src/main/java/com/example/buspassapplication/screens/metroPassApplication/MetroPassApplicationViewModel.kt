@@ -413,21 +413,21 @@ class MetroPassApplicationViewModel @Inject constructor(
             "pincode" to pincode.value
         )
     }
-    private fun createUserPass() {
-        currentUserPass.value = UserPass(
-            userId = accountService.currentUserId,
-            name = surname.value + " " + lastname.value,
-            id = generateId(),
-            mrn = generateMrn(),
-            age = calculateAge(dateOfBirth.value ?: ""),
-            gender = gender.value.toString(),
-            phone = phone.value ?: "",
-            type = "general",
-            dob = dateOfBirth.value ?: "",
-            validity = calculateDuration(duration.value)
-        )
-        Log.d("MetroPassViewModel", "User pass created at 320line: ${currentUserPass.value}")
-    }
+//    private fun createUserPass() {
+//        currentUserPass.value = UserPass(
+//            userId = accountService.currentUserId,
+//            name = surname.value + " " + lastname.value,
+//            id = generateId(),
+//            mrn = generateMrn(),
+//            age = calculateAge(dateOfBirth.value ?: ""),
+//            gender = gender.value.toString(),
+//            phone = phone.value ?: "",
+//            type = "general",
+//            dob = dateOfBirth.value ?: "",
+//            validity = calculateDuration(duration.value)
+//        )
+//        Log.d("MetroPassViewModel", "User pass created at 320line: ${currentUserPass.value}")
+//    }
 
     private fun calculateAge(dateOfBirth: String): Int {
         if (dateOfBirth.isEmpty()) return 0

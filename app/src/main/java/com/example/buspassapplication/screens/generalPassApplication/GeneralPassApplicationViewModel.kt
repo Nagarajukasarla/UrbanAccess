@@ -11,12 +11,14 @@ import com.example.buspassapplication.data.User
 import com.example.buspassapplication.data.UserPass
 import com.example.buspassapplication.enums.GenderEnum
 import com.example.buspassapplication.models.AppViewModel
+import com.example.buspassapplication.models.implementation.AdminServiceImplementation
 import com.example.buspassapplication.models.implementation.RazorpayServiceImplementation
 import com.example.buspassapplication.models.service.AccountService
 import com.example.buspassapplication.models.service.PassService
 import com.example.buspassapplication.models.utils.OperationStatus
 import com.example.buspassapplication.models.utils.ValidationResult
 import com.example.buspassapplication.models.utils.ValidationUtils
+import com.example.buspassapplication.request.ApplicationRequest
 import com.example.buspassapplication.request.RazorpayOrderRequest
 import com.example.buspassapplication.response.RazorpayOrderResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,6 +26,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.Calendar
@@ -35,6 +38,7 @@ class GeneralPassApplicationViewModel @Inject constructor(
     private val accountService: AccountService,
     private val passService: PassService,
     private val razorpayServiceImplementation: RazorpayServiceImplementation,
+    private val adminServiceImplementation: AdminServiceImplementation,
     private val savedStateHandle: SavedStateHandle
 ) : AppViewModel() {
 
@@ -48,6 +52,7 @@ class GeneralPassApplicationViewModel @Inject constructor(
     val aadhar = MutableStateFlow<String?>(null)
     val houseNumber = MutableStateFlow<String?>(null)
     val duration = MutableStateFlow<String?>(null)
+    val division = MutableStateFlow<String?>(null)
     val street = MutableStateFlow<String?>(null)
     val area = MutableStateFlow<String?>(null)
     val district = MutableStateFlow<String?>(null)
@@ -84,6 +89,7 @@ class GeneralPassApplicationViewModel @Inject constructor(
     val stateError = MutableStateFlow<String?>(null)
     val pincodeError = MutableStateFlow<String?>(null)
     val durationError = MutableStateFlow<String?>(null)
+    val divisionError = MutableStateFlow<String?>(null)
 
     init {
         viewModelScope.launch {
@@ -178,6 +184,14 @@ class GeneralPassApplicationViewModel @Inject constructor(
         when (val validation = ValidationUtils.validateDuration(newDuration)) {
             is ValidationResult.Error -> durationError.value = validation.message
             else -> durationError.value = null
+        }
+    }
+
+    fun updateDivision(newDivision: String) {
+        division.value = newDivision
+        when (val validation = ValidationUtils.validateDivision(newDivision)) {
+            is ValidationResult.Error -> divisionError.value = validation.message
+            else -> divisionError.value = null
         }
     }
 
@@ -359,6 +373,14 @@ class GeneralPassApplicationViewModel @Inject constructor(
             }
             else -> durationError.value = null
         }
+
+        when (val divisionValidation = ValidationUtils.validateDivision(division.value)) {
+            is ValidationResult.Error -> {
+                divisionError.value = divisionValidation.message
+                isValid = false
+            }
+            else -> divisionError.value = null
+        }
         return isValid
     }
 
@@ -524,19 +546,47 @@ class GeneralPassApplicationViewModel @Inject constructor(
     fun onClickPurchaseConfirm(activity: Activity) {
         viewModelScope.launchCatching(
             block = {
-                createUserPass()
+                createUserPass() // sets currentUserPass.value
+
                 when (val result = accountService.updateUser(createUserMap())) {
                     is OperationStatus.Success -> {
                         Log.d("GeneralPassViewModel", "User updated successfully")
 
+                        // Obtain the current user from the Flow
+                        val userInfo = accountService.currentUser.first()
+                        val passInfo = currentUserPass.value
+
+                        // Ensure neither userInfo nor passInfo is null
+                        if (userInfo == null || passInfo == null) {
+                            throw Exception("Missing user or pass information")
+                        }
+
+                        // Create ApplicationRequest using the non-null user and pass data
+                        val applicationRequest = ApplicationRequest(
+                            user = userInfo,
+                            pass = passInfo
+                        )
+
+                        Log.d("GeneralPassViewModel", "ApplicationRequest: $applicationRequest")
+
+                        // Call sendApplication using the injected adminServiceImplementation
+                        val sendResponse = adminServiceImplementation.sendApplication(applicationRequest)
+                        if (sendResponse.isSuccessful) {
+                            Log.d("GeneralPassViewModel", "Application submitted successfully")
+                        } else {
+                            Log.d("GeneralPassViewModel", "Failed to submit application. Code: ${sendResponse.code()}")
+                        }
+
                         callPaymentScreen(activity)
 
+                        // Optionally, generate a user pass if needed.
                         val generateUserPassResult = generateUserPass()
                         if (generateUserPassResult is OperationStatus.Success) {
+                            // Additional success logic here, if needed
                         } else {
+                            // Handle failure if needed
                         }
                     }
-
                     is OperationStatus.Failure -> {
                         Log.d("GeneralPassViewModel", "Error: ${result.exception.message}")
                         popupStatus.value = true
@@ -572,15 +622,16 @@ class GeneralPassApplicationViewModel @Inject constructor(
     private fun createUserPass() {
         currentUserPass.value = UserPass(
             userId = accountService.currentUserId,
-            name = surname.value + " " + lastname.value,
+            name = "${surname.value.orEmpty()} ${lastname.value.orEmpty()}",
             id = generateId(),
             mrn = generateMrn(),
             age = calculateAge(dateOfBirth.value ?: ""),
             gender = gender.value?.value ?: "",
-            phone = phone.value ?: "",
+            phone = phone.value.orEmpty(),
             type = "general",
-            dob = dateOfBirth.value ?: "",
-            validity = calculateDuration(duration.value)
+            dob = dateOfBirth.value.orEmpty(),
+            validity = calculateDuration(duration.value),
+            divisionId = division.value.orEmpty(),
         )
         Log.d("GeneralPassViewModel", "User pass created: ${currentUserPass.value}")
     }

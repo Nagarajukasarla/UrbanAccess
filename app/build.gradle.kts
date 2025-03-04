@@ -107,10 +107,12 @@ dependencies {
     implementation("com.google.gms:google-services:4.4.2")
 
     implementation("com.razorpay:checkout:1.6.38")
+    implementation("com.google.firebase:firebase-appcheck-safetynet:16.1.2")
 
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation("androidx.multidex:multidex:2.0.1")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
+
 
 }
 

@@ -57,6 +57,7 @@ fun GeneralPassApplicationFormScreen(
     val email by viewModel.email.collectAsState()
     val aadhar by viewModel.aadhar.collectAsState()
     val duration by viewModel.duration.collectAsState()
+    val division by viewModel.division.collectAsState()
     val houseNumber by viewModel.houseNumber.collectAsState()
     val street by viewModel.street.collectAsState()
     val area by viewModel.area.collectAsState()
@@ -102,6 +103,7 @@ fun GeneralPassApplicationFormScreen(
     val stateError by viewModel.stateError.collectAsState()
     val pincodeError by viewModel.pincodeError.collectAsState()
     val durationError by viewModel.durationError.collectAsState()
+    val divisionError by viewModel.divisionError.collectAsState()
 
     if (shouldRecompose) {
         viewModel.clearRecompositionFlag()
@@ -320,6 +322,16 @@ fun GeneralPassApplicationFormScreen(
                 },
                 isError = durationError != null,
                 errorMessage = durationError
+            )
+            DropDown(
+                label = "Division",
+                options = Data.divisions,
+                value = division ?: "",
+                onItemSelected = {
+                    viewModel.updateDivision(it)
+                },
+                isError = divisionError != null,
+                errorMessage = divisionError
             )
             PrimaryButton(
                 text = "Submit",
